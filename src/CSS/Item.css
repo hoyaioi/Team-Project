@@ -1,0 +1,302 @@
+@import "reset.css";
+
+.item-content {
+    position: relative;
+    width: 1080px;
+    justify-content: center;
+    margin: auto;
+}
+
+.item_detail {
+    margin-top: 30px;
+    display: block;
+    
+}
+
+.itemImg {
+    position: relative;
+    float: left;
+    height : 490px;
+    width : 490px;
+    text-align: center;
+}
+
+.info {
+    float:left;
+    margin-left : 50px;
+    width: 509px;
+    min-height : 490px;
+   
+}
+
+.item_title {
+
+    border-bottom: 1px solid rgb(189, 188, 188);
+    height: 60px;
+}
+.item_price {
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.item_delivery {
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.total-title {
+    float : left;
+}
+
+.last-price {
+    margin-top: 20px;
+}
+.total-price {
+    margin-top: 30px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid black;
+    background-color: rgb(224, 223, 223);
+
+}
+.share_button {
+    border: 0 none;
+    float: right;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    outline: 0;
+    background: url(//img1a.coupangcdn.com/image/dragonstone/sdp/PCSDP_imageasset_180417-min.png) no-repeat -306px -209px;
+}
+
+.item_total {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.item_amount {
+    margin-left : 50px;
+    width : 60px;
+    height : 30px;
+    
+}
+
+
+.count {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.count-value {
+    float: left;
+    padding: 0 5px;
+    width: 43px;
+    outline: none;
+    height: 33px;
+    border: 1px solid #ccc;
+    color: #3f3f3f;
+    font-size: 12px;
+    line-height: 31px;
+    text-align: center;
+}
+
+.updown {
+ display: inline-flex;
+ vertical-align: middle;
+ flex-direction: column;
+      align-items: center; /* 가로 - 중앙으로 */
+      justify-content: flex-start; /* 세로 - 상단으로 */
+      margin-right: 10px;
+}
+
+.arrow {
+    border: 1px solid gray;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    width: 23px;
+    height: 17px;
+}
+.buy-section {
+    display: inline-flex;
+    width: auto;
+    margin-top: 30px;
+}
+.cart-btn {
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background-color: white;
+    margin-left: 25px;
+}
+
+.buy-btn {
+    margin-left: 15px;
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    border: none ;
+    background-color:rgb(68, 218, 131);
+    color : white;
+}
+
+strong {
+    font-size: 30px;
+}
+
+.detail_img {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.moreDetail img {
+    width: 80%;
+    height: 80%;
+}
+.moreDetail {
+    display: block;
+    margin: auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.slide-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.swiper strong {
+    font-size: 23px;
+}
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .item-tab li {
+    display: inline-block;
+    border: 1px solid #ddd;
+    width: 268px;
+    height: 50px;
+
+  }
+  .item-tab ul, .pagenation ul{
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .item-tab {
+    margin-top: 15px;
+  }
+
+ .on {
+    padding-top: 16px;
+    border-bottom: 1px solid #ffffff !important;
+
+  }
+
+  .refund {
+    margin-top: 15px;
+  }
+
+  .refund-notice {
+    margin-top: 25px;
+  }
+  .review, .qna {
+    margin-top: 15px;
+  }
+  .review-table {
+    margin-top: 30px;
+    width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border-top: 1px solid #999999;
+    text-align: center;
+  }
+  .review-thead {
+    display: none;
+  }
+
+  .review-table td {
+    padding: 13px 10px 15px 18px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.pagenation li {
+    border: none;
+    display: inline-block;
+    margin-left: 10px;
+}
+.item_price strong, .last-price strong {
+    color : red;
+    font-weight: 600;
+}
+
+.item_price strong {
+    margin-left: 80px;
+}
+
+.last-price div {
+    float: right;
+}
+.last-price span {
+    vertical-align: middle;
+}
+
+
+
+.slide-btn {
+    float: right;
+}
+
+.button-prev, .button-next {
+    margin-left : 5px;
+    border : none;
+}
+

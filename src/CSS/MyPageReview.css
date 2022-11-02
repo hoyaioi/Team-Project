@@ -1,0 +1,184 @@
+@import "../CSS/reset.css";
+
+
+.myReviewTitle h1{
+    font-size: 30px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid black;
+}
+.reviewBanner {
+    margin-top: 20px;
+    border-radius: 15px;
+    width: 930px;
+    margin-bottom: 20px;
+}
+.reviewList-btn, .reviewListWrite-btn {
+    display: inline-block;
+    padding: 20px 15px;
+    color: #777;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: -0.37px;
+    background-color: white;
+    border: none;
+}
+.reviewList-btn--active, .reviewListWrite-btn--active  {
+    display: inline-block;
+    padding: 20px 15px;
+    color: #222;
+    border: none;
+    line-height: 100%;
+    font-size: 22px;
+    background-color: white;
+    font-weight: bold;
+    letter-spacing: -0.37px;
+    padding-bottom: 19px;
+    border-bottom: 2px solid #222;
+}
+.myReviewTitle {
+    display: table;
+    width: 96%;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+}
+.myReviewImg {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.myReviewItemTitle {
+    font-size: 14px;
+    color: #346aff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.myReviewModify-btn {
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    font-size: 12px;
+    line-height: 14px;
+    color: #346aff;
+    letter-spacing: -0.5px;
+    border-right: 1px solid #d5d5d5;
+    padding-right: 10px;
+    margin-right: 5px;
+}
+
+.myReviewDelete-btn{
+    vertical-align: middle;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 14px;
+    color: #346aff;
+    letter-spacing: -0.5px;
+}
+.myReviewMain {
+    padding-left: 20px;
+}
+
+.myReviewMain-title {
+    margin: 20px 0px 10px;
+    display: table;
+}
+.myReviewMain-rating{
+    margin-top: 10px;
+    height: 14px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.myReivewMainContent{
+    margin-top: 20px;
+    display: table-row;
+}
+
+.delimiter{
+    display: none;
+}
+.myReviewMain-content {
+    margin-top: 20px;
+}
+.myReviewBtn{
+    text-align: right;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.myReviewList {
+    padding-bottom: 30px;
+}
+
+.reviewCompleList {
+    border-bottom: 1px solid black;
+}
+
+.reviewList {
+    margin-top: 80px;
+    border-bottom: 1px solid black;
+}
+.review-notice {
+    margin-top: 10px;
+}
+
+.reviewWriteList img {
+    float: left;
+    width: 150px;
+    height: 150px;
+}
+.myReviewTitle h3 {
+    margin-bottom: 20px;
+}
+
+
+
+.reviewCompleTitle {
+    display: inline-block;
+    height: 50px;
+}
+
+.reviewWriteList {
+    height: 100%;
+    width: 100%;
+}
+
+.reviewListWrite h2{
+    /* margin-left: 200px; */
+    margin: auto;
+    padding: 50px;
+    margin-top: 10px;
+    display: inline-block;
+
+}
+
+.reviewListWrite{
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
+
+.reviewListWrite{
+    min-height: 150px;
+}
+
+.writeReview-btn{
+    float: right;
+    background-color: white;
+    border: none;
+    height: 150px;
+    vertical-align: middle;
+}
+.reviewWriteTitle {
+    margin-left: 30px;
+}
+

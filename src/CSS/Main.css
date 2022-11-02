@@ -1,0 +1,133 @@
+#main {
+    position: relative;
+    width: 100%;
+}
+
+.main_menu_wrap {
+    position: relative;
+    width: 1200px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .main_menu_area {
+    position: absolute;
+    width: 1000px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .main_menu_area ul {
+    margin: 0;
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
+  .main_menu_area ul li {
+    width: 120px;
+    height: 50px;
+  }
+  
+  .main_menu_area ul li button{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 2px solid #b5d692;
+    border-radius: 20px;
+    color: #b5d692;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .main_menu_area ul li button:hover {
+    cursor: pointer;
+  }
+  
+  .main_menu_area ul li button:active {
+    background-color: #b5d692;
+    color: white;
+  }
+
+.main_wrap {
+    margin: 0 auto;
+    position: relative;
+    width: 1200px;
+}
+
+.main_ad_wrap {
+    width: 100%;
+    height: 300px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: #b5d692 !important;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.main_swiper {
+    position: relative;
+    width: 1200px;
+    height: 100%;
+}
+
+.main_swiper_banner {
+    width: 100%;
+    height: 100%;
+}
+
+.main_items_wrap {
+    width: 1200px;
+}
+
+.main_items_recommend, .main_items_sales {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+.main_items_title {
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.main_items_wrap img {
+    position: relative;
+    width: 200px;
+}
+
+.main_items {
+    width: 220px;
+    height: 280px;
+    font-size: 13px;
+}
+
+.main_items:hover {
+    cursor: pointer;
+    opacity: 50%;
+}
+
+.main_items_img_wrap {
+    width: 100%;
+    text-align: center;
+}
+
+.main_items_name {
+    margin-top: 10px;
+}
+
+.main_items_price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ae0000;
+    position: absolute;
+    bottom: 0;
+}

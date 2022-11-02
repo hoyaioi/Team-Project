@@ -1,0 +1,215 @@
+button {
+    width: 100px;
+    height: 100px;
+}
+
+.back1 {
+    margin-top: 5%;
+    margin-left: 20%;
+    border-radius: 66px;
+    width: 1100px;
+    height: 800px;
+    background-color: rgb(249, 247, 232);
+    position: relative;
+}
+
+.research_wrap{
+    width: 890px;
+    height: 300px;
+    margin-top: 50px
+}
+
+.research_wrap input[type="text"], input[type="password"] {
+    font-size: 50px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: transparent;
+    border-color: black;
+    color: white;
+}
+
+
+
+.inside {
+    background-color: rgb(97, 191, 173);
+    width: 1000px;
+    height: 700px;
+    border-radius: 66px;
+    margin: 50px 0 0 50px;
+    position: absolute;
+}
+
+h2 {
+    text-align: center;
+    font-size: 60px;
+    color: white;
+    margin-top: 70px;
+}
+
+h4 {
+
+    text-align: center;
+    font-size: 30px;
+    color: white;
+
+}
+
+input {
+    font-size: 50px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: transparent;
+    border-color: black;
+    color: white;
+}
+
+.namePut {
+
+    margin-left: 100px;
+    color: white;
+    font-size: 50px;
+    float: left;
+}
+
+.name {
+    width: 200px;
+}
+
+.heightPut {
+    margin-bottom: 50px;
+    margin-left: 600px;
+    color: white;
+    font-size: 50px;
+}
+
+.height {
+    width: 100px;
+}
+
+.agePut {
+    margin-left: 100px;
+    color: white;
+    font-size: 50px;
+    float: left;
+    text-align: center;
+}
+
+.age {
+    text-align: center;
+    width: 70px;
+}
+
+.weightPut {
+    margin-left: 515px;
+    color: white;
+    font-size: 50px;
+}
+
+.weight {
+    width: 100px;
+}
+
+.genderPut {
+    margin-left: 200px;
+    color: white;
+    font-size: 50px;
+    float: left;
+}
+
+.radio {
+    margin-top: 100px;
+    margin-left: 100px;
+    width: 20px;
+    height: 20px;
+
+
+}
+
+.prev {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    margin-top: 200px;
+    margin-left: 110px;
+}
+
+.next {
+    position: absolute;
+    width: 100px;
+    height: 80px;
+    border-radius: 66px;
+    margin-top: 200px;
+    margin-left: 820px;
+    border-style: none;
+}
+
+.organcheck {
+
+
+    color: white;
+    margin-left: 150px;
+    margin-top: -50px;
+    margin-bottom: -98px;
+    font-size: 40px;
+}
+
+form .statement {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 30px 0 0 4.25%;
+    margin-bottom: 10px;
+}
+
+form .likert {
+    margin-top: 150px;
+    list-style: none;
+    width: 100%;
+    margin-left: 30px;
+    padding: 0 0 35px;
+    display: block;
+    border-bottom: 2px solid #efefef;
+    margin-bottom: -121px;
+}
+
+form .likert:last-of-type {
+    border-bottom: 0;
+}
+
+form .likert:before {
+    content: '';
+    position: relative;
+    top: 5px;
+    left: 9.5%;
+    display: block;
+    background-color: #efefef;
+    height: 4px;
+    width: 76%;
+}
+
+form .likert li {
+    display: inline-block;
+    width: 19%;
+    text-align: center;
+    vertical-align: top;
+}
+
+form .likert li input[type=radio] {
+    display: block;
+    position: relative;
+    top: -11px;
+    left: 50%;
+    margin-left: -6px;
+    width: 20px;
+    height: 20px;
+
+}
+
+form .likert li label {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 25px;
+    
+}

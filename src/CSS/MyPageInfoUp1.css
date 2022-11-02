@@ -1,0 +1,50 @@
+.pw_wrap {
+    position: absolute;
+    height: 520px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pw_area{
+    border: 1px solid lightgray;
+    width: 300px;
+    height: 140px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    border-radius: 20px;
+    text-align: center;
+    
+}
+
+.pw_title {
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+.input_password {
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+}
+
+.input_password:focus {
+    outline: none;
+    border: 1px solid rgb(68, 218, 131);
+}
+
+.submit_pw {
+    width: 80px;
+    height: 30px;
+    background-color: white;
+    color: rgb(68, 218, 131);
+    border: 1px solid rgb(68, 218, 131);
+}
+
+.submit_pw:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(68, 218, 131);
+}

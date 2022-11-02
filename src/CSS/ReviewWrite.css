@@ -1,0 +1,9 @@
+@import "../CSS/reset.css";
+
+.reviewWriteForm {
+    height : 500px;
+    padding-top: 20px;
+    display: inline-block;
+    width : 930px;
+    border-top: 2px solid black;
+}

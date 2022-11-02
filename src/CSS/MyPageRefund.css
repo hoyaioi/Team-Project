@@ -1,0 +1,64 @@
+.refundinfo {
+    width: 930px;
+    height: 200px;
+}
+.refundul{
+    padding-inline-start: 0;
+}
+
+.refundul li{
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+
+.date {
+    height: 32px;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.refunddate {
+    width: 400px;
+    float: left;
+    border-right: 1px solid lightgray;
+    margin-right: 20px;
+}
+
+.refunditeminfo {
+    border-top: 1px solid lightgray;
+    width: 929px;
+    height: 150px;
+}
+
+.refundthumbnailwrap {
+    display: table-cell;
+    width: 104px;
+    height: 104px;
+    padding-left: 20px;
+}
+
+.refundthumbnail {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-right: 30px;
+    border-radius: 20px;
+}
+
+.refunditemname {
+    display: table-cell;
+    padding-left: 20px;
+    height: 104px;
+    vertical-align: middle;
+}
+
+.refunditemprice {
+    padding-left: 20px;
+    border-top: 1px solid lightgray;
+}
+
+.refunditemstatus {
+    font-size: 12px;
+    padding-left: 20px;
+}

@@ -1,0 +1,30 @@
+.review-modal {
+    width:100%;
+}
+
+.review-modal-table {
+    width: 100%;
+}
+.review-modal td {
+    padding: 13px 10px 15px 18px;
+    background-color:#f8f8f8;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.review-modal-cont {
+    float: right;
+    width:80%;
+    margin-bottom: 10px;
+}
+
+.review-comment {
+    float: right;
+    width:80%;
+    padding-top: 25px;
+    border-top: 2px solid #dbdbdb;
+}
+
+.comment-date {
+    margin-top: 30px;
+    padding-bottom : 10px;
+}
