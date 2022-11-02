@@ -1,4 +1,4 @@
-@import "../CSS/reset.css";
+/* @import "../CSS/reset.css"; */
 
 
 .myReviewTitle h1{
@@ -9,7 +9,7 @@
 .reviewBanner {
     margin-top: 20px;
     border-radius: 15px;
-    width: 930px;
+    width: 960px;
     margin-bottom: 20px;
 }
 .reviewList-btn, .reviewListWrite-btn {
@@ -120,6 +120,14 @@
 
 .reviewCompleList {
     border-bottom: 1px solid black;
+    margin-bottom: 70px;
+}
+
+.reviewCompleList ul {
+    list-style: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
 }
 
 .reviewList {
@@ -164,6 +172,7 @@
     margin-top: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid black;
+    margin-bottom: 70px;
 }
 
 
