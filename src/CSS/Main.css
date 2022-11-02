@@ -1,88 +1,90 @@
+
 #main {
     position: relative;
     width: 100%;
-}
-
-.main_menu_wrap {
-    position: relative;
-    width: 1200px;
-    height: 100px;
-    margin: 0 auto;
-  }
-  
-  .main_menu_area {
-    position: absolute;
-    width: 1000px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .main_menu_area ul {
-    margin: 0;
-    list-style: none;
-    padding-inline-start: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
-  
-  .main_menu_area ul li {
-    width: 120px;
-    height: 50px;
-  }
-  
-  .main_menu_area ul li button{
-    width: 100%;
     height: 100%;
-    background-color: white;
-    border: 2px solid #b5d692;
-    border-radius: 20px;
-    color: #b5d692;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .main_menu_area ul li button:hover {
-    cursor: pointer;
-  }
-  
-  .main_menu_area ul li button:active {
-    background-color: #b5d692;
-    color: white;
-  }
-
+}
+.main_banner_wrap {
+    margin : auto;
+}
 .main_wrap {
     margin: 0 auto;
     position: relative;
     width: 1200px;
 }
 
-.main_ad_wrap {
+/* .main_ad_wrap {
     width: 100%;
     height: 300px;
+} */
+.main_content_info {
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+}
+.main_banner_img {
+    width: 500px;
+    height: 500px;
+}
+.main_banner_img3, .main_banner_img4 {
+    vertical-align: top;
+    width: 310px;
+    height: 134px;
+    margin-left: 40px;
+    border-radius: 10px;
+}
+.main_banner_img5 {
+    width: 400px;
+    height: 200px;
+}
+.main_banner_img2{
+    width: 1200px;
+    float: left;
+    margin-bottom: 15px;
 }
 
+.main_banner_video {
+    width: 650px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.main_info_banner {
+    display: inline-block;
+    vertical-align: top;
+}
 .swiper-button-prev,
 .swiper-button-next {
-    color: #b5d692 !important;
+    color: rgb(68, 218, 131) !important;
     padding-left: 100px;
     padding-right: 100px;
 }
-
-.main_swiper {
+.main_banner_content {
+    margin: 0 auto;
+    width: 1200px;
+}
+/* .main_swiper {
     position: relative;
     width: 1200px;
     height: 100%;
-}
+} */
 
 .main_swiper_banner {
     width: 100%;
     height: 100%;
 }
 
+.main_swiper img {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
 .main_items_wrap {
     width: 1200px;
+    height: 100%;
+    margin-bottom: 70px;
 }
 
 .main_items_recommend, .main_items_sales {

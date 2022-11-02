@@ -28,8 +28,8 @@ function Topbutton() {
     }, [])
 
     return showButton && (
-        <div className="scroll_container">
-            <button id="top" onClick={scrollToTop} type="button" >Top ▲</button>
+        <div className="scroll__container">
+            <button id="top" onClick={scrollToTop} type="button" > Top</button>
         </div>
 
     );

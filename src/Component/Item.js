@@ -15,8 +15,8 @@ import { Navigation} from "swiper";
 import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
-import { useState } from 'react';
-import { Link } from 'react-scroll';
+import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 // Import Swiper styles
 import "swiper/css";
@@ -33,6 +33,7 @@ function Item() {
     let [qnaModal, setQnaModal] = useState(false);
     
 
+    const moveToFocus = useRef([]);
 
 
 
@@ -104,10 +105,10 @@ function Item() {
             </div>
             <div id="1" className='item-tab'>
                 <ul>
-                    <li className='on'>메뉴1</li>
-                    <Link to="2" spy={true}><li>메뉴2</li></Link>
-                    <Link to="3" spy={true}><li>메뉴3</li></Link>
-                    <Link to="4" spy={true}><li>메뉴4</li></Link>
+                    <li ref={el => (moveToFocus.current[0] = el)} className='on'>메뉴1</li>
+                   <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                    <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
             <div className="detail_img">
@@ -120,10 +121,10 @@ function Item() {
 
             <div id="2" className='item-tab'>
                 <ul>
-                    <Link to="1" spy={true}><li>메뉴1</li></Link>
-                    <li className='on'>메뉴2</li>
-                    <Link to="3" spy={true}><li>메뉴3</li></Link>
-                    <Link to="4" spy={true}><li>메뉴4</li></Link>
+                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li ref={el => (moveToFocus.current[1] = el)} className='on'>메뉴2</li>
+                    <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
             <div className='refund'>
@@ -144,10 +145,10 @@ function Item() {
 
             <div id="3" className='item-tab'>
                 <ul>
-                    <Link to="1" spy={true}><li>메뉴1</li></Link>
-                    <Link to="2" spy={true}><li>메뉴2</li></Link>
-                    <li className='on'>메뉴3</li>
-                    <Link to="4" spy={true}><li>메뉴4</li></Link>
+                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                    <li ref={el => (moveToFocus.current[2] = el)} className='on'>메뉴3</li>
+                   <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
 
@@ -185,10 +186,10 @@ function Item() {
 
             <div id="4" className='item-tab'>
                 <ul>
-                    <Link to="1" spy={true}><li>메뉴1</li></Link>
-                    <Link to="2" spy={true}><li>메뉴2</li></Link>
-                    <Link to="3" spy={true}><li>메뉴3</li></Link>
-                    <li className='on'>메뉴4</li>
+                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                   <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li ref={el => (moveToFocus.current[3] = el)} className='on'>메뉴4</li>
                 </ul>
             </div>
             <div className='qna'>

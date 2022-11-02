@@ -1,5 +1,5 @@
 import '../CSS/MyPage.css';
-import MyPageCart from "./MyCart";
+// import MyPageCart from "./MyCart";
 import MyPageOrderList from "./MyPageOrderList";
 import MyPageReview from "./MyPageReview";
 import MyPageInfoUp1 from "./MyPageInfoUp1";

@@ -55,7 +55,6 @@ function MyPageOrderList() {
 
                 <div className='myorderlist_order_wrap'>
                     <ul>
-                        
                         <li>
                             <div className='myorderlist_item_img_wrap'>
                                 <img src={s6} className='myorderlist_item_img' />
@@ -63,18 +62,34 @@ function MyPageOrderList() {
                             <div className='myorderlist_order_detail'>
                                 <span>2022.10.12</span>
                                 <span>주문번호 : 2022101200000000</span>
-                                <p>제품이름ㅇㅇㅇㅇㅇㅇㅂㅇㅇㅇffffffffffffffddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇ</p>
+                                <p>제품이름ㅇㅇㅇㅇㅇㅇㅂㅇㅇㅇfffffffffffffffffffffㅇㅇㅇㅇㅇ</p>
                                 <p>가격</p>
                             </div>
                             <div className='myorderlist_order_stat_wrap'>
-                                <div className='myorderlist_order_stat'>
+                                <div className=''>
                                     배송준비중
                                 </div>
-                                <div className='myorderlist_order_btn'>
+                                <div className=''>
                                     <button>주문취소</button>
                                 </div>
-                                <div className='myorderlist_order_btn'>
-                                    <button>반품신청</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div className='myorderlist_item_img_wrap'>
+                                <img src={s6} className='myorderlist_item_img' />
+                            </div>
+                            <div className='myorderlist_order_detail'>
+                                <span>2022.10.12</span>
+                                <span>주문번호 : 2022101200000000</span>
+                                <p>제품이름ㅇㅇㅇㅇㅇㅇㅂㅇㅇㅇfffffffffffffffffffffㅇㅇㅇㅇㅇ</p>
+                                <p>가격</p>
+                            </div>
+                            <div className='myorderlist_order_stat_wrap'>
+                                <div className=''>
+                                    배송준비중
+                                </div>
+                                <div className=''>
+                                    <button>주문취소</button>
                                 </div>
                             </div>
                         </li>

@@ -1,5 +1,5 @@
 
-// import Item from './Compnent/Item';
+import Item from './Component/Item';
 import Main from './Component/Main';
 import Topbutton from './Topbutton';
 import Header from './Component/Header';
@@ -9,23 +9,36 @@ import Survey from './survey/Survey';
 import Step1 from "./survey/Step1";
 import { BrowserRouter, Route } from 'react-router-dom';
 import MyPage from './Component/MyPage';
-import MyPageCart from './Component/MyCart';
+import ServiceCenter from './Component/ServiceCenter';
+import Notice from './Component/Notice';
+import NoticeDetail from './Component/NoticeDetail';
+import ScrollToTop from './ScrollToTop';
+import MyPageCart from './Component/MyPageCart';
+import GlobalStyles from './GlobalStyles';
+
+
 
 
 function App() {
+
+
   return (
     <>
-      {/* <Item></Item> */}
-        {/* <Route path="/intro" component={Intro} /> */}
+      <BrowserRouter>
+      <ScrollToTop/>
         <Header />
-        <Route path='/' component={Main} exact={true}/>
-        <Route path="/mypage" component={MyPage} exact={true} />
-        <Route path="/mycart" component={MyPageCart} />
+        <Route exact={true} path="/" component={Main} />
+       <Route path="/servicecenter" component={ServiceCenter} />
+       <Route path="/mypage" component={MyPage} />
+       <Route path="/item" component={Item} />
+       <Route path="/notice" component={Notice} />
+       <Route path="/noticedetail" component={NoticeDetail} />
+        <Route path="/intro" component={Intro} />
+        <Route path="/cart" component={MyPageCart} />
         <Footer />
-        {/* <Route exact={true} path="/" component={Main} />
-        <Route path="/surveyStart" component={Step1}><Survey /></Route> */}
-        {/* <Footer/> */}
-        <Topbutton />
+        {/* <Route path="/surveyStart" component={Step1}><Survey /></Route>  */}
+        <Topbutton></Topbutton>
+      </BrowserRouter>
 
     </>
   );
