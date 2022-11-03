@@ -1,10 +1,13 @@
 import '../CSS/MyCart.css';
 import { useState } from "react";
+import s3 from '../Img/s3.jpg';
 
 function MyCart() {
 
     const data = [
-        { id: 0 }
+        {
+            id: 0
+        }
     ]
 
 
@@ -31,35 +34,93 @@ function MyCart() {
 
     return (
         <>
-            <div className='cartsection'>
-                <div className='cartlistwrap'>
-                    <h1> 장바구니 </h1>
-                    <div>
-                        <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
-                        전체 선택
+            <div id='main'>
+                <div className='mycart_wrap'>
+                    <div className='mycart_title_wrap'>
+                        장바구니
                     </div>
-                    <ul className='cartul'>
-                        {data.map((data, key) => (
-                            <li className='cartitemlist' key={key}>
-                                <div className='cartitem'>
-                                    <div className='cartcheckboxarea'>
+                    <div className='mycart_list_wrap'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td className='mycart_check_all_td'>
+                                        <div className='mycart_check_all_wrap'>
+                                            <div className='mycart_check'>
+                                                <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>제품정보</td>
+                                    <td>수량</td>
+                                    <td>금액</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {data.map((data, key) => (
+                                <tr key={key}>
+                                    <td>
+                                        <div className='mycart_check'>
+                                        <input type="checkbox" onChange={(e) => handleSingleCheck(e.target.checked, data.id)} checked={checkItems.includes(data.id) ? true : false} />
+                                        </div>
+                                    </td>
+                                    <td className='mycart_item_info_td'>
+                                        <div className='mycart_item_info_wrap'>
+                                            <img src={s3} className='mycart_item_img' />
+                                            <div className='mycart_item_name'>
+                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className='mycart_item_count_td'>
+                                        200
+                                    </td>
+                                    <td className='mycart_item_price_td'>
+                                        38,900원
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+
+                    </div>
+                    {/* <h1>장바구니</h1>
+                    <div className='mycart_check_all_wrap'>
+                        <div className='mycart_check'>
+                            <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
+                        </div>
+                        <div className='mycart_check_all_text'>
+                            전체 선택
+                        </div>
+                    </div>
+                    <div className='mycart_item_list'>
+                        <ul>
+                            {data.map((data, key) => (
+                                <li key={key}>
+                                    <div className='mycart_check'>
                                         <input type="checkbox" onChange={(e) => handleSingleCheck(e.target.checked, data.id)} checked={checkItems.includes(data.id) ? true : false} />
                                     </div>
-                                    <div className='cartthumbnail'>
-                                        <img src="img/jang1.jpg" className='cartthumbnailimg' />
+                                    
+                                    <div className='mycart_item_img_wrap'>
+                                        <img src={s3} className='mycart_item_img' />
                                     </div>
-                                    <div className='cartiteminfo'>
-                                        <p className='cartiteminfoname'>제품이름ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅂㅇㅇㅇㅇㅇㅇㅇfffffffffffffffffffffㅇㅇㅇㅇㅇ</p>
-                                        <p className='cartiteminfoprice'>17,900원</p>
+                                    <div className='mycart_item_name'>
+                                        ㅇㅇㅇㅇㅇ
                                     </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                    <div className='btnarea'>
-                        <div className='btnareainner'>
-                            <button className='deletebtn'>선택 항목 삭제</button>
-                            <button className='buybtn'>구매하기</button>
+                                    <div className='mycart_item_count'>
+                                        수량 ㅇㅇㅇ
+                                    </div>
+                                    <div className='mycart_item_price'>
+                                        가격 ㅇㅇㅇ
+                                    </div>
+                                    
+                                </li>
+                            ))}
+                        </ul>
+                    </div> */}
+                    <div className='mycart_btn_wrap'>
+                        <div className='mycart_btn_wrap_inner'>
+                            <button className='mycart_delete_btn' type='button'>선택 항목 삭제</button>
+                            <button type='button'>구매하기</button>
                         </div>
                     </div>
                 </div>

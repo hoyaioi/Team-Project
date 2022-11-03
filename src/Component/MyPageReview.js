@@ -40,6 +40,7 @@ function MyPageReview() {
                 <div className='reviewList-content'>
                     {
                         btnActive[0] ?
+                        <div>
                             <div className='reviewListWrite'>
                                 <div className='reviewWriteList'>
                                     <img className='reviewWriteImg' src={reviewWriteList} />
@@ -47,8 +48,9 @@ function MyPageReview() {
 
                                 <h2>제품명</h2>
                                 <button onClick={() => {setReviewWriteModal(!reviewWriteModal)}} className='writeReview-btn'>리뷰작성하기</button>
-                                {reviewWriteModal === true ? <ReviewWrite /> : null}
                             </div>
+                                {reviewWriteModal === true ? <ReviewWrite /> : null}
+                                </div>
                             : <div className='reviewCompleList'>
                                 <ul>
                                     <li className='myReviewList'>

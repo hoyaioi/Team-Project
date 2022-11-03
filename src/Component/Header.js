@@ -58,7 +58,7 @@ const Header = () => {
         <div className="header_menu_area">
         <ul className="header_menu_ul">
           <li>
-            <button>전체상품</button>
+            <Link to='/itemlist'><button>전체상품</button></Link>
           </li>
           <li>
             <button>BEST</button>

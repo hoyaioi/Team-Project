@@ -15,6 +15,8 @@ import NoticeDetail from './Component/NoticeDetail';
 import ScrollToTop from './ScrollToTop';
 import MyPageCart from './Component/MyPageCart';
 import GlobalStyles from './GlobalStyles';
+import MyCart from './Component/MyCart';
+import ItemList from './Component/ItemList';
 
 
 
@@ -34,7 +36,9 @@ function App() {
        <Route path="/notice" component={Notice} />
        <Route path="/noticedetail" component={NoticeDetail} />
         <Route path="/intro" component={Intro} />
-        <Route path="/cart" component={MyPageCart} />
+        <Route path="/cart" component={MyCart} />
+        <Route path="/itemlist" component={ItemList} />
+        
         <Footer />
         {/* <Route path="/surveyStart" component={Step1}><Survey /></Route>  */}
         <Topbutton></Topbutton>

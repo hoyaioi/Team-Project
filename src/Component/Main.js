@@ -1,6 +1,6 @@
 import '../CSS/Main.css';
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import banner1 from '../Img/banner1.png';
@@ -20,7 +20,7 @@ import {Link} from "react-router-dom";
 
 function Main() {
 
-    SwiperCore.use([Navigation]);
+    SwiperCore.use([Navigation, Autoplay]);
 
     return (
         <>
@@ -28,6 +28,9 @@ function Main() {
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={40}
+                    autoplay={{ delay: 2000 }}
+                    loop={true}
+                    loopedSlides={1}
                     navigation
                     className="main_swiper"
                 >
