@@ -1,0 +1,130 @@
+#serviceqna_container {
+    height: 100%;
+}
+
+#serviceqna_contents {
+    min-height: 400px;
+    height: 100%;
+    padding: 0 0 60px 0;
+}
+
+
+
+.serviceqna_main_contents {
+    padding: 20px 0 0 0;
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.serviceqna_side_info ul,
+.serviceqna_side_menu {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    list-style: none;
+
+}
+
+
+.serviceqna_side_cont {
+    float: left;
+    width: 200px;
+    margin-bottom: 70px;
+}
+
+.serviceqna_main_cont {
+    float: left;
+    position: relative;
+    width: 955px;
+    height: 100%;
+    padding: 0 0 0 40px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.serviceqna_side_box {
+    min-height: 250px;
+    padding: 0 0 50px 0;
+}
+
+.serviceqna_side_cont .serviceqna_side_box h2 {
+    padding: 0 0 14px 10px;
+    border-bottom: 1px solid #ececec;
+    font-size: 25px;
+}
+
+
+.serviceqna_board_title {
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+    font-size: 16px;
+    height: 20px;
+}
+
+
+.serviceqna_board_title h3 {
+    float: left;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.serviceqna_side_info {
+    padding: 0 0 0 10px;
+}
+
+
+.serviceqna_side_cont .serviceqna_side_box .serviceqna_side_menu {
+    margin: 7px 0 0 0;
+}
+
+.serviceqna_side_cont .serviceqna_side_box .serviceqna_side_menu a {
+    display: block;
+    padding: 7px 0 6px 10px;
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+}
+
+.serviceqna_num {
+    font-size: 20px;
+}
+
+.serviceqna_board_box {
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+.serviceqna_board_box table {
+    width: 100%;
+    margin: 0 0 20px 0;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border-top: 1px solid #999999;
+}
+.serviceqna_board_box tr {
+    width: 100%;
+}
+.serviceqna_board_box th {
+    padding: 13px 0 13px 25px;
+    font-weight: bold;
+    border-bottom: 1px solid #dbdbdb;
+    background: #fbfbfb;
+    text-align: left;
+    vertical-align: top;
+    width: 15%;
+}
+
+.serviceqna_board_box td {
+    text-align: left;
+    padding-left: 20px;
+    width: 100%;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 400px;
+    margin-bottom: 20px;
+  }

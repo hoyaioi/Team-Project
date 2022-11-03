@@ -17,6 +17,7 @@ import MyPageCart from './Component/MyPageCart';
 import GlobalStyles from './GlobalStyles';
 import MyCart from './Component/MyCart';
 import ItemList from './Component/ItemList';
+import ServiceQna from './Component/ServiceQna';
 
 
 
@@ -37,6 +38,7 @@ function App() {
        <Route path="/noticedetail" component={NoticeDetail} />
         <Route path="/intro" component={Intro} />
         <Route path="/cart" component={MyCart} />
+        <Route path="/serviceqna" component={ServiceQna} />
         <Route path="/itemlist" component={ItemList} />
         
         <Footer />

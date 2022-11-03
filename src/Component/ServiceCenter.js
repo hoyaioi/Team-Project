@@ -20,6 +20,7 @@ function ServiceCenter() {
                                 <ul className="service_side_menu">
                                     <Link to="/servicecenter"><li>FAQ</li></Link>
                                     <Link to="/notice"><li>공지사항</li></Link>
+                                    <Link to="/serviceqna"><li>1:1문의</li></Link>
                                 </ul>
                             </div>
                             <div className="service_side_info">
