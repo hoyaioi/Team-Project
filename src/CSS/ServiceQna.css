@@ -23,7 +23,11 @@
     padding-inline-start: 0;
     padding-inline-end: 0;
     list-style: none;
+}
 
+.serviceqna_side_menu li, .serviceqna_side_info li {
+    font-size: 14px;
+    font-weight: bold;
 }
 
 

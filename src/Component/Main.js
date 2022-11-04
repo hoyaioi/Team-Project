@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import banner1 from '../Img/banner1.png';
+import banner1 from '../Img/banner1.jpg';
 import banner2 from '../Img/banner2.jpg';
 import banner3 from '../Img/banner3.jpg';
 import banner4 from '../Img/banner4.png';

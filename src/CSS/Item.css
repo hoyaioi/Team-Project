@@ -1,4 +1,4 @@
-@import "reset.css";
+/* @import "reset.css"; */
 
 .item-content {
     position: relative;
@@ -122,9 +122,10 @@
     height: 17px;
 }
 .buy-section {
-    display: inline-flex;
+    display: flex;
     width: auto;
     margin-top: 30px;
+    justify-content: center;
 }
 .cart-btn {
     width: 200px;

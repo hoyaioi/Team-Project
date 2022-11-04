@@ -120,7 +120,7 @@ function MyCart() {
                     <div className='mycart_btn_wrap'>
                         <div className='mycart_btn_wrap_inner'>
                             <button className='mycart_delete_btn' type='button'>선택 항목 삭제</button>
-                            <button type='button'>구매하기</button>
+                            <button className='mycart_buy_btn' type='button'>구매하기</button>
                         </div>
                     </div>
                 </div>

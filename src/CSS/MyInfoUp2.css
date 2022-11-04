@@ -1,0 +1,130 @@
+.myinfoup2_wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.myinfoup2_title_wrap {
+    background-color: #b5d692;
+    font-size: 36px;
+    padding-left: 30px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.myinfoup2_form_wrap {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.myinfoup2_name_wrap,
+.myinfoup2_phone_wrap,
+.myinfoup2_adr_wrap,
+.myinfoup2_email_wrap,
+.myinfoup2_pw_wrap {
+    margin-top: 20px;
+}
+
+.myinfoup2_input_wrap {
+    margin-top: 5px;
+}
+
+.myinfoup2_text {
+    font-size: 14px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.myinfoup2_help {
+    color: rgb(148, 147, 147);
+}
+
+.myinfoup2_input_wrap input {
+    width: 320px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    border: 2px solid lightgray;
+    letter-spacing: 1px;
+}
+
+.myinfoup2_input_wrap input:focus {
+    border: 2px solid #b5d692;
+}
+
+.myinfoup2_readonly {
+    cursor: default;
+}
+.myinfoup2_readonly:focus {
+    border: 2px solid lightgray !important;
+}
+
+.myinfoup2_post {
+    cursor: default;
+    width: 100px !important;
+    border-right: none !important;
+}
+
+.myinfoup2_post:focus {
+    border: 2px solid lightgray !important;
+    border-right: none !important;
+}
+
+.myinfoup2_search {
+    position: absolute;
+    width: 60px !important;
+    height: 34px !important;
+    outline: none;
+    border: 2px solid #b5d692 !important;
+    background-color: white;
+    color: #b5d692;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myinfoup2_search:active {
+    background-color: #b5d692;
+    color: white;
+}
+
+/* ==================================== */
+.myinfoup2_btn_wrap {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.myinfoup2_btn_wrap input[type='button'] {
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 30px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.myinfoup2_update {
+    margin-left: 20px;
+    border: 2px solid #b5d692;
+    color: #b5d692;
+    cursor: pointer;
+}
+
+.myinfoup2_update:active {
+    color: white;
+    background-color: #b5d692 !important;
+}
+
+.myinfoup2_cancel {
+    border: 2px solid red;
+    color: red;
+    cursor: pointer;
+}
+
+.myinfoup2_cancel:active {
+    color: white;
+    background-color: red !important;
+}

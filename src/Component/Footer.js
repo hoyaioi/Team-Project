@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../CSS/Footer.css";
 
 const Footer = () => {
@@ -21,7 +22,7 @@ const Footer = () => {
               <a href="">제휴/마케팅</a>
             </li>
             <li>
-              <a href="">서비스 장애 신고</a>
+              <Link to='/serviceqna'><a href="">서비스 장애 신고</a></Link>
             </li>
           </ul>
         </div>

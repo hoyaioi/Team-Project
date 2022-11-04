@@ -1,134 +1,125 @@
 import "./css/Survey1.css";
 import { BsArrowRightCircle, BsArrowLeftCircle } from 'react-icons/bs';
-import { createRef, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Questions from './api/questionsApi.json';
 
 
 const Step3 = ({ nextSteps, prevSteps }) => {
-  let info = JSON.parse(sessionStorage.getItem("info"));
-  let checked = JSON.parse(sessionStorage.getItem("checked"));
 
-  const checksession = () => {
+  const [questionList, setQuestionList] = useState([]); // 문제목록
+  const [currentQno, setCurrentQno] = useState(0); // 문제번호
+  const [question, setQuestion] = useState({}); // 현재문제
 
-    console.log(info);
-    console.log(checked);
+
+  const getMatchingQuestion = (question) => {
+    let checked = JSON.parse(sessionStorage.getItem("checked"));
+    let isMatch = false;
+    for (let i = 0; i < checked.length; i++) {
+      if (question.research_organ === checked[i]) {
+        isMatch = true;
+        break;
+      }
+    }
+    return isMatch;
   }
 
-  const [checkedlength, setCheckedlength] = useState(JSON.parse(sessionStorage.getItem("checkedlength")));
-  const [currentSlide, setCurrentSlide] = useState(1);
-  const TOTAL_SLIDES = checkedlength * 5;
-  const [questions, setQue] = useState([]);
-  const [Ans, setAns] = useState([]);
+  useEffect(() => {
+    const QUESTIONS_NOT_FILTERED = Questions;
+    const questionList = QUESTIONS_NOT_FILTERED.filter(getMatchingQuestion).map((q, i) => ({ ...q, "qno": i, 'value': "0" }));
+    setQuestionList(questionList);
+    setQuestion(questionList.filter(q => q.qno === currentQno)[0]);
+  }, []);
 
+  const handlerChange = (e) => {
+    questionList[currentQno].value = Number(e.target.value);
 
-  const nextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
+  };
+  const uncheckAll = () => {
+    let radios = document.getElementsByName('likert');
+    for (let i = 0; i < radios.length; i++) {
+      radios[i].checked = false;
+    }
+  }
 
-    if (currentSlide === TOTAL_SLIDES) {
-      nextSteps();
+  const handlerPrev = (e) => {
+    const qno = currentQno - 1;
+    setCurrentQno(qno);
+    const quest = questionList.filter(q => q.qno === qno)[0];
+    setQuestion(quest);
+    if (currentQno === 0) {
+      prevSteps();
     }
   };
 
-  const prevSlide = () => {
-    setCurrentSlide(currentSlide - 1);
+  const handlerNext = (e) => {
+    if (questionList[currentQno].value >= 1) {
+      const qno = currentQno + 1;
+      setCurrentQno(qno);
+      const quest = questionList.filter(q => q.qno === qno)[0]
+      setQuestion(quest);
+      uncheckAll();
+      sessionStorage.setItem("questionList", JSON.stringify(questionList));
+      if (qno === questionList.length - 1) {
+        nextSteps();
+      }
+    } else
+      alert("답변을 선택해주세요!");
+  };
 
-    if (currentSlide <= 1) {
-      prevSteps();
+  let groupByOrgan = questionList.reduce((acc, cur) => {   // 현재 문제목록을 organ별로 묶어서 저장
+    if (acc[cur.research_organ] === undefined) {
+      acc[cur.research_organ] = [];
     }
+    acc[cur.research_organ].push(cur);
+
+    return acc;
+  }, {});
+
+  let sum = 0;
+  for (let key in groupByOrgan) {
+    for (let i = 0; i < groupByOrgan[key].length; i++) {    // organ별로 묶은 문제목록의 value값을 더해서 sum에 저장
+      sum += Number(groupByOrgan[key][i].value);
+    }
+    groupByOrgan[key] = sum / groupByOrgan[key].length;     //  organ별로 묶은 문제목록의 value값의 평균을 구해서 저장
+    sum = 0;
   }
+  sessionStorage.setItem("groupByOrgan", JSON.stringify(groupByOrgan));
 
-  useEffect(() => {
-    let questions = [];
-    let checked = JSON.parse(sessionStorage.getItem("checked"));
 
-    for (let i = 0; i < checkedlength; i++) {
-      for (let j = 0; j < Questions.length; j++) {
-        if (checked[i] === Questions[j].research_organ) {
-          questions.push(Questions[j].research_quest);
-        }
-      }
-    }
-    
-    console.log(checked)
-    console.log(questions)
-    setQue(questions);
-    console.log(questions.length)
-  }, [])
-
-  const QueChecker = () => {
-    let map = {};
-    let result = [];
-    for (let i = 0; i < questions.length; i++) {
-      if (questions[i] in map) {
-        map[questions[i]] += 1;
-      } else {
-        map[questions[i]] = 1;
-      }
-    }
-    for (let count in map) {
-      if (map[count] >= 2) {
-        result.push(count);
-      }
-    }
-  }
-
-  useEffect(() => {
-    currentSlide > TOTAL_SLIDES && QueChecker();
-  }, [currentSlide]);
-
-  //체크된 value 값을 research_organ에 맞게 배열에 저장
-  // useEffect(() => {
-  //   let checked = JSON.parse(sessionStorage.getItem("checked"));
-  //   let answer = [];
-  //   for (let i = 0; i < checked.length; i++) {
-  //     for (let j = 0; j < Questions.length;) {
-  //       if (checked[i] === Questions[j].research_organ) {
-  //         answer.push(Questions[j].research_organ);
-  //       }
-  //     }
-  //   }
-  //   setAns(answer);
-    
-  // }, [])
-  
-
-  //체크 된 값을 nextSlide로 넘겨줌
-  
   return (
     <>
       <div className="back1">
         <div className="inside">
-          <h2> {currentSlide} / {TOTAL_SLIDES}</h2>
-          <h4>{questions[currentSlide - 1]}</h4>
+          <h2> {question.qno + 1} / {questionList.length}</h2>
+          <h4>{question.research_quest}</h4>
           <div className="wrap">
             <form action="">
               <ul className='likert'>
                 <li>
-                  <input type="radio" name="likert" value="1" />
+                  <input type="radio" id="likert" name="likert" value="1" onChange={handlerChange} />
                   <label>전혀 아니다</label>
                 </li>
                 <li>
-                  <input type="radio" name="likert" value="2" />
+                  <input type="radio" id="likert" name="likert" value="2" onChange={handlerChange} />
                   <label>아니다</label>
                 </li>
                 <li>
-                  <input type="radio" name="likert" value="3" />
+                  <input type="radio" id="likert" name="likert" value="3" onChange={handlerChange} />
                   <label>보통이다</label>
                 </li>
                 <li>
-                  <input type="radio" name="likert" value="4" />
+                  <input type="radio" id="likert" name="likert" value="4" onChange={handlerChange} />
                   <label>그렇다</label>
                 </li>
                 <li>
-                  <input type="radio" name="likert" value="5" />
+                  <input type="radio" id="likert" name="likert" value="5" onClick={handlerChange} />
                   <label>매우 그렇다</label>
                 </li>
               </ul>
             </form>
           </div>
-          <div className='prev' onClick={prevSlide}><BsArrowLeftCircle size={75} color='white' /></div>
-          <div className='next' onClick={nextSlide}><BsArrowRightCircle size={75} color='white' /></div>
+          <div className='prev' onClick={handlerPrev}><BsArrowLeftCircle size={75} color='white' /></div>
+          <div className='next' onClick={handlerNext}><BsArrowRightCircle size={75} color='white' /></div>
         </div>
       </div>
 

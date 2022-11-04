@@ -1,20 +1,21 @@
-.scroll__container{
-    position: fixed;
-    right: 5%;
-    bottom: 5%;
-    z-index: 1;
-  }
-  #top{
-    font-weight: bold;
-    font-size: 15px;
-    padding :15px 10px;
-    background-color: #c7f7d3;
-    color: gray;
-    border: 1px solid #e9f4ec;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-  }
-  #top:hover{
-    color :rgb(142, 26, 26);
-  }
+.scroll_container{
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+  z-index: 1;
+}
+.scroll_container button {
+  font-weight: bold;
+  font-size: 16px;
+  width: 80px;
+  height: 80px;
+  background-color: #b5d692;
+  color:#fff;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}
+.scroll_container button:hover{
+  color : #ae0000;
+}

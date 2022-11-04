@@ -1,9 +1,9 @@
 import "./css/Survey1.css";
 import { BsArrowRightCircle, BsArrowLeftCircle } from 'react-icons/bs';
-import { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const Step2 = ({ nextSteps, prevSteps, info }) => {
+
+const Step2 = ({ nextSteps, prevSteps }) => {
 
     //체크된 값 저장할 리스트
     const [checked, setChecked] = useState([]);
@@ -16,25 +16,19 @@ const Step2 = ({ nextSteps, prevSteps, info }) => {
         } else {
             setChecked(checked.filter(item => item !== e.target.value));
         }
+    }
+    sessionStorage.setItem("checked", JSON.stringify(checked));
+    sessionStorage.setItem("checkedlength", JSON.stringify(checked.length));
 
-        console.log(checked);
+
+    const nextStep = (e) => {
+        if (checked.length === 0) {
+            alert("하나 이상 선택해주세요");
+        } else {
+            nextSteps();
+        }
     }
 
-      
-      const saveInfo=(e)=>{
-        let sessionStorage = window.sessionStorage;
-        sessionStorage.setItem("checked", JSON.stringify(checked));
-        sessionStorage.setItem("checkedlength", JSON.stringify(checked.length));
-        console.log(sessionStorage.getItem("checked")); 
-        console.log(checked.length);
-      }
-      
-      const nextStep = (e) => {
-        saveInfo();
-
-        nextSteps();
-     }
-     
     return (
         <>
             <div className="back1">

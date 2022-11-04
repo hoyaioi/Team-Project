@@ -35,16 +35,13 @@ const Header = () => {
           <div className="header_btn_area">
             <ul className="header_btn_ul">
               <li>
-                <a href="">로그인</a>
+                <Link to="/login"><a href="">로그인</a></Link>
               </li>
               <li>
-                <a href="">회원가입</a>
+                <Link to="/join"><a href="">회원가입</a></Link>
               </li>
               <li>
                 <Link to="/mypage"><a href="">마이페이지</a></Link>
-              </li>
-              <li>
-                <Link to="/cart"><a href="">장바구니</a></Link>
               </li>
               <li>
                 <Link to="/servicecenter"><a href="">고객센터</a></Link>

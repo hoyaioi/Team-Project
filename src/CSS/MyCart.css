@@ -109,6 +109,7 @@
     background-image: url('../Img/checkimg.svg');
 }
 
+/* ----------------------------------------- */
 .mycart_btn_wrap{
     background-color: white;
     height: 70px;
@@ -123,24 +124,39 @@
     text-align: center;
 }
 
-.mycart_btn_wrap_inner button {
+.mycart_buy_btn {
     border: 2px solid #b5d692;
-    font-size: 20px;
+    font-size: 14px;
     margin-top: 10px;
-    width: 160px;
-    height: 50px;
+    width: 120px;
+    height: 40px;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 30px;
     color: #b5d692;
     font-weight: bold;
     cursor: pointer;
 }
 
-.mycart_btn_wrap_inner button:active{
+.mycart_buy_btn:active{
     background-color: #b5d692;
     color: white;
 }
 
 .mycart_delete_btn {
     margin-right: 20px;
+    border: 2px solid red;
+    font-size: 14px;
+    margin-top: 10px;
+    width: 120px;
+    height: 40px;
+    background-color: white;
+    border-radius: 30px;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mycart_delete_btn:active{
+    background-color: red;
+    color: white;
 }

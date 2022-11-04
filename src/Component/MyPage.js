@@ -1,17 +1,17 @@
 import '../CSS/MyPage.css';
-// import MyPageCart from "./MyCart";
-import MyPageOrderList from "./MyPageOrderList";
-import MyPageReview from "./MyPageReview";
-import MyPageInfoUp1 from "./MyPageInfoUp1";
-import MyPageUnregister from "./MyPageUnregister";
-import MyPageRefundList from "./MyPageRefund";
 import { useState } from "react";
-import MyPageResearch from "./MyPageResearch";
-import MyPageInfoUp2 from './MyPageInfoUp2';
+import MyCart from './MyCart';
+import MyRefund from './MyRefund';
+import MyOrderList from './MyOrderList';
+import MyReview from './MyReview';
+import MyInfoUp1 from './MyInfoUp1';
+import MyInfoUp2 from './MyInfoUp2';
+import MyInfoDel1 from './MyInfoDel1';
+import MyResearch from './MyResearch';
 
 function MyPage() {
 
-    const [isNow, setIsNow] = useState('');
+    const [isNow, setIsNow] = useState('MyOrderList');
 
     // const handleOrderList = () => {
     //     setIsNow("OrderList");
@@ -53,36 +53,38 @@ function MyPage() {
                         <div className="mypage_sidemenu">
                             <ul>
                                 <li>
-                                    <div id='OrderList' onClick={handleIsNow}>
+                                    <div id='MyOrderList' onClick={handleIsNow}>
                                         주문 현황
                                     </div>
                                 </li>
-                                {/* <li>
-                                    <a name="Cart" onClick={handleIsNow}>장바구니</a>
-                                </li> */}
                                 <li>
-                                    <div id="RefundList" onClick={handleIsNow}>
-                                        반품 환불
+                                    <div id="MyRefund" onClick={handleIsNow}>
+                                        반품/환불
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="Review" onClick={handleIsNow}>
+                                    <div id='MyCart' onClick={handleIsNow}>
+                                        장바구니
+                                    </div>
+                                </li>
+                                <li>
+                                    <div id="MyReview" onClick={handleIsNow}>
                                         나의 리뷰
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="Research" onClick={handleIsNow}>
+                                    <div id="MyResearch" onClick={handleIsNow}>
                                         나의 설문
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="InfoUp1" onClick={handleIsNow}>
-                                        나의 정보
+                                    <div id="MyInfoUp1" onClick={handleIsNow}>
+                                        내 정보 수정
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="Unregister" onClick={handleIsNow}>
-                                        회원 탈퇴
+                                    <div id="MyInfoDel1" onClick={handleIsNow}>
+                                        회원탈퇴
                                     </div>
                                 </li>
 
@@ -90,17 +92,17 @@ function MyPage() {
                         </div>
                     </div>
 
-                    <div className="mypage_component">
+                    <div className="my_component">
 
-                        {isNow === "OrderList" && <MyPageOrderList />}
-                        {/* {isNow === "Cart" && <MyPageCart />} */}
-                        {isNow === "RefundList" && <MyPageRefundList />}
-                        {isNow === "Review" && <MyPageReview />}
-                        {isNow === "InfoUp1" && <MyPageInfoUp1 handleIsNow={handleIsNow} />}
-                        {isNow === "Unregister" && <MyPageUnregister />}
-                        {isNow === "Research" && <MyPageResearch />}
-                        {isNow === "InfoUp2" && <MyPageInfoUp2 />}
-
+                        {isNow === "MyOrderList" && <MyOrderList />}
+                        {isNow === "MyCart" && <MyCart />}
+                        {isNow === "MyRefund" && <MyRefund />}
+                        {isNow === "MyReview" && <MyReview />}
+                        {isNow === "MyInfoUp1" && <MyInfoUp1 handleIsNow={handleIsNow} />}
+                        {isNow === "MyInfoUp2" && <MyInfoUp2 />}
+                        {isNow === "MyInfoDel1" && <MyInfoDel1 />}
+                        {isNow === "MyResearch" && <MyResearch />}
+                 
                     </div>
 
                 </div>

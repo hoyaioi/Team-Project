@@ -1,0 +1,140 @@
+.secondRegContainer {
+    position: relative;
+    top: 200px;
+    left: 900px;
+    background-color: white;
+    width: 600px;
+    height: 1500px;
+    margin: -150px 0px 0px -200px;
+    /* border: 1px red solid; */
+  }
+.secondRegbtn{                            
+  border-radius:100px;
+  width:300px;
+  background-color: #b5d692;;
+  position:relative; 
+  left:110px;
+  top:10px;
+  font-weight:bold;
+  }
+  .secondRegbtn:hover {
+    background-color:#b5d692;
+  }
+  .secondRegbtn:focus {
+    background-color:#b5d692!important;
+  }
+  .secondKktRegbtn{
+    position:relative;
+    background-color:rgb(255, 210, 71);
+    width:300px;
+    left:110px;
+    top:80px;
+    border-radius:100px;
+    font-weight:bold;
+  }
+  .secondKktRegbtn:hover{
+    background-color:rgb(255, 210, 71);
+  }
+  .secondFacebookRegbtn{
+    position:relative;
+    border-radius:100px;
+    width:300px;
+    left:110px;
+    top:100px;
+    background-color:rgb(0, 152, 255);
+    font-weight:bold;
+    color:white;
+  }
+  .secondFacebookRegbtn:hover { 
+    background-color:rgb(0, 152, 255);
+    color:white;
+  }
+  .secondNaverRegbtn{
+    position:relative;
+    border-radius:100px;
+    width:300px;
+    left:110px;
+    top:120px;
+    background-color:rgb(60, 179, 27);
+    font-weight:bold;
+    color:white;
+  }
+  .secondNaverRegbtn:hover{
+    background-color:rgb(60, 179, 27);
+    color:white;
+  }
+  .SecondRegister_btn_wrapper {
+    position:absolute;
+    width:500px;
+    height:300px;
+    /* border: 1px red solid; */
+  }
+
+  .agreement_wrapper {
+    /* border: 1px red solid; */
+    width:500px;
+    margin-bottom:10px;
+  }
+  .choice_option {
+  position: relative;
+  color: grey ;
+  left:160px;
+  bottom:25px;
+  font-size:12px;
+  }
+  .checkOverlapEmail {
+    background-color:#b5d692;
+    font-weight:bold;
+  }
+  .checkOverlapEmail:hover {
+    background-color:#b5d692;
+  }
+  .checkOverlapEmail:focus {
+    background-color:#b5d692!important;
+  }
+  .sendCode{
+    font-weight:bold;
+    background-color:#b5d692;
+  }
+  .sendCode:hover{
+    background-color:#b5d692;
+   
+  }
+  .sendCode:focus{
+    background-color:#b5d692!important;
+  }
+  .confirmCode {
+  font-weight:bold;
+  background-color:#b5d692;
+  }
+  .confirmCode:hover {
+    background-color:#b5d692;
+  }
+  .confirmCode:focus {
+    background-color:#b5d692!important;
+  }
+.emailandPW {
+  /* border: 1px red solid; */
+}
+.addressForm {
+  /* border: 1px red solid; */
+}
+.searchPostCode {
+  width:60px;
+  height:33px;
+  background-color: #b5d692;
+  position:relative; 
+  font-weight:bold;
+}
+.searchPostCode:hover {
+  background-color:#b5d692;
+}
+.searchPostCode:focus {
+  background-color:#b5d692!important;
+}
+.postCodeInput {
+  display: inline; 
+  width: 90px;
+  height:33px; 
+  margin-Bottom: 20px; 
+}

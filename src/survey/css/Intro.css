@@ -5,38 +5,24 @@
     width: 100%;
 }
 
-    
-.logo {
-    height: 100%;
-    width: 45%;
-    border-radius: 10%;
-    margin-bottom: 5%;
-}
 
 .intro{
     height: 100%;
-    width: 45%;
-    margin-top: 2%;
+    width: 40%;
+    margin: 0 auto;
+    margin-left: 30%;
 }
 
-.home {
-    position: absolute;
-    padding-top: 2%;
-    padding-left: 5%;
-    width: 50px;
-    height: 50px;
-}
 
 .start {
-    position: absolute;
-    margin-top: 46%;
-    margin-left: -50px;
+    position: relative;
+    margin-left: 45%;
     width: 8%;
-    height: 50px;
+    height: 75px;
     border-radius: 50px;
-    background-color: rgb(0, 162, 68);
+    background-color: rgb(97, 191, 173);
     border-style: none;
     color: white;
-    font-size: 20px;
+    font-size: 30px;
     
 }
