@@ -158,6 +158,12 @@ strong {
     align-items: center;
 }
 
+.detail_img img {
+    width: 985px;
+    margin: 0 auto;
+    display: flex;
+}
+
 .moreDetail img {
     width: 80%;
     height: 80%;

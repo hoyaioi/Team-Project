@@ -20,6 +20,9 @@ import Step1 from './survey/Step1';
 import Survey from './survey/Survey';
 import Register from './Component/Register';
 import Login from './Component/Login';
+import Agreement from './Component/Agreement';
+import Private from './Component/Private';
+import Company from './Component/Compnay';
 
 
 
@@ -43,6 +46,9 @@ function App() {
         <Route path="/itemlist" component={ItemList} />
         <Route path="/join" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/private" component={Private} />
+        <Route path="/company" component={Company} />
+        <Route path="/agreement" component={Agreement} />
         <Route path="/surveyStart" component={Step1} ><Survey /></Route>
 
         <Footer />

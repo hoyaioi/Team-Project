@@ -10,13 +10,13 @@ const Footer = () => {
         <div className="footer_top">
           <ul>
             <li>
-              <a href="">회사소개</a>
+              <Link to='company'><a href="">회사소개</a></Link>
             </li>
             <li>
-              <a href="">이용약관</a>
+              <Link to='/agreement'><a href="">이용약관</a></Link>
             </li>
             <li>
-              <a href="">개인정보처리방침</a>
+              <Link to='/private'><a href="">개인정보처리방침</a></Link>
             </li>
             <li>
               <a href="">제휴/마케팅</a>

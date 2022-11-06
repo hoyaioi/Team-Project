@@ -1,6 +1,6 @@
 import '../CSS/Item.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft , IoMdArrowDropright} from 'react-icons/io'
+import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
 import thumb from '../Img/1.jpg';
 import detail from '../Img/2.JPG';
 import moreDetail from '../Img/3.jpg';
@@ -11,7 +11,7 @@ import s4 from '../Img/s4.jpg';
 import s6 from '../Img/s6.jpg';
 import s7 from '../Img/s7.jpg';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation} from "swiper";
+import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
@@ -31,7 +31,7 @@ function Item() {
 
     let [reviwModal, setReviewModal] = useState(false);
     let [qnaModal, setQnaModal] = useState(false);
-    
+
 
     const moveToFocus = useRef([]);
 
@@ -81,10 +81,10 @@ function Item() {
             </div>
             <div className='slide-item'>
                 <strong>추천상품</strong>
-                    <div className='slide-btn'>
-                    <button className='button-prev'><IoMdArrowDropleft/></button>
-                    <button className='button-next'><IoMdArrowDropright/></button>
-                    </div>
+                <div className='slide-btn'>
+                    <button className='button-prev'><IoMdArrowDropleft /></button>
+                    <button className='button-next'><IoMdArrowDropright /></button>
+                </div>
                 <Swiper
                     slidesPerView={5}
                     spaceBetween={40}
@@ -92,7 +92,7 @@ function Item() {
                         nextEl: ".button-next",
                         prevEl: ".button-prev"
                     }
-                }
+                    }
                     className="mySwiper"
                 >
                     <SwiperSlide><div><img src={s1} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
@@ -106,13 +106,15 @@ function Item() {
             <div id="1" className='item-tab'>
                 <ul>
                     <li ref={el => (moveToFocus.current[0] = el)} className='on'>메뉴1</li>
-                   <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-                    <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-                    <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+                    <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                    <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
             <div className="detail_img">
-                <img src={detail} />
+                <div className='detail_img_box'>
+                    <img src={detail} />
+                </div>
             </div>
 
             <div className='moreDetail'>
@@ -121,10 +123,10 @@ function Item() {
 
             <div id="2" className='item-tab'>
                 <ul>
-                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
                     <li ref={el => (moveToFocus.current[1] = el)} className='on'>메뉴2</li>
-                    <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-                    <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+                    <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
             <div className='refund'>
@@ -145,10 +147,10 @@ function Item() {
 
             <div id="3" className='item-tab'>
                 <ul>
-                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-                    <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                    <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
                     <li ref={el => (moveToFocus.current[2] = el)} className='on'>메뉴3</li>
-                   <li onClick={() =>  moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+                    <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
                 </ul>
             </div>
 
@@ -186,9 +188,9 @@ function Item() {
 
             <div id="4" className='item-tab'>
                 <ul>
-                    <li onClick={() =>  moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-                    <li onClick={() =>  moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-                   <li onClick={() =>  moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+                    <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+                    <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+                    <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
                     <li ref={el => (moveToFocus.current[3] = el)} className='on'>메뉴4</li>
                 </ul>
             </div>
