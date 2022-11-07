@@ -16,14 +16,16 @@
     width: 100%;
     padding: 10px 20px;
 }
-
+.mypageresearch_subtitle {
+    width: 1000px;
+    padding: 15px;
+}
 .mypageresearch_subtitle strong {
     font-weight: 500;
     font-size: 20px;
     padding-left: 20px;
 }
 .mypageresearch_list {
-    margin-left: 20px;
     width: 100%;
 }
 
@@ -52,29 +54,82 @@
     float: right;
     margin-bottom: 70px;
 }
+.mypageresearch_title_wrap h2 {
+    font-size: 36px;
+    height: 65px;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
 
+.mypageresearch_title_wrap {
+    margin-bottom: 15px;
+}
 
 .mypageresearch_btn_del{
-    background-color: rgb(247, 204, 204);
     width: 100px;
     height: 50px;
-    border: none;
-    border-radius: 20px;
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 15px;
 }
 
 .mypageresearch_btn_cle {
-    background-color: rgb(181, 214, 146);
     width: 100px;
     height: 50px;
-    margin-left: 30px;
-    border: none;
-    border-radius: 20px;
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+.mypageresearch_btn_cle:hover {
+    background-color: #b5d692;
+    color: white;
+}
+
+.mypageresearch_btn_del:hover {
+    background-color: red;
+    color: white;
+}
+.mypageresearch_btn_cle:active {
+    background-color: #b5d692;
+    color: white;
+}
+
+.mypageresearch_btn_del:active {
+    background-color: red;
+    color: white;
 }
 
 
 .mypageresearch_subtitle img {
-    margin-left: 20px;
-    width: 1000px;
+    width: 100%;
     border-radius: 10px;
     margin-bottom: 30px;
+}
+
+.mypageresearch_list td input {
+    width: 21px;
+    height: 21px;
+    border-radius: 20%;
+    border: 2px solid #e5e5e5;
+    margin: 0;
+}
+
+.mypageresearch_list td input:active {
+    background-color: #e9f4ec;;
+    border: none;
+}
+
+.mypageresearch_list td input:checked {
+    background-color: #e9f4ec;
+    background-image: url('../Img/checkimg.svg');
 }

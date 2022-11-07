@@ -4,19 +4,28 @@
     height: 100%;
 }
 
-.myreview_title_wrap {
-    background-color: #b5d692;
+.myreview_title_wrap h2 {
     font-size: 36px;
-    padding-left: 30px;
-    height: 80px;
-    display: flex;
+    height: 65px;
     align-items: center;
     font-weight: bold;
+
+    border-bottom: 2px solid black;
+}
+
+.myreview_title_wrap {
+    margin-bottom: 50px;
 }
 
 .myreview_banner {
     margin-top: 10px;
     width: 100%;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.myreview_notice {
+    margin-bottom: 50px;
 }
 
 .myreview_notice p {
@@ -26,6 +35,10 @@
 
 .myreview_menu_wrap {
     margin-top: 10px;
+}
+
+.myreview_btn_box {
+    margin-right: 15px;
 }
 
 .myreview_menu_wrap button {
@@ -47,11 +60,11 @@
 
 .myreview_img_wrap {
     width: 120px;
-    height: 120px;
+    padding: 10px;
 }
 
 .myreview_img {
-    width: 120px;
+    width: 100%;
 }
 
 .myreview_able_wrap ul {
@@ -61,18 +74,16 @@
 }
 
 .myreview_able_wrap ul li{
-    padding-top: 10px;
     border-top: 1px solid #b5d692;
+    border: 2px solid #e5e5e5;
     display: flex;
+    border-radius: 15px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
 }
 
-.myreview_able_wrap ul li:first-child {
-    border: none;
-}
 
 .myreview_item_name {
     width: 300px;
@@ -86,8 +97,7 @@
 .myreview_write_btn {
     background-color: white;
     font-weight: bold;
-    color: #b5d692;
-    border: 2px solid #b5d692;
+    border: 2px solid #e5e5e5;
     border-radius: 30px;
     width: 100px;
     height: 30px;
@@ -98,12 +108,15 @@
     background-color: #b5d692;
     color: white;
 }
+.myreview_write_btn:hover {
+    background-color: #b5d692;
+    color: white;
+}
 
 .myreview_update_btn {
     background-color: white;
     font-weight: bold;
-    color: #b5d692;
-    border: 2px solid #b5d692;
+    border: 2px solid #e5e5e5;
     border-radius: 30px;
     width: 60px;
     height: 30px;
@@ -119,11 +132,19 @@
     color: white;
 }
 
+.myreview_update_btn:hover {
+    background-color: #b5d692;
+    color: white;
+}
+.myreview_delete_btn:hover {
+    background-color: red;
+    color: white;
+}
+
 .myreview_delete_btn {
     background-color: white;
     font-weight: bold;
-    color: red;
-    border: 2px solid red;
+    border: 2px solid #e5e5e5;
     border-radius: 30px;
     width: 60px;
     height: 30px;

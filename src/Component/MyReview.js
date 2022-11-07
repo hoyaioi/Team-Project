@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../CSS/MyReview.css';
 import reviewBanner from '../Img/reviewbanner.jpg';
 import reviewWriteList from '../Img/s1.jpg';
@@ -7,7 +8,11 @@ import ReviewWrite from './ReviewWrite.js';
 import s3 from '../Img/s3.jpg';
 
 
-function MyReview() {
+function MyReview({handleIsNow}) {
+
+    const handlerOnClick = (e) => {
+        handleIsNow(e);
+    }
 
     const [btnActive, setBtnActive] = useState([true, false]);
     
@@ -15,8 +20,9 @@ function MyReview() {
         <>
             <div id='main'>
                 <div className="myreview_wrap">
-                    <div className="myreview_title_wrap">
-                        나의 리뷰
+                <div className='myreview_title_wrap'>
+                    <h2>나의리뷰</h2>
+                        
                     </div>
                     <div className='myreview_notice'>
                         <div className='myreview_banner_wrap'>
@@ -59,8 +65,8 @@ function MyReview() {
                                                 <div className='myreview_item_name'>
                                                     제품명ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
                                                 </div>
-                                                <div>
-                                                    <button type='button' className='myreview_write_btn'>작성하기</button>
+                                                <div className='myreview_btn_box'>
+                                                   <button type='button' className='myreview_write_btn' id='ReviewWrite' onClick={handlerOnClick}>작성하기</button>
                                                 </div>
                                             </li>
                                         </ul>
@@ -78,7 +84,7 @@ function MyReview() {
                                             <div>
                                                 작성일자
                                             </div>
-                                            <div>
+                                            <div className='myreview_btn_box'>
                                                 <button type='button' className='myreview_update_btn'>수정</button><br />
                                                 <button type='button' className='myreview_delete_btn'>삭제</button>
                                             </div>

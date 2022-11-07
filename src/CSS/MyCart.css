@@ -3,24 +3,27 @@
     height: 100%;
 }
 
-.mycart_title_wrap {
-    background-color: #b5d692;
+.mycart_title_wrap h2 {
     font-size: 36px;
-    padding-left: 30px;
-    height: 80px;
-    display: flex;
+    height: 65px;
     align-items: center;
     font-weight: bold;
+    border-bottom: 2px solid black;
 }
 
+.mycart_title_wrap {
+    margin-bottom: 50px;
+}
 .mycart_list_wrap table {
     margin-top: 10px;
     border-collapse: collapse;
+    border-style: hidden;
+    box-shadow: 0 0 0 2px #e5e5e5;
+    border-radius: 15px;
     width: 100%;
 }
 
 .mycart_check_all_td {
-    background-color: white;
     width: 60px;
 }
 
@@ -33,7 +36,6 @@
 
 .mycart_check {
     height: 21px;
-    text-align: left;
 }
 
 .mycart_check_all_text {
@@ -43,7 +45,6 @@
 }
 
 .mycart_list_wrap thead {
-    background-color: #b5d692;
     text-align: center;
     font-weight: bold;
     font-size: 14px;
@@ -95,27 +96,24 @@
     width: 21px;
     height: 21px;
     border-radius: 20%;
-    border: 2px solid #b5d692;
+    border: 2px solid #e5e5e5;
     margin: 0;
 }
 
 .mycart_wrap input[type='checkbox']:active {
-    background-color: #87aa61;
+    background-color: #e9f4ec;;
     border: none;
 }
 
 .mycart_wrap input[type='checkbox']:checked {
-    background-color: #b5d692;
+    background-color: #e9f4ec;
     background-image: url('../Img/checkimg.svg');
 }
 
 /* ----------------------------------------- */
 .mycart_btn_wrap{
-    background-color: white;
     height: 70px;
     position: sticky;
-    right: 0;
-    left: 0;
     bottom: 0;
 }
 
@@ -125,14 +123,13 @@
 }
 
 .mycart_buy_btn {
-    border: 2px solid #b5d692;
+    border: 2px solid #e5e5e5;
     font-size: 14px;
     margin-top: 10px;
     width: 120px;
     height: 40px;
     background-color: white;
     border-radius: 30px;
-    color: #b5d692;
     font-weight: bold;
     cursor: pointer;
 }
@@ -141,22 +138,29 @@
     background-color: #b5d692;
     color: white;
 }
+.mycart_buy_btn:hover{
+    background-color: #b5d692;
+    color: white;
+}
 
 .mycart_delete_btn {
     margin-right: 20px;
-    border: 2px solid red;
+    border: 2px solid #e5e5e5;
     font-size: 14px;
     margin-top: 10px;
     width: 120px;
     height: 40px;
     background-color: white;
     border-radius: 30px;
-    color: red;
     font-weight: bold;
     cursor: pointer;
 }
 
 .mycart_delete_btn:active{
+    background-color: red;
+    color: white;
+}
+.mycart_delete_btn:hover{
     background-color: red;
     color: white;
 }

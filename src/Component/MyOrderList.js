@@ -6,6 +6,9 @@ function MyOrderList() {
         <>
         <div id='main'>
             <div className='myorderlist_wrap'>
+            <div className='myorderlist_title_wrap'>
+                        <h2>주문현황</h2>
+                    </div>
                 <div className='myorderlist_stat_wrap'>
                     <ul>
                         <li>

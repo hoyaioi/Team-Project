@@ -88,8 +88,8 @@ function ServiceQna() {
                                         </div>
                                     </form>
                                     <div className='serviceqna_btn_box'>
-                                        <button>취소</button>
-                                        <button>저장</button>
+                                        <button className='serviceqna_btn_del'>취소</button>
+                                        <button className='serviceqna_btn'>저장</button>
                                     </div>
                                 </div>
                             </div>

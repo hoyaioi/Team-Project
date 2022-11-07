@@ -11,8 +11,8 @@ function MyInfoDel1() {
         <>
             <div id='main'>
                 <div className='myinfodel1_wrap'>
-                    <div className='myinfodel1_title_wrap'>
-                        회원탈퇴
+                <div className='myinfodel1_title_wrap'>
+                    <h2>회원탈퇴</h2>
                     </div>
                     <div className='myinfodel1_pwcheck_wrap'>
                         <div className='myinfodel1_pwcheck_text'>

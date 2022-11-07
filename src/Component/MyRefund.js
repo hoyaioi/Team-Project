@@ -7,7 +7,8 @@ function MyRefund() {
             <div id='main'>
                 <div className='myrefund_wrap'>
                 <div className='myrefund_title_wrap'>
-                        반품/환불
+                    <h2>반품/환불</h2>
+                        
                     </div>
                     <div className='myrefund_list_wrap'>
                     <table>

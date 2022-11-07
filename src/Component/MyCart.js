@@ -37,18 +37,15 @@ function MyCart() {
             <div id='main'>
                 <div className='mycart_wrap'>
                     <div className='mycart_title_wrap'>
-                        장바구니
+                        <h2>장바구니</h2>
                     </div>
                     <div className='mycart_list_wrap'>
                         <table>
                             <thead>
                                 <tr>
                                     <td className='mycart_check_all_td'>
-                                        <div className='mycart_check_all_wrap'>
-                                            <div className='mycart_check'>
                                                 <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
-                                            </div>
-                                        </div>
+
                                     </td>
                                     <td>제품정보</td>
                                     <td>수량</td>

@@ -23,6 +23,8 @@ import Login from './Component/Login';
 import Agreement from './Component/Agreement';
 import Private from './Component/Private';
 import Company from './Component/Compnay';
+import ReviewWrite from './Component/ReviewWrite';
+import { useState } from 'react';
 
 
 

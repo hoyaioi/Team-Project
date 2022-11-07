@@ -9,8 +9,8 @@ function MyInfoUp1({ handleIsNow }) {
         <>
             <div id='main'>
                 <div className='myinfoup1_wrap'>
-                    <div className='myinfoup1_title_wrap'>
-                        내 정보 수정
+                <div className='myinfoup1_title_wrap'>
+                    <h2>회원정보수정</h2>
                     </div>
                     <div className='myinfoup1_pwcheck_wrap'>
                         <div className='myinfoup1_pwcheck_text'>
