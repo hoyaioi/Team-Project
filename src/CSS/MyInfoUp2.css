@@ -3,15 +3,18 @@
     height: 100%;
 }
 
-.myinfoup2_title_wrap {
-    background-color: #b5d692;
+.myinfoup2_title_wrap h2 {
     font-size: 36px;
-    padding-left: 30px;
-    height: 80px;
-    display: flex;
+    height: 65px;
     align-items: center;
     font-weight: bold;
+    border-bottom: 2px solid black;
 }
+
+.myinfoup2_title_wrap {
+    margin-bottom: 50px;
+}
+
 
 .myinfoup2_form_wrap {
     display: flex;
@@ -97,34 +100,46 @@
     margin-top: 20px;
 }
 
-.myinfoup2_btn_wrap input[type='button'] {
+
+.myinfoup2_btn_cancle{
     width: 100px;
-    height: 40px;
-    font-size: 14px;
-    border-radius: 30px;
+    height: 50px;
     background-color: white;
     font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 15px;
 }
 
-.myinfoup2_update {
-    margin-left: 20px;
-    border: 2px solid #b5d692;
-    color: #b5d692;
+.myinfoup2_btn_modify {
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 100px;
+    height: 30px;
     cursor: pointer;
 }
-
-.myinfoup2_update:active {
+.myinfoup2_btn_modify:hover {
+    background-color: #b5d692;
     color: white;
-    background-color: #b5d692 !important;
 }
 
-.myinfoup2_cancel {
-    border: 2px solid red;
-    color: red;
-    cursor: pointer;
+.myinfoup2_btn_cancle:hover {
+    background-color: red;
+    color: white;
+}
+.myinfoup2_btn_modify:active {
+    background-color: #b5d692;
+    color: white;
 }
 
-.myinfoup2_cancel:active {
+.myinfoup2_btn_cancle:active {
+    background-color: red;
     color: white;
-    background-color: red !important;
 }

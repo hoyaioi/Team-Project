@@ -34,6 +34,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <div id='wrapper'>
         <ScrollToTop />
         <Header />
         <Route exact={true} path="/" component={Main} />
@@ -52,7 +53,7 @@ function App() {
         <Route path="/company" component={Company} />
         <Route path="/agreement" component={Agreement} />
         <Route path="/surveyStart" component={Step1} ><Survey /></Route>
-
+        </div>
         <Footer />
         {/* <Route path="/surveyStart" component={Step1}><Survey /></Route>  */}
         <Topbutton></Topbutton>

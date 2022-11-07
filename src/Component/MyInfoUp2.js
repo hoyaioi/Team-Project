@@ -5,8 +5,8 @@ function MyInfoUp2() {
         <>
             <div id='main'>
                 <div className='myinfoup2_wrap'>
-                    <div className='myinfoup2_title_wrap'>
-                        내 정보 수정
+                <div className='myinfoup2_title_wrap'>
+                    <h2>회원정보수정</h2>
                     </div>
                     <form>
                         <div className='myinfoup2_form_wrap'>
@@ -59,8 +59,8 @@ function MyInfoUp2() {
                             </div>
                         </div>
                         <div className='myinfoup2_btn_wrap'>
-                            <input type='button' className='myinfoup2_cancel' value='취소' />
-                            <input type='button' className='myinfoup2_update' value='수정하기' />
+                            <input type='button' className='myinfoup2_btn_cancle' value='취소' />
+                            <input type='button' className='myinfoup2_btn_modify' value='수정하기' />
                         </div>
 
                     </form>

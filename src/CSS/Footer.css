@@ -1,9 +1,10 @@
 #footer {
   width: 100%;
-  bottom: 0;
+
+  position: relative;
   background-color: #e9f4ec;
   clear: both;
-  margin-top: 70px;
+
 }
 
 .footer_wrap {
@@ -31,7 +32,7 @@
 .footer_top ul li a {
   text-decoration: none;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -43,6 +44,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 8px;
+}
+
+.footer_bottom ul li {
+  margin: 2px;
+
 }
 
 .footer_cs {
@@ -68,6 +75,10 @@
   padding-inline-start: 0;
   list-style: none;
 }
+
+/* .footer_company_info ul li {
+  padding: 5px;
+} */
 
 .footer_authority {
   font-size: 12px;

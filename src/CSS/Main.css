@@ -1,136 +1,70 @@
-
 #main {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
+  position: relative;
+  width: 100%;
+  padding-bottom: 70px;
 }
-.main_banner_wrap {
-    margin : auto;
-}
+
 .main_wrap {
-    margin: 0 auto;
-    position: relative;
-    width: 1200px;
+  margin: 30px auto;
+  position: relative;
+  width: 1200px;
 }
 
-/* .main_ad_wrap {
-    width: 100%;
-    height: 300px;
-} */
-.main_content_info {
-    padding-top: 50px;
-    width: 100%;
-    height: 100%;
-}
-.main_banner_img {
-    width: 500px;
-    height: 500px;
-}
-.main_banner_img3, .main_banner_img4 {
-    vertical-align: top;
-    width: 310px;
-    height: 134px;
-    margin-left: 40px;
-    border-radius: 10px;
-}
-.main_banner_img5 {
-    width: 400px;
-    height: 200px;
-}
-.main_banner_img2{
-    width: 1200px;
-    float: left;
-    margin-bottom: 15px;
-}
-
-.main_banner_video {
-    width: 650px;
-    margin-top: 20px;
-    margin-left: 40px;
-}
-
-.main_info_banner {
-    display: inline-block;
-    vertical-align: top;
-}
 .swiper-button-prev,
 .swiper-button-next {
-    color: rgb(68, 218, 131) !important;
-    padding-left: 100px;
-    padding-right: 100px;
-}
-.main_banner_content {
-    margin: 0 auto;
-    width: 1200px;
-}
-/* .main_swiper {
-    position: relative;
-    width: 1200px;
-    height: 100%;
-} */
-
-.main_swiper_banner {
-    width: 100%;
-    height: 100%;
-}
-
-.main_swiper img {
-    display: block;
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
+  color: #b5d692 !important;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .main_items_wrap {
-    width: 1200px;
-    height: 100%;
-    margin-bottom: 70px;
+  width: 1200px;
 }
 
-.main_items_recommend, .main_items_sales {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    position: relative;
+.main_items_recommend,
+.main_items_sales {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: relative;
 }
 
 .main_items_title {
-    font-weight: bold;
-    font-size: 32px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 32px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .main_items_wrap img {
-    position: relative;
-    width: 200px;
+  position: relative;
+  width: 200px;
 }
 
 .main_items {
-    width: 220px;
-    height: 280px;
-    font-size: 13px;
+  width: 220px;
+  height: 280px;
+  font-size: 13px;
 }
 
 .main_items:hover {
-    cursor: pointer;
-    opacity: 50%;
+  cursor: pointer;
+  opacity: 50%;
 }
 
 .main_items_img_wrap {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .main_items_name {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .main_items_price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ae0000;
-    position: absolute;
-    bottom: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ae0000;
+  position: absolute;
+  bottom: 0;
 }

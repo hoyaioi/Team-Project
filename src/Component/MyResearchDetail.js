@@ -12,9 +12,13 @@ import MyPage from './MyPage';
 
 
 
-function MyPageResearchDetail() {
+function MyPageResearchDetail({handleIsNow}) {
 
-    
+    const handlerOnClick = (e) => {
+        handleIsNow(e);
+    }
+
+
     return (
         <>
             <div className="mypageresearch_main">
@@ -32,7 +36,7 @@ function MyPageResearchDetail() {
                             <div className="inside">
                                 <h4>님을 위한 추천 영양제</h4>
                                 <div className="researchDate">
-                                    작성일
+                                    설문 완료일 : 2021-11-02
                                 </div>
                                 <div className="wrapResearch">
                                     <Swiper
@@ -58,6 +62,7 @@ function MyPageResearchDetail() {
                                         </SwiperSlide>
                                     </Swiper>
                                 </div>
+                                <div className='reseachBack' id='MyResearch' onClick={handlerOnClick}>목록으로</div>
                             </div>
                         </div>
                     </div>

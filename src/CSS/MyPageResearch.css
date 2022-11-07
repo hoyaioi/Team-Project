@@ -1,7 +1,7 @@
 
 
 .mypageresearch_main {
-    width: 1000px;
+    width: 930px;
     height: 100%;
 }
 
@@ -17,8 +17,7 @@
     padding: 10px 20px;
 }
 .mypageresearch_subtitle {
-    width: 1000px;
-    padding: 15px;
+    width: 930px;
 }
 .mypageresearch_subtitle strong {
     font-weight: 500;
