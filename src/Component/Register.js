@@ -7,7 +7,7 @@ import { SiNaver } from "react-icons/si";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import axios from "axios";
 
-import "../CSS/Register.css";
+import "../CSS/register.css";
 
 function Register() {
   const handleComplete = (data) => {

@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import "../CSS/Login.css";
+import "../CSS/login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
