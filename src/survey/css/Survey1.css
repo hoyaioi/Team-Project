@@ -114,8 +114,9 @@
     position: absolute;
     width: 150px;
     height: 100px;
-    margin-top: 200px;
+    margin-top: 180px;
     margin-left: 110px;
+    font-size: 23px;
 }
 
 .next {
@@ -123,9 +124,10 @@
     width: 100px;
     height: 80px;
     border-radius: 66px;
-    margin-top: 200px;
+    margin-top: 180px;
     margin-left: 820px;
     border-style: none;
+    font-size: 23px;
 }
 
 .organcheck {
@@ -225,7 +227,7 @@ form .likert li label {
 .resultSwiper {
     margin-bottom: -150px;
     width: 900px;
-    height: 470px;
+    height: 530px;
 }
 
 .resultSwiper .swiper-slide  {
@@ -261,11 +263,14 @@ form .likert li label {
     height: 100%;
     object-fit: fill;
     border-radius :5%;
+    margin-top:20px;
 }
 .titleSurvey {
-    height:50px;
     position: absolute;
-    font-size: 50px;
+    margin-bottom: 30px;
+    height:50px;
+    width:100%;
+    font-size:45px;
     color: white;
     text-align: center;
     margin-top: -435px;

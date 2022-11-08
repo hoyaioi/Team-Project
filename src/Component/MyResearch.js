@@ -1,46 +1,66 @@
 import '../CSS/MyPageResearch.css';
 import { Link } from 'react-router-dom';
 import researchbanner from '../Img/research_banner.jpg';
+import { alignPropType } from 'react-bootstrap/esm/types';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
-function MyPageResearch({handleIsNow}) {
+function MyPageResearch({ handleIsNow }) {
+
+    const [datas, setDatas] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/result')
+            .then(response => {
+                console.log(response);
+                setDatas(response.data);
+            })
+            .catch(error => console.log(error));
+    }, []);
+
 
     const handlerOnClick = (e) => {
         handleIsNow(e);
     }
 
+    
 
     return (
         <>
             <div className="mypageresearch_main">
-            <div className='mypageresearch_title_wrap'>
+                <div className='mypageresearch_title_wrap'>
                     <h2>나의설문</h2>
-                        
-                    </div>
+
+                </div>
                 <div className='mypageresearch_subtitle'>
-                        <img src={researchbanner} />
+                    <img src={researchbanner} />
                     <div className="mypageresearch_list">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>선택</th>
-                                    <th>분류항목</th>
-                                    <th>제목</th>
-                                    <th>저장날짜</th>
+                                    <th width="15%">선택</th>
+                                    <th width="65%">설문자</th>
+                                    <th width='20%'>저장날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type='checkbox'></input></td>
-                                    <td>간,폐,눈</td>
-                                    <td id='MyPageResearchDetail' onClick={handlerOnClick}>설문저장제목</td>
-                                    <td>2022-11-02</td>
-                                </tr>
-                                <tr>
-                                    <td><input type='checkbox'></input></td>
-                                    <td>눈,장</td>
-                                    <td>설문저장제목</td>
-                                    <td>2022-11-02</td>
-                                </tr>
+                                {
+                                    datas && datas.map(result => (
+                                        <tr key={result.resultIdx}>
+                                            <td><input type='checkbox'></input></td>
+                                            <td id='MyPageResearchDetail' onClick={handlerOnClick}> <Link to={`/result/${result.resultIdx}`}>{result.resultUser}</Link></td>
+                                            <td>{result.resultDate}</td>
+                                        </tr>
+                                    ))
+                                }
+                                {
+                                    datas.length === 0 && (
+                                        <tr>
+                                            <td colSpan="4">일치하는 데이터가 없습니다.</td>
+                                        </tr>
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
