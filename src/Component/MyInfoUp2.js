@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import '../CSS/MyInfoUp2.css';
 
@@ -23,7 +24,7 @@ function MyInfoUp2({ memIdx, history }) {
     const handlerChangePw1 = (e) => setMemPw1(e.target.value);
     const handlerChangePw2 = (e) => setMemPw2(e.target.value);
 
-    
+    const inputPw = useRef();
 
     useEffect(() => {
         axios.get(`http://localhost:8080/member/${memIdx}`)
@@ -35,20 +36,28 @@ function MyInfoUp2({ memIdx, history }) {
                 setMemAdr1(response.data.memAdr1);
                 setMemAdr2(response.data.memAdr2);
                 setMemEmail(response.data.memEmail);
+                inputPw.current.focus();
                 console.log(response);
             })
             .catch(error => console.log(error));
     }, []);
-    console.log(data);
+    
     const handlerClickUpdate = () => {
 
         if(memPw1 !== memPw2){
             alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
             setMemPw1('');
             setMemPw2('');
+            inputPw.current.focus();
+        } else if(memPw1 == '' && memPw2 == '') {
+            alert('비밀번호를 입력해주세요.');
+            setMemPw1('');
+            setMemPw2('');
+            inputPw.current.focus();
         } else {
         axios.put(`http://localhost:8080/member/${memIdx}`,
-            {
+            {   
+                'memIdx': memIdx,
                 'memName': memName,
                 'memPhone': memPhone,
                 'memPostNum': memPostNum,
@@ -60,8 +69,8 @@ function MyInfoUp2({ memIdx, history }) {
             })
             .then(response => {
                 if (response.status === 200) {
-                    alert("정상적으로 수정되었습니다.", {
-                        onclose: () => history.push("/mypage")
+                    alert("회원정보가 변경되었습니다.", {
+                        onclose: () => history.push("/")
                     });
                 } else {
                     alert("회원정보 수정이 실패하였습니다.");
@@ -119,7 +128,7 @@ function MyInfoUp2({ memIdx, history }) {
                                 <div className='myinfoup2_pw_wrap'>
                                     <div className='myinfoup2_text'>비밀번호</div>
                                     <div className='myinfoup2_input_wrap'>
-                                        <input type='password' placeholder="비밀번호를 입력해주세요." value={memPw1} onChange={handlerChangePw1} />
+                                        <input type='password' placeholder="비밀번호를 입력해주세요." ref={inputPw} value={memPw1} onChange={handlerChangePw1} />
                                     </div>
                                 </div>
                                 <div className='myinfoup2_pw_wrap'>
