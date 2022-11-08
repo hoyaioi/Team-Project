@@ -8,7 +8,6 @@ function MyPageResearch({handleIsNow}) {
         handleIsNow(e);
     }
 
-
     return (
         <>
             <div className="mypageresearch_main">
