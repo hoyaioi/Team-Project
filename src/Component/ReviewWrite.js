@@ -117,7 +117,7 @@ padding-top: 5px;
                                     <div className='reviewwrite_detail_title'>상세리뷰</div>
                                     <div className='reviewwrite_detail_cont'>
                                         <div className='reviewwrite_content_text'>
-                                            <textarea className='reviewwrite_text' placeholder='다른 고객님에게 도움이 되도록 상품에 대한 솔직한 평가를 남겨주세요.'>
+                                            <textarea className='reviewwrite_text' placeholder='다른 소비자에게 도움이 되도록 솔직한 평가를 남겨주세요.'>
 
                                             </textarea>
                                         </div>

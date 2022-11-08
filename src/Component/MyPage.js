@@ -11,7 +11,7 @@ import MyResearch from "./MyResearch";
 import ReviewWrite from "./ReviewWrite";
 import MyPageResearchDetail from "./MyResearchDetail";
 
-function MyPage() {
+function MyPage({ memIdx }) {
   const [isNow, setIsNow] = useState("MyOrderList");
 
   // const handleOrderList = () => {
@@ -98,7 +98,7 @@ function MyPage() {
             {isNow === "MyRefund" && <MyRefund />}
             {isNow === "MyReview" && <MyReview handleIsNow={handleIsNow}/>}
             {isNow === "MyInfoUp1" && <MyInfoUp1 handleIsNow={handleIsNow} />}
-            {isNow === "MyInfoUp2" && <MyInfoUp2 />}
+            {isNow === "MyInfoUp2" && <MyInfoUp2 memIdx={5}/>}
             {isNow === "MyPageResearchDetail" && <MyPageResearchDetail />}
             {isNow === "MyInfoDel1" && <MyInfoDel1 />}
             {isNow === "MyResearch" && <MyResearch  handleIsNow={handleIsNow} />}

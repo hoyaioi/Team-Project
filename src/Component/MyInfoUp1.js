@@ -1,6 +1,6 @@
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1({ handleIsNow }) {
+function MyInfoUp1({ memIdx, handleIsNow }) {
     const handlerOnClick = (e) => {
         handleIsNow(e);
     }
