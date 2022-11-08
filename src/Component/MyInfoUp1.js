@@ -41,6 +41,7 @@ function MyInfoUp1({ memIdx, handleIsNow }) {
             inputPw.current.focus();
         } else {
             handleIsNow(e);
+            console.log(data);
         }
 
     }

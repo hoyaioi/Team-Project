@@ -25,7 +25,7 @@ function MyInfoUp2({ memIdx, history }) {
     const handlerChangePw2 = (e) => setMemPw2(e.target.value);
 
     const inputPw = useRef();
-
+    console.log(data);
     useEffect(() => {
         axios.get(`http://localhost:8080/member/${memIdx}`)
             .then(response => {
