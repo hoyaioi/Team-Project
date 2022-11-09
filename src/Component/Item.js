@@ -16,7 +16,8 @@ import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -28,8 +29,8 @@ import axios from 'axios';
 SwiperCore.use([Navigation])
 
 
-function Item({match}) {
-    const {itemIdx} = match.params;
+function Item() {
+    let {itemIdx} = useParams();
     let [reviwModal, setReviewModal] = useState(false);
     let [qnaModal, setQnaModal] = useState(false);
     const [ datas, setData ] = useState({});

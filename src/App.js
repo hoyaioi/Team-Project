@@ -52,7 +52,7 @@ function App() {
 
             <Route path="myinfodel" element={<MyInfoDel1 />} />
           </Route>
-          <Route path="/item" element={<Item />} />
+          <Route path="/item/:itemIdx" element={<Item />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
