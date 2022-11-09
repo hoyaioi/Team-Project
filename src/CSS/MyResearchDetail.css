@@ -55,16 +55,17 @@
     height: 550px;
 }
 
-.resultSwiper .swiper-container {
+.resultSSSwiper .swiper-container {
     padding-bottom: 30px;
 }
 
-.resultSwiper .swiper-wrapper {
+.resultSSSwiper .swiper-wrapper {
+    height:500px;
     display: flex;
     align-items: center;
 }
 
-.resultSwiper .swiper-slide {
+.resultSSSwiper .swiper-slide {
     float: left;
     width: 20%;
     margin-right: 10px;
@@ -81,13 +82,13 @@
     height: 410px;
 }
 
-.resultSwiper {
+.resultSSSwiper {
     margin-bottom: -150px;
     width: 900px;
     height: 470px;
 }
 
-.resultSwiper .swiper-slide {
+.resultSSSwiper .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: transparent;
@@ -106,39 +107,40 @@
     align-items: center;
 }
 
-.resultSwiper .swiper-button-prev,
-.resultSwiper .swiper-button-next {
+.resultSSSwiper .swiper-button-prev,
+.resultSSSwiper .swiper-button-next {
     color: white !important;
     padding-left: 30px;
     padding-right: 30px;
 }
 
 
-.resultSwiper .swiper-slide img {
+.resultSSSwiper .swiper-slide img {
     display: block;
-    width: 100%;
+    width: 400px;
     height: 100%;
     object-fit: fill;
     border-radius: 5%;
 }
 
-.titleResearch {
+.titleSurveyyyy {
     margin-top: -500px;
-    height: 50px;
+    height: 0px;
     position: absolute;
     font-size: 35px;
     color: white;
     text-align: center;
 }
 
-.priceSurvey {
+.priceSurveySSS {
+    
     line-height: 50px;
     margin-left: 50px;
     font-size: 20px;
     color: white;
 }
 
-.priceSurvey>a {
+.priceSurveySSS>a {
     margin-top: 20px;
     text-decoration-line: none;
     color: black;
@@ -154,6 +156,7 @@
 }
 
 .reseachBack{
+    z-index: 1;
     float : right;
     margin-top: -40px;
     margin-right: 60px;
@@ -162,4 +165,7 @@
     font-size: 25px;
     color: black;
     text-decoration: none;
+}
+.SurveyDate{
+    color:black;
 }

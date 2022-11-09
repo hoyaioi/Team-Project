@@ -99,9 +99,9 @@ function MyPage() {
             {isNow === "MyReview" && <MyReview handleIsNow={handleIsNow}/>}
             {isNow === "MyInfoUp1" && <MyInfoUp1 handleIsNow={handleIsNow} memIdx={2} />}
             {isNow === "MyInfoUp2" && <MyInfoUp2 memIdx={2}/>}
-            {isNow === "MyPageResearchDetail" && <MyPageResearchDetail />}
+            {isNow === "MyPageResearchDetail" && <MyPageResearchDetail/>}
             {isNow === "MyInfoDel1" && <MyInfoDel1 />}
-            {isNow === "MyResearch" && <MyResearch  handleIsNow={handleIsNow} />}
+            {isNow === "MyResearch" && <MyResearch  handleIsNow={handleIsNow}/>}
             {isNow === "ReviewWrite" && <ReviewWrite />}
           </div>
         </div>
