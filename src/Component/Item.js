@@ -16,7 +16,7 @@ import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 
 // Import Swiper styles
@@ -35,9 +35,18 @@ function Item() {
     let [qnaModal, setQnaModal] = useState(false);
     const [ datas, setData ] = useState({});
     const [ reviewDatas, setReviewDatas ] = useState([]);
+    const [ qnaDatas, setQnaDatas ] = useState([]);
     const [ reviewIdx, setReviewIdx] = useState();
+    const [ qnaIdx, setQnaIdx] = useState();
     // const [ reviewDetail, setReviewDetail] = useState({});
 
+   
+	
+
+    const location = useLocation();
+    const items = location.state.item;
+    console.log(items);
+    
     const moveToFocus = useRef([]);
     useEffect(() => {
         axios.get(`http://localhost:8080/item/${itemIdx}`)
@@ -53,6 +62,15 @@ function Item() {
         .then(response => { 
             console.log(response); 
             setReviewDatas(response.data);
+        })
+        .catch(error => { console.log(error); });
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/qna')
+        .then(response => { 
+            console.log(response); 
+            setQnaDatas(response.data);
         })
         .catch(error => { console.log(error); });
     }, []);
@@ -118,12 +136,15 @@ function Item() {
                     }
                     className="mySwiper"
                 >
-                    <SwiperSlide><div><img src={s1} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
+
+            {items.slice(0,10).map(item => (
+                     <SwiperSlide><div><img src={item.itemThumb} /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></SwiperSlide>
+            ))}
+                     {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                     <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>  */}
                 </Swiper>
             </div>
             <div id="1" className='item-tab'>
@@ -232,17 +253,19 @@ function Item() {
                             <th width='15%'>답변상태</th>
                         </tr>
                     </thead>
+                    {qnaDatas && qnaDatas.map(qna => (
                     <tbody>
-                        <tr>
-                            <td width='8%'>글번호</td>
-                            <td width='53%' onClick={() => { setQnaModal(!qnaModal) }}>제목</td>
-                            <td width='13%'>작성자</td>
-                            <td width='13%'>작성일자</td>
+                        <tr onClick={()=>{setQnaIdx(qna.qnaIdx)}}>
+                            <td width='8%'>{qna.qnaIdx}</td>
+                            <td width='53%' onClick={() => { setQnaModal(!qnaModal) }}>{qna.qnaTitle}</td>
+                            <td width='13%'>{qna.memId}</td>
+                            <td width='13%'>{qna.qnaWriteDate}</td>
                             <td width='13%'>답변상태</td>
                         </tr>
+                        {qnaModal === true && qnaIdx===qna.qnaIdx ? <Qna value={qna.qnaIdx} /> : null}    
                     </tbody>
+                    ))}
                 </table>
-                {qnaModal === true ? <Qna /> : null}
             </div>
             <div className='pagenation'>
                 <ul>

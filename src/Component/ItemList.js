@@ -71,7 +71,7 @@ function ItemList() {
               <div className="itemlist_items_cont">
                 <ul>
                   {datas && datas.slice(0,10).map(item => (
-                    <Link to={`/item/${item.itemIdx}`}>
+                    <Link to={`/item/${item.itemIdx}`} state={{ item: datas}}>
                       <li key={item.itemIdx}>
                         <div className="itemlist_items_box">
                           <div className="itemlist_items_img">
