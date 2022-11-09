@@ -33,7 +33,6 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
       <div id='wrapper'>
         <ScrollToTop />
         <Header />
@@ -57,7 +56,6 @@ function App() {
         <Footer />
         {/* <Route path="/surveyStart" component={Step1}><Survey /></Route>  */}
         <Topbutton></Topbutton>
-      </BrowserRouter>
 
     </>
   );
