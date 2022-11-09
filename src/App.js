@@ -31,6 +31,7 @@ import MyPageResearch from "./Component/MyResearch";
 import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
+import ItemWrite from "./Component/ItemWrite";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="myinfodel" element={<MyInfoDel1 />} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
+          <Route path="/write" element={<ItemWrite />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
