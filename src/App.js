@@ -1,62 +1,80 @@
-
-import Item from './Component/Item';
-import Main from './Component/Main';
-import Topbutton from './Topbutton';
-import Header from './Component/Header';
-import Footer from './Component/Footer';
-import Intro from './survey/Intro';
-import { BrowserRouter, Route } from 'react-router-dom';
-import MyPage from './Component/MyPage';
-import ServiceCenter from './Component/ServiceCenter';
-import Notice from './Component/Notice';
-import NoticeDetail from './Component/NoticeDetail';
-import ScrollToTop from './ScrollToTop';
-import MyPageCart from './Component/MyPageCart';
-import GlobalStyles from './GlobalStyles';
-import MyCart from './Component/MyCart';
-import ItemList from './Component/ItemList';
-import ServiceQna from './Component/ServiceQna';
-import Step1 from './survey/Step1';
-import Survey from './survey/Survey';
-import Register from './Component/Register';
-import Login from './Component/Login';
-import Agreement from './Component/Agreement';
-import Private from './Component/Private';
-import Company from './Component/Compnay';
-import ReviewWrite from './Component/ReviewWrite';
-import { useState } from 'react';
-
-
+import Item from "./Component/Item";
+import Main from "./Component/Main";
+import Topbutton from "./Topbutton";
+import Header from "./Component/Header";
+import Footer from "./Component/Footer";
+import Intro from "./survey/Intro";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyPage from "./Component/MyPage";
+import ServiceCenter from "./Component/ServiceCenter";
+import Notice from "./Component/Notice";
+import NoticeDetail from "./Component/NoticeDetail";
+import ScrollToTop from "./ScrollToTop";
+import MyPageCart from "./Component/MyPageCart";
+import MyCart from "./Component/MyCart";
+import ItemList from "./Component/ItemList";
+import ServiceQna from "./Component/ServiceQna";
+import Step1 from "./survey/Step1";
+import Survey from "./survey/Survey";
+import Register from "./Component/Register";
+import Login from "./Component/Login";
+import Agreement from "./Component/Agreement";
+import Private from "./Component/Private";
+import Company from "./Component/Compnay";
+import FindAccount from "./Component/FindAccount";
+import FindId from "./Component/FindId";
+import FindPw from "./Component/FindPw";
+import MyOrderList from "./Component/MyOrderList";
+import MyRefund from "./Component/MyRefund";
+import MyReview from "./Component/MyReview";
+import MyPageResearch from "./Component/MyResearch";
+import MyInfoUp1 from "./Component/MyInfoUp1";
+import MyInfoUp2 from "./Component/MyInfoUp2";
+import MyInfoDel1 from "./Component/MyInfoDel1";
 
 function App() {
-
-
   return (
     <>
-      <div id='wrapper'>
-        <ScrollToTop />
-        <Header />
-        <Route exact={true} path="/" component={Main} />
-        <Route path="/servicecenter" component={ServiceCenter} />
-        <Route path="/mypage" component={MyPage} />
-        <Route path="/item/:itemIdx" component={Item} exact={true} />
-        <Route path="/notice" component={Notice} />
-        <Route path="/noticedetail" component={NoticeDetail} />
-        <Route path="/intro" component={Intro} />
-        <Route path="/cart" component={MyCart} />
-        <Route path="/serviceqna" component={ServiceQna} />
-        <Route path="/itemlist" component={ItemList} />
-        <Route path="/join" component={Register} />
-        <Route path="/login" component={Login} />
-        <Route path="/private" component={Private} />
-        <Route path="/company" component={Company} />
-        <Route path="/agreement" component={Agreement} />
-        <Route path="/surveyStart" component={Step1} ><Survey /></Route>
-        </div>
-        <Footer />
-        {/* <Route path="/surveyStart" component={Step1}><Survey /></Route>  */}
-        <Topbutton></Topbutton>
+      <ScrollToTop />
+      <Header />
+      <div id="wrapper">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/servicecenter" element={<ServiceCenter />} />
+          <Route path="/mypage/*" element={<MyPage />}>
+            <Route path="myorderlist" element={<MyOrderList />} />
+            <Route path="myrefund" element={<MyRefund />} />
+            <Route path="mycart" element={<MyCart />} />
+            <Route path="myreview" element={<MyReview />} />
+            <Route path="myresearch" element={<MyPageResearch />} />
+            <Route path="myinfo" element={<MyInfoUp1 />} />
+            <Route path="modify" element={<MyInfoUp2 />} />
 
+            <Route path="myinfodel" element={<MyInfoDel1 />} />
+          </Route>
+          <Route path="/item" element={<Item />} />
+          <Route path="/notice" element={<Notice />} />
+          <Route path="/noticedetail" element={<NoticeDetail />} />
+          <Route path="/intro" element={<Intro />} />
+          <Route path="/cart" element={<MyCart />} />
+          <Route path="/serviceqna" element={<ServiceQna />} />
+          <Route path="/itemlist" element={<ItemList />} />
+          <Route path="/join" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/private" element={<Private />} />
+          <Route path="/company" element={<Company />} />
+          <Route path="/findAccount" element={<FindAccount />} />
+          <Route path="/findid" element={<FindId />} />
+          <Route path="/findpw" element={<FindPw />} />
+          <Route path="/agreement" element={<Agreement />} />
+          <Route path="/surveyStart" element={<Survey />}>
+            {/* <Step1 /> */}
+          </Route>
+        </Routes>
+      </div>
+      <Footer />
+      {/* <Route path="/surveyStart" element={<Step1}><Survey /></Route>  */}
+      <Topbutton></Topbutton>
     </>
   );
 }
