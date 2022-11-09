@@ -20,7 +20,7 @@
 .myinfoup1_pwcheck_wrap {
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 400px;
+    width: 500px;
     position: relative;
     text-align: center;
     left: 50%;
@@ -39,8 +39,8 @@
 }
 
 .myinfoup1_input_wrap input[type='password'] {
-    width: 220px;
-    height: 30px;
+    width: 320px;
+    height: 36px;
     outline: none;
     border: 2px solid lightgray;
     padding: 0 10px;
@@ -59,7 +59,7 @@
     font-size: 14px;
     font-weight: bold;
     width: 100px;
-    height: 30px;
+    height: 36px;
     cursor:pointer;
 }
 
