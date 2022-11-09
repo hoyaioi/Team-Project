@@ -40,7 +40,7 @@ function App() {
         <Route exact={true} path="/" component={Main} />
         <Route path="/servicecenter" component={ServiceCenter} />
         <Route path="/mypage" component={MyPage} />
-        <Route path="/item" component={Item} />
+        <Route path="/item/:itemIdx" component={Item} exact={true} />
         <Route path="/notice" component={Notice} />
         <Route path="/noticedetail" component={NoticeDetail} />
         <Route path="/intro" component={Intro} />

@@ -15,51 +15,73 @@ import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import axios from 'axios';
 
 
 
 SwiperCore.use([Navigation])
 
 
-function Item() {
-
+function Item({match}) {
+    const {itemIdx} = match.params;
     let [reviwModal, setReviewModal] = useState(false);
     let [qnaModal, setQnaModal] = useState(false);
-
+    const [ datas, setData ] = useState({});
+    const [ reviewDatas, setReviewDatas ] = useState([]);
+    const [ reviewIdx, setReviewIdx] = useState();
+    // const [ reviewDetail, setReviewDetail] = useState({});
 
     const moveToFocus = useRef([]);
+    useEffect(() => {
+        axios.get(`http://localhost:8080/item/${itemIdx}`)
+        .then(response => { 
+            console.log(response); 
+            setData(response.data);
+        })
+        .catch(error => { console.log(error); });
+    }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:8080/review')
+        .then(response => { 
+            console.log(response); 
+            setReviewDatas(response.data);
+        })
+        .catch(error => { console.log(error); });
+    }, []);
+
+    
 
 
     return (
         <div className='item-content'>
             <div className='item_detail'>
                 <div className="itemImg">
-                    <img className='thumb' src={thumb} />
+                    <img className='thumb' src={datas.itemThumb} />
                 </div>
                 <div className="info">
                     <div className='item_title'>
-                        <strong>프로바이오틱스 코어7</strong>
+                        <strong>{datas.itemName}</strong>
                         {/* <div className='item_share'> */}
                         <button className='share_button'></button>
                         {/* </div> */}
                     </div>
                     <div className='item_price'>
                         <span>상품가격</span>
-                        <strong>10500</strong><span>원</span>
+                        <strong>{datas.itemPrice}</strong><span>원</span>
                     </div>
                     <div className='item_delivery'>
                         <span>배송비: </span>
                         <span>2500원</span>
                     </div>
                     <div className='total-price'>
-                        <span>프로바이오틱스 코어7</span>
+                        <span>{datas.itemName}</span>
                         <input value={1} className='item_amount'></input>
                         <div className='updown'>
                             <button className='arrow'><IoIosArrowUp /></button>
@@ -69,7 +91,7 @@ function Item() {
                     <div className='last-price'>
                         <span>총합계</span>
                         <div>
-                            <strong>10500</strong>
+                            <strong>{datas.itemPrice}</strong>
                             <span>원</span>
                         </div>
                     </div>
@@ -113,12 +135,12 @@ function Item() {
             </div>
             <div className="detail_img">
                 <div className='detail_img_box'>
-                    <img src={detail} />
+                    <img src={datas.itemDetailImg} />
                 </div>
             </div>
 
             <div className='moreDetail'>
-                <img src={moreDetail} />
+                <img src={datas.itemDetailImg} />
             </div>
 
             <div id="2" className='item-tab'>
@@ -160,22 +182,25 @@ function Item() {
                     <thead className='review-thead'>
                         <tr>
                             <th>별점</th>
-                            <th >제목</th>
+                            <th>제목</th>
                             <th>작성자</th>
                             <th>작성일자</th>
                         </tr>
                     </thead>
+                    {reviewDatas && reviewDatas.map(review => (
                     <tbody>
-                        <tr>
-                            <td width='15%'>별점</td>
-                            <td width='45%' onClick={() => { setReviewModal(!reviwModal) }}>제목</td>
-                            <td width='20%'>작성자</td>
-                            <td width='20%'>작성일자</td>
+                        <tr onClick={() => { setReviewIdx(review.reviewIdx)}}>
+                            <td width='15%'>{review.itemRate}</td>
+                            <td width='45%' onClick={() => { setReviewModal(!reviwModal)}}>{review.reviewTitle}</td>
+                            <td width='20%'>{review.memId}</td>
+                            <td width='20%'>{review.reviewWriteDate}</td>
                         </tr>
-
+                        {reviwModal === true && reviewIdx===review.reviewIdx ? <Review value={review.reviewIdx} /> : null}                 
                     </tbody>
+                        ))}
+                            
+
                 </table>
-                {reviwModal === true ? <Review /> : null}
             </div>
             <div className='pagenation'>
                 <ul>
@@ -208,11 +233,11 @@ function Item() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td width='7%'>글번호</td>
+                            <td width='8%'>글번호</td>
                             <td width='53%' onClick={() => { setQnaModal(!qnaModal) }}>제목</td>
-                            <td width='10%'>작성자</td>
-                            <td width='10%'>작성일자</td>
-                            <td width='10%'>답변상태</td>
+                            <td width='13%'>작성자</td>
+                            <td width='13%'>작성일자</td>
+                            <td width='13%'>답변상태</td>
                         </tr>
                     </tbody>
                 </table>

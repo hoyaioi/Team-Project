@@ -24,7 +24,6 @@ function MyPageResearch({ handleIsNow }) {
         handleIsNow(e);
     }
 
-    
 
     return (
         <>
