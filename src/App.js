@@ -32,6 +32,7 @@ import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
 import ItemWrite from "./Component/ItemWrite";
+import Service from "./Component/Service";
 
 function App() {
   return (
@@ -41,7 +42,12 @@ function App() {
       <div id="wrapper">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/servicecenter" element={<ServiceCenter />} />
+          <Route path="/service/*" element={<Service />}>
+            <Route path="center" element={<ServiceCenter />} />
+            <Route path="serviceqna" element={<ServiceQna />} />
+            <Route path="notice" element={<Notice />} />
+          </Route>
+          {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
           <Route path="/mypage/*" element={<MyPage />}>
             <Route path="myorderlist" element={<MyOrderList />} />
             <Route path="myrefund" element={<MyRefund />} />
@@ -54,11 +60,9 @@ function App() {
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
           <Route path="/write" element={<ItemWrite />} />
-          <Route path="/notice" element={<Notice />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
-          <Route path="/serviceqna" element={<ServiceQna />} />
           <Route path="/itemlist" element={<ItemList />} />
           <Route path="/join" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -68,9 +72,7 @@ function App() {
           <Route path="/findid" element={<FindID />} />
           <Route path="/findpw" element={<FindPW />} />
           <Route path="/agreement" element={<Agreement />} />
-          <Route path="/surveyStart" element={<Survey />}>
-            {/* <Step1 /> */}
-          </Route>
+          <Route path="/surveyStart" element={<Survey />}></Route>
         </Routes>
       </div>
       <Footer />
