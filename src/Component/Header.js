@@ -49,7 +49,6 @@ const Header = () => {
       </div>
       <Nav />
     </>
-
   );
 };
 
