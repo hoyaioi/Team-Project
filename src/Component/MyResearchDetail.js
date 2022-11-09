@@ -12,7 +12,7 @@ import Result from '../survey/api/resultApi.json';
 
 function MyPageResearchDetail({ handleIsNow, match, history, location }) {
 
-
+//TLQKFKQflkasfkada
     const [data, setData] = useState([]);
     const [name, setName] = useState('');
     const [groupByOrgan, setGroupByOrgan] = useState([{}]);
