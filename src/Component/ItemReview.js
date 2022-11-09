@@ -23,7 +23,7 @@ function Review(props) {
         //     <tbody>
         // <>
 
-                <tr width='100%'  className="review-modal">
+                <tr colspan="4" className="review-modal">
                     <td >
                         <div className='review-modal-cont'>
                             {datas.reviewTitle}

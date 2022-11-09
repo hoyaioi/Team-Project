@@ -195,11 +195,7 @@ function Item({match}) {
                             <td width='20%'>{review.memId}</td>
                             <td width='20%'>{review.reviewWriteDate}</td>
                         </tr>
-
-                        {reviwModal === true && reviewIdx===review.reviewIdx ? <Review value={review.reviewIdx} /> : null}
-
-
-                        
+                        {reviwModal === true && reviewIdx===review.reviewIdx ? <Review value={review.reviewIdx} /> : null}                 
                     </tbody>
                         ))}
                             
@@ -237,11 +233,11 @@ function Item({match}) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td width='7%'>글번호</td>
+                            <td width='8%'>글번호</td>
                             <td width='53%' onClick={() => { setQnaModal(!qnaModal) }}>제목</td>
-                            <td width='10%'>작성자</td>
-                            <td width='10%'>작성일자</td>
-                            <td width='10%'>답변상태</td>
+                            <td width='13%'>작성자</td>
+                            <td width='13%'>작성일자</td>
+                            <td width='13%'>답변상태</td>
                         </tr>
                     </tbody>
                 </table>

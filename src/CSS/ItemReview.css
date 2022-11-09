@@ -9,10 +9,11 @@
     padding: 13px 10px 15px 18px;
     background-color:#f8f8f8;
     border-bottom: 1px solid #dbdbdb;
+    width: 100%;
 }
 
 .review-table tr , .review-modal-table tr {
-    display: table-row;
+    display: flex;
 }
 
 .review-modal-cont {
