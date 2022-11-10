@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
@@ -8,17 +8,26 @@ import "../CSS/login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate =useNavigate();
 
-  const changeEmail = (e) => setEmail(e.target.value);
-  const changePassword = (e) => setPassword(e.target.value);
-  const handlerSubmit = () => {
-    axios
-      .post("http://localhost:8080/login", {
-        memEmail: email,
-        memPassword: password,
+  const onChangeEmail = (e) => setEmail(e.target.value);
+  const onChangePassword = (e) => setPassword(e.target.value);
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+
+
+    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password})
+      .then(response => {
+        if (response.status === 200) {
+          navigate('/');
+          console.log(response.data)
+          alert(`${response.data.memName}님 환영합니다.`)
+        }
       })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .catch(error => {
+        alert ("아이디 혹은 비밀번호를 확인해주세요.");
+        console.log(error)
+    });
   };
   return (
     <>
@@ -37,7 +46,7 @@ function Login() {
                     type="email"
                     placeholder="아이디(이메일)"
                     value={email}
-                    onChange={changeEmail}
+                    onChange={onChangeEmail}
                   />
                 </Col>
               </Form.Group>
@@ -52,7 +61,7 @@ function Login() {
                     type="password"
                     placeholder="비밀번호"
                     value={password}
-                    onChange={changePassword}
+                    onChange={onChangePassword}
                   />
                 </Col>
               </Form.Group>
@@ -63,6 +72,7 @@ function Login() {
                   id="login_button"
                   type="submit"
                   onClick={handlerSubmit}
+                  value="로그인"
                 >
                   로그인
                 </Button>
