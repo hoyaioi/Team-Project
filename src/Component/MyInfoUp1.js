@@ -2,16 +2,17 @@ import axios from 'axios';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1({ memIdx, handleIsNow, history }) {
+function MyInfoUp1({ memIdx }) {
 
     const [data, setData] = useState({});
-    const [memPw1, setMemPw1] = useState('');
+    const [memPw, setMemPw] = useState('');
 
     const inputPw = useRef();
 
-    const handlerChangePw1 = (e) => setMemPw1(e.target.value);
+    const handlerChangePw = (e) => setMemPw(e.target.value);
 
     useEffect(() => {
         inputPw.current.focus();
@@ -27,19 +28,21 @@ function MyInfoUp1({ memIdx, handleIsNow, history }) {
     //         .catch(error => console.log(error));
     // }, []);
 
-    const handlerOnClick = (e) => {
+    const navigate = useNavigate();
 
-        axios.post(`http://localhost:8080/member/${memIdx}`, `memPw1=${memPw1}`)
+    const handlerOnClick = () => {
+
+        axios.post(`http://localhost:8080/member/${memIdx}`, `memPw=${memPw}`)
             .then(response => {
                 if(response.status === 200){
-                    handleIsNow(e);
+                    navigate('/mypage/modify');
                 }
             })
             .catch(error => {
                 console.log(error);
                 alert('비밀번호가 일치하지 않습니다.');
                 inputPw.current.focus();
-                setMemPw1('');
+                setMemPw('');
             })
                 
     }
@@ -56,7 +59,7 @@ function MyInfoUp1({ memIdx, handleIsNow, history }) {
                             정보 변경을 위해 현재 비밀번호를 입력해주세요.
                         </div>
                         <div className='myinfoup1_input_wrap'>
-                            <input type='password' ref={inputPw} value={memPw1} placeholder='비밀번호를 입력해주세요.' onChange={handlerChangePw1} autoComplete='off' />
+                            <input type='password' ref={inputPw} value={memPw} placeholder='비밀번호를 입력해주세요.' onChange={handlerChangePw} autoComplete='off' />
                         </div>
                         <div className='myinfoup1_input_wrap'>
                             <input type='button' id='MyInfoUp2' onClick={handlerOnClick} value='입력완료' />

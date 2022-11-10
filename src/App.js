@@ -10,7 +10,6 @@ import ServiceCenter from "./Component/ServiceCenter";
 import Notice from "./Component/Notice";
 import NoticeDetail from "./Component/NoticeDetail";
 import ScrollToTop from "./ScrollToTop";
-import MyPageCart from "./Component/MyPageCart";
 import MyCart from "./Component/MyCart";
 import ItemList from "./Component/ItemList";
 import ServiceQna from "./Component/ServiceQna";
@@ -31,6 +30,7 @@ import MyPageResearch from "./Component/MyResearch";
 import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
+import MyInfoDel2 from "./Component/MyInfoDel2";
 
 function App() {
   return (
@@ -47,16 +47,17 @@ function App() {
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 />} />
-            <Route path="modify" element={<MyInfoUp2 />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={3}/>} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={3}/>} />
 
-            <Route path="myinfodel" element={<MyInfoDel1 />} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
           <Route path="/notice" element={<Notice />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
-          <Route path="/cart" element={<MyCart />} />
+          {/* <Route path="/cart" element={<MyCart />} /> */}
           <Route path="/serviceqna" element={<ServiceQna />} />
           <Route path="/itemlist" element={<ItemList />} />
           <Route path="/join" element={<Register />} />

@@ -1,45 +1,8 @@
 import "../CSS/MyPage.css";
-import { useState } from "react";
-import MyOrderList from "./MyOrderList";
-import MyCart from "./MyCart";
-import MyRefund from "./MyRefund";
-import MyReview from "./MyReview";
-import MyInfoUp1 from "./MyInfoUp1";
-import MyInfoUp2 from "./MyInfoUp2";
-import MyInfoDel1 from "./MyInfoDel1";
-import MyResearch from "./MyResearch";
-import ReviewWrite from "./ReviewWrite";
-import MyPageResearchDetail from "./MyResearchDetail";
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function MyPage() {
-  const [isNow, setIsNow] = useState("MyOrderList");
-
-  // const handleOrderList = () => {
-  //     setIsNow("OrderList");
-  // }
-  // const handleCart = () => {
-  //     setIsNow("Cart");
-  // }
-  // const handleRefundList = () => {
-  //     setIsNow("RefundList");
-  // }
-  // const handleReview = () => {
-  //     setIsNow("Review");
-  // }
-  // const handleInfoUp1 = () => {
-  //     setIsNow("InfoUp1");
-  // }
-  // const handleUnregister = () => {
-  //     setIsNow("Unregister");
-  // }
-  // const handleResearch = () => {
-  //     setIsNow("Research");
-  // }
-
-  const handleIsNow = (e) => {
-    setIsNow(e.target.id);
-  };
-
   return (
     <>
       <div id="main">
@@ -53,39 +16,39 @@ function MyPage() {
               <div className="mypage_sidemenu">
                 <ul>
                   <li>
-                    <div id="MyOrderList" onClick={handleIsNow}>
-                      주문 현황
-                    </div>
+                    <Link to="myorderlist">
+                      <div>주문 현황</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyRefund" onClick={handleIsNow}>
-                      반품/환불
-                    </div>
+                    <Link to="myrefund">
+                      <div>반품/환불</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyCart" onClick={handleIsNow}>
-                      장바구니
-                    </div>
+                    <Link to="mycart">
+                      <div>장바구니</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyReview" onClick={handleIsNow}>
-                      나의 리뷰
-                    </div>
+                    <Link to="myreview">
+                      <div>나의 리뷰</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyResearch" onClick={handleIsNow}>
-                      나의 설문
-                    </div>
+                    <Link to="myresearch">
+                      <div>나의 설문</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyInfoUp1" onClick={handleIsNow}>
-                      회원정보 수정
-                    </div>
+                    <Link to="myinfo">
+                      <div>회원정보 수정</div>
+                    </Link>
                   </li>
                   <li>
-                    <div id="MyInfoDel1" onClick={handleIsNow}>
-                      회원탈퇴
-                    </div>
+                    <Link to="myinfodel">
+                      <div>회원탈퇴</div>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -93,16 +56,7 @@ function MyPage() {
           </div>
 
           <div className="my_component">
-            {isNow === "MyOrderList" &&<MyOrderList />}
-            {isNow === "MyCart" && <MyCart />}
-            {isNow === "MyRefund" && <MyRefund />}
-            {isNow === "MyReview" && <MyReview handleIsNow={handleIsNow}/>}
-            {isNow === "MyInfoUp1" && <MyInfoUp1 handleIsNow={handleIsNow} memIdx={2} />}
-            {isNow === "MyInfoUp2" && <MyInfoUp2 memIdx={2}/>}
-            {isNow === "MyPageResearchDetail" && <MyPageResearchDetail />}
-            {isNow === "MyInfoDel1" && <MyInfoDel1 />}
-            {isNow === "MyResearch" && <MyResearch  handleIsNow={handleIsNow} />}
-            {isNow === "ReviewWrite" && <ReviewWrite />}
+            <Outlet />
           </div>
         </div>
       </div>
