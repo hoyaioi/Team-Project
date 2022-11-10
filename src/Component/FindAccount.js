@@ -1,4 +1,4 @@
-import "../CSS/findAccount.css";
+import "../CSS/FindAccount.css";
 import { Link } from "react-router-dom";
 
 function FindAccount() {
