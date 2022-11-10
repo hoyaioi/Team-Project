@@ -19,7 +19,7 @@ function MyPageResearchDetail({ resultIdx, handleIsNow, match, history, location
     const [groupByOrgan, setGroupByOrgan] = useState([]);
 
     useEffect(() => {
-        resultIdx = 1;
+        resultIdx = 3;
         axios.get(`http://localhost:8080/api/result/${resultIdx}`)
             .then(response => {
                 console.log(response);
@@ -41,6 +41,7 @@ function MyPageResearchDetail({ resultIdx, handleIsNow, match, history, location
         setGroupByOrgan(list);
     }, [organList]);
 
+
     let result = [];
     for (let i = 0; i < groupByOrgan.length; i++) {
         for (let j = 0; j < Result.length; j++) {
@@ -51,8 +52,6 @@ function MyPageResearchDetail({ resultIdx, handleIsNow, match, history, location
             }
         }
     }
-
-
     useEffect(() => {
         const showResultList = result;
         setShowResultList(showResultList);

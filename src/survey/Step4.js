@@ -65,32 +65,54 @@ const Step4 = () => {
     setShowResult(showResultList[0]);
   }, []);
 
-  //배열의 키
 
 
-  // const database = showResultList.map(([key, value]) => {
-  //   "resultUser": name,
-  //   "resultLiver": (showResultList.research_organ === "간"),
-  //   "resultEyes": (showResultList.research_organ === "눈"),
-  //   "resultDiges": value(showResultList.research_organ === "장"),
-  //   "resultVitamin": value(showResultList.research_organ === "몸"),
-  //   "resultBlood": value(showResultList.research_organ === "혈관")
-  // }
 
-  // console.log(database);
-  const handlerClickSubmit = (e) => {
+
+  const getValue = (keyName) => {
+    const dd = resultOfSurvey.filter(d => d.research_organ === keyName);
+    if (dd && dd[0])
+      return dd[0].value;
+    else
+      return 0;
+  }
+
+  let nameStr = "";
+  for (let i = 0; i < name[0].length; i++) {
+    nameStr += name[0][i];
+  }
+
+
+  const handlerOnClick = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/result")
-      .then(res => {
-        if (res.status === 200) {
-          alert("정상적으로 등록되었습니다.");
-        } else {
-          alert("등록에 실패했습니다.");
-          return;
-        }
-      })
-      .catch(error => console.log(error));
-  };
+    axios.post("http://localhost:8080/api/result", {
+      "resultUser": nameStr,
+      "memEmail": "tnals5508@naver.com",
+      "resultLiver": getValue("간"),
+      "resultEyes": getValue("눈"),
+      "resultVitamin": getValue("몸"),
+      "resultBlood": getValue("혈관"),
+      "resultDiges": getValue("장"),
+      "resultSave": "N"
+
+
+    }).then((response) => {
+      if (response.status === 200) {
+        alert("설문결과가 저장되었습니다.");
+
+      } else {
+        alert("등록에 실패했습니다.");
+        return;
+      }
+    }
+    )
+  }
+
+
+
+
+
+
 
   return (
     <>
@@ -130,7 +152,7 @@ const Step4 = () => {
             </Swiper>
           </div>
           <div className="prev">처음 화면으로</div>
-          <div className="next" onClick={handlerClickSubmit}>저장</div>
+          <div className="next" onClick={handlerOnClick}>저장</div>
         </div>
       </div>
     </>

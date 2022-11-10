@@ -21,6 +21,21 @@ function MyPageResearch({ handleIsNow }) {
         handleIsNow(e);
     }
 
+    const handlerClickDelete = () => {
+        axios.delete('http://localhost:8080/api/result/${resultIdx}')
+        // https://axios-http.com/kr/docs/res_schema
+        .then(response => { 
+            console.log(response);
+            if (response.status === 200) {
+                alert("정상적으로 삭제되었습니다.");
+                window.location.reload();
+            } else {
+                alert("삭제에 실패했습니다.");
+                return;
+            }
+        })
+        .catch(error => console.log(error));
+    };
 
     return (
         <>
