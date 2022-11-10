@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-import dummy from "../dummy.json";
 
 const Items = () => {
 
@@ -23,7 +22,7 @@ const Items = () => {
         <Link to={`/item/${item.itemIdx}`}state={{ item: datas}}>
           <div key={item.itemIdx} className="main_items">
             <div className="main_items_img_wrap">
-              <img src={item.itemThumb} />
+              <img src={item.itemThumb} alt="상품썸네일"/>
             </div>
             <div className="main_items_name">{item.itemName}</div>
             <div className="main_items_price">{item.itemPrice}</div>

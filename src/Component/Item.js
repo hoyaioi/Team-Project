@@ -1,15 +1,5 @@
 import '../CSS/Item.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
-import thumb from '../Img/1.jpg';
-import detail from '../Img/2.JPG';
-import moreDetail from '../Img/3.jpg';
-import s1 from '../Img/s1.jpg';
-import s2 from '../Img/s2.jpg';
-import s3 from '../Img/s3.jpg';
-import s4 from '../Img/s4.jpg';
-import s6 from '../Img/s6.jpg';
-import s7 from '../Img/s7.jpg';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
@@ -62,7 +52,7 @@ function Item() {
             setData(response.data);
         })
         .catch(error => { console.log(error); });
-    }, itemIdx);
+    }, [itemIdx]);
 
     useEffect(() => {
         axios.get('http://localhost:8080/review')
@@ -89,7 +79,7 @@ function Item() {
         <div className='item-content'>
             <div className='item_detail'>
                 <div className="itemImg">
-                    <img className='thumb' src={datas.itemThumb} />
+                    <img className='thumb' src={datas.itemThumb} alt="상품썸네일" />
                 </div>
                 <div className="info">
                     <div className='item_title'>
@@ -145,7 +135,7 @@ function Item() {
                 >
 
             {items.slice(0,10).map(item => (
-                     <SwiperSlide><Link to={`/item/${item.itemIdx}`} state={{ item: items}}><div><img src={item.itemThumb} /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
+                     <SwiperSlide><Link to={`/item/${item.itemIdx}`} state={{ item: items}}><div><img src={item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
             ))}
                      {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
@@ -164,12 +154,12 @@ function Item() {
             </div>
             <div className="detail_img">
                 <div className='detail_img_box'>
-                    <img src={datas.itemDetailImg} />
+                    <img src={datas.itemDetailImg} alt="상품상세" />
                 </div>
             </div>
 
             <div className='moreDetail'>
-                <img src={datas.itemDetailImg} />
+                <img src={datas.itemDetailImg} alt="상품설명상세"/>
             </div>
 
             <div id="2" className='item-tab'>
