@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useRef } from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp2.css';
 
 function MyInfoUp2({ memIdx }) {
@@ -27,6 +28,8 @@ function MyInfoUp2({ memIdx }) {
 
     const inputPw = useRef();
     const inputPhone = useRef();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`http://localhost:8080/member/${memIdx}`)
@@ -75,7 +78,7 @@ function MyInfoUp2({ memIdx }) {
             .then(response => {
                 if (response.status === 200) {
                     alert("회원정보가 변경되었습니다.");
-                    
+                    navigate('/');
                 } else {
                     alert("회원정보 수정이 실패하였습니다.");
                     return;
@@ -85,9 +88,10 @@ function MyInfoUp2({ memIdx }) {
         };
     };
 
-    // const handlerClickCancel = () => {
-    //     if(window.confirm('정보 변경을 취소하시겠습니까?'))
-    // }
+    const handlerClickCancel = () => {
+        if(window.confirm('정보 변경을 취소하시겠습니까?'))
+        navigate('/');
+    }
 
 
     return (

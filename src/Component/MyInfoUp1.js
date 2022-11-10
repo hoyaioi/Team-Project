@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1({ memIdx, handleIsNow }) {
+function MyInfoUp1({ memIdx, handleIsNow, history }) {
 
     const [data, setData] = useState({});
     const [memPw1, setMemPw1] = useState('');
@@ -28,22 +28,20 @@ function MyInfoUp1({ memIdx, handleIsNow }) {
     // }, []);
 
     const handlerOnClick = (e) => {
-        axios.get(`http://localhost:8080/member/${memIdx}`)
-                .then(response => {
-                    setData(response.data);
-                    console.log(response);
-                })
-                .catch(error => console.log(error));
-                
-        if (memPw1 !== data.memPw1) {
-            alert('비밀번호가 일치하지 않습니다.');
-            setMemPw1('');
-            inputPw.current.focus();
-        } else {
-            handleIsNow(e);
-            console.log(data);
-        }
 
+        axios.post(`http://localhost:8080/member/${memIdx}`, `memPw1=${memPw1}`)
+            .then(response => {
+                if(response.status === 200){
+                    handleIsNow(e);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert('비밀번호가 일치하지 않습니다.');
+                inputPw.current.focus();
+                setMemPw1('');
+            })
+                
     }
 
     return (
