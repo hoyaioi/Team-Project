@@ -9,7 +9,7 @@ import {
 import { Form } from "react-router-dom";
 import "../CSS/Find.css";
 
-function FindId() {
+function FindID() {
   return (
     <>
       <div className="find_wrapper">
@@ -42,4 +42,4 @@ function FindId() {
   );
 }
 
-export default FindId;
+export default FindID;

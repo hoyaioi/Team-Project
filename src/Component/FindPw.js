@@ -7,7 +7,7 @@ import {
 } from "react-bootstrap";
 import "../CSS/Find.css";
 
-function FindPw() {
+function FindPW() {
   return (
     <>
       <div className="find_wrapper_pw">
@@ -47,4 +47,4 @@ function FindPw() {
   );
 }
 
-export default FindPw;
+export default FindPW;

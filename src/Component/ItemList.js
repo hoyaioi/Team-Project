@@ -22,7 +22,7 @@ function ItemList() {
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
-            <div className="itelist_title">
+            <div className="itemlist_title">
               <h2>전체보기</h2>
             </div>
             <div className="itemlist_box">

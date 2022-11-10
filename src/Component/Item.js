@@ -16,7 +16,7 @@ import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 
 
 // Import Swiper styles
@@ -38,14 +38,19 @@ function Item() {
     const [ qnaDatas, setQnaDatas ] = useState([]);
     const [ reviewIdx, setReviewIdx] = useState();
     const [ qnaIdx, setQnaIdx] = useState();
+    const [ amount, setAmount] = useState(1);
     // const [ reviewDetail, setReviewDetail] = useState({});
-
-   
-	
 
     const location = useLocation();
     const items = location.state.item;
-    console.log(items);
+
+    function plusClick () {
+       setAmount(amount+1);
+    }
+    function minusClick() {
+        amount === 1 ? setAmount(1) : setAmount(amount-1);
+    }
+    
     
     const moveToFocus = useRef([]);
     useEffect(() => {
@@ -101,22 +106,22 @@ function Item() {
                     </div>
                     <div className='total-price'>
                         <span>{datas.itemName}</span>
-                        <input value={1} className='item_amount'></input>
+                        <input value={amount} onChange className='item_amount'></input>
                         <div className='updown'>
-                            <button className='arrow'><IoIosArrowUp /></button>
-                            <button className='arrow'><IoIosArrowDown /></button>
+                            <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
+                            <button onClick={minusClick}className='arrow'><IoIosArrowDown /></button>
                         </div>
                     </div>
                     <div className='last-price'>
                         <span>총합계</span>
                         <div>
-                            <strong>{datas.itemPrice}</strong>
+                            <strong>{datas.itemPrice * amount}</strong>
                             <span>원</span>
                         </div>
                     </div>
                     <div className='buy-section'>
-                        <button className='cart-btn'>장바구니</button>
-                        <button className='buy-btn'>구매하기</button>
+                        <Link to="/mypage/mycart"><button className='cart-btn'>장바구니</button></Link>
+                        <Link to="/order" state={{ item: datas, amount: amount}}><button className='buy-btn'>구매하기</button></Link>
                     </div>
                 </div>
             </div>

@@ -33,6 +33,7 @@ import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
 import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
+import Order from "./Component/Order";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
             <Route path="myinfodel" element={<MyInfoDel1 />} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />

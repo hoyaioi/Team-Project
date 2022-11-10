@@ -8,6 +8,7 @@ function Qna(props) {
     const qnaIdx = props.value;
     const [ datas, setData ] = useState({});
     const [ answer, setAnswer ] = useState({});
+    const [ success, setSuccess ] = useState(true);
     useEffect(() => {
         axios.get(`http://localhost:8080/qna/${qnaIdx}`)
         .then(response => { 
@@ -22,6 +23,7 @@ function Qna(props) {
         .then(response => { 
             console.log(response); 
             setAnswer(response.data);
+            setSuccess(false);
         })
         .catch(error => { console.log(error); });
     }, []);
@@ -40,7 +42,7 @@ function Qna(props) {
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{answer.qnaCommentContent === !null ? answer.qnaCommentContent : "답변없음"}</sapn>
+                                <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
                             </div>
                             <div className='comment-date'>
                                 <sapn>{answer.qnaCommentWriteDate}</sapn>
