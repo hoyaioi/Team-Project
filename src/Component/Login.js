@@ -8,7 +8,7 @@ import "../CSS/login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   const onChangeEmail = (e) => setEmail(e.target.value);
   const onChangePassword = (e) => setPassword(e.target.value);
@@ -16,18 +16,22 @@ function Login() {
     e.preventDefault();
 
 
-    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password})
+    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password })
       .then(response => {
         if (response.status === 200) {
           navigate('/');
           console.log(response.data)
           alert(`${response.data.memName}님 환영합니다.`)
+          sessionStorage.setItem("memName", response.data.memName);
+          sessionStorage.setItem("memEmail", response.data.memEmail);
+          sessionStorage.setItem("memIdx", response.data.memIdx);
+          console.log(sessionStorage.getItem("memIdx"));
         }
       })
       .catch(error => {
-        alert ("아이디 혹은 비밀번호를 확인해주세요.");
+        alert("아이디 혹은 비밀번호를 확인해주세요.");
         console.log(error)
-    });
+      });
   };
   return (
     <>
