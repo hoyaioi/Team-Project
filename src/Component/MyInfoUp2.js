@@ -32,7 +32,7 @@ function MyInfoUp2({ memIdx }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/member/${memIdx}`)
+        axios.get(`http://localhost:8080/member/myinfo/${memIdx}`)
             .then(response => {
                 setData(response.data);
                 setMemName(response.data.memName);
@@ -63,7 +63,7 @@ function MyInfoUp2({ memIdx }) {
             setMemPhone('');
             inputPhone.current.focus();
         } else {
-        axios.put(`http://localhost:8080/member/${memIdx}`,
+        axios.put(`http://localhost:8080/member/updateinfo/${memIdx}`,
             {   
                 'memIdx': memIdx,
                 'memName': memName,
@@ -77,8 +77,8 @@ function MyInfoUp2({ memIdx }) {
             })
             .then(response => {
                 if (response.status === 200) {
-                    alert("회원정보가 변경되었습니다.");
-                    navigate('/');
+                    alert("변경이 완료되었습니다.");
+                    navigate('/mypage/myorderlist');
                 } else {
                     alert("회원정보 수정이 실패하였습니다.");
                     return;
@@ -90,8 +90,8 @@ function MyInfoUp2({ memIdx }) {
 
     const handlerClickCancel = () => {
         if(window.confirm('정보 변경을 취소하시겠습니까?')){
-            alert('메인 화면으로 이동합니다.');
-            navigate('/');
+            alert('마이페이지로 이동합니다.');
+            navigate('/mypage/myorderlist');
         }
         
     }

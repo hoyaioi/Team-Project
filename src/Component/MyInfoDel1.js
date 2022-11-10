@@ -1,11 +1,36 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoDel1.css';
 
-function MyInfoDel1() {
+function MyInfoDel1({ memIdx }) {
 
-    const onDeleteMember = () => {
-        if(window.confirm('정말 탈퇴하시겠습니까?'))
-            alert('탈퇴가 완료되었습니다.');
+    const [memPw, setMemPw] = useState('');
+
+    const handlerChangePw = (e) => setMemPw(e.target.value);
+
+    const inputPw = useRef();
+    const navigate = useNavigate();
+    useEffect(() => {
+        inputPw.current.focus();
+    })
+
+    const handlerOnClick = () => {
+        axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
+            .then(response => {
+                if(response.status === 200){
+                    navigate('/mypage/unregister');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert('비밀번호가 일치하지 않습니다.');
+                inputPw.current.focus();
+                setMemPw('');
+            })
     }
+
 
     return (
         <>
@@ -16,13 +41,13 @@ function MyInfoDel1() {
                     </div>
                     <div className='myinfodel1_pwcheck_wrap'>
                         <div className='myinfodel1_pwcheck_text'>
-                            비밀번호를 입력해주세요.
+                           회원탈퇴를 위해 현재 비밀번호를 입력해주세요.
                         </div>
                         <div className='myinfodel1_input_wrap'>
-                            <input type='password' placeholder='password' autoComplete='off' />
+                            <input type='password' ref={inputPw} onChange={handlerChangePw} value={memPw} placeholder='비밀번호를 입력해주세요.' autoComplete='off' />
                         </div>
                         <div className='myinfodel1_input_wrap'>
-                            <input type='button' onClick={onDeleteMember} value='입력완료' />
+                            <input type='button' onClick={handlerOnClick} value='입력완료' />
                         </div>
                     </div>
                 </div>
