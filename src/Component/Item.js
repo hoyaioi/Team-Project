@@ -44,6 +44,8 @@ function Item() {
     const location = useLocation();
     const items = location.state.item;
 
+    console.log(items);
+
     function plusClick () {
        setAmount(amount+1);
     }
@@ -56,11 +58,11 @@ function Item() {
     useEffect(() => {
         axios.get(`http://localhost:8080/item/${itemIdx}`)
         .then(response => { 
-            console.log(response); 
+            console.log(response);
             setData(response.data);
         })
         .catch(error => { console.log(error); });
-    }, []);
+    }, itemIdx);
 
     useEffect(() => {
         axios.get('http://localhost:8080/review')
@@ -143,7 +145,7 @@ function Item() {
                 >
 
             {items.slice(0,10).map(item => (
-                     <SwiperSlide><div><img src={item.itemThumb} /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></SwiperSlide>
+                     <SwiperSlide><Link to={`/item/${item.itemIdx}`} state={{ item: items}}><div><img src={item.itemThumb} /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
             ))}
                      {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>

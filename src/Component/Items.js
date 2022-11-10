@@ -9,7 +9,7 @@ const Items = () => {
   const [datas, setDatas] = useState([]);
 
   useEffect(()=> {
-    axios.get('http://localhost:8080/itemtop')
+    axios.get('http://localhost:8080/item')
     .then(response => {
         console.log(response)
         setDatas(response.data);
@@ -20,7 +20,7 @@ const Items = () => {
   return (
     <div className="main_items_sales">
       {datas && datas.map(item => (
-        <Link to={`/item/${item.itemIdx}`}>
+        <Link to={`/item/${item.itemIdx}`}state={{ item: datas}}>
           <div key={item.itemIdx} className="main_items">
             <div className="main_items_img_wrap">
               <img src={item.itemThumb} />
