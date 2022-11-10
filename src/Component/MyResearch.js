@@ -1,7 +1,5 @@
 import '../CSS/MyPageResearch.css';
-import { Link } from 'react-router-dom';
 import researchbanner from '../Img/research_banner.jpg';
-import { alignPropType } from 'react-bootstrap/esm/types';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -13,7 +11,6 @@ function MyPageResearch({ handleIsNow }) {
     useEffect(() => {
         axios.get('http://localhost:8080/api/result')
             .then(response => {
-                console.log(response);
                 setDatas(response.data);
             })
             .catch(error => console.log(error));
@@ -48,7 +45,7 @@ function MyPageResearch({ handleIsNow }) {
                                     datas && datas.map(result => (
                                         <tr key={result.resultIdx}>
                                             <td><input type='checkbox'></input></td>
-                                            <td id='MyPageResearchDetail' onClick={handlerOnClick}> <Link to={`/result/${result.resultIdx}`}>{result.resultUser}</Link></td>
+                                            <td id='MyPageResearchDetail' onClick={handlerOnClick}>{result.resultUser}</td>
                                             <td>{result.resultDate}</td>
                                         </tr>
                                     ))
