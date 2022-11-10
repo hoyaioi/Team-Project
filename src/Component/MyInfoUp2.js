@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useRef } from 'react';
 import { useEffect, useState } from 'react';
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp2.css';
 
 function MyInfoUp2({ memIdx }) {
 
-    const [data, setData] = useState({ });
+    const [data, setData] = useState({});
     // const [memIdx, setMemIdx] = useState('');
     const [memName, setMemName] = useState('');
     const [memPhone, setMemPhone] = useState('');
@@ -28,8 +29,35 @@ function MyInfoUp2({ memIdx }) {
 
     const inputPw = useRef();
     const inputPhone = useRef();
-
+    
     const navigate = useNavigate();
+
+    //주소
+    const open = useDaumPostcodePopup(
+        "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+      );
+    const handleOpenSearchAddress = () => {
+        open({ onComplete: handleComplete });
+    };
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let postCode = data.zonecode;
+        let extraAddress = "";
+
+        if (data.addressType === "R") {
+            if (data.bname !== "") {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== "") {
+                extraAddress +=
+                    extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+        }
+        setMemAddr1(fullAddress);
+        setMemPostNum(postCode);
+    };
 
     useEffect(() => {
         axios.get(`http://localhost:8080/member/myinfo/${memIdx}`)
@@ -45,55 +73,55 @@ function MyInfoUp2({ memIdx }) {
             })
             .catch(error => console.log(error));
     }, []);
-    
+
     const handlerClickUpdate = () => {
 
-        if(memPw !== memPw2){
+        if (memPw !== memPw2) {
             alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
             setMemPw('');
             setMemPw2('');
             inputPw.current.focus();
-        } else if(memPw == '' || memPw2 == '') {
+        } else if (memPw == '' || memPw2 == '') {
             alert('변경하실 비밀번호를 입력해주세요.');
             setMemPw('');
             setMemPw2('');
             inputPw.current.focus();
-        } else if(memPhone.length < 10){
+        } else if (memPhone.length < 10) {
             alert('휴대폰번호를 올바르게 입력해주세요.');
             setMemPhone('');
             inputPhone.current.focus();
         } else {
-        axios.put(`http://localhost:8080/member/updateinfo/${memIdx}`,
-            {   
-                'memIdx': memIdx,
-                'memName': memName,
-                'memPhone': memPhone,
-                'memPostNum': memPostNum,
-                'memAddr1': memAddr1,
-                'memAddr2': memAddr2,
-                'memEmail': memEmail,
-                'memPw': memPw,
-                'memPw2': memPw2
-            })
-            .then(response => {
-                if (response.status === 200) {
-                    alert("변경이 완료되었습니다.");
-                    navigate('/mypage/myorderlist');
-                } else {
-                    alert("회원정보 수정이 실패하였습니다.");
-                    return;
-                }
-            })
-            .catch(error => console.log(error));
+            axios.put(`http://localhost:8080/member/updateinfo/${memIdx}`,
+                {
+                    'memIdx': memIdx,
+                    'memName': memName,
+                    'memPhone': memPhone,
+                    'memPostNum': memPostNum,
+                    'memAddr1': memAddr1,
+                    'memAddr2': memAddr2,
+                    'memEmail': memEmail,
+                    'memPw': memPw,
+                    'memPw2': memPw2
+                })
+                .then(response => {
+                    if (response.status === 200) {
+                        alert("변경이 완료되었습니다.");
+                        navigate('/mypage/myorderlist');
+                    } else {
+                        alert("회원정보 수정이 실패하였습니다.");
+                        return;
+                    }
+                })
+                .catch(error => console.log(error));
         };
     };
 
     const handlerClickCancel = () => {
-        if(window.confirm('정보 변경을 취소하시겠습니까?')){
+        if (window.confirm('정보 변경을 취소하시겠습니까?')) {
             alert('마이페이지로 이동합니다.');
             navigate('/mypage/myorderlist');
         }
-        
+
     }
 
 
@@ -123,13 +151,13 @@ function MyInfoUp2({ memIdx }) {
                                     <div className='myinfoup2_text'>주소</div>
                                     <div className='myinfoup2_input_wrap'>
                                         <input type='text' className='myinfoup2_post' value={memPostNum} onChange={handlerChangePostNum} readOnly placeholder='우편번호' />
-                                        <input type='button' className='myinfoup2_search' value='검색' />
+                                        <input type='button' className='myinfoup2_search' onClick={handleOpenSearchAddress} value='검색' />
                                     </div>
                                     <div className='myinfoup2_input_wrap'>
                                         <input type='text' className='myinfoup2_readonly' value={memAddr1} onChange={handlerChangeAddr1} readOnly />
                                     </div>
                                     <div className='myinfoup2_input_wrap'>
-                                        <input type='text' placeholder="상세 주소를 입력해주세요." value={memAddr2} onChange={handlerChangeAddr2} />
+                                        <input type='text' placeholder="상세 주소를 입력해주세요." spellCheck={false} value={memAddr2} onChange={handlerChangeAddr2} />
                                     </div>
                                 </div>
                             </div>
