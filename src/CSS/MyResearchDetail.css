@@ -169,3 +169,10 @@
 .SurveyDate{
     color:black;
 }
+
+.reseachBack a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    text-decoration-color: black;
+}

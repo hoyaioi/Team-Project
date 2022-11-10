@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import Result from '../survey/api/resultApi.json';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 
 function MyPageResearchDetail({  }) {
@@ -100,7 +100,7 @@ function MyPageResearchDetail({  }) {
                                         ))}
                                     </Swiper>
                                 </div>
-                                <div className='reseachBack' id="MyResearch">목록으로</div>
+                                <div className='reseachBack' id="MyResearch"><Link to="/mypage/myresearch">목록으로</Link></div>
                             </div>
                         </div>
                     </div>
