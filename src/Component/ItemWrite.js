@@ -2,8 +2,17 @@ import React from "react";
 import "../CSS/ItemWrite.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
 
 const ItemWrite = () => {
+  const organsList = ["선택", "간", "눈", "몸", "혈관", "장"];
+  const [organSelect, setOrganSelect] = useState("선택");
+
+  const selectHandler = (e) => {
+    setOrganSelect(e.target.value);
+  };
+  console.log(organSelect);
+
   return (
     <div id="main">
       <div className="write_item_wrap ">
@@ -20,12 +29,12 @@ const ItemWrite = () => {
                       <th>분류</th>
                       <td>
                         <div className="serviceqna_select">
-                          <select>
-                            <option value="간">간</option>
-                            <option value="눈">눈</option>
-                            <option value="몸">몸</option>
-                            <option value="혈관">혈관</option>
-                            <option value="장">장</option>
+                          <select onChange={selectHandler} value={organSelect}>
+                            {organsList.map((organ) => (
+                              <option value={organ} key={organ}>
+                                {organ}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </td>
@@ -49,7 +58,7 @@ const ItemWrite = () => {
                       <td>
                         <CKEditor
                           editor={ClassicEditor}
-                          data=""
+                          data="<p>안녕하세요</p>"
                           onReady={(editor) => {
                             // You can store the "editor" and use when it is needed.
                             console.log("Editor is ready to use!", editor);
