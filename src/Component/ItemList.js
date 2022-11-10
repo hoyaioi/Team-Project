@@ -2,22 +2,20 @@ import { Link } from "react-router-dom";
 import "../CSS/ItemList.css";
 import DummyItem from "../DummyItem.json";
 import axios from "axios";
-import { useEffect,useState } from "react";
-
+import { useEffect, useState } from "react";
 
 function ItemList() {
-
   const [datas, setDatas] = useState([]);
 
-  useEffect(()=> {
-    axios.get('http://localhost:8080/item')
-    .then(response => {
-        console.log(response)
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/item")
+      .then((response) => {
+        console.log(response);
         setDatas(response.data);
-    })
-    .catch(error => console.log(error));
-}, []);
-
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <>
@@ -77,18 +75,18 @@ function ItemList() {
                           <div className="itemlist_items_img">
                             <img src={item.itemThumb} />
                           </div>
-                        </div>
-                        <div className="itemlist_info">
-                          <div className="itemlist_info_title">
-                            <strong>{item.itemName}</strong>
+                          <div className="itemlist_info">
+                            <div className="itemlist_info_title">
+                              <strong>{item.itemName}</strong>
+                            </div>
+                            <div className="itemlist_info_money">
+                              <strong>{item.itemPrice}</strong>
+                            </div>
                           </div>
-                          <div className="itemlist_info_money">
-                            <strong>{item.itemPrice}</strong>
                           </div>
-                        </div>
-                      </li>
-                    </Link>
-                  ))}
+                        </li>
+                      </Link>
+                    ))}
                 </ul>
               </div>
             </div>
