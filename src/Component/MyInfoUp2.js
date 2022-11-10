@@ -11,19 +11,19 @@ function MyInfoUp2({ memIdx }) {
     const [memName, setMemName] = useState('');
     const [memPhone, setMemPhone] = useState('');
     const [memPostNum, setMemPostNum] = useState('');
-    const [memAdr1, setMemAdr1] = useState('');
-    const [memAdr2, setMemAdr2] = useState('');
+    const [memAddr1, setMemAddr1] = useState('');
+    const [memAddr2, setMemAddr2] = useState('');
     const [memEmail, setMemEmail] = useState('');
-    const [memPw1, setMemPw1] = useState('');
+    const [memPw, setMemPw] = useState('');
     const [memPw2, setMemPw2] = useState('');
 
     const handlerChangeName = (e) => setMemName(e.target.value);
     const handlerChangePhone = (e) => setMemPhone(e.target.value.replace(/[^0-9]/g, "")); //숫자만 입력받기 replace를 이용한 필터링
     const handlerChangePostNum = (e) => setMemPostNum(e.target.value);
-    const handlerChangeAdr1 = (e) => setMemAdr1(e.target.value);
-    const handlerChangeAdr2 = (e) => setMemAdr2(e.target.value);
+    const handlerChangeAddr1 = (e) => setMemAddr1(e.target.value);
+    const handlerChangeAddr2 = (e) => setMemAddr2(e.target.value);
     const handlerChangeEmail = (e) => setMemEmail(e.target.value);
-    const handlerChangePw1 = (e) => setMemPw1(e.target.value);
+    const handlerChangePw = (e) => setMemPw(e.target.value);
     const handlerChangePw2 = (e) => setMemPw2(e.target.value);
 
     const inputPw = useRef();
@@ -38,8 +38,8 @@ function MyInfoUp2({ memIdx }) {
                 setMemName(response.data.memName);
                 setMemPhone(response.data.memPhone);
                 setMemPostNum(response.data.memPostNum);
-                setMemAdr1(response.data.memAdr1);
-                setMemAdr2(response.data.memAdr2);
+                setMemAddr1(response.data.memAddr1);
+                setMemAddr2(response.data.memAddr2);
                 setMemEmail(response.data.memEmail);
                 inputPw.current.focus();
             })
@@ -48,14 +48,14 @@ function MyInfoUp2({ memIdx }) {
     
     const handlerClickUpdate = () => {
 
-        if(memPw1 !== memPw2){
+        if(memPw !== memPw2){
             alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
-            setMemPw1('');
+            setMemPw('');
             setMemPw2('');
             inputPw.current.focus();
-        } else if(memPw1 == '' || memPw2 == '') {
+        } else if(memPw == '' || memPw2 == '') {
             alert('변경하실 비밀번호를 입력해주세요.');
-            setMemPw1('');
+            setMemPw('');
             setMemPw2('');
             inputPw.current.focus();
         } else if(memPhone.length < 10){
@@ -69,10 +69,10 @@ function MyInfoUp2({ memIdx }) {
                 'memName': memName,
                 'memPhone': memPhone,
                 'memPostNum': memPostNum,
-                'memAdr1': memAdr1,
-                'memAdr2': memAdr2,
+                'memAddr1': memAddr1,
+                'memAddr2': memAddr2,
                 'memEmail': memEmail,
-                'memPw1': memPw1,
+                'memPw': memPw,
                 'memPw2': memPw2
             })
             .then(response => {
@@ -89,8 +89,11 @@ function MyInfoUp2({ memIdx }) {
     };
 
     const handlerClickCancel = () => {
-        if(window.confirm('정보 변경을 취소하시겠습니까?'))
-        navigate('/');
+        if(window.confirm('정보 변경을 취소하시겠습니까?')){
+            alert('메인 화면으로 이동합니다.');
+            navigate('/');
+        }
+        
     }
 
 
@@ -123,10 +126,10 @@ function MyInfoUp2({ memIdx }) {
                                         <input type='button' className='myinfoup2_search' value='검색' />
                                     </div>
                                     <div className='myinfoup2_input_wrap'>
-                                        <input type='text' className='myinfoup2_readonly' value={memAdr1} onChange={handlerChangeAdr1} readOnly />
+                                        <input type='text' className='myinfoup2_readonly' value={memAddr1} onChange={handlerChangeAddr1} readOnly />
                                     </div>
                                     <div className='myinfoup2_input_wrap'>
-                                        <input type='text' placeholder="상세 주소를 입력해주세요." value={memAdr2} onChange={handlerChangeAdr2} />
+                                        <input type='text' placeholder="상세 주소를 입력해주세요." value={memAddr2} onChange={handlerChangeAddr2} />
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +143,7 @@ function MyInfoUp2({ memIdx }) {
                                 <div className='myinfoup2_pw_wrap'>
                                     <div className='myinfoup2_text'>비밀번호</div>
                                     <div className='myinfoup2_input_wrap'>
-                                        <input type='password' placeholder="비밀번호를 입력해주세요." ref={inputPw} value={memPw1} onChange={handlerChangePw1} />
+                                        <input type='password' placeholder="비밀번호를 입력해주세요." ref={inputPw} value={memPw} onChange={handlerChangePw} />
                                     </div>
                                 </div>
                                 <div className='myinfoup2_pw_wrap'>
