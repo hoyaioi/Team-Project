@@ -22,8 +22,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindId from "./Component/FindId";
-import FindPw from "./Component/FindPw";
+import FindID from "./Component/FindID";
+import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -64,8 +64,8 @@ function App() {
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
           <Route path="/findAccount" element={<FindAccount />} />
-          <Route path="/findid" element={<FindId />} />
-          <Route path="/findpw" element={<FindPw />} />
+          <Route path="/findid" element={<FindID />} />
+          <Route path="/findpw" element={<FindPW />} />
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}>
             {/* <Step1 /> */}
