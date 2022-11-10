@@ -9,56 +9,53 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import Result from '../survey/api/resultApi.json';
+import { useParams } from 'react-router-dom'
 
-function MyPageResearchDetail({ resultIdx, handleIsNow, match, history, location }) {
 
+function MyPageResearchDetail({  }) {
+
+    const {resultIdx} = useParams();
     const [data, setData] = useState([]);
     const [name, setName] = useState('');
-    const [organList, setOrganList] = useState([]);
     const [showResultList, setShowResultList] = useState([]);
-    const [groupByOrgan, setGroupByOrgan] = useState([]);
-
+    
     useEffect(() => {
-        resultIdx = 3;
-        axios.get(`http://localhost:8080/api/result/${resultIdx}`)
+        axios.get(`http://localhost:8080/api/mypage/result/${resultIdx}`)
             .then(response => {
-                console.log(response);
-                setData(response.data);
-                setName(response.data.resultUser);
-                setOrganList([{ '혈관': (data.resultBlood) }, { '장': (data.resultDiges) },
-                { '눈': (data.resultEyes) }, { '간': (data.resultLiver) }, { '몸': (data.resultVitamin) }]);
+                const d = response.data;
+                setData(d);
+                setName(d.resultUser);
+                const organList = [
+                    { '혈관': d.resultBlood }, 
+                    { '장': d.resultDiges },
+                    { '눈': d.resultEyes }, 
+                    { '간': d.resultLiver }, 
+                    { '몸': d.resultVitamin }
+                ];
+                setInitValue(organList);
             })
             .catch(error => console.log(error));
     }, []);
 
-    useEffect(() => {
+    const setInitValue = (organList) => {
         let list = [];
         organList.map(organ => {
             let key = Object.keys(organ)[0];
             let value = organ[key];
             list.push({ 'research_organ': key, 'value': value });
         });
-        setGroupByOrgan(list);
-    }, [organList]);
-
-
-    let result = [];
-    for (let i = 0; i < groupByOrgan.length; i++) {
-        for (let j = 0; j < Result.length; j++) {
-            if (groupByOrgan[i].research_organ === Result[j].research_organ) {
-                if (groupByOrgan[i].value === Result[j].score) {
-                    result.push(Result[j]);
+    
+        let resultList = [];
+        for (let i = 0; i < list.length; i++) {
+            for (let j = 0; j < Result.length; j++) {
+                if (list[i].research_organ === Result[j].research_organ) {
+                    if (list[i].value === Result[j].score) {
+                        resultList.push(Result[j]);
+                    }
                 }
             }
-        }
-    }
-    useEffect(() => {
-        const showResultList = result;
-        setShowResultList(showResultList);
-    }, []);
-
-    const handlerOnClick = (e) => {
-        handleIsNow(e);
+        }                
+        setShowResultList(resultList);
     };
 
 
@@ -103,7 +100,7 @@ function MyPageResearchDetail({ resultIdx, handleIsNow, match, history, location
                                         ))}
                                     </Swiper>
                                 </div>
-                                <div className='reseachBack' id="MyResearch" onClick={handlerOnClick}>목록으로</div>
+                                <div className='reseachBack' id="MyResearch">목록으로</div>
                             </div>
                         </div>
                     </div>

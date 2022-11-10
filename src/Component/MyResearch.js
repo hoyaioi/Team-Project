@@ -1,41 +1,27 @@
 import '../CSS/MyPageResearch.css';
+import { Link } from 'react-router-dom';
 import researchbanner from '../Img/research_banner.jpg';
+import { alignPropType } from 'react-bootstrap/esm/types';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-function MyPageResearch({ handleIsNow }) {
+function MyPageResearch() {
 
     const [datas, setDatas] = useState([]);
 
+
     useEffect(() => {
-        axios.get('http://localhost:8080/api/result')
+        axios.get('http://localhost:8080/api/mypage/myresearch')
             .then(response => {
+                console.log(response);
                 setDatas(response.data);
             })
             .catch(error => console.log(error));
     }, []);
 
 
-    const handlerOnClick = (e) => {
-        handleIsNow(e);
-    }
 
-    const handlerClickDelete = () => {
-        axios.delete('http://localhost:8080/api/result/${resultIdx}')
-        // https://axios-http.com/kr/docs/res_schema
-        .then(response => { 
-            console.log(response);
-            if (response.status === 200) {
-                alert("정상적으로 삭제되었습니다.");
-                window.location.reload();
-            } else {
-                alert("삭제에 실패했습니다.");
-                return;
-            }
-        })
-        .catch(error => console.log(error));
-    };
 
     return (
         <>
@@ -60,7 +46,7 @@ function MyPageResearch({ handleIsNow }) {
                                     datas && datas.map(result => (
                                         <tr key={result.resultIdx}>
                                             <td><input type='checkbox'></input></td>
-                                            <td id='MyPageResearchDetail' onClick={handlerOnClick}>{result.resultUser}</td>
+                                            <td id='MyPageResearchDetail' > <Link to={`../result/${result.resultIdx}`}>{result.resultUser}</Link></td>
                                             <td>{result.resultDate}</td>
                                         </tr>
                                     ))
