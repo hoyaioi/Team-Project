@@ -1,12 +1,26 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import '../CSS/MyOrderList.css';
 import s6 from '../Img/s6.jpg'
 import Paging from './Paging';
 
-function MyOrderList() {
+function MyOrderList({memIdx}) {
+
+    const [data, setData] = useState([]);
+
+    
+    useEffect(() => {
+        axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
+        .then(response => {
+            setData(response.data);
+
+        })
+        .catch(error => console.log(error));
+    }, []);
 
 
-
+    
     return (
         <>
         <div id='main'>
@@ -73,29 +87,30 @@ function MyOrderList() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {data && data.map(order => (
+                                <tr key={order.memIdx}>
                                 <td className='myorderlist_item_info_td'>
                                     <div className='myorderlist_item_info_wrap'>
                                         <img src={s6} className='myorderlist_item_img' />
                                         <div className='myorderlist_item_name'>
-                                            고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                                            {order.itemNum}
                                         </div>
                                     </div>
                                 </td>
                                 <td className='myorderlist_order_date_td'>
-                                    2022.10.31
+                                    {order.orderDate}
                                 </td>
                                 <td>
-                                    20221031000001
+                                    {order.orderNum}
                                 </td>
                                 <td className='myorderlist_item_price_td'>
-                                    38,900원
+                                    {order.itemPrice}
                                 </td>
                                 <td className='myorderlist_item_count_td'>
-                                    200
+                                    {order.itemAmount}
                                 </td>
                                 <td className='myorderlist_order_stat_td'>
-                                    배송준비중
+                                    {order.orderStatus}
                                 </td>
                                 <td className='myorderlist_order_btn_td'>
                                     <div>
@@ -110,6 +125,7 @@ function MyOrderList() {
                                    
                                 </td>
                             </tr>
+                            ))}
                         </tbody>
                     </table>
                     <div>
