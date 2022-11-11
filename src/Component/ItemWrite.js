@@ -49,6 +49,18 @@ const ItemWrite = ({ navigate }) => {
     itemOrgans: "aa",
   });
 
+  // 이미지 업로드
+
+  const [uploadedImg, setUploadedImg] = useState({
+    fileName: "",
+    filePath: "",
+  });
+
+  const fileAdd = () => {
+    let file = document.getElementById("fileAdd");
+    file.click();
+  };
+
   const getValue = (e) => {
     const { name, value } = e.target;
     setItemInfo({
