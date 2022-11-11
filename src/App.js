@@ -50,16 +50,16 @@ function App() {
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
           <Route path="/mypage/*" element={<MyPage />}>
-            <Route path="myorderlist" element={<MyOrderList />} />
+            <Route path="myorderlist" element={<MyOrderList memIdx={1}/>} />
             <Route path="myrefund" element={<MyRefund />} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={3}/>} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={3}/>} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={1}/>} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={1}/>} />
 
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={1}/>} />
             <Route path="result/:resultIdx" element={<Result/>} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
