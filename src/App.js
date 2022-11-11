@@ -30,6 +30,7 @@ import MyPageResearch from "./Component/MyResearch";
 import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
+import MyInfoDel2 from "./Component/MyInfoDel2";
 import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
