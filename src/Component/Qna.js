@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { useState,useEffect } from 'react';
-
 import '../CSS/Qna.css';
 
 function Qna(props) {
@@ -29,14 +26,14 @@ function Qna(props) {
     }, []);
 
     return (
-        // <table className='qna-modal-table'>
-        //     <tbody>
+        <table className='qna-modal-table'>
+            <tbody>
                 <tr colspan="3" className="qna-modal">
                     <td>
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <sapn>{datas.qnaContents}</sapn>
+                                <sapn>질문 내용</sapn>
                             </div>
                         </div>
                         <div className='qna-comment'>
@@ -45,13 +42,13 @@ function Qna(props) {
                                 <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
                             </div>
                             <div className='comment-date'>
-                                <sapn>{answer.qnaCommentWriteDate}</sapn>
+                                <sapn>작성일자</sapn>
                             </div>
                         </div>
                     </td>
                 </tr>
-        //     </tbody>
-        // </table>
+            </tbody>
+        </table>
     );
 }
 

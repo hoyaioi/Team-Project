@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import Result from "./api/resultApi.json";
-import axios from "axios";
 
 const Step4 = () => {
   const [showResultList, setShowResultList] = useState([]);
@@ -65,32 +64,7 @@ const Step4 = () => {
     setShowResult(showResultList[0]);
   }, []);
 
-  //배열의 키
-
-
-  // const database = showResultList.map(([key, value]) => {
-  //   "resultUser": name,
-  //   "resultLiver": (showResultList.research_organ === "간"),
-  //   "resultEyes": (showResultList.research_organ === "눈"),
-  //   "resultDiges": value(showResultList.research_organ === "장"),
-  //   "resultVitamin": value(showResultList.research_organ === "몸"),
-  //   "resultBlood": value(showResultList.research_organ === "혈관")
-  // }
-
-  // console.log(database);
-  const handlerClickSubmit = (e) => {
-    e.preventDefault();
-    axios.post("http://localhost:8080/result")
-      .then(res => {
-        if (res.status === 200) {
-          alert("정상적으로 등록되었습니다.");
-        } else {
-          alert("등록에 실패했습니다.");
-          return;
-        }
-      })
-      .catch(error => console.log(error));
-  };
+  console.log(sessionStorage.getItem("info"));
 
   return (
     <>
@@ -130,7 +104,7 @@ const Step4 = () => {
             </Swiper>
           </div>
           <div className="prev">처음 화면으로</div>
-          <div className="next" onClick={handlerClickSubmit}>저장</div>
+          <div className="next">저장</div>
         </div>
       </div>
     </>

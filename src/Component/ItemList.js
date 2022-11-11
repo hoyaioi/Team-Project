@@ -68,12 +68,14 @@ function ItemList() {
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
                 <ul>
-                  {datas && datas.slice(0,10).map(item => (
-                    <Link to={`/item/${item.itemIdx}`} state={{ item: datas}}>
-                      <li key={item.itemIdx}>
-                        <div className="itemlist_items_box">
-                          <div className="itemlist_items_img">
-                            <img src={item.itemThumb} />
+                  {datas &&
+                    datas.slice(0, 10).map((item) => (
+                      <Link to={`/item/${item.itemIdx}`}>
+                        <li key={item.itemIdx}>
+                          <div className="itemlist_items_box">
+                            <div className="itemlist_items_img">
+                              <img src={item.itemThumb} />
+                            </div>
                           </div>
                           <div className="itemlist_info">
                             <div className="itemlist_info_title">
@@ -82,7 +84,6 @@ function ItemList() {
                             <div className="itemlist_info_money">
                               <strong>{item.itemPrice}</strong>
                             </div>
-                          </div>
                           </div>
                         </li>
                       </Link>

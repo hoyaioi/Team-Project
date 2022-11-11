@@ -2,8 +2,74 @@ import React from "react";
 import "../CSS/ItemWrite.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
+import parse from "html-react-parser";
+import axios from "axios";
 
-const ItemWrite = () => {
+const ItemWrite = ({ navigate }) => {
+  const organsList = ["선택", "간", "눈", "몸", "혈관", "장"];
+  const [organSelect, setOrganSelect] = useState("선택");
+
+  const itemSubmitHandler = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:8080/item", itemInfo)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("등록완료 되었습니다.");
+          navigate("/item");
+        } else {
+          alert("등록실패");
+          console.log(itemInfo);
+
+          return;
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const selectHandler = (e) => {
+    setOrganSelect(e.target.value);
+  };
+
+  console.log(organSelect);
+
+  const [itemInfo, setItemInfo] = useState({
+    itemNum: "",
+    itemName: "",
+    itemPrice: "",
+    itemThumb: "asd",
+    itemDetailImg: "sa",
+    itemMaker: "",
+    itemHow: "",
+    itemExpDate: "",
+    itemOrgans: "zz",
+    itemMaterials: "aaa",
+    itemOrgans: "aa",
+  });
+
+  // 이미지 업로드
+
+  const [uploadedImg, setUploadedImg] = useState({
+    fileName: "",
+    filePath: "",
+  });
+
+  const fileAdd = () => {
+    let file = document.getElementById("fileAdd");
+    file.click();
+  };
+
+  const getValue = (e) => {
+    const { name, value } = e.target;
+    setItemInfo({
+      ...itemInfo,
+      [name]: value,
+    });
+    console.log(itemInfo);
+  };
+
   return (
     <div id="main">
       <div className="write_item_wrap ">
@@ -19,13 +85,18 @@ const ItemWrite = () => {
                     <tr>
                       <th>분류</th>
                       <td>
-                        <div className="serviceqna_select">
-                          <select>
-                            <option value="간">간</option>
-                            <option value="눈">눈</option>
-                            <option value="몸">몸</option>
-                            <option value="혈관">혈관</option>
-                            <option value="장">장</option>
+                        <div className="write_select">
+                          <select onChange={selectHandler} value={organSelect}>
+                            {organsList.map((organ) => (
+                              <option
+                                value={organ}
+                                key={organ}
+                                onChange={getValue}
+                                name="itemOrgans"
+                              >
+                                {organ}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </td>
@@ -35,12 +106,62 @@ const ItemWrite = () => {
                       <td>글쓴이~</td>
                     </tr>
                     <tr>
-                      <th>제목</th>
+                      <th>상품명</th>
                       <td>
                         <input
                           type="text"
                           className="item_write_title"
                           placeholder="상품명을 입력해주세요"
+                          onChange={getValue}
+                          name="itemName"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>상품번호</th>
+                      <td>
+                        <input
+                          type="text"
+                          className="item_write_title"
+                          placeholder="상품명을 입력해주세요"
+                          onChange={getValue}
+                          name="itemNum"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>유통기한</th>
+                      <td>
+                        <input
+                          type="date"
+                          className="item_write_title"
+                          placeholder="상품명을 입력해주세요"
+                          onChange={getValue}
+                          name="itemExpDate"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>가격</th>
+                      <td>
+                        <input
+                          type="number"
+                          className="item_write_title"
+                          placeholder="상품명을 입력해주세요"
+                          onChange={getValue}
+                          name="itemPrice"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>제조사</th>
+                      <td>
+                        <input
+                          type="text"
+                          className="item_write_title"
+                          placeholder="상품명을 입력해주세요"
+                          onChange={getValue}
+                          name="itemMaker"
                         />
                       </td>
                     </tr>
@@ -49,7 +170,7 @@ const ItemWrite = () => {
                       <td>
                         <CKEditor
                           editor={ClassicEditor}
-                          data=""
+                          data="<p>안녕하세요</p>"
                           onReady={(editor) => {
                             // You can store the "editor" and use when it is needed.
                             console.log("Editor is ready to use!", editor);
@@ -57,12 +178,17 @@ const ItemWrite = () => {
                           onChange={(event, editor) => {
                             const data = editor.getData();
                             console.log({ event, editor, data });
+                            setItemInfo({
+                              ...itemInfo,
+                              itemHow: data,
+                            });
+                            console.log(itemInfo.itemcontent);
                           }}
                           onBlur={(event, editor) => {
-                            console.log("Blur.", editor);
+                            // console.log("Blur.", editor);
                           }}
                           onFocus={(event, editor) => {
-                            console.log("Focus.", editor);
+                            // console.log("Focus.", editor);
                           }}
                         />
                       </td>
@@ -91,7 +217,9 @@ const ItemWrite = () => {
             </form>
             <div className="item_write_btn_box">
               <button className="serviceqna_btn_del">취소</button>
-              <button className="serviceqna_btn">저장</button>
+              <button className="serviceqna_btn" onClick={itemSubmitHandler}>
+                저장
+              </button>
             </div>
           </div>
         </div>
