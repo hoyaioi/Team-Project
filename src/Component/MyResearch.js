@@ -21,7 +21,7 @@ function MyPageResearch() {
     }, []);
 
     const handleCheck = (e) => {
-        const idx = e.target.value; 
+        const idx = e.target.value;
 
         if (checkedIdx.includes(idx)) {
             setCheckedIdx(checkedIdx.filter(item => item !== idx));
@@ -30,6 +30,8 @@ function MyPageResearch() {
         }
     }
     console.log(checkedIdx);
+
+
     const handlerClickDelete = () => {
         checkedIdx.map(idx => {
             axios.delete(`http://localhost:8080/api/mypage/result/${idx}`)
@@ -45,12 +47,10 @@ function MyPageResearch() {
                 .catch(error => console.log(error));
         })
     }
-//체크박스 선택해제
-    const handlerClickReset = (e) => {
-        setCheckedIdx([]);
-    }
 
-    
+
+    const email = sessionStorage.getItem('memEmail');
+    const filteredDatas = datas.filter(data => data.memEmail === email);
 
     return (
         <>
@@ -72,8 +72,8 @@ function MyPageResearch() {
                             </thead>
                             <tbody>
                                 {
-                                    datas && datas.map(result => (
-                                        <tr key={result.resultIdx}>
+                                    filteredDatas && filteredDatas.map(result => (
+                                        <tr key={result.resultIdx} >
                                             <td><input type='checkbox' onChange={handleCheck} value={result.resultIdx}></input></td>
                                             <td id='MyPageResearchDetail' > <Link to={`../result/${result.resultIdx}`}>{result.resultUser}</Link></td>
                                             <td>{result.resultDate}</td>
@@ -92,7 +92,7 @@ function MyPageResearch() {
                     </div>
                     <div className='mypageresearch_btn'>
                         <button className='mypageresearch_btn_del' onClick={handlerClickDelete}>삭제</button>
-                    
+
                     </div>
                 </div>
             </div>

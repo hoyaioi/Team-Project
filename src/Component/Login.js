@@ -21,12 +21,10 @@ function Login() {
       .then(response => {
         if (response.status === 200) {
           navigate('/');
-          console.log(response.data)
           alert(`${response.data.memName}님 환영합니다.`)
           sessionStorage.setItem("memName", response.data.memName);
           sessionStorage.setItem("memEmail", response.data.memEmail);
           sessionStorage.setItem("memIdx", response.data.memIdx);
-          console.log(sessionStorage.getItem("memIdx"));
           window.location.reload();
         }
       })

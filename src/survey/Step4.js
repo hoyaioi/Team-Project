@@ -87,13 +87,13 @@ const Step4 = () => {
     e.preventDefault();
     axios.post("http://localhost:8080/api/result", {
       "resultUser": nameStr,
-      "memEmail": "tnals5508@naver.com",
+      "memEmail": sessionStorage.getItem("memEmail"),
       "resultLiver": getValue("간"),
       "resultEyes": getValue("눈"),
       "resultVitamin": getValue("몸"),
       "resultBlood": getValue("혈관"),
       "resultDiges": getValue("장"),
-      "resultSave": "N"
+      "resultSave": "Y"
 
 
     }).then((response) => {
