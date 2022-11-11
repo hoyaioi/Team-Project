@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
+import { BsWindowSidebar } from "react-icons/bs";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,7 @@ function Login() {
           sessionStorage.setItem("memEmail", response.data.memEmail);
           sessionStorage.setItem("memIdx", response.data.memIdx);
           console.log(sessionStorage.getItem("memIdx"));
+          window.location.reload();
         }
       })
       .catch(error => {
