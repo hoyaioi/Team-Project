@@ -8,13 +8,17 @@ import Paging from './Paging';
 function MyOrderList({memIdx}) {
 
     const [data, setData] = useState([]);
-
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
+    const [count3, setCount3] = useState(0);
+    const [count4, setCount4] = useState(0);
+    
+    
     
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
         .then(response => {
             setData(response.data);
-
         })
         .catch(error => console.log(error));
     }, []);
@@ -35,7 +39,7 @@ function MyOrderList({memIdx}) {
                                 주문완료
                             </div>
                             <div className='myorderlist_stat_count'>
-                                0
+                                {count1}
                             </div>
                         </li>
                         <li>
@@ -43,7 +47,7 @@ function MyOrderList({memIdx}) {
                                 배송준비중
                             </div>
                             <div className='myorderlist_stat_count'>
-                                1
+                                {count2}
                             </div>
                         </li>
                         <li>
@@ -51,7 +55,7 @@ function MyOrderList({memIdx}) {
                                 배송중
                             </div>
                             <div className='myorderlist_stat_count'>
-                                0
+                                {count3}
                             </div>
                         </li>
                         <li>
@@ -59,15 +63,7 @@ function MyOrderList({memIdx}) {
                                 배송완료
                             </div>
                             <div className='myorderlist_stat_count'>
-                                0
-                            </div>
-                        </li>
-                        <li>
-                            <div className='myorderlist_stat'>
-                                반품진행중
-                            </div>
-                            <div className='myorderlist_stat_count'>
-                                0
+                                {count4}
                             </div>
                         </li>
                     </ul>
@@ -88,7 +84,7 @@ function MyOrderList({memIdx}) {
                         </thead>
                         <tbody>
                             {data && data.map(order => (
-                                <tr key={order.memIdx}>
+                                <tr key={order.orderNum}>
                                 <td className='myorderlist_item_info_td'>
                                     <div className='myorderlist_item_info_wrap'>
                                         <img src={s6} className='myorderlist_item_img' />
