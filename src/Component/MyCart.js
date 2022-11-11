@@ -1,6 +1,7 @@
 import '../CSS/MyCart.css';
 import { useState } from "react";
 import s3 from '../Img/s3.jpg';
+import Paging from './Paging';
 
 function MyCart() {
 
@@ -81,6 +82,7 @@ function MyCart() {
                         </table>
 
                     </div>
+                    
                     {/* <h1>장바구니</h1>
                     <div className='mycart_check_all_wrap'>
                         <div className='mycart_check'>

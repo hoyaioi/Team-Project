@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import '../CSS/MyOrderList.css';
 import s6 from '../Img/s6.jpg'
+import Paging from './Paging';
 
 function MyOrderList() {
+
+
+
     return (
         <>
         <div id='main'>
@@ -12,14 +17,12 @@ function MyOrderList() {
                 <div className='myorderlist_stat_wrap'>
                     <ul>
                         <li>
-
                             <div className='myorderlist_stat'>
                                 주문완료
                             </div>
                             <div className='myorderlist_stat_count'>
                                 0
                             </div>
-
                         </li>
                         <li>
                             <div className='myorderlist_stat'>
@@ -47,7 +50,7 @@ function MyOrderList() {
                         </li>
                         <li>
                             <div className='myorderlist_stat'>
-                                취소/반품
+                                반품진행중
                             </div>
                             <div className='myorderlist_stat_count'>
                                 0
@@ -107,9 +110,11 @@ function MyOrderList() {
                                    
                                 </td>
                             </tr>
-                            
                         </tbody>
                     </table>
+                    <div>
+                        <Paging />
+                    </div>
 
                 </div>
             </div>
