@@ -10,7 +10,6 @@ import ServiceCenter from "./Component/ServiceCenter";
 import Notice from "./Component/Notice";
 import NoticeDetail from "./Component/NoticeDetail";
 import ScrollToTop from "./ScrollToTop";
-import MyPageCart from "./Component/MyPageCart";
 import MyCart from "./Component/MyCart";
 import ItemList from "./Component/ItemList";
 import ServiceQna from "./Component/ServiceQna";
@@ -55,9 +54,11 @@ function App() {
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 />} />
-            <Route path="modify" element={<MyInfoUp2 />} />
-            <Route path="myinfodel" element={<MyInfoDel1 />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={3}/>} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={3}/>} />
+
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
           <Route path="/order" element={<Order />} />

@@ -4,6 +4,7 @@ import s3 from '../Img/s3.jpg';
 
 function MyCart() {
 
+    //메인페이지 > 아이템디테일에서 장바구니로 담았을 때 data 배열에 해당 아이템 객체를 추가하는 작업 필요
     const data = [
         {
             id: 0

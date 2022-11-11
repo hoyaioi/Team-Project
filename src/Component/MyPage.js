@@ -1,15 +1,4 @@
 import "../CSS/MyPage.css";
-import { useState } from "react";
-import MyOrderList from "./MyOrderList";
-import MyCart from "./MyCart";
-import MyRefund from "./MyRefund";
-import MyReview from "./MyReview";
-import MyInfoUp1 from "./MyInfoUp1";
-import MyInfoUp2 from "./MyInfoUp2";
-import MyInfoDel1 from "./MyInfoDel1";
-import MyResearch from "./MyResearch";
-import ReviewWrite from "./ReviewWrite";
-import MyPageResearchDetail from "./MyResearchDetail";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 

@@ -2,16 +2,17 @@ import axios from 'axios';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1({ memIdx, handleIsNow }) {
+function MyInfoUp1({ memIdx }) {
 
     const [data, setData] = useState({});
-    const [memPw1, setMemPw1] = useState('');
+    const [memPw, setMemPw] = useState('');
 
     const inputPw = useRef();
 
-    const handlerChangePw1 = (e) => setMemPw1(e.target.value);
+    const handlerChangePw = (e) => setMemPw(e.target.value);
 
     useEffect(() => {
         inputPw.current.focus();
@@ -27,23 +28,23 @@ function MyInfoUp1({ memIdx, handleIsNow }) {
     //         .catch(error => console.log(error));
     // }, []);
 
-    const handlerOnClick = (e) => {
-        axios.get(`http://localhost:8080/member/${memIdx}`)
-                .then(response => {
-                    setData(response.data);
-                    console.log(response);
-                })
-                .catch(error => console.log(error));
-                
-        if (memPw1 !== data.memPw1) {
-            alert('비밀번호가 일치하지 않습니다.');
-            setMemPw1('');
-            inputPw.current.focus();
-        } else {
-            handleIsNow(e);
-            console.log(data);
-        }
+    const navigate = useNavigate();
 
+    const handlerOnClick = () => {
+
+        axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
+            .then(response => {
+                if(response.status === 200){
+                    navigate('/mypage/modify');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert('비밀번호가 일치하지 않습니다.');
+                inputPw.current.focus();
+                setMemPw('');
+            })
+                
     }
 
     return (
@@ -58,7 +59,7 @@ function MyInfoUp1({ memIdx, handleIsNow }) {
                             정보 변경을 위해 현재 비밀번호를 입력해주세요.
                         </div>
                         <div className='myinfoup1_input_wrap'>
-                            <input type='password' ref={inputPw} value={memPw1} placeholder='비밀번호를 입력해주세요.' onChange={handlerChangePw1} autoComplete='off' />
+                            <input type='password' ref={inputPw} value={memPw} placeholder='비밀번호를 입력해주세요.' onChange={handlerChangePw} autoComplete='off' />
                         </div>
                         <div className='myinfoup1_input_wrap'>
                             <input type='button' id='MyInfoUp2' onClick={handlerOnClick} value='입력완료' />
