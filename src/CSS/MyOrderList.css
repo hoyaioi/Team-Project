@@ -67,6 +67,10 @@
     font-size: 14px;
 }
 
+.myorderlist_order_wrap tbody tr {
+    border-top: 2px solid #e5e5e5;
+}
+
 .myorderlist_item_info_wrap {
     height: 120px;
     text-align: left;
@@ -113,12 +117,9 @@
     width: 75px;
 }
 
-.myorderlist_order_stat_th {
-    border-left: 2px solid white;
-}
+
 .myorderlist_order_stat_td {
     width: 94px;
-    border-left: 2px solid white;
 }
 
 .myorderlist_order_btn_td button {
