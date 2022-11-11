@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
 import { BsWindowSidebar } from "react-icons/bs";
+import { useNavigate } from "react-router-dom/dist";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ function Login() {
                     type="email"
                     placeholder="아이디(이메일)"
                     value={email}
-                    onChange={changeEmail}
+                    onChange={onChangeEmail}
                   />
                 </Col>
               </Form.Group>
@@ -65,7 +66,7 @@ function Login() {
                     type="password"
                     placeholder="비밀번호"
                     value={password}
-                    onChange={changePassword}
+                    onChange={onChangePassword}
                   />
                 </Col>
               </Form.Group>

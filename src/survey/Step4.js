@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import Result from "./api/resultApi.json";
+import axios from "axios";
 
 const Step4 = () => {
   const [showResultList, setShowResultList] = useState([]);
