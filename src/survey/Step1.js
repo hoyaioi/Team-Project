@@ -49,23 +49,25 @@ const Step1 = ({ nextSteps }) => {
             <div className="namePut">
               이름 :{" "}
               <input
-                className="name"
+                className="surveyinputName"
                 type="text"
                 name="name"
                 value={info.name}
                 onChange={onChangeInfo}
+                
               />
             </div>
             <div className="heightPut">
               키 :{" "}
               <input
-                className="height"
+                className="surveyinput"
                 type="number"
                 name="height"
                 min={150}
                 max={200}
                 value={info.height}
                 onChange={onChangeInfo}
+                
               />
               Cm
             </div>
@@ -75,7 +77,7 @@ const Step1 = ({ nextSteps }) => {
               {" "}
               나이 : 만{" "}
               <input
-                className="age"
+                className="surveyinput"
                 type="number"
                 name="age"
                 min={10}
@@ -88,7 +90,7 @@ const Step1 = ({ nextSteps }) => {
             <div className="weightPut">
               몸무게 :{" "}
               <input
-                className=" weight"
+                className=" surveyinput"
                 type="number"
                 name="weight"
                 min={30}

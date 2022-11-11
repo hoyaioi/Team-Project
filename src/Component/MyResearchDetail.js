@@ -9,66 +9,56 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import Result from '../survey/api/resultApi.json';
+import { Link, useParams } from 'react-router-dom'
 
-function MyPageResearchDetail({ handleIsNow, match, history, location }) {
 
+function MyPageResearchDetail({  }) {
 
+    const {resultIdx} = useParams();
     const [data, setData] = useState([]);
     const [name, setName] = useState('');
-    const [groupByOrgan, setGroupByOrgan] = useState([{}]);
-    const [organList, setOrganList] = useState([]);
     const [showResultList, setShowResultList] = useState([]);
-    const [showResult, setShowResult] = useState({}); //보여줄 이미지
-
+    
     useEffect(() => {
-        axios.get('http://localhost:8080/api/result/${resultIdx}')
+        axios.get(`http://localhost:8080/api/mypage/result/${resultIdx}`)
             .then(response => {
-                console.log(response);
-                setData(response.data);
-                setName(response.data.resultUser);
-                setOrganList([(response.data.resultBlood), (response.data.resultDiges), (response.data.resultEyes), (response.data.resultLiver), (response.data.Vitamin)]);
-                const groupByOrgan = organList.filter((value) => {
-                    return value.resultOrgan !== 0;
-                });
-                setGroupByOrgan(groupByOrgan);
+                const d = response.data;
+                setData(d);
+                setName(d.resultUser);
+                const organList = [
+                    { '혈관': d.resultBlood }, 
+                    { '장': d.resultDiges },
+                    { '눈': d.resultEyes }, 
+                    { '간': d.resultLiver }, 
+                    { '몸': d.resultVitamin }
+                ];
+                setInitValue(organList);
             })
             .catch(error => console.log(error));
     }, []);
 
-
-    const groupByOrganArray = Object.keys(groupByOrgan).map((key) => [key, groupByOrgan[key]]); //배열로 변환
-    console.log(groupByOrganArray);
-
-
-    const resultOfSurvey = groupByOrganArray.map(([key, value]) => {  //배열로 변환된 객체를 resultApi.json의 형식에 맞게 변환
-        return {
-            research_organ: key,
-            value: value
-        }
-    })
-    console.log(resultOfSurvey);
-
-    let result = []    //resultApi.json의 형식에 맞게 변환된 객체를 result에 저장
-    for (let i = 0; i < resultOfSurvey.length; i++) {
-        for (let j = 0; j < Result.length; j++) {
-            if (resultOfSurvey[i].research_organ === Result[j].research_organ) {
-                if (resultOfSurvey[i].value === Result[j].score) {
-                    result.push(Result[j]);
+    const setInitValue = (organList) => {
+        let list = [];
+        organList.map(organ => {
+            let key = Object.keys(organ)[0];
+            let value = organ[key];
+            list.push({ 'research_organ': key, 'value': value });
+        });
+    
+        let resultList = [];
+        for (let i = 0; i < list.length; i++) {
+            for (let j = 0; j < Result.length; j++) {
+                if (list[i].research_organ === Result[j].research_organ) {
+                    if (list[i].value === Result[j].score) {
+                        resultList.push(Result[j]);
+                    }
                 }
             }
-        }
-    }
+        }                
+        setShowResultList(resultList);
+    };
 
 
-    const handlerOnClick = (e) => {
-        handleIsNow(e);
-    }
-
-    useEffect(() => {
-        const showResultList = result;
-        setShowResultList(showResultList);
-        setShowResult(showResultList[0]);
-    }, []);
 
     return (
         <>
@@ -113,7 +103,7 @@ function MyPageResearchDetail({ handleIsNow, match, history, location }) {
                             ))}
                                     </Swiper>
                                 </div>
-                                <div className='reseachBack' id='MyResearch' onClick={handlerOnClick}>목록으로</div>
+                                <div className='reseachBack' id="MyResearch"><Link to="/mypage/myresearch">목록으로</Link></div>
                             </div>
                         </div>
                     </div>

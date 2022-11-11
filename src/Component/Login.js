@@ -4,21 +4,34 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
+import { BsWindowSidebar } from "react-icons/bs";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const changeEmail = (e) => setEmail(e.target.value);
-  const changePassword = (e) => setPassword(e.target.value);
-  const handlerSubmit = () => {
-    axios
-      .post("http://localhost:8080/login", {
-        memEmail: email,
-        memPassword: password,
+  const onChangeEmail = (e) => setEmail(e.target.value);
+  const onChangePassword = (e) => setPassword(e.target.value);
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+
+
+    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password })
+      .then(response => {
+        if (response.status === 200) {
+          navigate('/');
+          alert(`${response.data.memName}님 환영합니다.`)
+          sessionStorage.setItem("memName", response.data.memName);
+          sessionStorage.setItem("memEmail", response.data.memEmail);
+          sessionStorage.setItem("memIdx", response.data.memIdx);
+          window.location.reload();
+        }
       })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .catch(error => {
+        alert("아이디 혹은 비밀번호를 확인해주세요.");
+        console.log(error)
+      });
   };
   return (
     <>
