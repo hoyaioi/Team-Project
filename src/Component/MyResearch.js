@@ -6,12 +6,14 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-function MyPageResearch({ handleIsNow }) {
+function MyPageResearch() {
 
     const [datas, setDatas] = useState([]);
+    const [checkedIdx, setCheckedIdx] = useState([]);
+
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/result')
+        axios.get('http://localhost:8080/api/mypage/myresearch')
             .then(response => {
                 console.log(response);
                 setDatas(response.data);
@@ -19,11 +21,37 @@ function MyPageResearch({ handleIsNow }) {
             .catch(error => console.log(error));
     }, []);
 
+    const handleCheck = (e) => {
+        const idx = e.target.value;
 
-    const handlerOnClick = (e) => {
-        handleIsNow(e);
+        if (checkedIdx.includes(idx)) {
+            setCheckedIdx(checkedIdx.filter(item => item !== idx));
+        } else {
+            setCheckedIdx([...checkedIdx, idx]);
+        }
+    }
+    console.log(checkedIdx);
+
+
+    const handlerClickDelete = () => {
+        checkedIdx.map(idx => {
+            axios.delete(`http://localhost:8080/api/mypage/result/${idx}`)
+                .then(response => {
+                    if (response.status === 200) {
+                        alert("정상적으로 삭제되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                        return;
+                    }
+                })
+                .catch(error => console.log(error));
+        })
     }
 
+
+    const email = sessionStorage.getItem('memEmail');
+    const filteredDatas = datas.filter(data => data.memEmail === email);
 
     return (
         <>
@@ -45,10 +73,10 @@ function MyPageResearch({ handleIsNow }) {
                             </thead>
                             <tbody>
                                 {
-                                    datas && datas.map(result => (
-                                        <tr key={result.resultIdx}>
-                                            <td><input type='checkbox'></input></td>
-                                            <td id='MyPageResearchDetail' onClick={handlerOnClick}> <Link to={`/result/${result.resultIdx}`}>{result.resultUser}</Link></td>
+                                    filteredDatas && filteredDatas.map(result => (
+                                        <tr key={result.resultIdx} >
+                                            <td><input type='checkbox' onChange={handleCheck} value={result.resultIdx}></input></td>
+                                            <td id='MyPageResearchDetail' > <Link to={`../result/${result.resultIdx}`}>{result.resultUser}</Link></td>
                                             <td>{result.resultDate}</td>
                                         </tr>
                                     ))
@@ -64,8 +92,8 @@ function MyPageResearch({ handleIsNow }) {
                         </table>
                     </div>
                     <div className='mypageresearch_btn'>
-                        <button className='mypageresearch_btn_del'>삭제</button>
-                        <button className='mypageresearch_btn_cle'>선택초기화</button>
+                        <button className='mypageresearch_btn_del' onClick={handlerClickDelete}>삭제</button>
+
                     </div>
                 </div>
             </div>

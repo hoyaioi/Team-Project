@@ -17,6 +17,14 @@
   padding: 10px 0 0 0;
 }
 
+.itemlist_title h2 {
+  float: left;
+    font-size: 36px;
+    height: 65px;
+    align-items: center;
+    font-weight: bold;
+}
+
 .itemlist_inbox {
   height: 40px;
   margin-top: 5px;

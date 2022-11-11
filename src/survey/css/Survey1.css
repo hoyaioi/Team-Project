@@ -57,7 +57,7 @@
   color: white;
 }
 
-input {
+.surveyinput {
   font-size: 50px;
   border-top: none;
   border-left: none;
@@ -65,6 +65,16 @@ input {
   background: transparent;
   border-color: black;
   color: white;
+}
+.surveyinputName {
+  font-size: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: transparent;
+  border-color: black;
+  color: white;
+  width: 200px;
 }
 
 .namePut {
@@ -74,9 +84,6 @@ input {
   float: left;
 }
 
-.name {
-  width: 200px;
-}
 
 .heightPut {
   margin-bottom: 50px;

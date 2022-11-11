@@ -2,8 +2,13 @@
   height: 750px;
   width: 700px;
   margin: 30px auto;
+
 }
 
+.full a{
+  text-decoration: none;
+  
+}
 .intro {
   height: 100%;
   width: 100%;
