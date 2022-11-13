@@ -5,61 +5,82 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState } from "react";
 import parse from "html-react-parser";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const ItemWrite = ({ navigate }) => {
+const ItemWrite = () => {
+  const navigate = useNavigate();
   const organsList = ["선택", "간", "눈", "몸", "혈관", "장"];
   const [organSelect, setOrganSelect] = useState("선택");
 
-  const itemSubmitHandler = (e) => {
-    e.preventDefault();
+  const categoryList = ["선택", "추천", "기능별", "대상별", "성분별"];
+  const [categorySelect, setCategorySelect] = useState("선택")
+  const [selectedThumb, setSelectedThumb] = useState(null);
+  const [selectedDetail, setSelectedDetail] = useState(null);
 
-    axios
-      .post("http://localhost:8080/item", itemInfo)
+  const saveThumb = (event) => {
+    setSelectedThumb(event.target.files[0]);
+    
+  }
+  const saveDetailImg = (event) => {
+    setSelectedDetail(event.target.files[0]);
+  }
+  console.log(selectedThumb);
+
+  const onFileUpload = () => {
+    const formData = new FormData();
+
+
+    // 파일 데이터 저장
+    formData.append('itemThumb', selectedThumb);
+    formData.append('itemDetailImg', selectedDetail);
+
+
+
+    formData.append('itemsDto', JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
+
+    axios.post("http://localhost:8080/itemwrite", formData)
       .then((response) => {
         if (response.status === 200) {
-          alert("등록완료 되었습니다.");
-          navigate("/item");
-        } else {
-          alert("등록실패");
-          console.log(itemInfo);
+          navigate('/');
+          alert("상품이 등록되었습니다.");
 
-          return;
+        } else {
+          alert("상품 등록 실패");
         }
       })
-      .catch((error) => console.log(error));
+
   };
 
-  const selectHandler = (e) => {
+
+
+
+  const selectOrganHandler = (e) => {
     setOrganSelect(e.target.value);
   };
 
+  const selectCategoryHandler = (e) => {
+    setCategorySelect(e.target.value);
+  };
+  console.log(categorySelect);
   console.log(organSelect);
 
   const [itemInfo, setItemInfo] = useState({
     itemNum: "",
     itemName: "",
     itemPrice: "",
-    itemThumb: "asd",
-    itemDetailImg: "sa",
+    itemThumb: "",
+    itemDetailImg: "",
     itemMaker: "",
     itemHow: "",
     itemExpDate: "",
-    itemOrgans: "zz",
-    itemMaterials: "aaa",
-    itemOrgans: "aa",
+    itemOrgans: "",
+    itemMaterials: "",
+    itemSubImg: "",
+    categoryName: ""
   });
 
   // 이미지 업로드
 
-  const [uploadedImg, setUploadedImg] = useState({
-    fileName: "",
-    filePath: "",
-  });
-
-  const fileAdd = () => {
-    let file = document.getElementById("fileAdd");
-    file.click();
-  };
 
   const getValue = (e) => {
     const { name, value } = e.target;
@@ -83,16 +104,31 @@ const ItemWrite = ({ navigate }) => {
                 <table>
                   <tbody>
                     <tr>
+                      <th>대분류</th>
+                      <td>
+                        <div className="write_select" onChange={getValue}>
+                          <select name="categoryName" onChange={selectCategoryHandler} value={categorySelect}>
+                            {categoryList.map((category) => (
+                              <option
+                                value={category}
+                                key={category}
+                              >
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
                       <th>분류</th>
                       <td>
-                        <div className="write_select">
-                          <select onChange={selectHandler} value={organSelect}>
+                        <div className="write_select" onChange={getValue}>
+                          <select name="itemOrgans" onChange={selectOrganHandler} value={organSelect}>
                             {organsList.map((organ) => (
                               <option
                                 value={organ}
                                 key={organ}
-                                onChange={getValue}
-                                name="itemOrgans"
                               >
                                 {organ}
                               </option>
@@ -166,47 +202,19 @@ const ItemWrite = ({ navigate }) => {
                       </td>
                     </tr>
                     <tr>
-                      <th>본문</th>
+                      <th>제품썸네일</th>
                       <td>
-                        <CKEditor
-                          editor={ClassicEditor}
-                          data="<p>안녕하세요</p>"
-                          onReady={(editor) => {
-                            // You can store the "editor" and use when it is needed.
-                            console.log("Editor is ready to use!", editor);
-                          }}
-                          onChange={(event, editor) => {
-                            const data = editor.getData();
-                            console.log({ event, editor, data });
-                            setItemInfo({
-                              ...itemInfo,
-                              itemHow: data,
-                            });
-                            console.log(itemInfo.itemcontent);
-                          }}
-                          onBlur={(event, editor) => {
-                            // console.log("Blur.", editor);
-                          }}
-                          onFocus={(event, editor) => {
-                            // console.log("Focus.", editor);
-                          }}
-                        />
+                        <input type="file" name="itemThumb" onInput={saveThumb} />
                       </td>
                     </tr>
                     <tr>
-                      <th>첨부파일</th>
+                      <th>제품메인이미지</th>
                       <td>
-                        <input type="file" />
+                        <input type="file" name="itemDetailImg" onInput={saveDetailImg} />
                       </td>
                     </tr>
                     <tr>
-                      <th>첨부파일</th>
-                      <td>
-                        <input type="file" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>첨부파일</th>
+                      <th>제품서브이미지</th>
                       <td>
                         <input type="file" />
                       </td>
@@ -217,7 +225,7 @@ const ItemWrite = ({ navigate }) => {
             </form>
             <div className="item_write_btn_box">
               <button className="serviceqna_btn_del">취소</button>
-              <button className="serviceqna_btn" onClick={itemSubmitHandler}>
+              <button className="serviceqna_btn" onClick={onFileUpload}>
                 저장
               </button>
             </div>

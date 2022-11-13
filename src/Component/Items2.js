@@ -18,7 +18,7 @@ const Items = () => {
 
   return (
     <div className="main_items_sales">
-      {datas.filter(item => item.itemCount >= 10).slice(0, 5).map(item => (
+      {datas.filter(item => item.categoryName === '추천').slice(0, 5).map(item => (
         <Link to={`/item/${item.itemNum}`}state={{ item: datas}}>
           <div key={item.itemNum} className="main_items">
             <div className="main_items_img_wrap">

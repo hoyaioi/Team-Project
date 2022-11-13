@@ -17,7 +17,7 @@ import axios from "axios";
 SwiperCore.use([Navigation]);
 
 function Item() {
-    let {itemIdx} = useParams();
+    let {itemNum} = useParams();
     let [reviwModal, setReviewModal] = useState(false);
     let [qnaModal, setQnaModal] = useState(false);
     const [ datas, setData ] = useState({});
@@ -30,8 +30,7 @@ function Item() {
 
     const location = useLocation();
     const items = location.state.item;
-
-    console.log(items);
+    console.log(itemNum);
 
     function plusClick () {
        setAmount(amount+1);
@@ -43,13 +42,13 @@ function Item() {
     
     const moveToFocus = useRef([]);
     useEffect(() => {
-        axios.get(`http://localhost:8080/item/${itemIdx}`)
+        axios.get(`http://localhost:8080/item/${itemNum}`)
         .then(response => { 
             console.log(response);
             setData(response.data);
         })
         .catch(error => { console.log(error); });
-    }, [itemIdx]);
+    }, [itemNum]);
 
   useEffect(() => {
     axios
@@ -79,7 +78,7 @@ function Item() {
         <div className='item-content'>
             <div className='item_detail'>
                 <div className="itemImg">
-                    <img className='thumb' src={datas.itemThumb} alt="상품썸네일" />
+                    <img className='thumb' src={process.env.REACT_APP_API_URL +datas.itemThumb} alt="상품썸네일" />
                 </div>
                 <div className="info">
                     <div className='item_title'>
@@ -134,8 +133,8 @@ function Item() {
                     className="mySwiper"
                 >
 
-            {items.slice(0,10).map(item => (
-                     <SwiperSlide><Link to={`/item/${item.itemIdx}`} state={{ item: items}}><div><img src={item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
+            {items.map(item => (
+                     <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items}}><div><img src={process.env.REACT_APP_API_URL +item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
             ))}
                      {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
@@ -154,7 +153,7 @@ function Item() {
             </div>
             <div className="detail_img">
                 <div className='detail_img_box'>
-                    <img src={datas.itemDetailImg} alt="상품상세" />
+                    <img src={process.env.REACT_APP_API_URL + datas.itemDetailImg} alt="상품상세" />
                 </div>
             </div>
 
