@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import '../CSS/MyOrderList.css';
 import s6 from '../Img/s6.jpg'
 import Paging from './Paging';
@@ -39,12 +41,18 @@ function MyOrderList({ memIdx }) {
         setCount4(count4);
     }
 
+    //////////////////////////////////////////// 페이지
+
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 10;
+    const count = datas.length;
 
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
             .then(response => {
                 setDatas(response.data);
                 countCheck(response.data);
+
             })
             .catch(error => console.log(error));
     }, []);
@@ -107,7 +115,7 @@ function MyOrderList({ memIdx }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {datas && datas.map(order => (
+                                {datas.slice(offset, offset + 10).map(order => (
                                     <tr key={order.orderNum}>
                                         <td className='myorderlist_item_info_td'>
                                             <div className='myorderlist_item_info_wrap'>
@@ -155,9 +163,8 @@ function MyOrderList({ memIdx }) {
                             </tbody>
                         </table>
                         <div>
-                            <Paging />
+                            <Paging page={page} setPage={setPage} count = {count}/>
                         </div>
-
                     </div>
                 </div>
             </div>
