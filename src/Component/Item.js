@@ -47,18 +47,17 @@ function Item() {
     itemAmount: amount
   };
 
-  const buyHanddler = () => {
+  const cartHanddler = () => {
     console.log(email);
     isLogin === true ? axios.post("http://localhost:8080/cartinsert", cartDto)
     .then((response) => {
-      if (response.status === 200) {
-        navigate('/order', {state : { item: datas, amount: amount}});
-      } else {
-        alert("상품 등록 실패");
-      }
-    }) : 
-    alert('로그인 후 이용해주세요.')
-    navigate('/login');
+      console.log(response);
+      alert("장바구니 추가완료");
+    }) : navigate('/login')
+  }
+
+  const buyHanddler = () => {
+    navigate('/order', {state :{ item: datas, amount: amount}});
   }
   const moveToFocus = useRef([]);
   useEffect(() => {
@@ -131,7 +130,7 @@ function Item() {
             </div>
           </div>
           <div className='buy-section'>
-            <Link to="/mypage/mycart"><button className='cart-btn'>장바구니</button></Link>
+        <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
             <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
           </div>
         </div>
