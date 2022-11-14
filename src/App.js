@@ -51,7 +51,7 @@ function App() {
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
           <Route path="/mypage/*" element={<MyPage />}>
             <Route path="myorderlist" element={<MyOrderList memIdx={1}/>} />
-            <Route path="myrefund" element={<MyRefund />} />
+            <Route path="myrefund" element={<MyRefund memIdx={1}/>} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
