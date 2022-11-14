@@ -1,9 +1,6 @@
 import React from "react";
 import "../CSS/ItemWrite.css";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useState } from "react";
-import parse from "html-react-parser";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +10,7 @@ const ItemWrite = () => {
   const [organSelect, setOrganSelect] = useState("선택");
 
   const categoryList = ["선택", "추천", "기능별", "대상별", "성분별"];
-  const [categorySelect, setCategorySelect] = useState("선택")
+  const [categorySelect, setCategorySelect] = useState("선택");
   const [selectedThumb, setSelectedThumb] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
 

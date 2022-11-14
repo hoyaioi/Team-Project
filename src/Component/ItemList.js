@@ -10,17 +10,19 @@ function ItemList() {
   const categoryName = location.state.category;
   const [datas, setDatas] = useState([]);
   const [items, setItems] = useState([]);
-  const [itemsOrgans, setItemsOrgans] = useState([]);
   const organsList = ["간", "눈", "몸", "혈관", "장"];
   const [organs, setOrgans] = useState('');
+  const [sort, setSort] = useState('');
   
   
   const organsClick = (e) => {
     
     setOrgans(e.target.value);
   };
-
-
+  const sortChange = (e) => {
+    setSort(e.target.value);
+  }
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/item")
@@ -29,7 +31,7 @@ function ItemList() {
         setDatas(response.data);
       })
       .catch((error) => console.log(error));
-  },[organs]);
+  },[]);
 
   useEffect(() => {
     axios
@@ -50,8 +52,6 @@ function ItemList() {
       })
       .catch((error) => console.log(error));
   },[organs]);
-
-
 
 
 const itemCount =  categoryName === null ? datas : items;
@@ -78,13 +78,13 @@ const itemCount =  categoryName === null ? datas : items;
                   <strong>{itemCount.length}개의 상품</strong>
                 </span>
                 <div className="itemlist_view_num">
-                  <select name="sort" className="itemlist_chosen">
-                    <option value="selected" selected="selected">
+                  <select name="sort" className="itemlist_chosen" onChange={sortChange} value={sort}>
+                    <option value="selected" >
                       추천상품순
                     </option>
                     <option value="sellcnt">판매인기순</option>
-                    <option value="price_asc">낮은가격순</option>
-                    <option value="price_dsc">높은가격순</option>
+                    <option value="asc">낮은가격순</option>
+                    <option value="desc">높은가격순</option>
                   </select>
                 </div>
                 <div className="itemlist_view_num">
@@ -129,7 +129,7 @@ const itemCount =  categoryName === null ? datas : items;
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}</strong>
+                              <strong>{item.itemPrice}원</strong>
                             </div>
                           </div>
                         </li>
@@ -151,7 +151,7 @@ const itemCount =  categoryName === null ? datas : items;
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}</strong>
+                              <strong>{item.itemPrice}원</strong>
                             </div>
                           </div>
                         </li>

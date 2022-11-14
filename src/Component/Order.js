@@ -35,7 +35,7 @@ const amount = location.state.amount;
                                                     <tr>
                                                         <td className="order_td_item">
                                                             <div className="order_item">
-                                                                <span className="order_item_img">이미지</span>
+                                                                <span className="order_item_img"><img src={process.env.REACT_APP_API_URL + item.itemThumb} /></span>
                                                                 <div className="order_item_info">
                                                                     <a>{item.itemName}</a>
                                                                 </div>

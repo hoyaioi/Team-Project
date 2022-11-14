@@ -6,7 +6,7 @@ import SwiperCore from "swiper/core";
 import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 
 
 // Import Swiper styles
@@ -17,38 +17,58 @@ import axios from "axios";
 SwiperCore.use([Navigation]);
 
 function Item() {
-    let {itemNum} = useParams();
-    let [reviwModal, setReviewModal] = useState(false);
-    let [qnaModal, setQnaModal] = useState(false);
-    const [ datas, setData ] = useState({});
-    const [ reviewDatas, setReviewDatas ] = useState([]);
-    const [ qnaDatas, setQnaDatas ] = useState([]);
-    const [ reviewIdx, setReviewIdx] = useState();
-    const [ qnaIdx, setQnaIdx] = useState();
-    const [ amount, setAmount] = useState(1);
-    // const [ reviewDetail, setReviewDetail] = useState({});
+  const navigate = useNavigate();
+  let { itemNum } = useParams();
+  let [reviwModal, setReviewModal] = useState(false);
+  let [qnaModal, setQnaModal] = useState(false);
+  const [datas, setData] = useState({});
+  const [reviewDatas, setReviewDatas] = useState([]);
+  const [qnaDatas, setQnaDatas] = useState([]);
+  const [reviewIdx, setReviewIdx] = useState();
+  const [qnaIdx, setQnaIdx] = useState();
+  const [amount, setAmount] = useState(1);
+  // const [ reviewDetail, setReviewDetail] = useState({});
+  const isLogin = sessionStorage.getItem("memIdx") ? true : false;
+  const email = sessionStorage.getItem("memEmail"); 
+  const location = useLocation();
+  const items = location.state.item;
+  console.log(itemNum);
 
-    const location = useLocation();
-    const items = location.state.item;
-    console.log(itemNum);
+  function plusClick() {
+    setAmount(amount + 1);
+  }
+  function minusClick() {
+    amount === 1 ? setAmount(1) : setAmount(amount - 1);
+  }
 
-    function plusClick () {
-       setAmount(amount+1);
-    }
-    function minusClick() {
-        amount === 1 ? setAmount(1) : setAmount(amount-1);
-    }
-    
-    
-    const moveToFocus = useRef([]);
-    useEffect(() => {
-        axios.get(`http://localhost:8080/item/${itemNum}`)
-        .then(response => { 
-            console.log(response);
-            setData(response.data);
-        })
-        .catch(error => { console.log(error); });
-    }, [itemNum]);
+  const cartDto = {
+    memEmail : email,
+    itemNum: datas.itemNum,
+    itemAmount: amount
+  };
+
+  const buyHanddler = () => {
+    console.log(email);
+    isLogin === true ? axios.post("http://localhost:8080/cartinsert", cartDto)
+    .then((response) => {
+      if (response.status === 200) {
+        navigate('/order', {state : { item: datas, amount: amount}});
+      } else {
+        alert("상품 등록 실패");
+      }
+    }) : 
+    alert('로그인 후 이용해주세요.')
+    navigate('/login');
+  }
+  const moveToFocus = useRef([]);
+  useEffect(() => {
+    axios.get(`http://localhost:8080/item/${itemNum}`)
+      .then(response => {
+        console.log(response);
+        setData(response.data);
+      })
+      .catch(error => { console.log(error); });
+  }, [itemNum]);
 
   useEffect(() => {
     axios
@@ -62,104 +82,104 @@ function Item() {
       });
   }, []);
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/qna')
-        .then(response => { 
-            console.log(response); 
-            setQnaDatas(response.data);
-        })
-        .catch(error => { console.log(error); });
-    }, []);
-
-    
+  useEffect(() => {
+    axios.get('http://localhost:8080/qna')
+      .then(response => {
+        console.log(response);
+        setQnaDatas(response.data);
+      })
+      .catch(error => { console.log(error); });
+  }, []);
 
 
-    return (
-        <div className='item-content'>
-            <div className='item_detail'>
-                <div className="itemImg">
-                    <img className='thumb' src={process.env.REACT_APP_API_URL +datas.itemThumb} alt="상품썸네일" />
-                </div>
-                <div className="info">
-                    <div className='item_title'>
-                        <strong>{datas.itemName}</strong>
-                        {/* <div className='item_share'> */}
-                        <button className='share_button'></button>
-                        {/* </div> */}
-                    </div>
-                    <div className='item_price'>
-                        <span>상품가격</span>
-                        <strong>{datas.itemPrice}</strong><span>원</span>
-                    </div>
-                    <div className='item_delivery'>
-                        <span>배송비: </span>
-                        <span>2500원</span>
-                    </div>
-                    <div className='total-price'>
-                        <span>{datas.itemName}</span>
-                        <input value={amount} onChange className='item_amount'></input>
-                        <div className='updown'>
-                            <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
-                            <button onClick={minusClick}className='arrow'><IoIosArrowDown /></button>
-                        </div>
-                    </div>
-                    <div className='last-price'>
-                        <span>총합계</span>
-                        <div>
-                            <strong>{datas.itemPrice * amount}</strong>
-                            <span>원</span>
-                        </div>
-                    </div>
-                    <div className='buy-section'>
-                        <Link to="/mypage/mycart"><button className='cart-btn'>장바구니</button></Link>
-                        <Link to="/order" state={{ item: datas, amount: amount}}><button className='buy-btn'>구매하기</button></Link>
-                    </div>
-                </div>
+
+
+  return (
+    <div className='item-content'>
+      <div className='item_detail'>
+        <div className="itemImg">
+          <img className='thumb' src={process.env.REACT_APP_API_URL + datas.itemThumb} alt="상품썸네일" />
+        </div>
+        <div className="info">
+          <div className='item_title'>
+            <strong>{datas.itemName}</strong>
+            {/* <div className='item_share'> */}
+            <button className='share_button'></button>
+            {/* </div> */}
+          </div>
+          <div className='item_price'>
+            <span>상품가격</span>
+            <strong>{datas.itemPrice}</strong><span>원</span>
+          </div>
+          <div className='item_delivery'>
+            <span>배송비: </span>
+            <span>2500원</span>
+          </div>
+          <div className='total-price'>
+            <span>{datas.itemName}</span>
+            <input value={amount} onChange className='item_amount'></input>
+            <div className='updown'>
+              <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
+              <button onClick={minusClick} className='arrow'><IoIosArrowDown /></button>
             </div>
-            <div className='slide-item'>
-                <strong>추천상품</strong>
-                <div className='slide-btn'>
-                    <button className='button-prev'><IoMdArrowDropleft /></button>
-                    <button className='button-next'><IoMdArrowDropright /></button>
-                </div>
-                <Swiper
-                    slidesPerView={5}
-                    spaceBetween={40}
-                    navigation={{
-                        nextEl: ".button-next",
-                        prevEl: ".button-prev"
-                    }
-                    }
-                    className="mySwiper"
-                >
+          </div>
+          <div className='last-price'>
+            <span>총합계</span>
+            <div>
+              <strong>{datas.itemPrice * amount}</strong>
+              <span>원</span>
+            </div>
+          </div>
+          <div className='buy-section'>
+            <Link to="/mypage/mycart"><button className='cart-btn'>장바구니</button></Link>
+            <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
+          </div>
+        </div>
+      </div>
+      <div className='slide-item'>
+        <strong>추천상품</strong>
+        <div className='slide-btn'>
+          <button className='button-prev'><IoMdArrowDropleft /></button>
+          <button className='button-next'><IoMdArrowDropright /></button>
+        </div>
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={40}
+          navigation={{
+            nextEl: ".button-next",
+            prevEl: ".button-prev"
+          }
+          }
+          className="mySwiper"
+        >
 
-            {items.map(item => (
-                     <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items}}><div><img src={process.env.REACT_APP_API_URL +item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}</sapn></div></div></Link></SwiperSlide>
-            ))}
-                     {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
+          {items.map(item => (
+            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}원</sapn></div></div></Link></SwiperSlide>
+          ))}
+          {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                     <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
                      <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>  */}
-                </Swiper>
-            </div>
-            <div id="1" className='item-tab'>
-                <ul>
-                    <li ref={el => (moveToFocus.current[0] = el)} className='on'>메뉴1</li>
-                    <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-                    <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-                    <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
-                </ul>
-            </div>
-            <div className="detail_img">
-                <div className='detail_img_box'>
-                    <img src={process.env.REACT_APP_API_URL + datas.itemDetailImg} alt="상품상세" />
-                </div>
-            </div>
+        </Swiper>
+      </div>
+      <div id="1" className='item-tab'>
+        <ul>
+          <li ref={el => (moveToFocus.current[0] = el)} className='on'>메뉴1</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+        </ul>
+      </div>
+      <div className="detail_img">
+        <div className='detail_img_box'>
+          <img src={process.env.REACT_APP_API_URL + datas.itemDetailImg} alt="상품상세" />
+        </div>
+      </div>
 
-            <div className='moreDetail'>
-                <img src={datas.itemDetailImg} alt="상품설명상세"/>
-            </div>
+      <div className='moreDetail'>
+        <img src={datas.itemDetailImg} alt="상품설명상세" />
+      </div>
 
       <div id="2" className="item-tab">
         <ul>

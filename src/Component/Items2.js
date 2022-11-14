@@ -25,7 +25,7 @@ const Items = () => {
               <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일"/>
             </div>
             <div className="main_items_name">{item.itemName}</div>
-            <div className="main_items_price">{item.itemPrice}</div>
+            <div className="main_items_price">{item.itemPrice}원</div>
           </div>
         </Link>
       ))}
