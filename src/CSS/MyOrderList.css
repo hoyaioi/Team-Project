@@ -90,7 +90,7 @@
 }
 
 .myorderlist_item_info_td {
-    width: 420px;
+    width: 400px;
 }
 
 .myorderlist_item_info_td:hover {
@@ -136,13 +136,16 @@
     margin-bottom: 3px;
 }
 
+.myorderlist_order_btn_td {
+    width: 110px;
+}
+
 .myorderlist_order_btn_td button:hover {
     cursor: pointer;
     background-color: #e9f4ec;
 }
 
 .myorderlist_stat_wrap li:hover {
-    cursor: pointer;
     background-color: #e9f4ec;
 }
 
