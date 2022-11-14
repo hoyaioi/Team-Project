@@ -11,7 +11,7 @@ import "../CSS/register.css";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const handleComplete = (data) => {
 
     let fullAddress = data.address;
@@ -59,7 +59,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
- 
+
 
 
 
@@ -74,10 +74,11 @@ function Register() {
   const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
 
 
+
   const handlerClickSubmit = (e) => {
     e.preventDefault();
-    
-    if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError) {
+
+    if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
       return `${false} ${alert("등록에 실패했습니다.")}`;
     }
 
@@ -97,14 +98,33 @@ function Register() {
         if (response.status === 200) {
           navigate('/login');
           alert("정상적으로 등록되었습니다.");
-          
+
         }
       })
       .catch(error => {
+        alert("이메일을 확인하세요")
         console.log(error)
       });
   };
 
+
+  const checkEmailValid = (e) => {
+    console.log(e);
+    e.preventDefault();
+    axios.get("http://localhost:8080/api/member/" + email)
+      .then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          alert("이미 가입된 이메일입니다.")
+        }
+
+      })
+      .catch(error => {
+        alert("사용 가능한 이메일입니다.")
+        console.log(error);
+      }
+      )
+  };
 
   const onChangeEmail = (e) => {
     const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
@@ -133,14 +153,17 @@ function Register() {
   const handleSingleCheck = (checked, id) => {
     if (checked) {
       setCheckItems((prev) => [...prev, id]);
-    } else {
+    }
+    else {
       setCheckItems(checkItems.filter((el) => el !== id));
     }
   };
 
-  useEffect(() => {
-    console.log(checkItems);
-  });
+  // useEffect(() => {
+  //   console.log(checkItems)
+  //   console.log((checkItems.includes(0)) && (checkItems.includes(1)) && (checkItems.includes(2)));
+  //   console.log(email)
+  // });
 
   const handleAllCheck = (checked) => {
     if (checked) {
@@ -151,7 +174,6 @@ function Register() {
       setCheckItems([]);
     }
   };
-
   return (
     <>
       <div className="sign_container">
@@ -160,7 +182,7 @@ function Register() {
           <Form>
             <Form.Group>
               {!name && (
-                <div className="invalid-input" style={{ color: "red" }}>
+                <div className="invalid-input" style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </div>
               )}
@@ -177,7 +199,7 @@ function Register() {
 
             <Form.Group>
               {!phoneNum && (
-                <div className="invalid-input" style={{ marginTop: '20px', color: "red" }}>
+                <div className="invalid-input" style={{ marginTop: '20px', color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </div>
               )}
@@ -219,7 +241,7 @@ function Register() {
             </Form.Group>
             <Form.Group>
               {!postCode && (
-                <div className="invalid-input" style={{ color: "red" }}>
+                <div className="invalid-input" style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </div>
               )}
@@ -243,7 +265,7 @@ function Register() {
             </Form.Group>
             <Form.Group>
               {!addr1 && (
-                <div className="invalid-input" style={{ color: "red" }}>
+                <div className="invalid-input" style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </div>
               )}
@@ -259,7 +281,7 @@ function Register() {
                 required
               />
               {!addr2 && (
-                <div className="invalid-input" style={{ color: "red" }}>
+                <div className="invalid-input" style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </div>
               )}
@@ -277,7 +299,7 @@ function Register() {
             <hr style={{ margin: "20px 0px", width: "450px" }}></hr>
             <Form.Group>
               {emailError && (
-                <div className="invalid-input" style={{ color: "red" }}>
+                <div className="invalid-input" style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)이메일 형식으로 아이디를 입력해주세요.
                 </div>
               )}
@@ -297,12 +319,13 @@ function Register() {
                 className="checkOverlapEmail btn text-white"
                 type="button"
                 style={{ marginLeft: "20px", width: "127px" }}
+                onClick={checkEmailValid}
               >
                 중복확인
               </button>
 
               {!password && (
-                <span style={{ color: "red" }}>
+                <span style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)
                 </span>
               )}
@@ -329,7 +352,7 @@ function Register() {
                 required
               />
               {confirmPasswordError && (
-                <span style={{ color: "red" }}>
+                <span style={{ color: "red", fontSize: "13px" }}>
                   (필수항목)비밀번호가 일치하지 않습니다.
                 </span>
               )}
@@ -344,7 +367,10 @@ function Register() {
                       type="checkbox"
                       label="모두 동의하기"
                       style={{ fontSize: "20px", fontWeight: "bold" }}
-                      onChange={(e) => handleAllCheck(e.target.checked)}
+                      onChange={(e) => {
+                        handleAllCheck(e.target.checked);
+                      }
+                      }
                       checked={
                         checkItems.length === datas.length ? true : false
                       }
@@ -366,7 +392,7 @@ function Register() {
                         <Form.Check
                           className="agree_box"
                           type="checkbox"
-                          label={`${data.title} ${data.id === 3 ? '(선택사항)' : ''}`}
+                          label={`${data.title} ${data.id === 3 ? '(선택사항)' : '(필수선택사항)'}`}
                           required={data.id === 3 ? false : true}
                           onChange={(e) =>
                             handleSingleCheck(e.target.checked, data.id)
