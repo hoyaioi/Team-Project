@@ -49,12 +49,19 @@ function Item() {
 
   const cartHanddler = () => {
     console.log(email);
-    isLogin === true ? axios.post("http://localhost:8080/cartinsert", cartDto)
+    if(isLogin === true) {
+    axios.post("http://localhost:8080/cartinsert", cartDto)
     .then((response) => {
       console.log(response);
       alert("장바구니 추가완료");
-    }) : navigate('/login')
+    }).catch((error) => {
+      console.log(error);
+    })
+  } else {
+    alert("로그인 후 이용하세요.");
+    navigate("/login");
   }
+}
 
   const buyHanddler = () => {
     navigate('/order', {state :{ item: datas, amount: amount}});
