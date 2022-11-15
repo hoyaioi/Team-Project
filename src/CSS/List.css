@@ -1,0 +1,68 @@
+.list-container {
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.list-wrap {
+  width: 100%;
+  min-width: 800px;
+  height: 100vh;
+}
+
+.list {
+  width: 1000px;
+  height: 1000px;
+  margin: auto;
+}
+
+.list-top {
+  width: 90%;
+  margin: auto;
+  background-color: rgb(224, 221, 221);
+}
+
+.list ul {
+  width: 100%;
+  height: 50px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.list ul li {
+  height: 50px;
+  width: 100px;
+  float: left;
+  margin: auto 4px;
+
+  text-align: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.list ul li:nth-child(1) {
+  width: 40px;
+}
+
+.list ul li:nth-child(2) {
+  width: 100px;
+}
+
+.list ul li:nth-child(3) {
+  width: 80px;
+  margin: 0 60px;
+}
+
+.list ul li:nth-child(4) {
+  width: 170px;
+  margin: 0 60px;
+}
+
+.list-contents {
+  width: 90%;
+  height: 100vh;
+  margin: auto;
+}
