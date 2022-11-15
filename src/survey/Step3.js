@@ -11,7 +11,7 @@ const Step3 = ({ nextSteps, prevSteps }) => {
   const [question, setQuestion] = useState({}); // 현재문제
 
 
-  const getMatchingQuestion = (question) => {
+  const getMatchingQuestion = (question) => {  // 체크값과 매칭되는 문제목록 가져오기
     let checked = JSON.parse(sessionStorage.getItem("checked"));
     let isMatch = false;
     for (let i = 0; i < checked.length; i++) {
@@ -23,18 +23,18 @@ const Step3 = ({ nextSteps, prevSteps }) => {
     return isMatch;
   }
 
-  useEffect(() => {
+  useEffect(() => {  // 체크값과 매칭되는 문제목록 가져오기
     const QUESTIONS_NOT_FILTERED = Questions;
     const questionList = QUESTIONS_NOT_FILTERED.filter(getMatchingQuestion).map((q, i) => ({ ...q, "qno": i, 'value': "0" }));
     setQuestionList(questionList);
     setQuestion(questionList.filter(q => q.qno === currentQno)[0]);
   }, []);
 
-  const handlerChange = (e) => {
+  const handlerChange = (e) => {  // 문제에 점수 입력
     questionList[currentQno].value = Number(e.target.value);
 
   };
-  const uncheckAll = () => {
+  const uncheckAll = () => {  
     let radios = document.getElementsByName('likert');
     for (let i = 0; i < radios.length; i++) {
       radios[i].checked = false;

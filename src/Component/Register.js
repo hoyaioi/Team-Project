@@ -11,7 +11,7 @@ import "../CSS/register.css";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const handleComplete = (data) => {
 
     let fullAddress = data.address;
@@ -59,7 +59,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
- 
+
 
 
 
@@ -76,7 +76,7 @@ function Register() {
 
   const handlerClickSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError) {
       return `${false} ${alert("등록에 실패했습니다.")}`;
     }
@@ -97,7 +97,7 @@ function Register() {
         if (response.status === 200) {
           navigate('/login');
           alert("정상적으로 등록되었습니다.");
-          
+
         }
       })
       .catch(error => {
@@ -151,6 +151,18 @@ function Register() {
       setCheckItems([]);
     }
   };
+
+  const checkEmail = (e) => {
+    axios.post("http://localhost:8080/api/member/getId", { email })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 'ok') {
+          alert("사용 가능한 이메일입니다.");
+        } else {
+          alert("이미 사용중인 이메일입니다.");
+        }
+      })
+  }
 
   return (
     <>
@@ -297,6 +309,7 @@ function Register() {
                 className="checkOverlapEmail btn text-white"
                 type="button"
                 style={{ marginLeft: "20px", width: "127px" }}
+                onClick={checkEmail}
               >
                 중복확인
               </button>
