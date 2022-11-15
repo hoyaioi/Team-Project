@@ -38,6 +38,10 @@
     height: 21px;
 }
 
+.mycart_list_wrap tr {
+    border-bottom: 2px solid #e5e5e5;
+}
+
 .mycart_check_all_text {
     padding-left: 10px;
     display: flex;

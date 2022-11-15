@@ -66,13 +66,16 @@ function MyPageResearchDetail({  }) {
                 <div className="mypageresearch_main">
                     <div className='mypageresearch_title_wrap'>
                         <h2>나의설문</h2>
+
                     </div>
+/Users/harryjung/Documents/pj1/Team-Project/src/survey/Step4.js
+
                     <div className='researchData'>
                         <div className="back1">
                             <div className="inside">
                                 <h4>{name}님을 위한 추천 영양제</h4>
                                 <div className="researchDate">
-                                    설문 완료일 :<div className='SurveyDate' >{data.resultDate}</div>
+                                    설문 완료일 : {data.resultDate}
                                 </div>
                                 <div className="wrapResearch">
                                     <Swiper
@@ -82,22 +85,22 @@ function MyPageResearchDetail({  }) {
                                         mousewheel={false}
                                         keyboard={true}
                                         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                                        className="resultSSSwiper"
+                                        className="resultSwiper"
                                     >
-                                        {showResultList.map((result, i) => (
-                                            <SwiperSlide key={i}>
-                                                <div className="titleSurveyyyy">
-                                                    {result.research_organ}
-                                                </div>
-                                                <div className="resultImg">
-                                                    <img src={`${result.src}`} />
-                                                </div>
-                                                <div className="priceSurveySSS">
-                                                    가격 : <strong>{result.price}</strong><br />
-                                                    <a href={result.url} target="_blank">상품 보러가기</a>
-                                                </div>
-                                            </SwiperSlide>
-                                        ))}
+                                      {showResultList.map((result, i) => (
+                                <SwiperSlide key={i}>
+                                    <div className="titleSurvey">
+                                         {result.research_organ}
+                                    </div>
+                                    <div className="resultImg">
+                                        <img src={`${result.src}`} />
+                                    </div>
+                                    <div className="priceSurvey">
+                                        가격 : <strong>{result.price}</strong><br />
+                                        <a href={result.url} target="_blank">상품 보러가기</a>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
                                     </Swiper>
                                 </div>
                                 <div className='reseachBack' id="MyResearch"><Link to="/mypage/myresearch">목록으로</Link></div>

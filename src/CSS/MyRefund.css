@@ -54,6 +54,7 @@
     display: table-cell;
     width: 120px;
     height: 120px;
+    border-radius: 20px;
 }
 
 .myrefund_item_name {

@@ -10,7 +10,6 @@ import ServiceCenter from "./Component/ServiceCenter";
 import Notice from "./Component/Notice";
 import NoticeDetail from "./Component/NoticeDetail";
 import ScrollToTop from "./ScrollToTop";
-import MyPageCart from "./Component/MyPageCart";
 import MyCart from "./Component/MyCart";
 import ItemList from "./Component/ItemList";
 import ServiceQna from "./Component/ServiceQna";
@@ -22,8 +21,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindId";
-import FindPW from "./Component/FindPw";
+import FindID from "./Component/FindID";
+import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -31,8 +30,10 @@ import MyPageResearch from "./Component/MyResearch";
 import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
+import MyInfoDel2 from "./Component/MyInfoDel2";
 import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
+import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 function App() {
   return (
@@ -54,12 +55,15 @@ function App() {
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 />} />
-            <Route path="modify" element={<MyInfoUp2 />} />
-            <Route path="myinfodel" element={<MyInfoDel1 />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={3}/>} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={3}/>} />
+
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
             <Route path="result/:resultIdx" element={<Result/>} />
           </Route>
           <Route path="/item/:itemIdx" element={<Item />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />

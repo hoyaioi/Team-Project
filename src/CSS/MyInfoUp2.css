@@ -88,7 +88,7 @@
     cursor: pointer;
 }
 
-.myinfoup2_search:active {
+.myinfoup2_search:hover {
     background-color: #b5d692;
     color: white;
 }

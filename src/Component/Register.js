@@ -8,12 +8,10 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import axios from "axios";
 
 import "../CSS/register.css";
-import { useNavigate } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
   const handleComplete = (data) => {
-
     let fullAddress = data.address;
     let postCode = data.zonecode;
     let extraAddress = "";
@@ -30,8 +28,6 @@ function Register() {
     }
     setAddr1(fullAddress);
     setPostCode(postCode);
-    setPostCodeError(false);
-    setAddr1Error(false);
   };
 
   // 주소검색창 팝업열기
@@ -58,6 +54,8 @@ function Register() {
   const [addr2, setAddr2] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
 
 
@@ -70,9 +68,12 @@ function Register() {
 
 
   const handlerChangeName = (e) => setName(e.target.value);
-  const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, ""));
+  const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value);
+  const handlerChangePostCode = (e) => setPostCode(e.target.value);
+  const handlerChangeAddr1 = (e) => setAddr1(e.target.value);
   const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
-
+  const handlerChangeEmail = (e) => setEmail(e.target.value);
+  const handlerChangePassword = (e) => setPassword(e.target.value);
 
   const handlerClickSubmit = (e) => {
     e.preventDefault();
@@ -82,32 +83,39 @@ function Register() {
     }
 
     const memInfo = {
-      "memName": name,
-      "memPhone": phoneNum,
-      "memPostNum": postCode,
-      "memAddr1": addr1,
-      "memAddr2": addr2,
-      "memEmail": email,
-      "memPw": password
+      memName: name,
+      memPhone: phoneNum,
+      memPostNum: postCode,
+      memAddr1: addr1,
+      memAddr2: addr2,
+      memEmail: email,
+      memPw: password,
     };
 
     axios
       .post("http://localhost:8080/api/member/join", memInfo)
       .then((response) => {
-        if (response.status === 200) {
-          navigate('/login');
+        if (
+          response.status === 200 &&
+          !(
+            name === "" &&
+            phoneNum === "" &&
+            postCode === "" &&
+            addr1 === "" &&
+            addr2 === "" &&
+            email === "" &&
+            password === ""
+          )
+        ) {
           alert("정상적으로 등록되었습니다.");
-
         }
       })
-      .catch(error => {
-        console.log(error)
-      });
+      .catch((error) => console.log(error));
   };
 
-
   const onChangeEmail = (e) => {
-    const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (!e.target.value || emailRegex.test(e.target.value))
       setEmailError(false);
     else setEmailError(true);
@@ -117,17 +125,23 @@ function Register() {
   const onChangePassword = (e) => {
     if (!confirmPassword || e.target.value === confirmPassword)
       setConfirmPasswordError(false);
-    else
-      setConfirmPasswordError(true);
+    else setConfirmPasswordError(true);
     setPassword(e.target.value);
   };
 
   const onChangeConfirmPassword = (e) => {
-    if (password === e.target.value)
-      setConfirmPasswordError(false);
-    else
-      setConfirmPasswordError(true);
+    if (password === e.target.value) setConfirmPasswordError(false);
+    else setConfirmPasswordError(true);
     setConfirmPassword(e.target.value);
+  };
+
+  const validation = () => {
+    if (!email) setEmailError(true);
+    if (!confirmPassword) setConfirmPasswordError(true);
+  };
+
+  const onSubmit = (e) => {
+    if (validation()) return;
   };
 
   const handleSingleCheck = (checked, id) => {
@@ -171,14 +185,9 @@ function Register() {
         <div className="sign_wrap">
           <Form>
             <Form.Group>
-              {!name && (
-                <div className="invalid-input" style={{ color: "red" }}>
-                  (필수항목)
-                </div>
-              )}
               <Form.Label style={{ color: "grey" }}>이름</Form.Label>
               <Form.Control
-                style={{ width: "450px" }}
+                style={{ marginBottom: "30px", width: "450px" }}
                 type="name"
                 placeholder="이름을 입력하세요."
                 value={name}
@@ -188,11 +197,6 @@ function Register() {
             </Form.Group>
 
             <Form.Group>
-              {!phoneNum && (
-                <div className="invalid-input" style={{ marginTop: '20px', color: "red" }}>
-                  (필수항목)
-                </div>
-              )}
               <Form.Label style={{ color: "grey", display: "block" }}>
                 연락처
               </Form.Label>
@@ -230,19 +234,14 @@ function Register() {
               </button>
             </Form.Group>
             <Form.Group>
-              {!postCode && (
-                <div className="invalid-input" style={{ color: "red" }}>
-                  (필수항목)
-                </div>
-              )}
               <Form.Label style={{ color: "grey" }}>우편번호</Form.Label>
               <br />
               <Form.Control
                 className="postCodeInput"
-                type="postCode"
                 readOnly
+                type="postcode"
                 value={postCode}
-              // onChange={onChangePostCode}
+                onChange={handlerChangePostCode}
               />
               <button
                 className="searchPostCode btn text-white"
@@ -254,27 +253,16 @@ function Register() {
               </button>
             </Form.Group>
             <Form.Group>
-              {!addr1 && (
-                <div className="invalid-input" style={{ color: "red" }}>
-                  (필수항목)
-                </div>
-              )}
               <Form.Label style={{ color: "grey" }}>주소</Form.Label>
               <Form.Control
                 style={{ width: "450px", marginBottom: "30px" }}
                 type="address"
                 name="address"
                 placeholder="주소를 입력하세요"
-                readOnly
                 value={addr1}
-                // onChange={handlerChangeAddr1}
+                onChange={handlerChangeAddr1}
                 required
               />
-              {!addr2 && (
-                <div className="invalid-input" style={{ color: "red" }}>
-                  (필수항목)
-                </div>
-              )}
               <Form.Label style={{ color: "grey" }}>상세주소</Form.Label>
               <Form.Control
                 style={{ width: "450px" }}
@@ -288,17 +276,12 @@ function Register() {
 
             <hr style={{ margin: "20px 0px", width: "450px" }}></hr>
             <Form.Group>
-              {emailError && (
-                <div className="invalid-input" style={{ color: "red" }}>
-                  (필수항목)이메일 형식으로 아이디를 입력해주세요.
-                </div>
-              )}
               <Form.Label style={{ display: "block", color: "grey" }}>
                 아이디(이메일형식)
               </Form.Label>
               <Form.Control
                 className="emailForm"
-                style={{ marginBottom: '20px', display: "inline-block", width: "300px" }}
+                style={{ display: "inline-block", width: "300px" }}
                 type="email"
                 placeholder="아이디(이메일형식)을 입력하세요."
                 value={email}
@@ -313,13 +296,13 @@ function Register() {
               >
                 중복확인
               </button>
-
-              {!password && (
-                <span style={{ color: "red" }}>
-                  (필수항목)
-                </span>
+              {emailError && (
+                <div class="invalid-input" style={{ color: "red" }}>
+                  <br />
+                  이메일 형식으로 아이디를 입력해주세요.
+                </div>
               )}
-              <br />
+
               <Form.Label style={{ color: "grey" }}>비밀번호</Form.Label>
               <Form.Control
                 className="passwordForm"
@@ -341,9 +324,10 @@ function Register() {
                 onChange={onChangeConfirmPassword}
                 required
               />
+              <br />
               {confirmPasswordError && (
                 <span style={{ color: "red" }}>
-                  (필수항목)비밀번호가 일치하지 않습니다.
+                  비밀번호가 일치하지 않습니다.
                 </span>
               )}
             </Form.Group>
@@ -379,7 +363,7 @@ function Register() {
                         <Form.Check
                           className="agree_box"
                           type="checkbox"
-                          label={`${data.title} ${data.id === 3 ? '(선택사항)' : ''}`}
+                          label={data.title}
                           required={data.id === 3 ? false : true}
                           onChange={(e) =>
                             handleSingleCheck(e.target.checked, data.id)
@@ -392,13 +376,19 @@ function Register() {
                 })}
               </tbody>
             </div>
+            <span className="choice_option">선택사항</span>
+
             <div className="second_register_btn_wrapper">
               <input
                 className="second_regbtn"
                 type="submit"
                 id="submit"
                 value="회원가입"
-                onClick={handlerClickSubmit} />
+                onClick={() => {
+                  onSubmit();
+                  handlerClickSubmit();
+                }}
+              />
               <button className="secondKktRegbtn btn text" type="button">
                 <RiKakaoTalkFill size="30" />
                 카카오톡 회원가입

@@ -2,14 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-import dummy from "../dummy.json";
 
 const Items = () => {
 
   const [datas, setDatas] = useState([]);
 
   useEffect(()=> {
-    axios.get('http://localhost:8080/itemtop')
+    axios.get('http://localhost:8080/item')
     .then(response => {
         console.log(response)
         setDatas(response.data);
@@ -20,10 +19,10 @@ const Items = () => {
   return (
     <div className="main_items_sales">
       {datas && datas.map(item => (
-        <Link to={`/item/${item.itemIdx}`}>
+        <Link to={`/item/${item.itemIdx}`}state={{ item: datas}}>
           <div key={item.itemIdx} className="main_items">
             <div className="main_items_img_wrap">
-              <img src={item.itemThumb} />
+              <img src={item.itemThumb} alt="상품썸네일"/>
             </div>
             <div className="main_items_name">{item.itemName}</div>
             <div className="main_items_price">{item.itemPrice}</div>

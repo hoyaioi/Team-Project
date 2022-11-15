@@ -22,7 +22,7 @@ function ItemList() {
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
-            <div className="itelist_title">
+            <div className="itemlist_title">
               <h2>전체보기</h2>
             </div>
             <div className="itemlist_box">
@@ -68,12 +68,14 @@ function ItemList() {
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
                 <ul>
-                  {datas && datas.slice(0,10).map(item => (
-                    <Link to={`/item/${item.itemIdx}`} state={{ item: datas}}>
-                      <li key={item.itemIdx}>
-                        <div className="itemlist_items_box">
-                          <div className="itemlist_items_img">
-                            <img src={item.itemThumb} />
+                  {datas &&
+                    datas.slice(0, 10).map((item) => (
+                      <Link to={`/item/${item.itemIdx}`}>
+                        <li key={item.itemIdx}>
+                          <div className="itemlist_items_box">
+                            <div className="itemlist_items_img">
+                              <img src={item.itemThumb} />
+                            </div>
                           </div>
                           <div className="itemlist_info">
                             <div className="itemlist_info_title">
@@ -82,7 +84,6 @@ function ItemList() {
                             <div className="itemlist_info_money">
                               <strong>{item.itemPrice}</strong>
                             </div>
-                          </div>
                           </div>
                         </li>
                       </Link>

@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
 import { BsWindowSidebar } from "react-icons/bs";
+import { useNavigate } from "react-router-dom/dist";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -76,7 +77,6 @@ function Login() {
                   id="login_button"
                   type="submit"
                   onClick={handlerSubmit}
-                  value="로그인"
                 >
                   로그인
                 </Button>

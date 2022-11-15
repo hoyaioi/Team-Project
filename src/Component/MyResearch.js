@@ -15,6 +15,7 @@ function MyPageResearch() {
     useEffect(() => {
         axios.get('http://localhost:8080/api/mypage/myresearch')
             .then(response => {
+                console.log(response);
                 setDatas(response.data);
             })
             .catch(error => console.log(error));

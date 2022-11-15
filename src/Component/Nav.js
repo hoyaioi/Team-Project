@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import "../CSS/Nav.css";
 
 const Nav = () => {
-  if (window.location.pathname === "/intro") return null;
-  if (window.location.pathname === "/surveyStart") return null;
   return (
     <div className="header_menu_wrap">
       <div className="header_menu_area">
