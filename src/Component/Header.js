@@ -8,10 +8,9 @@ const Header = () => {
 
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const logout = () => {
-    sessionStorage.clear(); 
+    sessionStorage.clear();
     alert("로그아웃 되었습니다.");
     window.location.reload();
-    
   };
 
   return (

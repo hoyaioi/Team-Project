@@ -1,12 +1,28 @@
-import { Link } from "react-router-dom";
-import "../CSS/ItemList.css";
-import DummyItem from "../DummyItem.json";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "../CSS/ItemList.css";
 
 function ItemList() {
-  const [datas, setDatas] = useState([]);
 
+  const location = useLocation();
+  const categoryName = location.state.category;
+  const [datas, setDatas] = useState([]);
+  const [items, setItems] = useState([]);
+  const organsList = ["간", "눈", "몸", "혈관", "장"];
+  const [organs, setOrgans] = useState('');
+  const [sort, setSort] = useState('');
+  
+  
+  const organsClick = (e) => {
+    
+    setOrgans(e.target.value);
+  };
+  const sortChange = (e) => {
+    setSort(e.target.value);
+  }
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/item")
@@ -15,29 +31,60 @@ function ItemList() {
         setDatas(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  },[]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/itemlist/${categoryName}`)
+      .then((response) => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch((error) => console.log(error));
+  },[categoryName]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/itemOrgans/${organs}`)
+      .then((response) => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch((error) => console.log(error));
+  },[organs]);
+
+
+const itemCount =  categoryName === null ? datas : items;
   return (
     <>
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
             <div className="itemlist_title">
-              <h2>전체보기</h2>
+              {categoryName === null ? <h2>전체상품</h2> : 
+              <>
+              <h2>{categoryName}</h2>
+              {categoryName === '기능별' ? organsList.map(organs => (
+                <button onClick={organsClick} value={organs}>{organs}</button>
+              ))
+            : null}
+              
+              </>
+              }
             </div>
             <div className="itemlist_box">
               <div className="itemlist_inbox">
                 <span className="itemlist_num">
-                  <strong>{datas.length}개의 상품</strong>
+                  <strong>{itemCount.length}개의 상품</strong>
                 </span>
                 <div className="itemlist_view_num">
-                  <select name="sort" className="itemlist_chosen">
-                    <option value="selected" selected="selected">
+                  <select name="sort" className="itemlist_chosen" onChange={sortChange} value={sort}>
+                    <option value="selected" >
                       추천상품순
                     </option>
                     <option value="sellcnt">판매인기순</option>
-                    <option value="price_asc">낮은가격순</option>
-                    <option value="price_dsc">높은가격순</option>
+                    <option value="asc">낮은가격순</option>
+                    <option value="desc">높은가격순</option>
                   </select>
                 </div>
                 <div className="itemlist_view_num">
@@ -67,14 +114,14 @@ function ItemList() {
             </div> */}
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
-                <ul>
-                  {datas &&
-                    datas.slice(0, 10).map((item) => (
-                      <Link to={`/item/${item.itemIdx}`}>
-                        <li key={item.itemIdx}>
+                  {categoryName === null 
+                  ? <ul>
+                  {datas.map(item => {
+                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                        <li key={item.itemNum}>
                           <div className="itemlist_items_box">
                             <div className="itemlist_items_img">
-                              <img src={item.itemThumb} />
+                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
                             </div>
                           </div>
                           <div className="itemlist_info">
@@ -82,13 +129,36 @@ function ItemList() {
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}</strong>
+                              <strong>{item.itemPrice}원</strong>
                             </div>
                           </div>
                         </li>
-                      </Link>
-                    ))}
+                      </Link>;
+                    })}
+
                 </ul>
+                  : <ul>
+                  {items.map(item => {
+                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                        <li key={item.itemNum}>
+                          <div className="itemlist_items_box">
+                            <div className="itemlist_items_img">
+                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
+                            </div>
+                          </div>
+                          <div className="itemlist_info">
+                            <div className="itemlist_info_title">
+                              <strong>{item.itemName}</strong>
+                            </div>
+                            <div className="itemlist_info_money">
+                              <strong>{item.itemPrice}원</strong>
+                            </div>
+                          </div>
+                        </li>
+                      </Link>;
+                    })}
+
+                </ul> }
               </div>
             </div>
           </div>

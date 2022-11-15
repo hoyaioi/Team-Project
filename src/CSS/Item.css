@@ -21,6 +21,11 @@
     text-align: center;
 }
 
+.itemImg .thumb {
+    height : 490px;
+    width : 500px;
+}
+
 .info {
     float:left;
     margin-left : 50px;

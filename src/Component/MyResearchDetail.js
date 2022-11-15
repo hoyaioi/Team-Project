@@ -20,7 +20,7 @@ function MyPageResearchDetail({  }) {
     const [showResultList, setShowResultList] = useState([]);
     
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/mypage/result/${resultIdx}`)
+        axios.get(`http://localhost:8080/mypage/result/${resultIdx}`)
             .then(response => {
                 const d = response.data;
                 setData(d);
@@ -68,7 +68,6 @@ function MyPageResearchDetail({  }) {
                         <h2>나의설문</h2>
 
                     </div>
-/Users/harryjung/Documents/pj1/Team-Project/src/survey/Step4.js
 
                     <div className='researchData'>
                         <div className="back1">

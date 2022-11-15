@@ -62,7 +62,7 @@ function App() {
             <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
             <Route path="result/:resultIdx" element={<Result/>} />
           </Route>
-          <Route path="/item/:itemIdx" element={<Item />} />
+          <Route path="/item/:itemNum" element={<Item />} />
           <Route path="/order" element={<Order />} />
           <Route path="/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
