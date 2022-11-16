@@ -31,7 +31,7 @@ function Item() {
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const email = sessionStorage.getItem("memEmail"); 
   const location = useLocation();
-  const items = location.state.item;
+  const [items, setItems] = useState([]);
   console.log(itemNum);
 
   function plusClick() {
@@ -41,11 +41,30 @@ function Item() {
     amount === 1 ? setAmount(1) : setAmount(amount - 1);
   }
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/item")
+      .then((response) => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch((error) => console.log(error));
+  },[]);
+
   const cartDto = {
     memEmail : email,
     itemNum: datas.itemNum,
     itemAmount: amount
   };
+
+  const orderDto = [{
+    memEmail : email,
+    itemNum : datas.itemNum,
+    itemAmount : amount,
+    itemPrice : datas.itemPrice,
+    itemThumb : datas.itemThumb,
+  }];
+
 
   const cartHanddler = () => {
     console.log(email);
@@ -64,7 +83,7 @@ function Item() {
 }
 
   const buyHanddler = () => {
-    navigate('/order', {state :{ item: datas, amount: amount}});
+    navigate('/order', {state : {orderDto}});
   }
   const moveToFocus = useRef([]);
   useEffect(() => {
@@ -123,7 +142,7 @@ function Item() {
           </div>
           <div className='total-price'>
             <span>{datas.itemName}</span>
-            <input value={amount} onChange className='item_amount'></input>
+            <input value={amount} className='item_amount'></input>
             <div className='updown'>
               <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
               <button onClick={minusClick} className='arrow'><IoIosArrowDown /></button>

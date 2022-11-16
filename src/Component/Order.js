@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../CSS/Order.css";
 
 
 function Order() {
-const location = useLocation();
-const item = location.state.item;
-const amount = location.state.amount;
+const location = useLocation([]);
+const item = location.state.orderDto;
+console.log(item);
+let totalPrice = 0;
+item.forEach( (items) => {
+  totalPrice += (items.itemPrice * items.itemAmount);
+});
+
+
+
+console.log(totalPrice);
     console.log()
     return (
         <>
@@ -32,30 +41,33 @@ const amount = location.state.amount;
                                                     <th>합계금액</th>
                                                 </thead>
                                                 <tbody>
+                                                    {item.map(items => [
+
                                                     <tr>
                                                         <td className="order_td_item">
                                                             <div className="order_item">
-                                                                <span className="order_item_img"><img src={process.env.REACT_APP_API_URL + item.itemThumb} /></span>
+                                                                <span className="order_item_img"><img src={process.env.REACT_APP_API_URL + items.itemThumb} /></span>
                                                                 <div className="order_item_info">
-                                                                    <a>{item.itemName}</a>
+                                                                    <a>{items.itemName}</a>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td className="order_td_amount">
                                                             <div className="order_amount">
-                                                                <strong>{amount}</strong>
+                                                                <strong>{items.itemAmount}</strong>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <strong className="order_item_price">{item.itemPrice*amount}원</strong>
+                                                            <strong className="order_item_price">{items.itemPrice}</strong>
                                                         </td>
                                                         <td><span>2500원</span></td>
                                                         <td>
                                                             <strong className="order_item_totalprice">
-                                                                합계금액
+                                                                {items.itemPrice * items.itemAmount}
                                                             </strong>
                                                         </td>
                                                     </tr>
+                                                       ])}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -64,8 +76,8 @@ const amount = location.state.amount;
                                         <div className="order_sum_cont">
                                             <div className="order_sum_list">
                                                 <dl>
-                                                    <dt>총 <strong>{amount}</strong> 개의 상품금액 </dt>
-                                                    <dd><strong>56,000</strong>원</dd>
+                                                    <dt>총 <strong></strong> {item.length}개의 상품금액 </dt>
+                                                    <dd><strong>{totalPrice}</strong>원</dd>
                                                 </dl>
                                                 <span><img src="https://grsmaltr7850.cdn-nhncommerce.com/data/skin/front/udweb/img/order/order_price_plus.png" alt="더하기" /></span>
                                                 <dl>
@@ -75,7 +87,7 @@ const amount = location.state.amount;
                                                 <span><img src="https://grsmaltr7850.cdn-nhncommerce.com/data/skin/front/udweb/img/order/order_price_total.png" alt="합계" /></span>
                                                 <dl class="price_total">
                                                     <dt>합계</dt>
-                                                    <dd><strong>55,800</strong>원
+                                                    <dd><strong>{totalPrice+2500}</strong>원
                                                     </dd>
                                                 </dl>
                                             </div>

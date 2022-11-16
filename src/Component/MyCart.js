@@ -4,11 +4,25 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 function MyCart() {
     const memEmail = sessionStorage.getItem("memEmail");
     const [data, setData] = useState([]);
     const [checkedList, setCheckedLists] = useState([]);
+    const plusClick = (cartIdx)=> {
+        setData( data.map((item=>{
+            return item.cartIdx === cartIdx ? {...item, itemAmount : item.itemAmount+1} : item
+        })));
+
+    }
+
+    const minusClick = (cartIdx)=> {
+        setData( data.map((item=>{
+            return item.cartIdx === cartIdx && item.itemAmount > 1 ? {...item, itemAmount : item.itemAmount-1} : item
+        })));
+        
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:8080/cart/${memEmail}`)
@@ -21,12 +35,21 @@ function MyCart() {
     }, []);
 
     const cartDelete = () => {
-        axios.post("http://localhost:8080/cartdelete" + checkedList)
+        console.log(checkedList)
+        console.log(checkedList.map(list => list.cartIdx));
+
+        const confirm = window.confirm(checkedList.length+"개의 상품 정말 삭제하시겠습니까?");
+        if(confirm)
+        axios.post("http://localhost:8080/cartdelete", checkedList)
             .then(response => {
-                console.log(response.data);
+                console.log(response);
+                alert('삭제성공');
                 setData(response.data);
+                setCheckedLists([]);
             })
-            .catch(error => { console.log(error) });
+            .catch(error => { 
+                alert('삭제실패');
+                console.log(error) });
     }
 
 
@@ -83,7 +106,7 @@ function MyCart() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data && data.map((item) =>
+                                {data.length === 0 ? <tr><td></td><td>장바구니가 비었습니다.</td><td></td><td></td></tr> :  data && data.map((item) =>
                                     <tr>
                                         <td>
                                             <div className='mycart_check'>
@@ -92,29 +115,32 @@ function MyCart() {
                                             </div>
                                         </td>
                                         <td className='mycart_item_info_td'>
+                                            <Link to={`/item/${item.itemNum}`}>
                                             <div className='mycart_item_info_wrap'>
                                                 <img src={process.env.REACT_APP_API_URL + item.itemThumb} className='mycart_item_img' alt='상품썸네일' />
                                                 <div className='mycart_item_name'>
                                                     {item.itemName}
                                                 </div>
                                             </div>
+                                            </Link>
                                         </td>
                                         <td className='mycart_item_count_td'>
-                                            <button><IoIosArrowUp /></button><input value={item.itemAmount}></input><button><IoIosArrowDown /></button>
+                                            <button onClick={()=> {plusClick(item.cartIdx,item.itemAmount)}} ><IoIosArrowUp /></button><input value={item.itemAmount}></input><button onClick={()=> {minusClick(item.cartIdx)}}><IoIosArrowDown /></button>
                                         </td>
                                         <td className='mycart_item_price_td'>
                                             {item.itemPrice * item.itemAmount}
                                         </td>
                                     </tr>
-                                )}
+                                )} 
+                               
                             </tbody>
                         </table>
                     </div>
                     <div className='mycart_btn_wrap'>
                         <div className='mycart_btn_wrap_inner'>
                             <button type="button" form="cartList" onClick={cartDelete} className='mycart_delete_btn'>선택 항목 삭제</button>
-                            <button className='mycart_buy_btn' type='button'>선택 주문</button>
-                            <button className='mycart_buy_btn' type='button'>전체 주문</button>
+                            <Link to="/order" state={{ orderDto: checkedList }}><button className='mycart_buy_btn' type='button'>선택 주문</button></Link>
+                            <Link to="/order" state={{ orderDto: data }}><button className='mycart_buy_btn' type='button'>전체 주문</button></Link>
                         </div>
                     </div>
                 </div>
