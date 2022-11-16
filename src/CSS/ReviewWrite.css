@@ -130,21 +130,18 @@
     vertical-align: middle;
 }
 
-.reviewwrite_content_text {
-    overflow: hidden;
-    padding-left: 10px;
-    border: 1px solid #ddd;
-}
-
 .reviewwrite_text {
     width: 100%;
-    height: 120px;
-    padding: 10px 0px;
-    margin-bottom: 20px;
-    border: none;
+    height: 140px;
+    padding: 10px;
+    border: 2px solid #ddd;
     color: #111;
     outline: none;
     resize: none;
+}
+
+.reviewwrite_text:focus{
+    border: 2px solid #b5d692;
 }
 
 .reviewwrite_detail_file {
