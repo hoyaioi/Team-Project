@@ -54,13 +54,11 @@ function App() {
             <Route path="myorderlist" element={<MyOrderList memIdx={1} />} />
             <Route path="myrefund" element={<MyRefund memIdx={1} />} />
             <Route path="mycart" element={<MyCart />} />
-            <Route path="myreview" element={<MyReview memIdx={1}/>} />
-            <Route path="writereview" element={<ReviewWrite />} />
+            <Route path="myreview" element={<MyReview memIdx={1} />} />
+            
             <Route path="myresearch" element={<MyPageResearch />} />
-
             <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
             <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
-
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
             <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
             <Route path="result/:resultIdx" element={<Result />} />
