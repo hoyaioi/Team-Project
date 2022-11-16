@@ -9,19 +9,19 @@ const Footer = () => {
         <div className="footer_top">
           <ul>
             <li>
-            <Link to="/company"><a href="">회사소개</a></Link>
+            <Link to="/company"><span>회사소개</span></Link>
             </li>
             <li>
-            <Link to="/agreement"> <a href="">이용약관</a></Link>
+            <Link to="/agreement"><span>이용약관</span></Link>
             </li>
             <li>
-            <Link to="/private"> <a href="">개인정보처리방침</a></Link>
+            <Link to="/private"><span>개인정보처리방침</span></Link>
             </li>
             <li>
-              <a href="">제휴/마케팅</a>
+            <Link to="/"><b>제휴/마케팅</b></Link>
             </li>
             <li>
-              <Link to="/serviceqna">서비스 장애 신고</Link>
+              <Link to="/serviceqna"><span>서비스 장애 신고</span></Link>
             </li>
           </ul>
         </div>
