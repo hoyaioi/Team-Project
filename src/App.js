@@ -21,8 +21,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
+import FindID from "./Component/FindId";
+import FindPW from "./Component/FindPw";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -35,6 +35,8 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
+import Admin from "./Component/AdminAuth";
+
 function App() {
   return (
     <>
@@ -55,12 +57,12 @@ function App() {
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview />} />
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={3}/>} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={3}/>} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={3} />} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={3} />} />
 
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={3}/>} />
-            <Route path="result/:resultIdx" element={<Result/>} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={3} />} />
+            <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
           <Route path="/order" element={<Order />} />
@@ -78,6 +80,8 @@ function App() {
           <Route path="/findpw" element={<FindPW />} />
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
+          <Route path="/adminauth" element={<Admin />} />
+
         </Routes>
       </div>
       <Footer />

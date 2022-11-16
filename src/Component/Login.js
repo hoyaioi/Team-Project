@@ -16,9 +16,7 @@ function Login() {
   const onChangePassword = (e) => setPassword(e.target.value);
   const handlerSubmit = (e) => {
     e.preventDefault();
-
-
-    axios.post("http://localhost:8080/member/login", { "memEmail": email, "memPw": password })
+    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password })
       .then(response => {
         if (response.status === 200) {
           navigate('/');
@@ -26,6 +24,8 @@ function Login() {
           sessionStorage.setItem("memName", response.data.memName);
           sessionStorage.setItem("memEmail", response.data.memEmail);
           sessionStorage.setItem("memIdx", response.data.memIdx);
+          sessionStorage.setItem("adminCheck", response.data.memRole);
+          console.log(response.data);
           window.location.reload();
         }
       })
@@ -34,6 +34,7 @@ function Login() {
         console.log(error)
       });
   };
+  
   return (
     <>
       <div className="login_main">

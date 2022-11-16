@@ -93,7 +93,7 @@ function Register() {
     };
     
     axios
-      .post("http://localhost:8080/member/join", memInfo)
+      .post("http://localhost:8080/api/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');

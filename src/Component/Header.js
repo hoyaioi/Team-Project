@@ -13,6 +13,9 @@ const Header = () => {
     window.location.reload();
   };
 
+  const isAdmin = sessionStorage.getItem("adminCheck") === "1" ? true : false;
+
+
   return (
     <>
       <div id="header_wrap">
@@ -65,6 +68,11 @@ const Header = () => {
                   <li>
                     <Link to="/service/center">고객센터</Link>
                   </li>
+                  {isAdmin ? (
+                    <li>
+                      <Link to="/adminauth">관리자페이지</Link>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>
