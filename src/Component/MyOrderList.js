@@ -6,6 +6,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import '../CSS/MyOrderList.css';
 import s6 from '../Img/s6.jpg'
 import Paging from './Paging';
+import RefundApp from './RefundApp';
 
 function MyOrderList({ memIdx }) {
 
@@ -39,6 +40,36 @@ function MyOrderList({ memIdx }) {
         setCount2(count2);
         setCount3(count3);
         setCount4(count4);
+    }
+
+    const handlerCancelNow = (orderNum) => {
+        if(window.confirm('해당 상품의 주문을 취소하시겠습니까?')){
+            axios.put(`http://localhost:8080/mypage/myorderlist/now/${orderNum}`)
+            .then(response => {
+                if(response.status === 200){
+                    alert('취소가 완료되었습니다.');
+                    window.location.reload();
+                }else{
+                    alert('취소가 실패하였습니다.');
+                }
+            })
+            .catch(error => console.log(error));
+        }
+    }
+
+    const handlerCancelPlz = (orderNum) => {
+        if(window.confirm('발송 준비 중인 상품입니다. \n취소 신청 하시겠습니까?')){
+            axios.put(`http://localhost:8080/mypage/myorderlist/plz/${orderNum}`)
+            .then(response => {
+                if(response.status === 200){
+                    alert('신청이 완료되었습니다. \n판매자의 승인 후 취소가 완료됩니다.');
+                    window.location.reload();
+                }else{
+                    alert('취소가 실패하였습니다.');
+                }
+            })
+            .catch(error => console.log(error));
+        }
     }
 
     //////////////////////////////////////////// 페이지
@@ -103,6 +134,7 @@ function MyOrderList({ memIdx }) {
 
 
                     <div className='myorderlist_order_wrap'>
+                        {/* {popup ? <RefundApp /> : null} */}
                         <table>
                             <thead>
                                 <tr>
@@ -143,8 +175,10 @@ function MyOrderList({ memIdx }) {
                                         </td>
                                         <td className='myorderlist_order_btn_td'>
                                             <div>
-                                                {order.orderStatus === '주문완료' ? (<button type='button'>취소요청</button>) : ''}
-                                                {order.orderStatus === '상품준비중' ? (<button type='button'>취소요청</button>) : ''}
+                                                {order.orderStatus === '취소완료' ? '' : null }
+                                                {order.orderStatus === '취소처리중' ? '' : null }
+                                                {order.orderStatus === '주문완료' ? (<button type='button' onClick={() => handlerCancelNow(order.orderNum)}>취소요청</button>) : ''}
+                                                {order.orderStatus === '상품준비중' ? (<button type='button' onClick={() => handlerCancelPlz(order.orderNum)}>취소요청</button>) : ''}
                                                 {order.orderStatus === '배송중' ? (<button type='button'>배송조회</button>) : ''}
                                                 {order.orderStatus === '배송완료' ? (<><button type='button'>배송조회</button> <button type='button'>반품요청</button></>) : ''}
                                             </div>
