@@ -8,12 +8,12 @@
 .list-wrap {
   width: 100%;
   min-width: 800px;
-  height: 100vh;
+  height: 1050px;
 }
 
 .list {
   width: 1000px;
-  height: 1000px;
+  height: 90%;
   margin: auto;
 }
 
@@ -61,8 +61,21 @@
   margin: 0 60px;
 }
 
+.list-container ul li + a {
+  width: 100px;
+}
 .list-contents {
   width: 90%;
-  height: 100vh;
+  height: 770px;
   margin: auto;
+}
+
+.page_wrap {
+  width: 170px;
+  margin: 20px auto;
+}
+
+.page_btn button {
+  border: none;
+  background-color: white;
 }

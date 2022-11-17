@@ -35,7 +35,10 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-import List from "./Component/List";
+
+import MemberDetail from "./Component/MemberDetail";
+import Member from "./Component/Member";
+
 function App() {
   return (
     <>
@@ -79,7 +82,8 @@ function App() {
           <Route path="/findpw" element={<FindPW />} />
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
-          <Route path="/member" element={<List />} />
+          <Route path="/member" element={<Member />}></Route>
+          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
         </Routes>
       </div>
       <Footer />
