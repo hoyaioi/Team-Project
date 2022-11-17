@@ -2,16 +2,20 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/Qna.css';
 
-function Qna(props) {
-
-    const qnaIdx = props.value;
+function Qna({value,setQnaAnswer}) {
+    console.log(value);
+    
+    const qnaIdx = value;
     const [ datas, setData ] = useState({});
     const [ answer, setAnswer ] = useState({});
     const [ success, setSuccess ] = useState(true);
+
+    
+   
     useEffect(() => {
         axios.get(`http://localhost:8080/qna/${qnaIdx}`)
         .then(response => { 
-            console.log(response); 
+            
             setData(response.data);
         })
         .catch(error => { console.log(error); });
@@ -20,13 +24,15 @@ function Qna(props) {
     useEffect(() => {
         axios.get(`http://localhost:8080/qnaAnswer/${qnaIdx}`)
         .then(response => { 
-            console.log(response); 
             setAnswer(response.data);
             setSuccess(false);
         })
         .catch(error => { console.log(error); });
     }, []);
 
+    setQnaAnswer(answer);
+    
+console.log(datas)
     return (
         <table className='qna-modal-table'>
             <tbody>
@@ -35,7 +41,7 @@ function Qna(props) {
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <sapn>질문 내용</sapn>
+                                <sapn>{datas.qnaContents}</sapn>
                             </div>
                         </div>
                         <div className='qna-comment'>
@@ -44,7 +50,7 @@ function Qna(props) {
                                 <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
                             </div>
                             <div className='comment-date'>
-                                <sapn>작성일자</sapn>
+                                <sapn>답변일자 : {answer.qnaCommentWriteDate}</sapn>
                             </div>
                         </div>
                     </td>

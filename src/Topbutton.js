@@ -6,8 +6,7 @@ function Topbutton() {
 
     const scrollToTop = () => {
         window.scroll({
-            top: 0,
-            behavior: 'smooth'
+            top: 0
         })
 
     }

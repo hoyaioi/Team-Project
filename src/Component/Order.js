@@ -1,18 +1,43 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../CSS/Order.css";
 
 
 function Order() {
+const memEmail = sessionStorage.getItem("memEmail");
 const location = useLocation([]);
 const item = location.state.orderDto;
-console.log(item);
 let totalPrice = 0;
 item.forEach( (items) => {
   totalPrice += (items.itemPrice * items.itemAmount);
 });
+const [data, setData] = useState([])
+
+const [checkType, setCheckType] = useState('');
 
 
+useEffect(() => {
+    axios.get(`http://localhost:8080/member/${memEmail}`)
+        .then(response => {
+            console.log(response);
+            setData(response.data);
+
+        })
+        .catch(error => { console.log(error); });
+}, []);
+
+
+
+const checkedSame = () => {
+    setCheckType('same');
+    console.log(checkType)
+}
+const checkedNew = () => {
+    setCheckType('new');
+    console.log(checkType);
+}
 
 console.log(totalPrice);
     console.log()
@@ -79,12 +104,12 @@ console.log(totalPrice);
                                                     <dt>총 <strong></strong> {item.length}개의 상품금액 </dt>
                                                     <dd><strong>{totalPrice}</strong>원</dd>
                                                 </dl>
-                                                <span><img src="https://grsmaltr7850.cdn-nhncommerce.com/data/skin/front/udweb/img/order/order_price_plus.png" alt="더하기" /></span>
+                                                <span><img src="/images/order_price_plus.png" alt="더하기" /></span>
                                                 <dl>
                                                     <dt>배송비</dt>
                                                     <dd><strong>2500</strong>원</dd>
                                                 </dl>
-                                                <span><img src="https://grsmaltr7850.cdn-nhncommerce.com/data/skin/front/udweb/img/order/order_price_total.png" alt="합계" /></span>
+                                                <span><img src="/images/order_price_total.png" alt="합계" /></span>
                                                 <dl class="price_total">
                                                     <dt>합계</dt>
                                                     <dd><strong>{totalPrice+2500}</strong>원
@@ -105,7 +130,7 @@ console.log(totalPrice);
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row"><span class="important">주문하시는 분</span></th>
-                                                            <td><input type="text" name="orderName" maxlength="20" /></td>
+                                                            <td><input type="text" name="orderName" maxlength="20" value={data.memName} /></td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">전화번호</th>
@@ -116,24 +141,15 @@ console.log(totalPrice);
                                                         <tr>
                                                             <th scope="row"><span class="important">휴대폰 번호</span></th>
                                                             <td>
-                                                                <input type="text" id="mobileNum" name="orderCellPhone" maxlength="20" />
+                                                                <input type="text" id="mobileNum" name="orderCellPhone" value={data.memPhone} maxlength="20" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row"><span class="important">이메일</span></th>
                                                             <td class="member_email">
-                                                                <input type="text" name="orderEmail" value="" />
+                                                                <input type="text" name="orderEmail" value={data.memEmail} />
 
-                                                                <select id="emailDomain" class="chosen-select">
-                                                                    <option value="self">직접입력</option>
-                                                                    <option value="naver.com">naver.com</option>
-                                                                    <option value="hanmail.net">hanmail.net</option>
-                                                                    <option value="daum.net">daum.net</option>
-                                                                    <option value="nate.com">nate.com</option>
-                                                                    <option value="hotmail.com">hotmail.com</option>
-                                                                    <option value="gmail.com">gmail.com</option>
-                                                                    <option value="icloud.com">icloud.com</option>
-                                                                </select>
+                                                                
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -155,55 +171,48 @@ console.log(totalPrice);
                                                             <div class="form_element">
                                                                 <ul>
                                                                     <li>
-                                                                        <input type="radio" name="shipping" id="shippingBasic" />
-                                                                        <label for="shippingBasic" class="choice_s">기본 배송지</label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" name="shipping" id="shippingRecently" />
-                                                                        <label for="shippingRecently" class="choice_s">최근 배송지</label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" name="shipping" id="shippingNew" />
+                                                                        <input type="radio" name="shipping" id="New" defaultChecked={true} onClick={checkedNew}/>
                                                                         <label for="shippingNew" class="choice_s on">직접 입력</label>
                                                                     </li>
                                                                     <li>
-                                                                        <input type="radio" name="shipping" id="shippingSameCheck" />
-                                                                        <label for="shippingSameCheck" class="choice_s">주문자정보와 동일</label>
+                                                                        <input type="radio" name="shipping" id="SameCheck" onClick={checkedSame} />
+                                                                        <label for="shippingSameCheck" class="choice_s" >주문자정보와 동일</label>
                                                                     </li>
                                                                 </ul>
                                                                 <span class="btn_gray_list"><a href="#myShippingListLayer" class="btn_gray_small btn_open_layer js_shipping"><span>배송지 관리</span></a></span>
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    {}
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실분</span></th>
-                                                        <td><input type="text" name="receiverName" data-pattern="gdEngKor" maxlength="20" /></td>
+                                                        <td><input type="text" name="receiverName" data-pattern="gdEngKor" maxlength="20" value={checkType === 'same' ? data.memName : ""}/></td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실 곳</span></th>
                                                         <td class="member_address">
                                                             <div class="address_postcode">
-                                                                <input type="text" name="receiverZonecode" readonly="readonly" />
-                                                                <input type="hidden" name="receiverZipcode" />
+                                                                <input type="text" name="receiverZonecode" readonly="readonly" value={checkType === 'same' ? data.memPostNum : ""} />
+                                                                <input type="hidden" name="receiverZipcode" / >
                                                                 <span id="receiverZipcodeText" class="old_post_code"></span>
                                                                 <button type="button" class="btn_post_search" onclick="gd_postcode_search('receiverZonecode', 'receiverAddress', 'receiverZipcode');">우편번호검색</button>
                                                             </div>
                                                             <div class="address_input">
-                                                                <input type="text" name="receiverAddress" readonly="readonly" />
-                                                                <input type="text" name="receiverAddressSub" />
+                                                                <input type="text" name="receiverAddress" readonly="readonly"  value={checkType === 'same' ? data.memAddr1 : ""} />
+                                                                <input type="text" name="receiverAddressSub"  value={checkType === 'same' ? data.memAddr2 : ""} />
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">전화번호</th>
                                                         <td>
-                                                            <input type="text" id="receiverPhone" name="receiverPhone" />
+                                                            <input type="text" id="receiverPhone" name="receiverPhone"   />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">휴대폰 번호</span></th>
                                                         <td>
-                                                            <input type="text" id="receiverCellPhone" name="receiverCellPhone" />
+                                                            <input type="text" id="receiverCellPhone" name="receiverCellPhone" value={checkType === 'same' ? data.memPhone : ""} />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -241,32 +250,23 @@ console.log(totalPrice);
                                                     <tr>
                                                         <th scope="row">상품 합계 금액</th>
                                                         <td>
-                                                            <strong id="totalGoodsPrice" class="order_payment_sum">56,000원</strong>
+                                                            <strong id="totalGoodsPrice" class="order_payment_sum">{totalPrice}</strong>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">배송비</th>
                                                         <td>
-                                                            <span id="totalDeliveryCharge">0</span>원
+                                                            <span id="totalDeliveryCharge">2500</span>원
                                                             <span class="multi_shipping_text"></span>
                                                         </td>
                                                     </tr>
-                                                    <tr id="rowDeliverAreaCharge" class="dn">
-                                                        <th scope="row">지역별 배송비</th>
-                                                        <td>
-                                                            <span id="deliveryAreaCharge">0</span>원
-                                                            <input type="hidden" name="totalDeliveryCharge" value="0" />
-                                                            <input type="hidden" name="deliveryAreaCharge" value="0" />
-                                                        </td>
-                                                    </tr>
-
                                                     <tr>
                                                         <th scope="row">최종 결제 금액</th>
                                                         <td>
                                                             <input type="hidden" name="settlePrice" value="55800" />
                                                             <input type="hidden" name="overseasSettlePrice" value="0" />
                                                             <input type="hidden" name="overseasSettleCurrency" value="KRW" />
-                                                            <strong id="totalSettlePrice" class="order_payment_sum">55,800</strong>원
+                                                            <strong id="totalSettlePrice" class="order_payment_sum">{totalPrice+2500}</strong>원
 
                                                         </td>
                                                     </tr>
@@ -290,7 +290,7 @@ console.log(totalPrice);
                                             <div class="form_element">
                                                 <ul class="payment_progress_select">
                                                     <li id="settlekindType_pk">
-                                                        <input type="radio" id="settleKind_pk" name="settleKind" value="pk" />
+                                                        <input type="radio" id="settleKind_pk" name="settleKind" value="pk" defaultChecked={true}/>
                                                         <label for="settleKind_pk" class="choice_s">카카오페이<img src="/images/kakaopay-PC.png" /></label>
                                                     </li>
                                                 </ul>
@@ -328,7 +328,7 @@ console.log(totalPrice);
                             <div class="payment_final_total">
                                 <dl>
                                     <dt>최종 결제 금액</dt>
-                                    <dd><span><strong id="totalSettlePriceView">55,800</strong>원</span></dd>
+                                    <dd><span><strong id="totalSettlePriceView">{totalPrice+2500}</strong>원</span></dd>
                                 </dl>
 
                             </div>

@@ -27,10 +27,11 @@ function Item() {
   const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
+  const [qnaAnswer, setQnaAnswer] = useState([]);
   // const [ reviewDetail, setReviewDetail] = useState({});
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const email = sessionStorage.getItem("memEmail"); 
-  const location = useLocation();
+  console.log(qnaAnswer)
   const [items, setItems] = useState([]);
   console.log(itemNum);
 
@@ -115,7 +116,6 @@ function Item() {
       })
       .catch(error => { console.log(error); });
   }, []);
-
 
 
 
@@ -357,10 +357,10 @@ function Item() {
                   </td>
                   <td width="13%">{qna.memId}</td>
                   <td width="13%">{qna.qnaWriteDate}</td>
-                  <td width="13%">답변상태</td>
+                  <td width="13%">{qnaAnswer.qnaCommentContent === null ? '0' : '1'}</td>
                 </tr>
                 {qnaModal === true && qnaIdx === qna.qnaIdx ? (
-                  <Qna value={qna.qnaIdx} />
+                  <Qna value={qna.qnaIdx} setQnaAnswer={setQnaAnswer} />
                 ) : null}
               </tbody>
             ))}

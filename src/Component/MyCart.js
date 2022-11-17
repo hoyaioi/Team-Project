@@ -10,18 +10,57 @@ function MyCart() {
     const memEmail = sessionStorage.getItem("memEmail");
     const [data, setData] = useState([]);
     const [checkedList, setCheckedLists] = useState([]);
-    const plusClick = (cartIdx)=> {
-        setData( data.map((item=>{
+    
+    
+
+    const plusClick = (cartIdx,itemAmount)=> {
+        const cartListDto = {
+            cartIdx : cartIdx,
+            itemAmount : itemAmount+1,
+            memEmail : memEmail
+
+        }
+        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+            console.log(response);
+            alert('수정성공');
+            setData(response.data);
+            setCheckedLists([]);
+        })
+        .catch(error => { 
+            alert('수정실패');
+            console.log(error) });
+        console.log(cartIdx)
+        console.log(itemAmount)
+        setData( data && data.map((item=>{
             return item.cartIdx === cartIdx ? {...item, itemAmount : item.itemAmount+1} : item
         })));
-
     }
 
-    const minusClick = (cartIdx)=> {
+    const minusClick = (cartIdx,itemAmount)=> {
+        if(itemAmount === 1){
+            return
+        } else {
         setData( data.map((item=>{
             return item.cartIdx === cartIdx && item.itemAmount > 1 ? {...item, itemAmount : item.itemAmount-1} : item
         })));
-        
+        const cartListDto = {
+            cartIdx : cartIdx,
+            itemAmount : itemAmount-1,
+            memEmail : memEmail
+
+        }
+        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+            console.log(response);
+            alert('수정성공');
+            setData(response.data);
+            setCheckedLists([]);
+        })
+        .catch(error => { 
+            alert('수정실패');
+            console.log(error) });
+        console.log(cartIdx)
+        console.log(itemAmount)
+        }
     }
 
     useEffect(() => {
@@ -124,8 +163,10 @@ function MyCart() {
                                             </div>
                                             </Link>
                                         </td>
-                                        <td className='mycart_item_count_td'>
-                                            <button onClick={()=> {plusClick(item.cartIdx,item.itemAmount)}} ><IoIosArrowUp /></button><input value={item.itemAmount}></input><button onClick={()=> {minusClick(item.cartIdx)}}><IoIosArrowDown /></button>
+                                        <td className='mycart_item_count_td' >
+                                            <button onClick={()=> {plusClick(item.cartIdx,item.itemAmount)}} ><IoIosArrowUp /></button>
+                                            <input value={item.itemAmount}></input>
+                                            <button onClick={()=> {minusClick(item.cartIdx,item.itemAmount)}}><IoIosArrowDown /></button>
                                         </td>
                                         <td className='mycart_item_price_td'>
                                             {item.itemPrice * item.itemAmount}
