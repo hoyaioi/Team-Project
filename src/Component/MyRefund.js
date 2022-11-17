@@ -42,8 +42,8 @@ function MyRefund({memIdx}) {
                                 </tr>
                             </thead>
                             <tbody>
-                            {datas.slice(offset, offset + 10).map(refund => (
-                                    <tr key={refund.orderNum}>
+                            {datas.slice(offset, offset + 10).map((refund, idx)=> (
+                                    <tr key={idx}>
                                     <td className='myrefund_item_info_td'>
                                         <div className='myrefund_item_info_wrap'>
                                             <img src={s3} className='myrefund_item_img' />
@@ -65,7 +65,7 @@ function MyRefund({memIdx}) {
                                         {refund.refundAmount}
                                     </td>
                                     <td>
-                                        반품진행중
+                                        {refund.refundStatus}
                                     </td>
                                 </tr>
                             ))}

@@ -148,15 +148,6 @@ function MyOrderList({ memIdx }) {
                                                 {order.orderStatus === '배송중' ? (<button type='button'>배송조회</button>) : ''}
                                                 {order.orderStatus === '배송완료' ? (<><button type='button'>배송조회</button> <button type='button'>반품요청</button></>) : ''}
                                             </div>
-
-                                            {/* <div>
-                                                <button type='button'>배송조회</button>
-                                            </div>
-                                            
-                                            <div>
-                                                <button type='button'>반품요청</button>
-                                            </div> */}
-
                                         </td>
                                     </tr>
                                 ))}
