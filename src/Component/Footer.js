@@ -21,7 +21,7 @@ const Footer = () => {
             <Link to="/"><b>제휴/마케팅</b></Link>
             </li>
             <li>
-              <Link to="/serviceqna"><span>서비스 장애 신고</span></Link>
+              <Link to="/service/serviceqna">서비스 장애 신고</Link>
             </li>
           </ul>
         </div>

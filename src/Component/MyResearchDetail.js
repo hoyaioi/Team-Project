@@ -68,7 +68,6 @@ function MyPageResearchDetail({  }) {
                         <h2>나의설문</h2>
 
                     </div>
-/Users/harryjung/Documents/pj1/Team-Project/src/survey/Step4.js
 
                     <div className='researchData'>
                         <div className="back1">
