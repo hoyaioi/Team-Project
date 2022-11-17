@@ -64,10 +64,8 @@
 }
 
 .myinfoup1_input_wrap input[type="button"]:active {
-  background-color: #b5d692;
   color: white;
 }
 .myinfoup1_input_wrap input[type="button"]:hover {
   background-color: #b5d692;
-  color: white;
 }

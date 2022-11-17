@@ -144,7 +144,6 @@
 }
 .mycart_buy_btn:hover{
     background-color: #b5d692;
-    color: white;
 }
 
 .mycart_delete_btn {
@@ -161,10 +160,8 @@
 }
 
 .mycart_delete_btn:active{
-    background-color: red;
     color: white;
 }
 .mycart_delete_btn:hover{
-    background-color: red;
-    color: white;
+    background-color: darkorange;
 }

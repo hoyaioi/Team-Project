@@ -132,6 +132,7 @@
     border: 2px solid #e5e5e5;
     background-color: white;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 3px;
     margin-bottom: 3px;
 }
@@ -142,14 +143,10 @@
 
 .myorderlist_order_btn_td button:hover {
     cursor: pointer;
-    background-color: #e9f4ec;
-}
-
-.myorderlist_stat_wrap li:hover {
-    background-color: #e9f4ec;
+    background-color: #b5d692;
 }
 
 .myorderlist_order_btn_td button:active {
-    background-color: #e9f4ec;
+    background-color: #b5d692;
     color: white;
 }

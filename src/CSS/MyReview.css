@@ -106,12 +106,10 @@
 }
 
 .myreview_write_btn:active {
-    background-color: #b5d692;
     color: white;
 }
 .myreview_write_btn:hover {
     background-color: #b5d692;
-    color: white;
 }
 
 .myreview_did_contents {

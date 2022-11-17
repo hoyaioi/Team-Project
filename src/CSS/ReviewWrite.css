@@ -197,12 +197,18 @@
     cursor: pointer;
 }
 
-.reviewwrite_btn:active ,.reviewwrite_btn:hover{
-    background-color: #b5d692;
+.reviewwrite_btn:active{
     color: white;
 }
 
-.reviewwrite_del_btn:active ,.reviewwrite_del_btn:hover{
-    background-color: red;
+.reviewwrite_btn:hover{
+    background-color: #b5d692;
+}
+
+.reviewwrite_del_btn:active{
     color: white;
+}
+
+.reviewwrite_del_btn:hover{
+    background-color: darkorange;
 }
