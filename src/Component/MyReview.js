@@ -7,19 +7,20 @@ import ReviewWrite from './ReviewWrite.js';
 import s3 from '../Img/s3.jpg';
 import { useEffect } from 'react';
 import axios from 'axios';
+import ReviewUpdate from './ReviewUpdate';
 
 
 function MyReview({ memIdx }) {
 
     const [datas, setDatas] = useState([]);
     const [datas2, setDatas2] = useState([]);
-
     const [btnActive, setBtnActive] = useState([true, false]);
 
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
 
     const [selectedItemNum, setSelectedItemNum] = useState(0);
-
+    const [reviewIdx, setReviewIdx] = useState(0);
     const [orderNum, setOrderNum] = useState(0);
     const navigate = useNavigate();
 
@@ -29,11 +30,23 @@ function MyReview({ memIdx }) {
         setOpen(true);
     }
 
+    const handlerOpen2 = (reviewIdx) => {
+        setReviewIdx(reviewIdx);
+        setOpen2(true);
+    }
+
     const handlerClose = () => {
         if (window.confirm('작성을 취소하시겠습니까?')) {
             navigate('/mypage/myreview');
             setOpen(false);
-            
+        }
+    }
+
+    const handlerClose2 = () => {
+        if (window.confirm('작성을 취소하시겠습니까?')) {
+            navigate('/mypage/myreview');
+            setOpen2(false);
+
         }
     }
 
@@ -75,72 +88,75 @@ function MyReview({ memIdx }) {
                             4. 주소, 주민번호, 연락처 등 개인정보 기입은 절대 안 돼요!
                         </p>
                     </div>
-                    
                     {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} selectedItemNum={selectedItemNum} orderNum={orderNum} /> :
-                        <div className='myreview_review_wrap'>
-                            <div className='myreview_menu_wrap'>
-                                <button className={btnActive[0] ? "myreview_able_btn_active" : "myreview_able_btn"} onClick={() => {
-                                    setBtnActive([true, false]);
-                                }} >작성 가능한 리뷰</button>
-                                <button className={btnActive[1] ? "myreview_did_btn_active" : "myreview_did_btn"} onClick={() => {
-                                    setBtnActive([false, true]);
-                                }}>작성한 리뷰</button>
-                            </div>
-                            <div className='myreview_list_wrap'>
-                                {btnActive[0] ?
-                                        <div className='myreview_able_wrap'>
-                                            <ul>
-                                                {datas.map((able, idx) => (
-                                                    <li key={idx}>
-                                                        <div className='myreview_img_wrap'>
-                                                            <img className='myreview_img' src={s2} />
-                                                        </div>
-                                                        <div className='myreview_item_name'>
-                                                            {able.itemNum}
-                                                        </div>
-                                                        <div>
-                                                            주문일자 :&nbsp;
-                                                            {able.orderDate}
-                                                        </div>
-                                                        <input type="hidden" value={able.orderNum} />
-                                                        <div className='myreview_btn_box'>
-                                                            <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button>
-                                                            {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
-                                                        </div>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                        : 
-                                        <div className='myreview_able_wrap'>
-                                            <ul>
-                                                {datas2.map((did, idx) => (
-                                                <li key={idx}>
-                                                    <div className='myreview_img_wrap'>
-                                                        <img className='myreview_img' src={s3} />
-                                                    </div>
-                                                    <div>
-                                                        작성일자 :&nbsp;
-                                                        {did.reviewWriteDate}
-                                                    </div>
-                                                    <div className='myreview_did_contents'>
-                                                        {did.reviewContents}
-                                                    </div>
-                                                    <input type="hidden" value={did.reviewIdx} />
-                                                    <div className='myreview_btn_box'>
-                                                    <button type='button' className='myreview_update_btn' >수정</button>
-                                                    </div>
-                                                    
-                                                </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                                
-                                }
-                            </div>
-                        </div>
+                        <>
+                            {open2 ? <ReviewUpdate handlerClose2={handlerClose2} setOpen2={setOpen2} reviewIdx={reviewIdx} /> :
+                                <div className='myreview_review_wrap'>
+
+                                    <div className='myreview_menu_wrap'>
+                                        <button className={btnActive[0] ? "myreview_able_btn_active" : "myreview_able_btn"} onClick={() => {
+                                            setBtnActive([true, false]);
+                                        }} >작성 가능한 리뷰</button>
+                                        <button className={btnActive[1] ? "myreview_did_btn_active" : "myreview_did_btn"} onClick={() => {
+                                            setBtnActive([false, true]);
+                                        }}>작성한 리뷰</button>
+                                    </div>
+
+                                    <div className='myreview_list_wrap'>
+                                        {btnActive[0] ?
+                                            <div className='myreview_able_wrap'>
+                                                <ul>
+                                                    {datas.map((able, idx) => (
+                                                        <li key={idx}>
+                                                            <div className='myreview_img_wrap'>
+                                                                <img className='myreview_img' src={s2} />
+                                                            </div>
+                                                            <div className='myreview_item_name'>
+                                                                {able.itemNum}
+                                                            </div>
+                                                            <div>
+                                                                주문일자 :&nbsp;
+                                                                {able.orderDate}
+                                                            </div>
+                                                            <input type="hidden" value={able.orderNum} />
+                                                            <div className='myreview_btn_box'>
+                                                                <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button>
+                                                                {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            :
+                                            <div className='myreview_able_wrap'>
+
+                                                <ul>
+                                                    {datas2.map((did, idx) => (
+                                                        <li key={idx}>
+                                                            <div className='myreview_img_wrap'>
+                                                                <img className='myreview_img' src={s3} />
+                                                            </div>
+                                                            <div>
+                                                                작성일자 :&nbsp;
+                                                                {did.reviewWriteDate}
+                                                            </div>
+                                                            <div className='myreview_did_contents'>
+                                                                {did.reviewContents}
+                                                            </div>
+                                                            <input type="hidden" value={did.reviewIdx} />
+                                                            <div className='myreview_btn_box'>
+                                                                <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx)}>수정</button>
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul> 
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </>
                     }
-                    
                 </div>
             </div>
         </>

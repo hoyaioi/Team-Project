@@ -9,7 +9,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function ReviewWrite({ setOpen, handlerClose, selectedItemNum, orderNum }) {
+function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
+
+    const [data, setData] = useState({});
+    const [itemNum, setItemNum] = useState(0);
 
     const [contents, setContents] = useState('');
 
@@ -27,21 +30,24 @@ function ReviewWrite({ setOpen, handlerClose, selectedItemNum, orderNum }) {
     const inputContents = useRef();
     const navigate = useNavigate();
     const handlerChangeContents = (e) => setContents(e.target.value);
+    const sendReview = () => {
+        let score = clicked.filter(Boolean).length;
+    };
 
-    const handlerCreateReview = () => {
+    const handlerModify = () => {
         if (contents.length < 1) {
             alert('공백은 입력이 불가합니다.');
             setContents('');
             inputContents.current.focus();
         } else {
-            axios.put(`http://localhost:8080/mypage/myreview/write/${orderNum}`, { 'orderNum': orderNum, 'reviewContents': contents })
+            axios.put(`http://localhost:8080/mypage/myreview/modify/${reviewIdx}`, { 'reviewIdx': reviewIdx, 'reviewContents': contents })
                 .then(response => {
                     if (response.status === 200) {
-                        alert('정상적으로 등록되었습니다.');
-                        setOpen(false);
+                        alert('수정이 완료되었습니다.');
+                        setOpen2(false);
                         navigate('/mypage/myorderlist');
                     } else {
-                        alert('등록을 실패하였습니다.');
+                        alert('수정을 실패하였습니다.');
                         return;
                     }
                 })
@@ -50,13 +56,18 @@ function ReviewWrite({ setOpen, handlerClose, selectedItemNum, orderNum }) {
     }
 
     useEffect(() => {
-        inputContents.current.focus();
         sendReview();
+        axios.get(`http://localhost:8080/mypage/myreview/modify/${reviewIdx}`)
+        .then(response => {
+            setItemNum(response.data.itemNum);
+            setContents(response.data.reviewContents);
+            inputContents.current.focus();
+        })
+        .catch(error => console.log(error))
     }, [clicked]); //컨디마 컨디업
+    // }, []);
 
-    const sendReview = () => {
-        let score = clicked.filter(Boolean).length;
-    };
+    
 
     const Stars = styled.div`
 display: flex;
@@ -83,7 +94,7 @@ padding-top: 5px;
                         </div>
                         <div className='reviewwrite_table_cell'>
                             <div className='reviewwrite_item_title'>
-                                {selectedItemNum}
+                                {itemNum}
                             </div>
                             <div className='reviewwrite_item_rate'>
                                 <div className='reviewwrite_modify_rate'>
@@ -126,8 +137,8 @@ padding-top: 5px;
                     </div>
 
                     <div className='reviewwrite_btn_box'>
-                        <button className='reviewwrite_del_btn' type='button' onClick={handlerClose}>취소</button>
-                        <button className='reviewwrite_btn' type='button' onClick={handlerCreateReview}>등록하기</button>
+                        <button className='reviewwrite_del_btn' type='button' onClick={handlerClose2} >취소</button>
+                        <button className='reviewwrite_btn' type='button' onClick={handlerModify}>수정완료</button>
                     </div>
                 </div>
             </div>
@@ -136,4 +147,4 @@ padding-top: 5px;
     );
 }
 
-export default ReviewWrite;
+export default ReviewUpdate;
