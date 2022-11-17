@@ -9,7 +9,7 @@ function Qna(props) {
     const [ answer, setAnswer ] = useState({});
     const [ success, setSuccess ] = useState(true);
     useEffect(() => {
-        axios.get(`http://localhost:8080/qna/${qnaIdx}`)
+        axios.get(`http://localhost:8080/api/qna/${qnaIdx}`)
         .then(response => { 
             console.log(response); 
             setData(response.data);
@@ -18,7 +18,7 @@ function Qna(props) {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/qnaAnswer/${qnaIdx}`)
+        axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
         .then(response => { 
             console.log(response); 
             setAnswer(response.data);

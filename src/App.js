@@ -36,6 +36,7 @@ import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 import Admin from "./Component/AdminAuth";
+import MemList from "./Component/AdminBoard"
 
 function App() {
   return (
@@ -81,7 +82,7 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
-
+          <Route path="/admin" element={<MemList />} />
         </Routes>
       </div>
       <Footer />
