@@ -14,13 +14,8 @@ function MyCart() {
     
 
     const plusClick = (cartIdx,itemAmount)=> {
-        const cartListDto = {
-            cartIdx : cartIdx,
-            itemAmount : itemAmount+1,
-            memEmail : memEmail
-
-        }
-        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+        
+        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
             console.log(response);
             alert('수정성공');
             setData(response.data);
@@ -43,13 +38,8 @@ function MyCart() {
         setData( data.map((item=>{
             return item.cartIdx === cartIdx && item.itemAmount > 1 ? {...item, itemAmount : item.itemAmount-1} : item
         })));
-        const cartListDto = {
-            cartIdx : cartIdx,
-            itemAmount : itemAmount-1,
-            memEmail : memEmail
-
-        }
-        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+        
+        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
             console.log(response);
             alert('수정성공');
             setData(response.data);

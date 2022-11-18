@@ -2,13 +2,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/Qna.css';
 
-function Qna({value,setQnaAnswer}) {
+function Qna({value}) {
     console.log(value);
     
     const qnaIdx = value;
     const [ datas, setData ] = useState({});
     const [ answer, setAnswer ] = useState({});
-    const [ success, setSuccess ] = useState(true);
+    const [ success, setSuccess ] = useState(false);
 
     
    
@@ -25,12 +25,13 @@ function Qna({value,setQnaAnswer}) {
         axios.get(`http://localhost:8080/qnaAnswer/${qnaIdx}`)
         .then(response => { 
             setAnswer(response.data);
-            setSuccess(false);
+            if(answer.qnaCommentContent !== null){
+            setSuccess(true);
+            }
         })
         .catch(error => { console.log(error); });
     }, []);
 
-    setQnaAnswer(answer);
     
 console.log(datas)
     return (
@@ -47,7 +48,7 @@ console.log(datas)
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
+                                <sapn>{success ? answer.qnaCommentContent :  '답변준비중' }</sapn>
                             </div>
                             <div className='comment-date'>
                                 <sapn>답변일자 : {answer.qnaCommentWriteDate}</sapn>

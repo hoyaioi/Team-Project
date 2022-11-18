@@ -3,7 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import "../CSS/Footer.css";
 
 const Footer = () => {
+  if (window.location.pathname === '/qnaWrite') return null;
   return (
+
+    
     <div id="footer">
       <div className="footer_wrap">
         <div className="footer_top">

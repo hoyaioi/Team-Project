@@ -4,6 +4,8 @@ import Nav from "./Nav";
 
 const Header = () => {
 
+  if (window.location.pathname === '/qnaWrite') return null;
+
   //조건부 렌더링으로 로그인 여부에 따라 다른 헤더를 보여준다.
 
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;

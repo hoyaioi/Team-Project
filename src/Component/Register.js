@@ -89,7 +89,6 @@ function Register() {
       "memAddr1": addr1,
       "memAddr2": addr2,
       "memEmail": email,
-      "memPw": password
     };
     
     axios
