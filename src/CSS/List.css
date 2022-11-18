@@ -5,6 +5,44 @@
   display: flex;
 }
 
+.list-board-title {
+  margin: auto;
+  padding: 0 0 10px 0;
+  height: 50px;
+  width: 1000px;
+}
+
+.list-board-title h3 {
+  margin-left: 55px;
+}
+
+.list-board-hot {
+  padding: 0 0 50px 0;
+  margin: auto;
+  font-size: 13px;
+  height: 64px;
+  width: 900px;
+  border-top: 1px solid #999999;
+}
+
+.list-board-hot ul {
+  margin-left: -35px;
+  margin-top: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.list-board-hot ul li {
+  float: left;
+  width: 70px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list-board-hot ul li:hover {
+  background-color: #99999938;
+}
+
 .list-wrap {
   width: 100%;
   min-width: 800px;
@@ -43,6 +81,11 @@
   justify-content: center;
 }
 
+.list ul li a {
+  text-decoration: none;
+  color: black;
+}
+
 .list ul li:nth-child(1) {
   width: 40px;
 }
@@ -51,7 +94,7 @@
   width: 100px;
 }
 
-.list ul li:nth-child(3) {
+.list ul li:nth-of-type(3) {
   width: 80px;
   margin: 0 60px;
 }

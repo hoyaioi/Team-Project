@@ -2,9 +2,16 @@ import "../CSS/ServiceCenter.css";
 import search from "../Img/search.png";
 import { useState } from "react";
 import Faq from "./Faq";
+import FaqMenu from "./FaqMenu";
 
 function ServiceCenter() {
   let [faqModal, setFaqModal] = useState(false);
+  const [list, setList] = useState([
+    { title: "회원가입/정보" },
+    { title: "결제/배송" },
+    { title: "환불/반품" },
+    { title: "기타" },
+  ]);
 
   return (
     <>
@@ -32,25 +39,7 @@ function ServiceCenter() {
           <h3>FAQ</h3>
         </div>
         <div className="service_board_list">
-          <div className="service_board_hot">
-            <ul>
-              <li>
-                <a>전체</a>
-              </li>
-              <li>
-                <a>회원가입/정보</a>
-              </li>
-              <li>
-                <a>결제/배송</a>
-              </li>
-              <li>
-                <a>환불/반품</a>
-              </li>
-              <li>
-                <a>기타</a>
-              </li>
-            </ul>
-          </div>
+          <FaqMenu list={list} />
           <table>
             <thead>
               <tr>

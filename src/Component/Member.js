@@ -9,8 +9,16 @@ import MemMenu from "./MemMenu";
 import Pagination from "./Pagination";
 
 const Member = () => {
+  const [allDatas, setAllDatas] = useState([]);
   const [datas, setDatas] = useState([]);
-  // const [memDeletedYn, setMemDeletedYn] = useState();
+
+  const onList = (value) => {
+    if (value === "all") {
+      setDatas(allDatas);
+    } else {
+      setDatas(allDatas.filter((mem) => mem.memDeletedYn === value));
+    }
+  };
 
   const [list, setList] = useState([
     { name: "전체", value: "all" },
@@ -18,43 +26,33 @@ const Member = () => {
     { name: "탈퇴회원", value: "Y" },
   ]);
 
-  const onList = (value) => {
-    if (value === "all") {
-      setDatas(datas);
-      console.log(datas);
-      console.log(setDatas(datas));
-    } else {
-      console.log(datas);
-      setDatas(datas.filter((mem) => mem.memDeletedYn === value));
-    }
-  };
-
   useEffect(() => {
     axios
       .get("http://localhost:8080/member")
       .then((response) => {
         // setMemDeletedYn(response.data.memDeletedYn);
+        setAllDatas(response.data);
         setDatas(response.data);
         console.log(response);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  const [page, setPage] = useState(1); // 페이지
-  const limit = 15; //list 노출 최대 갯수
-  const offset = (page - 1) * limit; // 시작과 끝 구하는 offset
+  // const [page, setPage] = useState(1); // 페이지
+  // const limit = 15; //list 노출 최대 갯수
+  // const offset = (page - 1) * limit; // 시작과 끝 구하는 offset
 
-  const postsData = (memlist) => {
-    if (memlist) {
-      let result = memlist.slice(offset, offset + limit);
-      return result;
-    }
-  };
+  // const postsData = (memlist) => {
+  //   if (memlist) {
+  //     let result = memlist.slice(offset, offset + limit);
+  //     return result;
+  //   }
+  // };
 
   return (
     <div className="list-container">
       <div className="list-wrap">
-        <div className="service_board_title">
+        <div className="list-board-title">
           <h3>회원정보</h3>
         </div>
         <MemMenu list={list} onList={onList} />
@@ -71,13 +69,14 @@ const Member = () => {
               <li>탈퇴이력</li>
             </ul>
           </div>
-          <MemberList memlist={postsData(datas)} />
-          <Pagination
+          {/* <MemberList memlist={postsData(datas)} /> */}
+          <MemberList memlist={datas} />
+          {/* <Pagination
             limit={limit}
             page={page}
             totalPosts={datas.length}
             setPage={setPage}
-          />
+          /> */}
         </div>
       </div>
     </div>

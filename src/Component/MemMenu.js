@@ -3,10 +3,10 @@ import MemList from "./MemList";
 
 const MemMenu = ({ list, onList }) => {
   return (
-    <div className="service_board_hot">
+    <div className="list-board-hot">
       <ul>
-        {list.map((mem, idx) => (
-          <MemList key={idx} mem={mem} onList={onList} />
+        {list.map((mem, index) => (
+          <MemList key={index} mem={mem} onList={onList} />
         ))}
       </ul>
     </div>

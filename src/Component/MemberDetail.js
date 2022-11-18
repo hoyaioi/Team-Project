@@ -97,18 +97,17 @@ const MemberDetail = () => {
               </div>
 
               <div className="m-right">
-                <div className="m-top-box">
-                  <div className="m-title">주소</div>
-                  <input type="text" value={data.memPostNum} />
-                </div>
-                <div className="">
-                  <div className="m-title">　</div>
+                <div className="m-top-box2">
+                  <div className="m-r-title">주소</div>
+                  <input
+                    type="text"
+                    style={{ width: "100px" }}
+                    value={data.memPostNum}
+                  />
                   <input type="text" value={data.memAddr1} />
-                </div>
-                <div className="">
-                  <div className="m-title">　</div>
                   <input type="text" value={data.memAddr2} />
                 </div>
+
                 <div className="m-top-box">
                   <div className="m-title">가입일</div>
                   <strong>{data.memRegDate}</strong>

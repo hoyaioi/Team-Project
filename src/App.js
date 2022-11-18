@@ -43,8 +43,8 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <Header />
       <div id="wrapper">
+        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/service/*" element={<Service />}>
