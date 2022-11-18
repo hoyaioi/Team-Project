@@ -23,7 +23,7 @@
     margin-top: 20px;
 }
 
-.refundapp_input_ordernum, .refundapp_select_wrap, .refundapp_input_itemname{
+.refundapp_input_ordernum, .refundapp_select_wrap, .refundapp_input_itemname, .refundapp_input_price {
     margin-top: 5px;
 }
 
@@ -50,10 +50,23 @@
     overflow: hidden;
     resize: none;
 }
+.refundapp_input_price textarea {
+    width: 320px;
+    height: 90px;
+    padding: 10px;
+    font-size: 36px;
+    color: darkorange;
+    outline: none;
+    border: 2px solid lightgray;
+    letter-spacing: 1px;
+    cursor: default;
+    overflow: hidden;
+    resize: none;
+}
 
 .refundapp_select_wrap select {
     border: 2px solid lightgray;
-    width: 300px;
+    width: 320px;
     height: 36px;
     padding: 0 10px;
     font-size: 14px;

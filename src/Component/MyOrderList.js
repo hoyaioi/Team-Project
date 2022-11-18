@@ -10,7 +10,7 @@ import Paging from './Paging';
 import RefundApp from './RefundApp';
 
 
-function MyOrderList({ memIdx }) {
+function MyOrderList({memIdx}) {
 
     const [datas, setDatas] = useState([]);
 
@@ -18,6 +18,7 @@ function MyOrderList({ memIdx }) {
     let [count2, setCount2] = useState(0);
     let [count3, setCount3] = useState(0);
     let [count4, setCount4] = useState(0);
+    let [count5, setCount5] = useState(0);
 
     let countCheck = (datas) => {
 
@@ -25,6 +26,7 @@ function MyOrderList({ memIdx }) {
         let count2 = 0;
         let count3 = 0;
         let count4 = 0;
+        let count5 = 0;
 
         for (let i = 0; i < datas.length; i++) {
             if (datas[i].orderStatus == '주문완료') {
@@ -35,6 +37,8 @@ function MyOrderList({ memIdx }) {
                 count3++;
             } else if (datas[i].orderStatus == '배송완료') {
                 count4++;
+            } else if (datas[i].orderStatus == '구매확정') {
+                count5++;
             }
         }
 
@@ -42,6 +46,7 @@ function MyOrderList({ memIdx }) {
         setCount2(count2);
         setCount3(count3);
         setCount4(count4);
+        setCount5(count5);
     }
 
     const handlerCancelNow = (orderNum) => {
@@ -93,9 +98,13 @@ function MyOrderList({ memIdx }) {
 
     const [orderNum, setOrderNum] = useState(0);
     const [itemName, setItemName] = useState('');
+    const [itemPrice, setItemPrice] = useState(0);
+    const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = (orderNum, itemName) => {
-        setItemName(itemName)
+    const handlerOpenApp = (orderNum, itemName, itemPrice) => {
+  
+        setItemPrice(itemPrice);
+        setItemName(itemName);
         setOrderNum(orderNum);
         setOpenApp(true);
     }
@@ -134,7 +143,7 @@ function MyOrderList({ memIdx }) {
         <>
             <div id='main'>
                 <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} orderNum={orderNum} itemName={itemName} /> : <>
+                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemNum={itemNum} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} /> : <>
                         <div className='myorderlist_title_wrap'>
                             <h2>주문현황</h2>
                         </div>
@@ -170,6 +179,14 @@ function MyOrderList({ memIdx }) {
                                     </div>
                                     <div className='myorderlist_stat_count'>
                                         {count4}
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className='myorderlist_stat'>
+                                        구매확정
+                                    </div>
+                                    <div className='myorderlist_stat_count'>
+                                        {count5}
                                     </div>
                                 </li>
                             </ul>
@@ -228,7 +245,7 @@ function MyOrderList({ memIdx }) {
                                                     {order.orderStatus === '배송완료' ? (
                                                         <>
                                                             <button type='button'>배송조회</button>
-                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName)}>반품요청</button>
+                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice)}>반품요청</button>
                                                             <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum)}>구매확정</button>
                                                         </>
                                                     ) : ''}

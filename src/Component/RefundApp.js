@@ -2,10 +2,10 @@ import '../CSS/RefundApp.css';
 import s1 from '../Img/s1.jpg';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function RefundApp({ orderNum, itemName, setOpenApp }) {
+function RefundApp({ orderNum, itemName, itemPrice, setOpenApp }) {
 
     const handlerCloseApp = () => {
         if (window.confirm('반품 신청을 취소하시겠습니까?')) {
@@ -14,6 +14,7 @@ function RefundApp({ orderNum, itemName, setOpenApp }) {
     }
 
     const [option, setOption] = useState('');
+
     const selectList = [
         '마음에 안 들어요.',
         '다른 상품이 잘못 배송됐어요.',
@@ -23,6 +24,13 @@ function RefundApp({ orderNum, itemName, setOpenApp }) {
 
     const handlerSelect = (e) => {
         setOption(e.target.value);
+    }
+
+    const navigate = useNavigate();
+
+    const handlerRefundGo = () => {
+           
+        
     }
 
     return (
@@ -70,6 +78,15 @@ function RefundApp({ orderNum, itemName, setOpenApp }) {
                                             </option>
                                             ))}
                                         </select>
+                                        {console.log(option)};
+                                    </div>
+                                </div>
+                                <div className='refundapp_itemname_wrap'>
+                                    <div className='refundapp_text'>환불금액</div>
+                                    <div className='refundapp_input_price'>
+                                        <textarea readOnly value={itemPrice}>
+
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +94,7 @@ function RefundApp({ orderNum, itemName, setOpenApp }) {
 
                 <div className='refundapp_btn_box'>
                     <button className='refundapp_btn_cancel' type='button' onClick={handlerCloseApp}>취소</button>
-                    <button className='refundapp_btn_refund' type='button'>반품신청</button>
+                    <button className='refundapp_btn_refund' type='button' onClick={handlerRefundGo}>반품신청</button>
                 </div>
             </div>
 
