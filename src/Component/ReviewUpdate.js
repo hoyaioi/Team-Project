@@ -12,7 +12,7 @@ import { useRef } from 'react';
 function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
 
     const [data, setData] = useState({});
-    const [itemNum, setItemNum] = useState(0);
+    const [itemName, setItemName] = useState('');
 
     const [contents, setContents] = useState('');
 
@@ -34,6 +34,17 @@ function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
         let score = clicked.filter(Boolean).length;
     };
 
+    useEffect(() => {
+        sendReview();
+        axios.get(`http://localhost:8080/mypage/myreview/modify/${reviewIdx}`)
+        .then(response => {
+            setItemName(response.data.itemName);
+            setContents(response.data.reviewContents);
+            inputContents.current.focus();
+        })
+        .catch(error => console.log(error))
+    }, [clicked]); //컨디마 컨디업
+
     const handlerModify = () => {
         if (contents.length < 1) {
             alert('공백은 입력이 불가합니다.');
@@ -54,20 +65,6 @@ function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
                 .catch(error => console.log(error))
         }
     }
-
-    useEffect(() => {
-        sendReview();
-        axios.get(`http://localhost:8080/mypage/myreview/modify/${reviewIdx}`)
-        .then(response => {
-            setItemNum(response.data.itemNum);
-            setContents(response.data.reviewContents);
-            inputContents.current.focus();
-        })
-        .catch(error => console.log(error))
-    }, [clicked]); //컨디마 컨디업
-    // }, []);
-
-    
 
     const Stars = styled.div`
 display: flex;
@@ -94,7 +91,7 @@ padding-top: 5px;
                         </div>
                         <div className='reviewwrite_table_cell'>
                             <div className='reviewwrite_item_title'>
-                                {itemNum}
+                                {itemName}
                             </div>
                             <div className='reviewwrite_item_rate'>
                                 <div className='reviewwrite_modify_rate'>

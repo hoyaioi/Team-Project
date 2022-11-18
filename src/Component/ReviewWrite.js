@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function ReviewWrite({ setOpen, handlerClose, selectedItemNum, orderNum }) {
+function ReviewWrite({ setOpen, handlerClose, itemName, orderNum }) {
 
     const [contents, setContents] = useState('');
 
@@ -83,7 +83,7 @@ padding-top: 5px;
                         </div>
                         <div className='reviewwrite_table_cell'>
                             <div className='reviewwrite_item_title'>
-                                {selectedItemNum}
+                                {itemName}
                             </div>
                             <div className='reviewwrite_item_rate'>
                                 <div className='reviewwrite_modify_rate'>

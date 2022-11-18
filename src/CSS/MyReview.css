@@ -67,6 +67,12 @@
     width: 100%;
 }
 
+.myreview_nondata {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 24px;
+}
+
 .myreview_able_wrap ul {
     padding-inline-start: 0;
     list-style: none;

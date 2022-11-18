@@ -19,13 +19,13 @@ function MyReview({ memIdx }) {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
-    const [selectedItemNum, setSelectedItemNum] = useState(0);
+    const [itemName, setItemName] = useState('');
     const [reviewIdx, setReviewIdx] = useState(0);
     const [orderNum, setOrderNum] = useState(0);
     const navigate = useNavigate();
 
-    const handlerOpen = (itemNum, orderNum) => {
-        setSelectedItemNum(itemNum);
+    const handlerOpen = (itemName, orderNum) => {
+        setItemName(itemName);
         setOrderNum(orderNum);
         setOpen(true);
     }
@@ -76,7 +76,7 @@ function MyReview({ memIdx }) {
                     </div>
                     <div className='myreview_notice'>
                         <p>
-                            1. 리뷰작성 후 수정은 가능하나, 삭제는 불가하오니 신중히 작성해주세요.
+                            1. 리뷰는 "주문 현황" 메뉴에서 "구매확정" 후 작성이 가능하며, 작성 후 수정은 가능하지만 삭제는 불가합니다.
                         </p>
                         <p>
                             2. 구매한 제품과 무관한 내용은 임의 삭제될 수 있습니다!
@@ -88,11 +88,10 @@ function MyReview({ memIdx }) {
                             4. 주소, 주민번호, 연락처 등 개인정보 기입은 절대 안 돼요!
                         </p>
                     </div>
-                    {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} selectedItemNum={selectedItemNum} orderNum={orderNum} /> :
+                    {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} itemName={itemName} orderNum={orderNum} /> :
                         <>
                             {open2 ? <ReviewUpdate handlerClose2={handlerClose2} setOpen2={setOpen2} reviewIdx={reviewIdx} /> :
                                 <div className='myreview_review_wrap'>
-
                                     <div className='myreview_menu_wrap'>
                                         <button className={btnActive[0] ? "myreview_able_btn_active" : "myreview_able_btn"} onClick={() => {
                                             setBtnActive([true, false]);
@@ -105,6 +104,7 @@ function MyReview({ memIdx }) {
                                     <div className='myreview_list_wrap'>
                                         {btnActive[0] ?
                                             <div className='myreview_able_wrap'>
+                                                {datas.length === 0 ? <div className='myreview_nondata'>구매확정한 주문 건이 없습니다.</div> : 
                                                 <ul>
                                                     {datas.map((able, idx) => (
                                                         <li key={idx}>
@@ -112,7 +112,7 @@ function MyReview({ memIdx }) {
                                                                 <img className='myreview_img' src={s2} />
                                                             </div>
                                                             <div className='myreview_item_name'>
-                                                                {able.itemNum}
+                                                                {able.itemName}
                                                             </div>
                                                             <div>
                                                                 주문일자 :&nbsp;
@@ -120,16 +120,17 @@ function MyReview({ memIdx }) {
                                                             </div>
                                                             <input type="hidden" value={able.orderNum} />
                                                             <div className='myreview_btn_box'>
-                                                                <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button>
+                                                                <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum)} >작성</button>
                                                                 {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
                                                             </div>
                                                         </li>
                                                     ))}
                                                 </ul>
+                                                }
                                             </div>
                                             :
                                             <div className='myreview_able_wrap'>
-
+                                                {datas2.length === 0 ? <div className='myreview_nondata'>작성한 리뷰가 없습니다.</div> : 
                                                 <ul>
                                                     {datas2.map((did, idx) => (
                                                         <li key={idx}>
@@ -150,7 +151,9 @@ function MyReview({ memIdx }) {
                                                         </li>
                                                     ))}
                                                 </ul> 
+                                                }
                                             </div>
+                                            
                                         }
                                     </div>
                                 </div>

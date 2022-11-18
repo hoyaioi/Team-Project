@@ -48,7 +48,7 @@ function MyRefund({memIdx}) {
                                         <div className='myrefund_item_info_wrap'>
                                             <img src={s3} className='myrefund_item_img' />
                                             <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇ
+                                                {refund.itemName}
                                             </div>
                                         </div>
                                     </td>
