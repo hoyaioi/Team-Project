@@ -29,10 +29,10 @@ function Item() {
   const [amount, setAmount] = useState(1);
   // const [ reviewDetail, setReviewDetail] = useState({});
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
-  const email = sessionStorage.getItem("memEmail");
+  const email = sessionStorage.getItem("memEmail"); 
   const location = useLocation();
   const [items, setItems] = useState([]);
-
+  
   const itemIdx = parseInt(itemNum);
 
   function plusClick() {
@@ -46,45 +46,44 @@ function Item() {
     axios
       .get("http://localhost:8080/item")
       .then((response) => {
-
+        
         setItems(response.data);
       })
-
+      
   }, []);
-
+  
 
   const cartDto = {
-    memEmail: email,
+    memEmail : email,
     itemNum: datas.itemNum,
     itemAmount: amount
   };
 
   const orderDto = [{
-    memEmail: email,
-    itemNum: datas.itemNum,
-    itemAmount: amount,
-    itemPrice: datas.itemPrice,
-    itemThumb: datas.itemThumb,
+    memEmail : email,
+    itemNum : datas.itemNum,
+    itemAmount : amount,
+    itemPrice : datas.itemPrice,
+    itemThumb : datas.itemThumb,
   }];
 
 
-
   const cartHanddler = () => {
-    if (isLogin === true) {
-      axios.post("http://localhost:8080/cartinsert", cartDto)
-        .then((response) => {
-          alert("장바구니 추가완료");
-        }).catch((error) => {
-          console.log(error);
-        })
-    } else {
-      alert("로그인 후 이용하세요.");
-      navigate("/login");
-    }
+    if(isLogin === true) {
+    axios.post("http://localhost:8080/cartinsert", cartDto)
+    .then((response) => {
+      alert("장바구니 추가완료");
+    }).catch((error) => {
+      console.log(error);
+    })
+  } else {
+    alert("로그인 후 이용하세요.");
+    navigate("/login");
   }
+}
 
   const buyHanddler = () => {
-    navigate('/order', { state: { orderDto } });
+    navigate('/order', {state : {orderDto}});
   }
   const moveToFocus = useRef([]);
   useEffect(() => {
@@ -113,21 +112,6 @@ function Item() {
       })
       .catch(error => { console.log(error); });
   }, []);
-  var openWin;
-
-  //<button onClick={() => window.open('http://localhost:3000/qnaWrite/', '_blank', 'height=600 width=700')}>문의글 작성</button>
-
-  function openChild() {
-    // window.name = "부모창 이름"; 
-    window.name = "QnaWrite";
-    openWin.itemNum = datas.itemNum;
-    openWin.itemName = datas.itemName;
-    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-    openWin = window.open('http://localhost:3000/qnaWrite/', '_blank', 'height=600 width=700 resizable = no');
-    
-  }
-
-
 
 
   return (
@@ -167,7 +151,7 @@ function Item() {
             </div>
           </div>
           <div className='buy-section'>
-            <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
+        <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
             <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
           </div>
         </div>
@@ -339,45 +323,33 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        <button onClick={openChild}>문의글 작성</button>
         <table className="review-table">
-          <thead >
-            <tr>
-              <th width="8%">문의글 번호</th>
-              <th width="53%">제목</th>
-              <th width="13%">작성자</th>
-              <th width="13%">작성일자</th>
-              <th width="13%">답변상태</th>
-            </tr>
-          </thead>
-          <tbody>
-            {qnaDatas &&
-              qnaDatas.map((qna) => (
-                <>
-                  <tr
+          {qnaDatas &&
+            qnaDatas.map((qna) => (
+              <tbody>
+                <tr
+                  onClick={() => {
+                    setQnaIdx(qna.qnaIdx);
+                  }}
+                >
+                  <td width="8%">{qna.qnaIdx}</td>
+                  <td
+                    width="53%"
                     onClick={() => {
-                      setQnaIdx(qna.qnaIdx);
+                      setQnaModal(!qnaModal);
                     }}
                   >
-                    <td width="8%">{qna.qnaIdx}</td>
-                    <td
-                      width="53%"
-                      onClick={() => {
-                        setQnaModal(!qnaModal);
-                      }}
-                    >
-                      {qna.qnaTitle}
-                    </td>
-                    <td width="13%">{qna.memEmail}</td>
-                    <td width="13%">{qna.qnaWriteDate}</td>
-                    <td width="13%">{qna.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
-                  </tr>
-                  {qnaModal === true && qnaIdx === qna.qnaIdx ? (
-                    <Qna value={qna.qnaIdx} />
-                  ) : null}
-                </>
-              ))}
-          </tbody>
+                    {qna.qnaTitle}
+                  </td>
+                  <td width="13%">{qna.memId}</td>
+                  <td width="13%">{qna.qnaWriteDate}</td>
+                  <td width="13%">답변상태</td>
+                </tr>
+                {qnaModal === true && qnaIdx === qna.qnaIdx ? (
+                  <Qna value={qna.qnaIdx} />
+                ) : null}
+              </tbody>
+            ))}
         </table>
       </div>
       <div className="pagenation">

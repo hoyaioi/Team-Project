@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import '../CSS/Qna.css';
+import '../CSS/AdminQnaModal.css'
 
-function Qna(props) {
+function AdminQnaModal(props) {
 
     const qnaIdx = props.value;
     const [ datas, setData ] = useState({});
@@ -28,25 +28,41 @@ function Qna(props) {
         })
         .catch(error => { console.log(error); });
     }, []);
+    //  <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
+
+    useEffect(() => {
+        axios.post(`http://localhost:8080/api/admin/qnaWrite/${qnaIdx}`)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => { console.log(error); });
+    }, []);
     
+
     return (
-        <table className='qna-modal-table'>
+        <table className='adminqna-modal-table'>
             <tbody>
-                <tr colspan="3" className="qna-modal">
+                <tr className="adminqna-modal">
                     <td>
-                        <div className='qna-modal-cont'>
+                        <div className='adminqna-modal-cont'>
                             <strong>Q</strong>
-                            <div className='qna-content'>
+                            <div className='adminqna-content'>
                                 <sapn>{datas.qnaContents}</sapn>
                             </div>
                         </div>
-                        <div className='qna-comment'>
+                        <div className='adminqna-comment'>
                             <strong>A</strong>
-                            <div className='admin-comment'>
-                                <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
+                            <div className='adminadmin-comment'>
+                                <sapn><textarea cols={90} rows={10} value={answer.qnaCommentContent}>
+                                    
+                                    </textarea></sapn>
                             </div>
-                            <div className='comment-date'>
+                            <div className='admincomment-date'>
                                 <sapn>답변일자 : {answer.qnaCommentWriteDate}</sapn>
+                            </div>
+                            <div className='admincomment-edit'>
+                                <button className='admincomment-edit-btn'>수정</button>
+                                <button className='admincomment-delete-btn'>삭제</button>
                             </div>
                         </div>
                     </td>
@@ -56,4 +72,4 @@ function Qna(props) {
     );
 }
 
-export default Qna;
+export default AdminQnaModal;

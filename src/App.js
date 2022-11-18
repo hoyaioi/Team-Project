@@ -36,12 +36,16 @@ import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard"
+import MemList from "./Component/AdminQna"
+import QnaWrite from "./Component/QnaWrite"
 
 function App() {
   return (
     <>
       <ScrollToTop />
+      <Routes>
+      <Route path="/qnaWrite" element={<QnaWrite />} />
+      </Routes>
       <Header />
       <div id="wrapper">
         <Routes>
@@ -83,6 +87,7 @@ function App() {
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
           <Route path="/admin" element={<MemList />} />
+          
         </Routes>
       </div>
       <Footer />
