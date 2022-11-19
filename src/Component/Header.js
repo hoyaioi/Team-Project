@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <>
-      <div id="header_wrap">
+
         <div id="header">
           <div className="header_top">
             <div className="header_logo_wrap">
@@ -80,7 +80,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+
       <Nav />
     </>
   );

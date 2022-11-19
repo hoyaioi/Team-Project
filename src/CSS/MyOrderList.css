@@ -67,6 +67,10 @@
     font-size: 14px;
 }
 
+.myorderlist_order_wrap tbody tr {
+    border-top: 2px solid #e5e5e5;
+}
+
 .myorderlist_item_info_wrap {
     height: 120px;
     text-align: left;
@@ -86,7 +90,7 @@
 }
 
 .myorderlist_item_info_td {
-    width: 420px;
+    width: 400px;
 }
 
 .myorderlist_item_info_td:hover {
@@ -116,12 +120,9 @@
     width: 75px;
 }
 
-.myorderlist_order_stat_th {
-    border-left: 2px solid white;
-}
+
 .myorderlist_order_stat_td {
     width: 94px;
-    border-left: 2px solid white;
 }
 
 .myorderlist_order_btn_td button {
@@ -131,21 +132,21 @@
     border: 2px solid #e5e5e5;
     background-color: white;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
-.myorderlist_order_btn_td button:hover {
-    cursor: pointer;
-    background-color: #e9f4ec;
+.myorderlist_order_btn_td {
+    width: 110px;
 }
 
-.myorderlist_stat_wrap li:hover {
+.myorderlist_order_btn_td button:hover {
     cursor: pointer;
-    background-color: #e9f4ec;
+    background-color: #b5d692;
 }
 
 .myorderlist_order_btn_td button:active {
-    background-color: #e9f4ec;
+    background-color: #b5d692;
     color: white;
 }
