@@ -18,7 +18,7 @@ const Step2 = ({ nextSteps, prevSteps }) => {
         }
     }
     sessionStorage.setItem("checked", JSON.stringify(checked));
-    sessionStorage.setItem("checkedlength", JSON.stringify(checked.length));
+    
 
 
     const nextStep = (e) => {

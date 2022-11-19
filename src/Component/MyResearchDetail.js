@@ -20,7 +20,7 @@ function MyPageResearchDetail({  }) {
     const [showResultList, setShowResultList] = useState([]);
     
     useEffect(() => {
-        axios.get(`http://localhost:8080/mypage/result/${resultIdx}`)
+        axios.get(`http://localhost:8080/api/mypage/result/${resultIdx}`)
             .then(response => {
                 const d = response.data;
                 setData(d);

@@ -70,7 +70,9 @@ function Register() {
 
 
   const handlerChangeName = (e) => setName(e.target.value);
-  const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, ""));
+  const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, "")); //숫자만 입력가능
+  const handlerChangePostCode = (e) => setPostCode(e.target.value);
+  const handlerChangeAddr1 = (e) => setAddr1(e.target.value);
   const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
 
 
@@ -92,7 +94,7 @@ function Register() {
     };
     
     axios
-      .post("http://localhost:8080/member/join", memInfo)
+      .post("http://localhost:8080/api/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');

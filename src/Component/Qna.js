@@ -13,7 +13,7 @@ function Qna({value}) {
     
    
     useEffect(() => {
-        axios.get(`http://localhost:8080/qna/${qnaIdx}`)
+        axios.get(`http://localhost:8080/api/qna/${qnaIdx}`)
         .then(response => { 
             
             setData(response.data);
@@ -22,7 +22,7 @@ function Qna({value}) {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/qnaAnswer/${qnaIdx}`)
+        axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
         .then(response => { 
             setAnswer(response.data);
             if(answer.qnaCommentContent !== null){

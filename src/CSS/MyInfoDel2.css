@@ -77,10 +77,8 @@
 }
 
 .myinfodel2_btn_able:active {
-  background-color: #b5d692;
   color: white;
 }
 .myinfodel2_btn_able:hover {
   background-color: #b5d692;
-  color: white;
 }
