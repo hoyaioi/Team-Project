@@ -7,18 +7,13 @@ import "../CSS/ItemList.css";
 function ItemList() {
 
   const location = useLocation();
-  const categoryName = location.state.category;
+  const organs = location.state.organs;
   const [datas, setDatas] = useState([]);
   const [items, setItems] = useState([]);
-  const organsList = ["간", "눈", "몸", "혈관", "장"];
-  const [organs, setOrgans] = useState('');
   const [sort, setSort] = useState('');
   
   
-  const organsClick = (e) => {
-    
-    setOrgans(e.target.value);
-  };
+  
   const sortChange = (e) => {
     setSort(e.target.value);
   }
@@ -33,15 +28,7 @@ function ItemList() {
       .catch((error) => console.log(error));
   },[]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/itemlist/${categoryName}`)
-      .then((response) => {
-        console.log(response);
-        setItems(response.data);
-      })
-      .catch((error) => console.log(error));
-  },[categoryName]);
+
 
   useEffect(() => {
     axios
@@ -54,22 +41,20 @@ function ItemList() {
   },[organs]);
 
 
-const itemCount =  categoryName === null ? datas : items;
+const itemCount =  organs === null ? datas : items;
   return (
     <>
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
             <div className="itemlist_title">
-              {categoryName === null ? <h2>전체상품</h2> : 
-              <>
-              <h2>{categoryName}</h2>
-              {categoryName === '기능별' ? organsList.map(organs => (
-                <button onClick={organsClick} value={organs}>{organs}</button>
-              ))
-            : null}
+              {organs === null ? <h2>전체상품</h2> : 
               
+
+              <>
+              <h2>{organs}</h2>
               </>
+
               }
             </div>
             <div className="itemlist_box">
@@ -114,7 +99,7 @@ const itemCount =  categoryName === null ? datas : items;
             </div> */}
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
-                  {categoryName === null 
+                  {organs === null 
                   ? <ul>
                   {datas.map(item => {
                       return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>

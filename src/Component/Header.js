@@ -4,6 +4,8 @@ import Nav from "./Nav";
 
 const Header = () => {
 
+  if (window.location.pathname === '/qnaWrite') return null;
+
   //조건부 렌더링으로 로그인 여부에 따라 다른 헤더를 보여준다.
 
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
@@ -13,9 +15,12 @@ const Header = () => {
     window.location.reload();
   };
 
+  const isAdmin = sessionStorage.getItem("adminCheck") === "1" ? true : false;
+
+
   return (
     <>
-      <div id="header_wrap">
+
         <div id="header">
           <div className="header_top">
             <div className="header_logo_wrap">
@@ -65,12 +70,17 @@ const Header = () => {
                   <li>
                     <Link to="/service/center">고객센터</Link>
                   </li>
+                  {isAdmin ? (
+                    <li>
+                      <Link to="/adminauth">관리자페이지</Link>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
       <Nav />
     </>
   );

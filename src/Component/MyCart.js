@@ -1,37 +1,112 @@
 import '../CSS/MyCart.css';
 import { useState } from "react";
-import s3 from '../Img/s3.jpg';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 function MyCart() {
+    const memEmail = sessionStorage.getItem("memEmail");
+    const [data, setData] = useState([]);
+    const [checkedList, setCheckedLists] = useState([]);
+    
+    
 
-    //메인페이지 > 아이템디테일에서 장바구니로 담았을 때 data 배열에 해당 아이템 객체를 추가하는 작업 필요
-    const data = [
-        {
-            id: 0
-        }
-    ]
+    const plusClick = (cartIdx,itemAmount)=> {
+        
+        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
+            console.log(response);
+            alert('수정성공');
+            setData(response.data);
+            setCheckedLists([]);
+        })
+        .catch(error => { 
+            alert('수정실패');
+            console.log(error) });
+        console.log(cartIdx)
+        console.log(itemAmount)
+        setData( data && data.map((item=>{
+            return item.cartIdx === cartIdx ? {...item, itemAmount : item.itemAmount+1} : item
+        })));
+    }
 
-
-    const [checkItems, setCheckItems] = useState([]);
-    //체크박스 하나 선택
-    const handleSingleCheck = (checked, id) => {
-        if (checked) {
-            setCheckItems(prev => [...prev, id]);
+    const minusClick = (cartIdx,itemAmount)=> {
+        if(itemAmount === 1){
+            return
         } else {
-            setCheckItems(checkItems.filter((el) => el !== id));
-        }
-    };
-
-    //전체 선택
-    const handleAllCheck = (checked) => {
-        if (checked) {
-            const idArray = [];
-            data.forEach((el) => idArray.push(el.id));
-            setCheckItems(idArray);
-        } else {
-            setCheckItems([]);
+        setData( data.map((item=>{
+            return item.cartIdx === cartIdx && item.itemAmount > 1 ? {...item, itemAmount : item.itemAmount-1} : item
+        })));
+        
+        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
+            console.log(response);
+            alert('수정성공');
+            setData(response.data);
+            setCheckedLists([]);
+        })
+        .catch(error => { 
+            alert('수정실패');
+            console.log(error) });
+        console.log(cartIdx)
+        console.log(itemAmount)
         }
     }
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/cart/${memEmail}`)
+            .then(response => {
+                console.log(response);
+                setData(response.data);
+
+            })
+            .catch(error => { console.log(error); });
+    }, []);
+
+    const cartDelete = () => {
+        console.log(checkedList)
+        console.log(checkedList.map(list => list.cartIdx));
+
+        const confirm = window.confirm(checkedList.length+"개의 상품 정말 삭제하시겠습니까?");
+        if(confirm)
+        axios.post("http://localhost:8080/cartdelete", checkedList)
+            .then(response => {
+                console.log(response);
+                alert('삭제성공');
+                setData(response.data);
+                setCheckedLists([]);
+            })
+            .catch(error => { 
+                alert('삭제실패');
+                console.log(error) });
+    }
+
+
+    // 전체 체크 클릭 시 발생하는 함수
+    const onCheckedAll =
+        (checked) => {
+            if (checked) {
+                const checkedListArray = [];
+
+                data.forEach((item) => checkedListArray.push(item));
+
+                setCheckedLists(checkedListArray, console.log(checkedListArray));
+            } else {
+                setCheckedLists([]);
+            }
+        }
+
+        ;
+
+    const onCheckedElement =
+        (checked, item) => {
+            if (checked) {
+                setCheckedLists([...checkedList, item], console.log(checkedList));
+            } else {
+                setCheckedLists(checkedList.filter((el) => el !== item));
+            }
+        };
+
 
     return (
         <>
@@ -45,8 +120,14 @@ function MyCart() {
                             <thead>
                                 <tr>
                                     <td className='mycart_check_all_td'>
-                                                <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
-
+                                        <input type="checkbox" name='select-all' onChange={(e) => onCheckedAll(e.target.checked)}
+                                            checked={
+                                                checkedList.length === 0
+                                                    ? false
+                                                    : checkedList.length === data.length
+                                                        ? true
+                                                        : false
+                                            } />
                                     </td>
                                     <td>제품정보</td>
                                     <td>수량</td>
@@ -54,71 +135,43 @@ function MyCart() {
                                 </tr>
                             </thead>
                             <tbody>
-                            {data.map((data, key) => (
-                                <tr key={key}>
-                                    <td>
-                                        <div className='mycart_check'>
-                                        <input type="checkbox" onChange={(e) => handleSingleCheck(e.target.checked, data.id)} checked={checkItems.includes(data.id) ? true : false} />
-                                        </div>
-                                    </td>
-                                    <td className='mycart_item_info_td'>
-                                        <div className='mycart_item_info_wrap'>
-                                            <img src={s3} className='mycart_item_img' />
-                                            <div className='mycart_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                                {data.length === 0 ? <tr><td></td><td>장바구니가 비었습니다.</td><td></td><td></td></tr> :  data && data.map((item) =>
+                                    <tr>
+                                        <td>
+                                            <div className='mycart_check'>
+                                                <input key={item.cartIdx} type="checkbox" name={`select-${item.cartIdx}`} onChange={(e) => onCheckedElement(e.target.checked, item)}
+                                                    checked={checkedList.includes(item) ? true : false} />
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className='mycart_item_count_td'>
-                                        200
-                                    </td>
-                                    <td className='mycart_item_price_td'>
-                                        38,900원
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                        <td className='mycart_item_info_td'>
+                                            <Link to={`/item/${item.itemNum}`}>
+                                            <div className='mycart_item_info_wrap'>
+                                                <img src={process.env.REACT_APP_API_URL + item.itemThumb} className='mycart_item_img' alt='상품썸네일' />
+                                                <div className='mycart_item_name'>
+                                                    {item.itemName}
+                                                </div>
+                                            </div>
+                                            </Link>
+                                        </td>
+                                        <td className='mycart_item_count_td' >
+                                            <button onClick={()=> {plusClick(item.cartIdx,item.itemAmount)}} ><IoIosArrowUp /></button>
+                                            <input value={item.itemAmount}></input>
+                                            <button onClick={()=> {minusClick(item.cartIdx,item.itemAmount)}}><IoIosArrowDown /></button>
+                                        </td>
+                                        <td className='mycart_item_price_td'>
+                                            {item.itemPrice * item.itemAmount}
+                                        </td>
+                                    </tr>
+                                )} 
+                               
                             </tbody>
                         </table>
-
                     </div>
-                    {/* <h1>장바구니</h1>
-                    <div className='mycart_check_all_wrap'>
-                        <div className='mycart_check'>
-                            <input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)} checked={checkItems.length === data.length ? true : false} />
-                        </div>
-                        <div className='mycart_check_all_text'>
-                            전체 선택
-                        </div>
-                    </div>
-                    <div className='mycart_item_list'>
-                        <ul>
-                            {data.map((data, key) => (
-                                <li key={key}>
-                                    <div className='mycart_check'>
-                                        <input type="checkbox" onChange={(e) => handleSingleCheck(e.target.checked, data.id)} checked={checkItems.includes(data.id) ? true : false} />
-                                    </div>
-                                    
-                                    <div className='mycart_item_img_wrap'>
-                                        <img src={s3} className='mycart_item_img' />
-                                    </div>
-                                    <div className='mycart_item_name'>
-                                        ㅇㅇㅇㅇㅇ
-                                    </div>
-                                    <div className='mycart_item_count'>
-                                        수량 ㅇㅇㅇ
-                                    </div>
-                                    <div className='mycart_item_price'>
-                                        가격 ㅇㅇㅇ
-                                    </div>
-                                    
-                                </li>
-                            ))}
-                        </ul>
-                    </div> */}
                     <div className='mycart_btn_wrap'>
                         <div className='mycart_btn_wrap_inner'>
-                            <button className='mycart_delete_btn' type='button'>선택 항목 삭제</button>
-                            <button className='mycart_buy_btn' type='button'>구매하기</button>
+                            <button type="button" form="cartList" onClick={cartDelete} className='mycart_delete_btn'>선택 항목 삭제</button>
+                            <Link to="/order" state={{ orderDto: checkedList }}><button className='mycart_buy_btn' type='button'>선택 주문</button></Link>
+                            <Link to="/order" state={{ orderDto: data }}><button className='mycart_buy_btn' type='button'>전체 주문</button></Link>
                         </div>
                     </div>
                 </div>

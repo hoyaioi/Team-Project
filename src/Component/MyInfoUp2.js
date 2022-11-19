@@ -118,7 +118,6 @@ function MyInfoUp2({ memIdx }) {
 
     const handlerClickCancel = () => {
         if (window.confirm('정보 변경을 취소하시겠습니까?')) {
-            alert('마이페이지로 이동합니다.');
             navigate('/mypage/myorderlist');
         }
 

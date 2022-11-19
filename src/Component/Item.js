@@ -13,6 +13,7 @@ import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
+import QnaWrite from './QnaWrite';
 
 SwiperCore.use([Navigation]);
 
@@ -27,12 +28,11 @@ function Item() {
   const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
-  // const [ reviewDetail, setReviewDetail] = useState({});
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
-  const email = sessionStorage.getItem("memEmail"); 
-  const location = useLocation();
-  const items = location.state.item;
-  console.log(itemNum);
+  const email = sessionStorage.getItem("memEmail");
+  const [items, setItems] = useState([]);
+
+
 
   function plusClick() {
     setAmount(amount + 1);
@@ -41,23 +41,50 @@ function Item() {
     amount === 1 ? setAmount(1) : setAmount(amount - 1);
   }
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/item")
+      .then((response) => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const cartDto = {
-    memEmail : email,
+    memEmail: email,
     itemNum: datas.itemNum,
     itemAmount: amount
   };
 
+  const orderDto = [{
+    memEmail: email,
+    itemNum: datas.itemNum,
+    itemName: datas.itemName,
+    itemAmount: amount,
+    itemPrice: datas.itemPrice,
+    itemThumb: datas.itemThumb,
+  }];
+
+
   const cartHanddler = () => {
     console.log(email);
-    isLogin === true ? axios.post("http://localhost:8080/cartinsert", cartDto)
-    .then((response) => {
-      console.log(response);
-      alert("장바구니 추가완료");
-    }) : navigate('/login')
+    if (isLogin === true) {
+      axios.post("http://localhost:8080/cartinsert", cartDto)
+        .then((response) => {
+          console.log(response);
+          alert("장바구니 추가완료");
+        }).catch((error) => {
+          console.log(error);
+        })
+    } else {
+      alert("로그인 후 이용하세요.");
+      navigate("/login");
+    }
   }
 
   const buyHanddler = () => {
-    navigate('/order', {state :{ item: datas, amount: amount}});
+    navigate('/order', { state: { orderDto } });
   }
   const moveToFocus = useRef([]);
   useEffect(() => {
@@ -92,7 +119,6 @@ function Item() {
 
 
 
-
   return (
     <div className='item-content'>
       <div className='item_detail'>
@@ -116,7 +142,7 @@ function Item() {
           </div>
           <div className='total-price'>
             <span>{datas.itemName}</span>
-            <input value={amount} onChange className='item_amount'></input>
+            <input value={amount} className='item_amount'></input>
             <div className='updown'>
               <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
               <button onClick={minusClick} className='arrow'><IoIosArrowDown /></button>
@@ -130,7 +156,7 @@ function Item() {
             </div>
           </div>
           <div className='buy-section'>
-        <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
+            <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
             <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
           </div>
         </div>
@@ -302,19 +328,21 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
+        <button  onClick={() => window.open('http://localhost:3000/qnaWrite','_blank','height=600 width=700')}>문의글 작성</button>
         <table className="review-table">
-          <thead className="review-thead">
+          <thead >
             <tr>
-              <th width="5%">글번호</th>
-              <th width="40%">제목</th>
-              <th width="15%">작성자</th>
-              <th width="15%">작성일자</th>
-              <th width="15%">답변상태</th>
+              <th width="8%">문의글 번호</th>
+              <th width="53%">제목</th>
+              <th width="13%">작성자</th>
+              <th width="13%">작성일자</th>
+              <th width="13%">답변상태</th>
             </tr>
           </thead>
-          {qnaDatas &&
-            qnaDatas.map((qna) => (
               <tbody>
+          {qnaDatas &&
+                qnaDatas.map((qna) => (
+                  <>
                 <tr
                   onClick={() => {
                     setQnaIdx(qna.qnaIdx);
@@ -331,13 +359,14 @@ function Item() {
                   </td>
                   <td width="13%">{qna.memId}</td>
                   <td width="13%">{qna.qnaWriteDate}</td>
-                  <td width="13%">답변상태</td>
+                  <td width="13%">{qna.qnaSave === 'N' ? '답변완료' : '답변대기'}</td>
                 </tr>
                 {qnaModal === true && qnaIdx === qna.qnaIdx ? (
-                  <Qna value={qna.qnaIdx} />
+                  <Qna value={qna.qnaIdx}/>
                 ) : null}
-              </tbody>
+            </>
             ))}
+              </tbody>
         </table>
       </div>
       <div className="pagenation">

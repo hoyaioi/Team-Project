@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const ItemWrite = () => {
   const navigate = useNavigate();
-  const organsList = ["선택", "간", "눈", "몸", "혈관", "장"];
-  const [organSelect, setOrganSelect] = useState("선택");
-
-  const categoryList = ["선택", "추천", "기능별", "대상별", "성분별"];
+  const categoryList = ["선택", "간", "눈", "비타민", "혈관", "장"];
   const [categorySelect, setCategorySelect] = useState("선택");
+
   const [selectedThumb, setSelectedThumb] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
 
@@ -51,16 +49,11 @@ const ItemWrite = () => {
 
 
 
-  const selectOrganHandler = (e) => {
-    setOrganSelect(e.target.value);
-  };
 
   const selectCategoryHandler = (e) => {
     setCategorySelect(e.target.value);
   };
   console.log(categorySelect);
-  console.log(organSelect);
-
   const [itemInfo, setItemInfo] = useState({
     itemNum: "",
     itemName: "",
@@ -76,7 +69,6 @@ const ItemWrite = () => {
     categoryName: ""
   });
 
-  // 이미지 업로드
 
 
   const getValue = (e) => {
@@ -101,7 +93,7 @@ const ItemWrite = () => {
                 <table>
                   <tbody>
                     <tr>
-                      <th>대분류</th>
+                      <th>분류</th>
                       <td>
                         <div className="write_select" onChange={getValue}>
                           <select name="categoryName" onChange={selectCategoryHandler} value={categorySelect}>
@@ -111,23 +103,6 @@ const ItemWrite = () => {
                                 key={category}
                               >
                                 {category}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>분류</th>
-                      <td>
-                        <div className="write_select" onChange={getValue}>
-                          <select name="itemOrgans" onChange={selectOrganHandler} value={organSelect}>
-                            {organsList.map((organ) => (
-                              <option
-                                value={organ}
-                                key={organ}
-                              >
-                                {organ}
                               </option>
                             ))}
                           </select>

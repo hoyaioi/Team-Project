@@ -6,8 +6,7 @@ function Topbutton() {
 
     const scrollToTop = () => {
         window.scroll({
-            top: 0,
-            behavior: 'smooth'
+            top: 0
         })
 
     }
@@ -19,8 +18,6 @@ function Topbutton() {
                 setShowButton(false)
             }
         }
-
-        console.log(window.scrollY)
         window.addEventListener("scroll", handleShowButton)
         return () => {
             window.removeEventListener("scroll", handleShowButton)

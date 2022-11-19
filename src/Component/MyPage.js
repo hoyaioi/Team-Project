@@ -1,8 +1,22 @@
 import "../CSS/MyPage.css";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-function MyPage() {
+function MyPage({ memIdx }) {
+
+  const [memName, setMemName] = useState('');
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/member/myinfo/${memIdx}`)
+    .then(response => {
+      setMemName(response.data.memName);
+    })
+    .catch(error => console.log(error));
+  })
+
   return (
     <>
       <div id="main">
@@ -11,7 +25,7 @@ function MyPage() {
             <div className="mypage_side_in">
               <div className="mypage_profile_wrap">
                 <div>Welcome!</div>
-                <span>이름</span> 님
+                <span>{memName}</span> 님
               </div>
               <div className="mypage_sidemenu">
                 <ul>

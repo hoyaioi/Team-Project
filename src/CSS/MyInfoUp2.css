@@ -123,19 +123,15 @@
 }
 .myinfoup2_btn_modify:hover {
     background-color: #b5d692;
-    color: white;
 }
 
 .myinfoup2_btn_cancle:hover {
-    background-color: red;
-    color: white;
+    background-color: darkorange;
 }
 .myinfoup2_btn_modify:active {
-    background-color: #b5d692;
     color: white;
 }
 
 .myinfoup2_btn_cancle:active {
-    background-color: red;
     color: white;
 }
