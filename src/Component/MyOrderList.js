@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import '../CSS/MyOrderList.css';
 import s6 from '../Img/s6.jpg'
