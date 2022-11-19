@@ -107,7 +107,7 @@ function Item() {
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/qna/${itemIdx}`)
+    axios.get(`http://localhost:8080/api/qna/${itemNum}`)
       .then(qna => {
         setQnaDatas(qna.data);
       })

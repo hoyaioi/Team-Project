@@ -21,8 +21,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindId";
-import FindPW from "./Component/FindPw";
+import FindID from "./Component/FindID";
+import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -54,7 +54,6 @@ function App() {
       </Routes>
       <Header />
       <div id="wrapper">
-        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/service/*" element={<Service />}>
