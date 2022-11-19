@@ -13,7 +13,6 @@ import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
-import QnaWrite from './QnaWrite';
 
 SwiperCore.use([Navigation]);
 
@@ -28,11 +27,13 @@ function Item() {
   const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
+  // const [ reviewDetail, setReviewDetail] = useState({});
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const email = sessionStorage.getItem("memEmail"); 
   const location = useLocation();
   const [items, setItems] = useState([]);
-  console.log(itemNum);
+  
+  const itemIdx = parseInt(itemNum);
 
   function plusClick() {
     setAmount(amount + 1);
@@ -45,11 +46,12 @@ function Item() {
     axios
       .get("http://localhost:8080/item")
       .then((response) => {
-
+        
         setItems(response.data);
       })
-      .catch((error) => console.log(error));
-  },[]);
+      
+  }, []);
+  
 
   const cartDto = {
     memEmail : email,
@@ -66,13 +68,10 @@ function Item() {
   }];
 
 
-
   const cartHanddler = () => {
-    console.log(email);
     if(isLogin === true) {
     axios.post("http://localhost:8080/cartinsert", cartDto)
     .then((response) => {
-      console.log(response);
       alert("장바구니 추가완료");
     }).catch((error) => {
       console.log(error);
@@ -115,8 +114,6 @@ function Item() {
   }, []);
 
 
-
-
   return (
     <div className='item-content'>
       <div className='item_detail'>
@@ -154,7 +151,7 @@ function Item() {
             </div>
           </div>
           <div className='buy-section'>
-            <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
+        <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
             <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
           </div>
         </div>
@@ -326,21 +323,10 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        <button  onClick={() => window.open('http://localhost:3000/qnaWrite','_blank','height=600 width=700')}>문의글 작성</button>
         <table className="review-table">
-          <thead >
-            <tr>
-              <th width="8%">문의글 번호</th>
-              <th width="53%">제목</th>
-              <th width="13%">작성자</th>
-              <th width="13%">작성일자</th>
-              <th width="13%">답변상태</th>
-            </tr>
-          </thead>
-              <tbody>
           {qnaDatas &&
-                qnaDatas.map((qna) => (
-                  <>
+            qnaDatas.map((qna) => (
+              <tbody>
                 <tr
                   onClick={() => {
                     setQnaIdx(qna.qnaIdx);
@@ -350,21 +336,20 @@ function Item() {
                   <td
                     width="53%"
                     onClick={() => {
-                      setQnaIdx(qna.qnaIdx);
+                      setQnaModal(!qnaModal);
                     }}
                   >
                     {qna.qnaTitle}
                   </td>
                   <td width="13%">{qna.memId}</td>
                   <td width="13%">{qna.qnaWriteDate}</td>
-                  <td width="13%">{qna.qnaSave === 'N' ? '답변완료' : '답변대기'}</td>
+                  <td width="13%">답변상태</td>
                 </tr>
                 {qnaModal === true && qnaIdx === qna.qnaIdx ? (
-                  <Qna value={qna.qnaIdx}/>
+                  <Qna value={qna.qnaIdx} />
                 ) : null}
-            </>
-            ))}
               </tbody>
+            ))}
         </table>
       </div>
       <div className="pagenation">

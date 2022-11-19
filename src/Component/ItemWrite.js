@@ -61,7 +61,6 @@ const ItemWrite = () => {
     itemSubImg: "",
   });
 
-  // 이미지 업로드
 
 
   const getValue = (e) => {
