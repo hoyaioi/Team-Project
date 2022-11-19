@@ -14,36 +14,29 @@ const ItemWrite = () => {
 
   const saveThumb = (event) => {
     setSelectedThumb(event.target.files[0]);
-    
-  }
+  };
   const saveDetailImg = (event) => {
     setSelectedDetail(event.target.files[0]);
-  }
+  };
   console.log(selectedThumb);
 
   const onFileUpload = () => {
     const formData = new FormData();
 
-
     // 파일 데이터 저장
-    formData.append('itemThumb', selectedThumb);
-    formData.append('itemDetailImg', selectedDetail);
+    formData.append("itemThumb", selectedThumb);
+    formData.append("itemDetailImg", selectedDetail);
 
+    formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
-
-    formData.append('itemsDto', JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
-
-    axios.post("http://localhost:8080/itemwrite", formData)
-      .then((response) => {
-        if (response.status === 200) {
-          navigate('/');
-          alert("상품이 등록되었습니다.");
-
-        } else {
-          alert("상품 등록 실패");
-        }
-      })
-
+    axios.post("http://localhost:8080/itemwrite", formData).then((response) => {
+      if (response.status === 200) {
+        navigate("/");
+        alert("상품이 등록되었습니다.");
+      } else {
+        alert("상품 등록 실패");
+      }
+    });
   };
 
 
@@ -66,9 +59,9 @@ const ItemWrite = () => {
     itemOrgans: "",
     itemMaterials: "",
     itemSubImg: "",
-    categoryName: ""
   });
 
+  // 이미지 업로드
 
 
   const getValue = (e) => {
@@ -146,6 +139,8 @@ const ItemWrite = () => {
                           placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemExpDate"
+                          min="2022-11-01"
+                          max="2050-12-31"
                         />
                       </td>
                     </tr>
@@ -176,19 +171,21 @@ const ItemWrite = () => {
                     <tr>
                       <th>제품썸네일</th>
                       <td>
-                        <input type="file" name="itemThumb" onInput={saveThumb} />
+                        <input
+                          type="file"
+                          name="itemThumb"
+                          onInput={saveThumb}
+                        />
                       </td>
                     </tr>
                     <tr>
                       <th>제품메인이미지</th>
                       <td>
-                        <input type="file" name="itemDetailImg" onInput={saveDetailImg} />
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>제품서브이미지</th>
-                      <td>
-                        <input type="file" />
+                        <input
+                          type="file"
+                          name="itemDetailImg"
+                          onInput={saveDetailImg}
+                        />
                       </td>
                     </tr>
                   </tbody>

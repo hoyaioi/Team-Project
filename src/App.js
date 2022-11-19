@@ -40,6 +40,10 @@ import Admin from "./Component/AdminAuth";
 import MemList from "./Component/AdminBoard"
 
 import ReviewWrite from "./Component/ReviewWrite";
+
+import MemberDetail from "./Component/MemberDetail";
+import Member from "./Component/Member";
+
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
   return (
@@ -50,6 +54,7 @@ function App() {
       </Routes>
       <Header />
       <div id="wrapper">
+        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/service/*" element={<Service />}>
@@ -89,6 +94,8 @@ function App() {
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
           <Route path="/admin" element={<MemList />} />
+          <Route path="/member" element={<Member />}></Route>
+          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
         </Routes>
       </div>
       <Footer />
