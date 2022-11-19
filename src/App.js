@@ -40,7 +40,6 @@ import Admin from "./Component/AdminAuth";
 import MemList from "./Component/AdminBoard"
 
 import ReviewWrite from "./Component/ReviewWrite";
-import QnaWrite from "./Component/QnaWrite";
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
   return (
