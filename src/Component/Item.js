@@ -54,7 +54,8 @@ function Item() {
   const cartDto = {
     memEmail : email,
     itemNum: datas.itemNum,
-    itemAmount: amount
+    itemAmount: amount,
+    itemPrice : (amount) * (datas.itemPrice)
   };
 
   const orderDto = [{
@@ -84,6 +85,7 @@ function Item() {
 }
 
   const buyHanddler = () => {
+    axios.post("http://localhost:8080/cartinsert", cartDto)
     navigate('/order', {state : {orderDto}});
   }
   const moveToFocus = useRef([]);
