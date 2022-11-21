@@ -12,7 +12,7 @@ function ItemList() {
   const [items, setItems] = useState([]);
   const [sort, setSort] = useState('');
   
-  
+  const totalPrice = items.map(item => item.itemPrice)
   
   const sortChange = (e) => {
     setSort(e.target.value);

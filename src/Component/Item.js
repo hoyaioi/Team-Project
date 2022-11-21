@@ -64,9 +64,10 @@ function Item() {
     itemAmount : amount,
     itemPrice : datas.itemPrice,
     itemThumb : datas.itemThumb,
+    itemName : datas.itemName
   }];
 
-
+console.log(datas.itemName);
 
   const cartHanddler = () => {
     console.log(email);
@@ -109,7 +110,7 @@ function Item() {
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/qna/${itemNum}`)
+    axios.get(`http://localhost:8080/qna/${itemNum}`)
       .then(qna => {
         setQnaDatas(qna.data);
       })
@@ -353,6 +354,7 @@ function Item() {
                     width="53%"
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
+                      setQnaModal(!qnaModal);
                     }}
                   >
                     {qna.qnaTitle}

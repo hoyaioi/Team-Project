@@ -1,3 +1,4 @@
+
 import Item from "./Component/Item";
 import Main from "./Component/Main";
 import Topbutton from "./Topbutton";
@@ -35,14 +36,16 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-<<<<<<<<< Temporary merge branch 1
+import QnaWrite from "./Component/QnaWrite";
 import Admin from "./Component/AdminAuth";
 import MemList from "./Component/AdminBoard"
 
 import ReviewWrite from "./Component/ReviewWrite";
-=========
-import QnaWrite from "./Component/QnaWrite";
->>>>>>>>> Temporary merge branch 2
+
+import MemberDetail from "./Component/MemberDetail";
+import Member from "./Component/Member";
+import AdminOrder from "./Component/AdminOrder";
+
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
   return (
@@ -61,25 +64,17 @@ function App() {
             <Route path="notice" element={<Notice />} />
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
-          <Route path="/mypage/*" element={<MyPage />}>
+          <Route path="/mypage/*" element={<MyPage memIdx={memIdx} />}>
             <Route path="myorderlist" element={<MyOrderList memIdx={memIdx} />} />
             <Route path="myrefund" element={<MyRefund memIdx={memIdx} />} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
             
             <Route path="myresearch" element={<MyPageResearch />} />
-<<<<<<<<< Temporary merge branch 1
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
-=========
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={3} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={3} />} />
-
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={3} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={3} />} />
->>>>>>>>> Temporary merge branch 2
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -102,6 +97,7 @@ function App() {
           <Route path="/admin" element={<MemList />} />
           <Route path="/member" element={<Member />}></Route>
           <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
+          <Route path="/admin/order" element={<AdminOrder />}/>
         </Routes>
       </div>
       <Footer />

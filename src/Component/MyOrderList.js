@@ -11,7 +11,6 @@ import RefundApp from './RefundApp';
 
 
 function MyOrderList({memIdx}) {
-
     const [datas, setDatas] = useState([]);
 
     let [count1, setCount1] = useState(0);
@@ -107,6 +106,21 @@ function MyOrderList({memIdx}) {
         setItemName(itemName);
         setOrderNum(orderNum);
         setOpenApp(true);
+    }
+
+    const handlerDelete = (orderNum)=> {
+        if (window.confirm('내역을 삭제하시겠습니까?')) {
+            axios.put(`http://localhost:8080/mypage/myorderlist/delete/${orderNum}`)
+                .then(response => {
+                    if (response.status === 200) {
+                        alert('삭제 완료되었습니다.');
+                        window.location.reload();
+                    } else {
+                        alert('삭제 실패하였습니다.');
+                    }
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     const navigate = useNavigate();
@@ -211,7 +225,7 @@ function MyOrderList({memIdx}) {
                                         <tr key={order.orderNum}>
                                             <td className='myorderlist_item_info_td'>
                                                 <div className='myorderlist_item_info_wrap'>
-                                                    <img src={s6} className='myorderlist_item_img' />
+                                                    <img src={process.env.REACT_APP_API_URL + order.itemThumb} className='myorderlist_item_img' />
                                                     <div className='myorderlist_item_name'>
                                                         {order.itemName}
                                                     </div>
@@ -237,7 +251,7 @@ function MyOrderList({memIdx}) {
                                                 <input type='hidden' value={order.itemNum} />
                                                 <input type='hidden' value={order.memIdx} />
                                                 <div>
-                                                    {order.orderStatus === '취소완료' ? '' : null}
+                                                    {order.orderStatus === '취소완료' ? <button onClick={()=> handlerDelete(order.orderNum)}>내역 삭제</button> : null}
                                                     {order.orderStatus === '취소처리중' ? '' : null}
                                                     {order.orderStatus === '주문완료' ? (<button type='button' onClick={() => handlerCancelNow(order.orderNum)}>취소요청</button>) : ''}
                                                     {order.orderStatus === '상품준비중' ? (<button type='button' onClick={() => handlerCancelPlz(order.orderNum)}>취소요청</button>) : ''}

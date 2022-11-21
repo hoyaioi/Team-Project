@@ -13,7 +13,19 @@ function Order() {
     const item = location.state.orderDto;
     const navigate = useNavigate();
     let totalPrice = 0;
+    var date = new Date();
+    var components = [
+        date.getYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+        date.getMilliseconds()
+    ];
 
+    var id = components.join("");
+    console.log(id)
     item.forEach((items) => {
         totalPrice += (items.itemPrice * items.itemAmount);
     });
@@ -56,7 +68,6 @@ function Order() {
         setAddr1Error(false);
     };
 
-
     useEffect(() => {
         axios.get(`http://localhost:8080/member/${memEmail}`)
             .then(response => {
@@ -66,15 +77,20 @@ function Order() {
             })
             .catch(error => { console.log(error); });
     }, []);
-    const orderInfo = item.map( order => ({
+    const orderInfo = item.map(order => ({
         memEmail: memEmail,
+        memIdx : memIdx,
         address1: data.memAddr1,
         address2: data.memAddr2,
+        address3: data.postNum,
         memPhone: data.memPhone,
-        totalPrice: totalPrice,
+        itemPrice: order.itemPrice,
         itemNum: order.itemNum,
         itemName: order.itemName,
         itemAmount: order.itemAmount,
+        orderNum: id,
+        cartIdx : order.cartIdx,
+        itemThumb : order.itemThumb
     }))
 
     const handlerClickSubmit = (e) => {
@@ -96,18 +112,12 @@ function Order() {
             )
             navigate("/mypage");
         } else {
-            console.log(item);
-            console.log(data.memAddr1)
-            console.log(item.itemNum)
-           
-
-
-            console.log(orderInfo)
             axios.post("http://localhost:8080/insertOrder", orderInfo)
                 .then(response => {
                     console.log(response);
                 })
                 .catch(error => { console.log(error); })
+                navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
         }
 
     }
