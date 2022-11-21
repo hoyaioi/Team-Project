@@ -21,8 +21,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
+import FindID from "./Component/FindId";
+import FindPW from "./Component/FindPw";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -38,7 +38,7 @@ import Result from "./Component/MyResearchDetail";
 import QnaWrite from "./Component/QnaWrite";
 import Admin from "./Component/AdminAuth";
 import MemList from "./Component/AdminBoard"
-
+import AdminQna from "./Component/AdminQna"
 import ReviewWrite from "./Component/ReviewWrite";
 
 import MemberDetail from "./Component/MemberDetail";
@@ -92,7 +92,7 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<MemList />} />
+          <Route path="/admin" element={<AdminQna />} />
           <Route path="/member" element={<Member />}></Route>
           <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
         </Routes>

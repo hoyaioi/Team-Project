@@ -18,7 +18,7 @@ function Login() {
     e.preventDefault();
 
 
-    axios.post("http://localhost:8080/member/login", { "memEmail": email, "memPw": password })
+    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password })
       .then(response => {
         if (response.status === 200) {
           navigate('/');

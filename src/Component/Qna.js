@@ -2,35 +2,24 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/Qna.css';
 
-function Qna({value}) {
-    console.log(value);
-    
+function Qna({ value }) {
+
+
     const qnaIdx = value;
-    const [ datas, setData ] = useState({});
-    const [ answer, setAnswer ] = useState({});
-    const [ success, setSuccess ] = useState(true);
+    const [datas, setData] = useState({});
+    
     useEffect(() => {
-        axios.get(`http://localhost:8080/qna/${qnaIdx}`)
-        .then(response => { 
-            console.log(response); 
-            setData(response.data);
-            
-        })
-        .catch(error => { console.log(error); });
+
+        axios.get(`http://localhost:8080/api/qna/contents/${qnaIdx}`)
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => { console.log(error); });
     }, []);
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
-        .then(response => { 
-            
-            setAnswer(response.data);
-            if(answer.qnaCommentContent !== null){
-            setSuccess(true);
-            }
-        })
-        .catch(error => { console.log(error); });
-    }, []);
-    
+    const isAnswer = datas.qnaCommentContent === null ? false : true;
+
+   
     return (
         <table className='qna-modal-table'>
             <tbody>
@@ -45,10 +34,10 @@ function Qna({value}) {
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{success ? answer.qnaCommentContent :  '답변준비중' }</sapn>
+                                <sapn>{isAnswer ? ( datas.qnaCommentContent) : '답변 준비중'  } </sapn>
                             </div>
                             <div className='comment-date'>
-                                <sapn>답변일자 : {answer.qnaCommentWriteDate}</sapn>
+                                <sapn>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</sapn>
                             </div>
                         </div>
                     </td>

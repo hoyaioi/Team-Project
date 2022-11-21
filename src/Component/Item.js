@@ -110,6 +110,7 @@ function Item() {
     axios.get(`http://localhost:8080/api/qna/${itemNum}`)
       .then(qna => {
         setQnaDatas(qna.data);
+        setQnaModal(false);
       })
       .catch(error => { console.log(error); });
   }, []);
@@ -351,13 +352,14 @@ function Item() {
                     width="53%"
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
+                     setQnaModal(!qnaModal);
                     }}
                   >
                     {qna.qnaTitle}
                   </td>
-                  <td width="13%">{qna.memId}</td>
+                  <td width="13%">{qna.memEmail}</td>
                   <td width="13%">{qna.qnaWriteDate}</td>
-                  <td width="13%">{qna.qnaSave === 'N' ? '답변완료' : '답변대기'}</td>
+                  <td width="13%">{qna.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
                 </tr>
                 {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                   <Qna value={qna.qnaIdx}/>
