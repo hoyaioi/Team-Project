@@ -93,7 +93,7 @@ function Register() {
     };
     
     axios
-      .post("http://localhost:8080/member/join", memInfo)
+      .post("http://localhost:8080/api/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');
@@ -102,7 +102,7 @@ function Register() {
         }
       })
       .catch(error => {
-        alert("이메일을 확인하세요")
+        alert("등록에 실패했습니다.")
         console.log(error)
       });
   };
@@ -111,7 +111,8 @@ function Register() {
   const checkEmailValid = (e) => {
     console.log(e);
     e.preventDefault();
-    axios.get("http://localhost:8080/api/member/" + email)
+    // axios.get("http://localhost:8080/api/member/" + email)
+    axios.get(`http://localhost:8080/api/member/${email}`)
       .then(response => {
         console.log(response);
         if (response.status === 200) {

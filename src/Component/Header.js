@@ -6,7 +6,7 @@ const Header = () => {
 
   //조건부 렌더링으로 로그인 여부에 따라 다른 헤더를 보여준다.
 
-  const isLogin = sessionStorage.getItem("memIdx") ? true : false;
+  const isLogin = sessionStorage.getItem("token") ? true : false;
   const logout = () => {
     sessionStorage.clear();
     alert("로그아웃 되었습니다.");
