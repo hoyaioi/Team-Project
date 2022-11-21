@@ -228,7 +228,7 @@ function MyOrderList({memIdx}) {
                                                 {order.itemPrice}
                                             </td>
                                             <td className='myorderlist_item_count_td'>
-                                                {order.itemAmount}
+                                                {order.itemAmount} 
                                             </td>
                                             <td className='myorderlist_order_stat_td'>
                                                 {order.orderStatus}
