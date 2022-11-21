@@ -7,16 +7,22 @@ function AdminOrder() {
 
     const [datas, setDatas] = useState([]);
     const orderState = ["배송준비중", "배송중", "배송완료"];
-    const [stateSelect, setStateSelect] = useState("선택");
+    const [stateSelect, setStateSelect] = useState([]);
     const stateHandler = (e) => {
         setStateSelect(e.target.value);
         console.log(stateSelect);
     }
 
+    const stateChange = (orderlistIdx) => {
+        axios.post(`http://localhost:8080/admin/order/${orderlistIdx}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => console.log(error));
+    }
 
     useEffect(() => {
-        axios
-            .get("http://localhost:8080/admin/order")
+        axios.get("http://localhost:8080/admin/order")
             .then((response) => {
                 console.log(response);
                 setDatas(response.data);
@@ -40,8 +46,8 @@ function AdminOrder() {
                         </tr>
                     </thead>
                     <tbody>
+
                         {datas.map(orderlist => (
-                            
                             <tr>
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + orderlist.itemThumb} /></td>
                                 <td width="16%">{orderlist.orderNum}</td>
@@ -50,7 +56,7 @@ function AdminOrder() {
                                 <td width="11%">{orderlist.orderDate}</td>
                                 <td width="17%">
                                     {orderlist.orderStatus}
-                                    <select name="categoryName" onChange={stateHandler} value={stateSelect}>
+                                    <select name="categoryName" onChange={stateHandler}>
                                         {orderState.map((state) => (
                                             <option
                                                 value={state}
@@ -60,6 +66,7 @@ function AdminOrder() {
                                             </option>
                                         ))}
                                     </select>
+                                    <button onClick={()=>stateChange(orderlist.orderlistIdx)}>변경하기</button>
                                 </td>
                             </tr>
                         ))}
