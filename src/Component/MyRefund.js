@@ -21,6 +21,25 @@ function MyRefund({memIdx}) {
     const offset = (page - 1) * 10;
     const count = datas.length;
 
+    const handlerRefundCancel = (orderNum, refundIdx) => {
+        if(window.confirm('해당 주문 건의 반품을 철회하시겠습니까?')){
+        axios.put(`http://localhost:8080/mypage/myrefund/refundcancel/${orderNum}`)
+        .then(response => {
+            if(response.status === 200){
+                axios.put(`http://localhost:8080/mypage/myrefund/removerefund/${refundIdx}`)
+                .then(response => {
+                    if(response.status === 200){
+                        alert('반품신청을 철회하였습니다.');
+                        window.location.reload();
+                    }
+                })
+                .catch(error => console.log(error));
+            }
+        })
+        .catch(error => alert('오류발생!!!'));
+    }
+    }
+
     return (
         <>
             <div id='main'>
@@ -64,8 +83,11 @@ function MyRefund({memIdx}) {
                                     <td className='myrefund_item_price_td'>
                                         {refund.itemPrice}
                                     </td>
-                                    <td>
+                                    <td className='myrefund_status_btn_td'>
+                                        <input type='hidden' value={refund.refundIdx} />
                                         {refund.refundStatus}
+                                        {refund.refundStatus === '반품진행중' ? 
+                                        <div><button onClick={() => handlerRefundCancel(refund.orderNum, refund.refundIdx)}>반품철회</button></div> : ''}
                                     </td>
                                 </tr>
                             ))}
