@@ -62,7 +62,7 @@ function MyRefund({memIdx}) {
                                         {refund.refundReason}
                                     </td>
                                     <td className='myrefund_item_price_td'>
-                                        {refund.refundAmount}
+                                        {refund.itemPrice}
                                     </td>
                                     <td>
                                         {refund.refundStatus}

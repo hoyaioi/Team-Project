@@ -101,11 +101,12 @@ function MyOrderList({memIdx}) {
     const [itemPrice, setItemPrice] = useState(0);
     const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = (orderNum, itemName, itemPrice) => {
-  
-        setItemPrice(itemPrice);
+    const handlerOpenApp = (memIdx, itemName, itemNum, orderNum, itemPrice) => {
+        
         setItemName(itemName);
+        setItemNum(itemNum);
         setOrderNum(orderNum);
+        setItemPrice(itemPrice);
         setOpenApp(true);
     }
 
@@ -143,7 +144,7 @@ function MyOrderList({memIdx}) {
         <>
             <div id='main'>
                 <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemNum={itemNum} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} /> : <>
+                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemName={itemName} itemNum={itemNum} orderNum={orderNum} itemPrice={itemPrice} /> : <>
                         <div className='myorderlist_title_wrap'>
                             <h2>주문현황</h2>
                         </div>
@@ -245,7 +246,7 @@ function MyOrderList({memIdx}) {
                                                     {order.orderStatus === '배송완료' ? (
                                                         <>
                                                             <button type='button'>배송조회</button>
-                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice)}>반품요청</button>
+                                                            <button type='button' onClick={() => handlerOpenApp(order.memIdx, order.itemName, order.itemNum, order.orderNum, order.itemPrice)}>반품요청</button>
                                                             <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum)}>구매확정</button>
                                                         </>
                                                     ) : ''}
