@@ -1,8 +1,8 @@
 import React from "react";
 
-const FaqTopList = ({ faqlist }) => {
+const FaqTopList = ({ faqlist, onList }) => {
   const { title } = faqlist;
-  return <li>{title}</li>;
+  return <li onClick={() => onList(title)}>{title}</li>;
 };
 
 export default FaqTopList;

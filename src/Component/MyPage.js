@@ -6,16 +6,16 @@ import axios from "axios";
 import { useState } from "react";
 
 function MyPage({ memIdx }) {
-
-  const [memName, setMemName] = useState('');
+  const [memName, setMemName] = useState("");
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/member/myinfo/${memIdx}`)
-    .then(response => {
-      setMemName(response.data.memName);
-    })
-    .catch(error => console.log(error));
-  })
+    axios
+      .get(`http://localhost:8080/member/myinfo/${memIdx}`)
+      .then((response) => {
+        setMemName(response.data.memName);
+      })
+      .catch((error) => console.log(error));
+  });
 
   return (
     <>

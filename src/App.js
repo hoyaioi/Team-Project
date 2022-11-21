@@ -37,7 +37,7 @@ import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 import QnaWrite from "./Component/QnaWrite";
 import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard"
+import MemList from "./Component/AdminBoard";
 
 import ReviewWrite from "./Component/ReviewWrite";
 
@@ -63,11 +63,14 @@ function App() {
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
           <Route path="/mypage/*" element={<MyPage />}>
-            <Route path="myorderlist" element={<MyOrderList memIdx={memIdx} />} />
+            <Route
+              path="myorderlist"
+              element={<MyOrderList memIdx={memIdx} />}
+            />
             <Route path="myrefund" element={<MyRefund memIdx={memIdx} />} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
-            
+
             <Route path="myresearch" element={<MyPageResearch />} />
             <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
             <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
@@ -92,15 +95,13 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<MemList />} />
-          <Route path="/member" element={<Member />}></Route>
-          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
+          <Route path="/admin_mem" element={<Member />} />
+          <Route path="/admin_mem/detail/:memIdx" element={<MemberDetail />} />
         </Routes>
       </div>
       <Footer />
       {/* <Route path="/surveyStart" element={<Step1}><Survey /></Route>  */}
       <Topbutton></Topbutton>
-
     </>
   );
 }

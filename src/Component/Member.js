@@ -28,7 +28,7 @@ const Member = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/member")
+      .get("http://localhost:8080/admin_mem")
       .then((response) => {
         // setMemDeletedYn(response.data.memDeletedYn);
         setAllDatas(response.data);
@@ -69,14 +69,7 @@ const Member = () => {
               <li>탈퇴이력</li>
             </ul>
           </div>
-          {/* <MemberList memlist={postsData(datas)} /> */}
           <MemberList memlist={datas} />
-          {/* <Pagination
-            limit={limit}
-            page={page}
-            totalPosts={datas.length}
-            setPage={setPage}
-          /> */}
         </div>
       </div>
     </div>
