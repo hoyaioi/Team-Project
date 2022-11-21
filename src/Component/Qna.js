@@ -8,15 +8,13 @@ function Qna({value}) {
     const qnaIdx = value;
     const [ datas, setData ] = useState({});
     const [ answer, setAnswer ] = useState({});
-    const [ success, setSuccess ] = useState(false);
-
-    
-   
+    const [ success, setSuccess ] = useState(true);
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/qna/${qnaIdx}`)
+        axios.get(`http://localhost:8080/qna/${qnaIdx}`)
         .then(response => { 
-            
+            console.log(response); 
             setData(response.data);
+            
         })
         .catch(error => { console.log(error); });
     }, []);
@@ -24,6 +22,7 @@ function Qna({value}) {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
         .then(response => { 
+            
             setAnswer(response.data);
             if(answer.qnaCommentContent !== null){
             setSuccess(true);
@@ -31,9 +30,7 @@ function Qna({value}) {
         })
         .catch(error => { console.log(error); });
     }, []);
-
     
-console.log(datas)
     return (
         <table className='qna-modal-table'>
             <tbody>

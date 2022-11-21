@@ -8,12 +8,12 @@ import "../CSS/Order.css";
 
 function Order() {
     const memEmail = sessionStorage.getItem("memEmail");
+    const memIdx = sessionStorage.getItem("memIdx");
     const location = useLocation([]);
     const item = location.state.orderDto;
     const navigate = useNavigate();
     let totalPrice = 0;
 
-    console.log(item)
     item.forEach((items) => {
         totalPrice += (items.itemPrice * items.itemAmount);
     });
@@ -66,6 +66,16 @@ function Order() {
             })
             .catch(error => { console.log(error); });
     }, []);
+    const orderInfo = item.map( order => ({
+        memEmail: memEmail,
+        address1: data.memAddr1,
+        address2: data.memAddr2,
+        memPhone: data.memPhone,
+        totalPrice: totalPrice,
+        itemNum: order.itemNum,
+        itemName: order.itemName,
+        itemAmount: order.itemAmount,
+    }))
 
     const handlerClickSubmit = (e) => {
         e.preventDefault();
@@ -80,21 +90,28 @@ function Order() {
             axios.all([axios.post("http://localhost:8080/changeAddr", memInfo), axios.post("http://localhost:8080/insertOrder", item)]
                 .then(response => {
                     console.log(response);
+
                 })
                 .catch(error => { console.log(error); })
             )
             navigate("/mypage");
         } else {
-            axios.post("http://localhost:8080/insertOrder", item)
+            console.log(item);
+            console.log(data.memAddr1)
+            console.log(item.itemNum)
+           
+
+
+            console.log(orderInfo)
+            axios.post("http://localhost:8080/insertOrder", orderInfo)
                 .then(response => {
                     console.log(response);
                 })
                 .catch(error => { console.log(error); })
-            navigate("/mypage");
         }
 
     }
-    
+
 
     const checkedSame = () => {
         setCheckType('same');
@@ -253,8 +270,8 @@ function Order() {
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실분</span></th>
                                                         <td>
-                                                            {checkType === 'same' ? <input type="text" name="receiverName" value= {data.memName} /> : 
-                                                            <input type="text" name="receiverName" />}</td>
+                                                            {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
+                                                                <input type="text" name="receiverName" />}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실 곳</span></th>

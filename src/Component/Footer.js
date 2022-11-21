@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../CSS/Footer.css";
 
+
 const Footer = () => {
   if (window.location.pathname === '/qnaWrite') return null;
   return (

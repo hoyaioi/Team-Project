@@ -11,11 +11,14 @@ function MyCart() {
     const [data, setData] = useState([]);
     const [checkedList, setCheckedLists] = useState([]);
     
-    
-
     const plusClick = (cartIdx,itemAmount)=> {
-        
-        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
+        const cartListDto = {
+            cartIdx : cartIdx,
+            itemAmount : itemAmount+1,
+            memEmail : memEmail
+
+        }
+        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
             console.log(response);
             alert('수정성공');
             setData(response.data);
@@ -29,6 +32,7 @@ function MyCart() {
         setData( data && data.map((item=>{
             return item.cartIdx === cartIdx ? {...item, itemAmount : item.itemAmount+1} : item
         })));
+
     }
 
     const minusClick = (cartIdx,itemAmount)=> {
@@ -38,8 +42,14 @@ function MyCart() {
         setData( data.map((item=>{
             return item.cartIdx === cartIdx && item.itemAmount > 1 ? {...item, itemAmount : item.itemAmount-1} : item
         })));
-        
-        axios.post("http://localhost:8080/cartupdate", checkedList).then(response => {
+
+        const cartListDto = {
+            cartIdx : cartIdx,
+            itemAmount : itemAmount-1,
+            memEmail : memEmail
+
+        }
+        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
             console.log(response);
             alert('수정성공');
             setData(response.data);
@@ -52,6 +62,7 @@ function MyCart() {
         console.log(itemAmount)
         }
     }
+   
 
     useEffect(() => {
         axios.get(`http://localhost:8080/cart/${memEmail}`)
