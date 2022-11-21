@@ -77,7 +77,7 @@ function MyRefund({memIdx}) {
                                     <td>
                                         {refund.orderNum}
                                     </td>
-                                    <td>
+                                    <td className='myrefund_refund_reason_td'>
                                         {refund.refundReason}
                                     </td>
                                     <td className='myrefund_item_price_td'>
