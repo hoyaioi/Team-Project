@@ -86,6 +86,7 @@ function MyOrderList({ memIdx }) {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
   const count = datas.length;
+  const [pagecount, setPageCount] = useState(10);
 
   useEffect(() => {
     axios
@@ -314,7 +315,12 @@ function MyOrderList({ memIdx }) {
                   </tbody>
                 </table>
                 <div>
-                  <Paging page={page} setPage={setPage} count={count} />
+                  <Paging
+                    page={page}
+                    setPage={setPage}
+                    count={count}
+                    pagecount={pagecount}
+                  />
                 </div>
               </div>
             </>

@@ -99,12 +99,7 @@ const MemberDetail = () => {
 
                 <div className="m-top-box">
                   <div className="m-title">탈퇴이력</div>
-                  <select
-                    name=""
-                    id=""
-                    onChange={handlerChangeDeleted}
-                    value={memDeletedYn}
-                  >
+                  <select name="" id="" onChange={handlerChangeDeleted}>
                     <option value="" hidden></option>
                     <option value="N">N</option>
                     <option value="Y">Y</option>

@@ -46,6 +46,7 @@ import Member from "./Component/Member";
 
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
+
   return (
     <>
       <ScrollToTop />

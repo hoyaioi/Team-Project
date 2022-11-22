@@ -3,10 +3,9 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import MemMenu from "./MemMenu";
 import "../CSS/List.css";
 import MemberList from "./MemberList";
-import MemMenu from "./MemMenu";
-import Pagination from "./Pagination";
 
 const Member = () => {
   const [allDatas, setAllDatas] = useState([]);
