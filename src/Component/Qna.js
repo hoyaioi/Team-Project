@@ -17,6 +17,8 @@ function Qna({ value }) {
             .catch(error => { console.log(error); });
     }, []);
 
+    const isAnswer = datas.qnaCommentContent === null ? false : true;
+
   
     
     return (
