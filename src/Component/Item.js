@@ -32,10 +32,11 @@ function Item() {
   const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
+  // const [ reviewDetail, setReviewDetail] = useState({});
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const email = sessionStorage.getItem("memEmail");
   const location = useLocation();
-  const [items, setItems] = useState([]);
+  const items = location.state.item;
   console.log(itemNum);
 
   function plusClick() {
@@ -110,6 +111,7 @@ console.log(datas.itemName);
     axios
       .get("http://localhost:8080/review")
       .then((response) => {
+        console.log(response);
         setReviewDatas(response.data);
       })
       .catch((error) => {
@@ -383,11 +385,11 @@ console.log(datas.itemName);
         <table className="review-table">
           <thead>
             <tr>
-              <th width="8%">문의글 번호</th>
-              <th width="53%">제목</th>
-              <th width="13%">작성자</th>
-              <th width="13%">작성일자</th>
-              <th width="13%">답변상태</th>
+              <th width="5%">글번호</th>
+              <th width="40%">제목</th>
+              <th width="15%">작성자</th>
+              <th width="15%">작성일자</th>
+              <th width="15%">답변상태</th>
             </tr>
           </thead>
           <tbody>

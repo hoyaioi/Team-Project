@@ -2,19 +2,17 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/Qna.css';
 
-function Qna({value}) {
-    console.log(value);
-    
-    const qnaIdx = value;
+function Qna(props) {
+
+    const qnaIdx = props.value;
     const [ datas, setData ] = useState({});
     const [ answer, setAnswer ] = useState({});
     const [ success, setSuccess ] = useState(true);
     useEffect(() => {
-        axios.get(`http://localhost:8080/qna/${qnaIdx}`)
+        axios.get(`http://localhost:8080/api/qna/${qnaIdx}`)
         .then(response => { 
             console.log(response); 
             setData(response.data);
-            
         })
         .catch(error => { console.log(error); });
     }, []);
@@ -22,15 +20,13 @@ function Qna({value}) {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
         .then(response => { 
-            
+            console.log(response); 
             setAnswer(response.data);
-            if(answer.qnaCommentContent !== null){
-            setSuccess(true);
-            }
+            setSuccess(false);
         })
         .catch(error => { console.log(error); });
     }, []);
-    
+
     return (
         <table className='qna-modal-table'>
             <tbody>
@@ -39,16 +35,16 @@ function Qna({value}) {
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <sapn>{datas.qnaContents}</sapn>
+                                <sapn>질문 내용</sapn>
                             </div>
                         </div>
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{success ? answer.qnaCommentContent :  '답변준비중' }</sapn>
+                                <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
                             </div>
                             <div className='comment-date'>
-                                <sapn>답변일자 : {answer.qnaCommentWriteDate}</sapn>
+                                <sapn>작성일자</sapn>
                             </div>
                         </div>
                     </td>

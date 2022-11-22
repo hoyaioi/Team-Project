@@ -2,12 +2,8 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../CSS/Footer.css";
 
-
 const Footer = () => {
-  if (window.location.pathname === '/qnaWrite') return null;
   return (
-
-    
     <div id="footer">
       <div className="footer_wrap">
         <div className="footer_top">
@@ -37,7 +33,7 @@ const Footer = () => {
                 사업자등록번호 : 123-45-67890 / 통신판매업신고번호 :
                 2022-서울종로-1027
               </li>
-              <li>대표번호 : 1544-1234 / 팩스번호 : 070-0000-1111</li>
+              <li>대표번호 : 1234-5678 / 팩스번호 : 070-0000-1111</li>
               <li>주소 : 서울특별시 종로구 인사동길 12 대일빌딩 7층, 15층</li>
               <li>메일 : cshelp@gungang.com</li>
               <li>개인정보관리자 : 상만</li>

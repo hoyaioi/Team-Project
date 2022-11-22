@@ -22,8 +22,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
+import FindID from "./Component/FindId";
+import FindPW from "./Component/FindPw";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -36,15 +36,15 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-import QnaWrite from "./Component/QnaWrite";
 import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard";
-
+import MemList from "./Component/AdminBoard"
+import AdminMember from "./Component/AdminMember"
+import AdminReview from "./Component/AdminReview";
+import AdminRefund from "./Component/AdminRefund";
+import AdminAuth from "./Component/AdminAuth";
 import ReviewWrite from "./Component/ReviewWrite";
-
 import MemberDetail from "./Component/MemberDetail";
 import Member from "./Component/Member";
-import AdminOrder from "./Component/AdminOrder";
 
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
@@ -52,9 +52,6 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <Routes>
-        <Route path="/qnaWrite" element={<QnaWrite />} />
-      </Routes>
       <Header />
       <div id="wrapper">
         <Routes>
@@ -72,10 +69,10 @@ function App() {
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -95,9 +92,12 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin_mem" element={<Member />} />
-          <Route path="/admin_mem/detail/:memIdx" element={<MemberDetail />} />
-          <Route path="/admin/order" element={<AdminOrder />}/>
+          <Route path="/admin" element={<MemList />} />
+          <Route path="/member" element={<Member />}></Route>
+          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
+          <Route path="/adminmember" element={<AdminMember />} />
+          <Route path="/adminreview" element={<AdminReview />} />
+          <Route path="/adminrefund" element={<AdminRefund />} />
         </Routes>
       </div>
       <Footer />

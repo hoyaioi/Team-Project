@@ -95,7 +95,7 @@ function Register() {
     };
     
     axios
-      .post("http://localhost:8080/member/join", memInfo)
+      .post("http://localhost:8080/api/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');
@@ -113,7 +113,7 @@ function Register() {
   const checkEmailValid = (e) => {
     console.log(e);
     e.preventDefault();
-    axios.get("http://localhost:8080/checkemail/" + email)
+    axios.get("http://localhost:8080/api/member/" + email)
       .then(response => {
         console.log(response);
         if (response.status === 200) {

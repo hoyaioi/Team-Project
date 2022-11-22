@@ -72,7 +72,6 @@
     border-bottom: 1px solid #dbdbdb;
      border-left: 1px dotted #ededed; 
     background: #ffffff;
-    vertical-align: middle;
 }
 
 .order_td_item {
@@ -126,9 +125,6 @@
 .order_view_info h4 {
     margin: 50px 0 0 0;
 }
-.order_item_info {
-    text-align: center;
-}
 .order_table_type .table_left {
     border-top: 1px solid #999999;
 }
@@ -144,7 +140,6 @@
 }
 .order_table_type .table_left th {
     padding: 15px 10px 14px 20px;
-    width: 20%;
     border-top: none 0;
     background: #f7f7f7;
     text-align: left;
@@ -173,14 +168,6 @@
     border-left: 1px dotted #ededed;
     background: #ffffff;
 }
-
-.order_item_img img {
-    width : 150px;
-    height : 150px;
-    margin: 0 auto;
-    display: block;
-}
-
 
 /* --------- 배송정보 --------- */
 /* 배송지확인 */

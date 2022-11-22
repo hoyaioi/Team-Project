@@ -16,6 +16,7 @@ function MyReview({ memIdx }) {
     const [datas2, setDatas2] = useState([]);
     const [btnActive, setBtnActive] = useState([true, false]);
 
+    
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -53,23 +54,27 @@ function MyReview({ memIdx }) {
 
         }
     }
-
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
             .then(response => {
                 setDatas(response.data);
+                
             })
             .catch(error => {
                 console.log(error);
-            });
-        axios.get(`http://localhost:8080/mypage/myreview/did/${memIdx}`)
+            })
+    }, []);
+
+    const handlerDidReview = () => {
+            setBtnActive([false, true]);
+            axios.get(`http://localhost:8080/mypage/myreview/did/${memIdx}`)
             .then(response => {
                 setDatas2(response.data);
             })
             .catch(error => {
                 console.log(error);
-            });
-    }, []);
+            })
+    }
 
     return (
         <>
@@ -100,9 +105,7 @@ function MyReview({ memIdx }) {
                                         <button className={btnActive[0] ? "myreview_able_btn_active" : "myreview_able_btn"} onClick={() => {
                                             setBtnActive([true, false]);
                                         }} >작성 가능한 리뷰</button>
-                                        <button className={btnActive[1] ? "myreview_did_btn_active" : "myreview_did_btn"} onClick={() => {
-                                            setBtnActive([false, true]);
-                                        }}>작성한 리뷰</button>
+                                        <button className={btnActive[1] ? "myreview_did_btn_active" : "myreview_did_btn"} onClick={handlerDidReview}>작성한 리뷰</button>
                                     </div>
 
                                     <div className='myreview_list_wrap'>

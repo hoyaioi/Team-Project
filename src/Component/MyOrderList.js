@@ -101,11 +101,12 @@ function MyOrderList({memIdx}) {
     const [itemPrice, setItemPrice] = useState(0);
     const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = (orderNum, itemName, itemPrice) => {
-  
-        setItemPrice(itemPrice);
+    const handlerOpenApp = (memIdx, itemName, itemNum, orderNum, itemPrice) => {
+        
         setItemName(itemName);
+        setItemNum(itemNum);
         setOrderNum(orderNum);
+        setItemPrice(itemPrice);
         setOpenApp(true);
     }
 
@@ -159,7 +160,7 @@ function MyOrderList({memIdx}) {
         <>
             <div id='main'>
                 <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemNum={itemNum} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} /> : <>
+                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemName={itemName} itemNum={itemNum} orderNum={orderNum} itemPrice={itemPrice} /> : <>
                         <div className='myorderlist_title_wrap'>
                             <h2>주문현황</h2>
                         </div>
@@ -243,7 +244,7 @@ function MyOrderList({memIdx}) {
                                                 {order.itemPrice}
                                             </td>
                                             <td className='myorderlist_item_count_td'>
-                                                {order.itemAmount}
+                                                {order.itemAmount} 
                                             </td>
                                             <td className='myorderlist_order_stat_td'>
                                                 {order.orderStatus}
