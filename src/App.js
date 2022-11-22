@@ -36,9 +36,11 @@ import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard"
+import AdminMember from "./Component/AdminMember"
+import AdminReview from "./Component/AdminReview";
+import AdminRefund from "./Component/AdminRefund";
+import AdminAuth from "./Component/AdminAuth";
 
-import ReviewWrite from "./Component/ReviewWrite";
 function App() {
   return (
     <>
@@ -81,9 +83,13 @@ function App() {
           <Route path="/findid" element={<FindID />} />
           <Route path="/findpw" element={<FindPW />} />
           <Route path="/agreement" element={<Agreement />} />
-          <Route path="/surveyStart" element={<Survey />}></Route>
-          <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<MemList />} />
+          <Route path="/surveyStart" element={<Survey />} />
+          {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
+            <Route path="/adminmember" element={<AdminMember />} />
+            <Route path="/adminreview" element={<AdminReview />} />
+            <Route path="/adminrefund" element={<AdminRefund />} />
+          {/* </Route> */}
+          
         </Routes>
       </div>
       <Footer />
