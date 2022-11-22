@@ -10,8 +10,8 @@ import axios from 'axios';
 import ReviewUpdate from './ReviewUpdate';
 
 
-function MyReview({ memIdx }) {
-
+function MyReview() {
+    const memIdx = sessionStorage.getItem("idx");
     const [datas, setDatas] = useState([]);
     const [datas2, setDatas2] = useState([]);
     const [btnActive, setBtnActive] = useState([true, false]);

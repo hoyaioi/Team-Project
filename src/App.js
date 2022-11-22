@@ -98,8 +98,8 @@ function App() {
           <Route path="/surveyStart" element={<Survey />}></Route>
           <Route path="/adminauth" element={<Admin />} />
           <Route path="/admin" element={<AdminQna />} />
-          <Route path="/member" element={<Member />}></Route>
-          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
+          <Route path="/admin_mem" element={<Member />}></Route>
+          <Route path="/admin_mem/detail/:memIdx" element={<MemberDetail />} />
           <Route path="/adminmember" element={<AdminMember />} />
           <Route path="/adminreview" element={<AdminReview />} />
           <Route path="/adminrefund" element={<AdminRefund />} />

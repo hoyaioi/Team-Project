@@ -10,8 +10,9 @@ import Paging from './Paging';
 import RefundApp from './RefundApp';
 
 
-function MyOrderList({memIdx}) {
+function MyOrderList() {
     const [datas, setDatas] = useState([]);
+    const memIdx = sessionStorage.getItem("idx");
 
     let [count1, setCount1] = useState(0);
     let [count2, setCount2] = useState(0);
@@ -93,7 +94,7 @@ function MyOrderList({memIdx}) {
             })
             .catch(error => console.log(error));
     }, []);
-    console.log(datas);
+
     const [openApp, setOpenApp] = useState(false);
 
     const [orderNum, setOrderNum] = useState(0);
@@ -101,7 +102,7 @@ function MyOrderList({memIdx}) {
     const [itemPrice, setItemPrice] = useState(0);
     const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = (memIdx, itemName, itemNum, orderNum, itemPrice) => {
+    const handlerOpenApp = ( itemName, itemNum, orderNum, itemPrice) => {
         
         setItemName(itemName);
         setItemNum(itemNum);

@@ -5,8 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "../CSS/Order.css";
 function Order() {
-    const memEmail = sessionStorage.getItem("memEmail");
-    const memIdx = sessionStorage.getItem("memIdx");
+    const memEmail = sessionStorage.getItem("email");
+    const memIdx = sessionStorage.getItem("idx");
     const location = useLocation([]);
     const item = location.state.orderDto;
     const navigate = useNavigate();
@@ -84,6 +84,9 @@ function Order() {
         cartIdx : order.cartIdx,
         itemThumb : order.itemThumb
     }))
+
+
+    console.log(orderInfo);
     const handlerClickSubmit = (e) => {
         e.preventDefault();
         if (checkType === 'new') {
