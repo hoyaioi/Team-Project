@@ -40,6 +40,7 @@ import AdminMember from "./Component/AdminMember"
 import AdminReview from "./Component/AdminReview";
 import AdminRefund from "./Component/AdminRefund";
 import AdminAuth from "./Component/AdminAuth";
+import AdminMain from "./Component/AdminMain";
 
 function App() {
   return (
@@ -85,9 +86,11 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
-            <Route path="/adminmember" element={<AdminMember />} />
-            <Route path="/adminreview" element={<AdminReview />} />
-            <Route path="/adminrefund" element={<AdminRefund />} />
+          <Route path="/admin/*" element={<AdminMain />} >
+            <Route path="member" element={<AdminMember />} />
+            <Route path="review" element={<AdminReview />} />
+            <Route path="refund" element={<AdminRefund />} />
+            </Route>
           {/* </Route> */}
           
         </Routes>
