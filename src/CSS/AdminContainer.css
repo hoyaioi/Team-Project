@@ -25,6 +25,22 @@
     width: 600px;
 }
 
+.admin_refund_ordernum {
+    width: 200px;
+}
+
+.admin_refund_itemname {
+    width: 400px;
+}
+
+.admin_refund_reason {
+    width: 300px;
+}
+
+.admin_refund_status {
+    width: 200px;
+}
+
 .admin_review_date {
     width: 200px;
 }
