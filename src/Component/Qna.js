@@ -2,31 +2,23 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/Qna.css';
 
-function Qna(props) {
+function Qna({ value }) {
 
-    const qnaIdx = props.value;
-    const [ datas, setData ] = useState({});
-    const [ answer, setAnswer ] = useState({});
-    const [ success, setSuccess ] = useState(true);
+
+    const qnaIdx = value;
+    const [datas, setData] = useState({});
+    
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/qna/${qnaIdx}`)
-        .then(response => { 
-            console.log(response); 
-            setData(response.data);
-        })
-        .catch(error => { console.log(error); });
+
+        axios.get(`http://localhost:8080/api/qna/contents/${qnaIdx}`)
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => { console.log(error); });
     }, []);
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/qnaAnswer/${qnaIdx}`)
-        .then(response => { 
-            console.log(response); 
-            setAnswer(response.data);
-            setSuccess(false);
-        })
-        .catch(error => { console.log(error); });
-    }, []);
-
+  
+    
     return (
         <table className='qna-modal-table'>
             <tbody>
@@ -41,10 +33,10 @@ function Qna(props) {
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{success ? "답변준비중" : answer.qnaCommentContent}</sapn>
+                                <sapn>{isAnswer ? ( datas.qnaCommentContent) : '답변 준비중'  } </sapn>
                             </div>
                             <div className='comment-date'>
-                                <sapn>작성일자</sapn>
+                                <sapn>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</sapn>
                             </div>
                         </div>
                     </td>
