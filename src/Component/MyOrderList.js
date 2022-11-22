@@ -1,56 +1,55 @@
-import axios from 'axios';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import '../CSS/MyOrderList.css';
-import s6 from '../Img/s6.jpg'
-import Paging from './Paging';
-import RefundApp from './RefundApp';
+import axios from "axios";
+import { useCallback } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "../CSS/MyOrderList.css";
+import s6 from "../Img/s6.jpg";
+import Paging from "./Paging";
+import RefundApp from "./RefundApp";
 
 
 function MyOrderList({memIdx}) {
+
     const [datas, setDatas] = useState([]);
 
-    let [count1, setCount1] = useState(0);
-    let [count2, setCount2] = useState(0);
-    let [count3, setCount3] = useState(0);
-    let [count4, setCount4] = useState(0);
-    let [count5, setCount5] = useState(0);
+  let [count1, setCount1] = useState(0);
+  let [count2, setCount2] = useState(0);
+  let [count3, setCount3] = useState(0);
+  let [count4, setCount4] = useState(0);
+  let [count5, setCount5] = useState(0);
 
-    let countCheck = (datas) => {
+  let countCheck = (datas) => {
+    let count1 = 0;
+    let count2 = 0;
+    let count3 = 0;
+    let count4 = 0;
+    let count5 = 0;
 
-        let count1 = 0;
-        let count2 = 0;
-        let count3 = 0;
-        let count4 = 0;
-        let count5 = 0;
-
-        for (let i = 0; i < datas.length; i++) {
-            if (datas[i].orderStatus == '주문완료') {
-                count1++;
-            } else if (datas[i].orderStatus == '상품준비중') {
-                count2++;
-            } else if (datas[i].orderStatus == '배송중') {
-                count3++;
-            } else if (datas[i].orderStatus == '배송완료') {
-                count4++;
-            } else if (datas[i].orderStatus == '구매확정') {
-                count5++;
-            }
-        }
-
-        setCount1(count1);
-        setCount2(count2);
-        setCount3(count3);
-        setCount4(count4);
-        setCount5(count5);
+    for (let i = 0; i < datas.length; i++) {
+      if (datas[i].orderStatus == "주문완료") {
+        count1++;
+      } else if (datas[i].orderStatus == "상품준비중") {
+        count2++;
+      } else if (datas[i].orderStatus == "배송중") {
+        count3++;
+      } else if (datas[i].orderStatus == "배송완료") {
+        count4++;
+      } else if (datas[i].orderStatus == "구매확정") {
+        count5++;
+      }
     }
 
-    const handlerCancelNow = (oderlistIdx) => {
+    setCount1(count1);
+    setCount2(count2);
+    setCount3(count3);
+    setCount4(count4);
+    setCount5(count5);
+  };
+
+    const handlerCancelNow = (orderNum) => {
         if (window.confirm('해당 상품의 주문을 취소하시겠습니까?')) {
-            axios.put(`http://localhost:8080/mypage/myorderlist/now/${oderlistIdx}`)
+            axios.put(`http://localhost:8080/mypage/myorderlist/now/${orderNum}`)
                 .then(response => {
                     if (response.status === 200) {
                         alert('취소가 완료되었습니다.');
@@ -62,10 +61,11 @@ function MyOrderList({memIdx}) {
                 .catch(error => console.log(error));
         }
     }
+  };
 
-    const handlerCancelPlz = (oderlistIdx) => {
+    const handlerCancelPlz = (orderNum) => {
         if (window.confirm('발송 준비 중인 상품입니다. \n취소 신청 하시겠습니까?')) {
-            axios.put(`http://localhost:8080/mypage/myorderlist/plz/${oderlistIdx}`)
+            axios.put(`http://localhost:8080/mypage/myorderlist/plz/${orderNum}`)
                 .then(response => {
                     if (response.status === 200) {
                         alert('신청이 완료되었습니다. \n판매자의 승인 후 취소가 완료됩니다.');
@@ -77,12 +77,14 @@ function MyOrderList({memIdx}) {
                 .catch(error => console.log(error));
         }
     }
+  };
 
-    //////////////////////////////////////////// 페이지
+  //////////////////////////////////////////// 페이지
 
-    const [page, setPage] = useState(1);
-    const offset = (page - 1) * 10;
-    const count = datas.length;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const count = datas.length;
+  const [pagecount, setPageCount] = useState(10);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
@@ -92,21 +94,20 @@ function MyOrderList({memIdx}) {
             })
             .catch(error => console.log(error));
     }, []);
-    console.log(datas);
+
     const [openApp, setOpenApp] = useState(false);
 
-    const [orderNum, setOrderNum] = useState(0);
-    const [itemName, setItemName] = useState('');
-    const [itemPrice, setItemPrice] = useState(0);
-    const [itemNum, setItemNum] = useState(0);
+  const [orderNum, setOrderNum] = useState(0);
+  const [itemName, setItemName] = useState("");
+  const [itemPrice, setItemPrice] = useState(0);
+  const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = (orderNum, itemName, itemPrice) => {
-  
-        setItemPrice(itemPrice);
-        setItemName(itemName);
-        setOrderNum(orderNum);
-        setOpenApp(true);
-    }
+  const handlerOpenApp = (orderNum, itemName, itemPrice) => {
+    setItemPrice(itemPrice);
+    setItemName(itemName);
+    setOrderNum(orderNum);
+    setOpenApp(true);
+  };
 
     const handlerDelete = (orderNum)=> {
         if (window.confirm('내역을 삭제하시겠습니까?')) {
@@ -149,63 +150,54 @@ function MyOrderList({memIdx}) {
                 .catch(error => alert('오류발생!!!'));
         }
     }
+  };
 
-    const handlerMoveReivew = () => {
-        navigate('/mypage/myreview');
-    }
+  const handlerMoveReivew = () => {
+    navigate("/mypage/myreview");
+  };
 
-    return (
-        <>
-            <div id='main'>
-                <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemNum={itemNum} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} /> : <>
-                        <div className='myorderlist_title_wrap'>
-                            <h2>주문현황</h2>
-                        </div>
-                        <div className='myorderlist_stat_wrap'>
-                            <ul>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        주문완료
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count1}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        상품준비중
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count2}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        배송중
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count3}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        배송완료
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count4}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        구매확정
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count5}
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+  return (
+    <>
+      <div id="main">
+        <div className="myorderlist_wrap">
+          {openApp ? (
+            <RefundApp
+              setOpenApp={setOpenApp}
+              memIdx={memIdx}
+              itemNum={itemNum}
+              orderNum={orderNum}
+              itemName={itemName}
+              itemPrice={itemPrice}
+            />
+          ) : (
+            <>
+              <div className="myorderlist_title_wrap">
+                <h2>주문현황</h2>
+              </div>
+              <div className="myorderlist_stat_wrap">
+                <ul>
+                  <li>
+                    <div className="myorderlist_stat">주문완료</div>
+                    <div className="myorderlist_stat_count">{count1}</div>
+                  </li>
+                  <li>
+                    <div className="myorderlist_stat">상품준비중</div>
+                    <div className="myorderlist_stat_count">{count2}</div>
+                  </li>
+                  <li>
+                    <div className="myorderlist_stat">배송중</div>
+                    <div className="myorderlist_stat_count">{count3}</div>
+                  </li>
+                  <li>
+                    <div className="myorderlist_stat">배송완료</div>
+                    <div className="myorderlist_stat_count">{count4}</div>
+                  </li>
+                  <li>
+                    <div className="myorderlist_stat">구매확정</div>
+                    <div className="myorderlist_stat_count">{count5}</div>
+                  </li>
+                </ul>
+              </div>
 
 
                         <div className='myorderlist_order_wrap'>
@@ -275,7 +267,7 @@ function MyOrderList({memIdx}) {
                                 </tbody>
                             </table>
                             <div>
-                                <Paging page={page} setPage={setPage} count={count} />
+                                <Paging page={page} setPage={setPage} count={count} pagecount={pagecount} />
                             </div>
                         </div>
                     </>

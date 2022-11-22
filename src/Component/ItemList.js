@@ -5,7 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 import "../CSS/ItemList.css";
 
 function ItemList() {
-
   const location = useLocation();
   const organs = location.state.organs;
   const [datas, setDatas] = useState([]);
@@ -16,8 +15,8 @@ function ItemList() {
   
   const sortChange = (e) => {
     setSort(e.target.value);
-  }
-  
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/item")
@@ -26,9 +25,7 @@ function ItemList() {
         setDatas(response.data);
       })
       .catch((error) => console.log(error));
-  },[]);
-
-
+  }, []);
 
   useEffect(() => {
     axios
@@ -38,24 +35,22 @@ function ItemList() {
         setItems(response.data);
       })
       .catch((error) => console.log(error));
-  },[organs]);
+  }, [organs]);
 
-
-const itemCount =  organs === null ? datas : items;
+  const itemCount = organs === null ? datas : items;
   return (
     <>
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
             <div className="itemlist_title">
-              {organs === null ? <h2>전체상품</h2> : 
-              
-
-              <>
-              <h2>{organs}</h2>
-              </>
-
-              }
+              {organs === null ? (
+                <h2>전체상품</h2>
+              ) : (
+                <>
+                  <h2>{organs}</h2>
+                </>
+              )}
             </div>
             <div className="itemlist_box">
               <div className="itemlist_inbox">
@@ -63,10 +58,13 @@ const itemCount =  organs === null ? datas : items;
                   <strong>{itemCount.length}개의 상품</strong>
                 </span>
                 <div className="itemlist_view_num">
-                  <select name="sort" className="itemlist_chosen" onChange={sortChange} value={sort}>
-                    <option value="selected" >
-                      추천상품순
-                    </option>
+                  <select
+                    name="sort"
+                    className="itemlist_chosen"
+                    onChange={sortChange}
+                    value={sort}
+                  >
+                    <option value="selected">추천상품순</option>
                     <option value="sellcnt">판매인기순</option>
                     <option value="asc">낮은가격순</option>
                     <option value="desc">높은가격순</option>
@@ -99,51 +97,71 @@ const itemCount =  organs === null ? datas : items;
             </div> */}
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
-                  {organs === null 
-                  ? <ul>
-                  {datas.map(item => {
-                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li key={item.itemNum}>
-                          <div className="itemlist_items_box">
-                            <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
+                {organs === null ? (
+                  <ul>
+                    {datas.map((item) => {
+                      return (
+                        <Link
+                          to={`/item/${item.itemNum}`}
+                          state={{ item: datas }}
+                        >
+                          <li key={item.itemNum}>
+                            <div className="itemlist_items_box">
+                              <div className="itemlist_items_img">
+                                <img
+                                  src={
+                                    process.env.REACT_APP_API_URL +
+                                    item.itemThumb
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div className="itemlist_info">
-                            <div className="itemlist_info_title">
-                              <strong>{item.itemName}</strong>
+                            <div className="itemlist_info">
+                              <div className="itemlist_info_title">
+                                <strong>{item.itemName}</strong>
+                              </div>
+                              <div className="itemlist_info_money">
+                                <strong>{item.itemPrice}원</strong>
+                              </div>
                             </div>
-                            <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
-                            </div>
-                          </div>
-                        </li>
-                      </Link>;
+                          </li>
+                        </Link>
+                      );
                     })}
-
-                </ul>
-                  : <ul>
-                  {items.map(item => {
-                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li key={item.itemNum}>
-                          <div className="itemlist_items_box">
-                            <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
+                  </ul>
+                ) : (
+                  <ul>
+                    {items.map((item) => {
+                      return (
+                        <Link
+                          to={`/item/${item.itemNum}`}
+                          state={{ item: datas }}
+                        >
+                          <li key={item.itemNum}>
+                            <div className="itemlist_items_box">
+                              <div className="itemlist_items_img">
+                                <img
+                                  src={
+                                    process.env.REACT_APP_API_URL +
+                                    item.itemThumb
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div className="itemlist_info">
-                            <div className="itemlist_info_title">
-                              <strong>{item.itemName}</strong>
+                            <div className="itemlist_info">
+                              <div className="itemlist_info_title">
+                                <strong>{item.itemName}</strong>
+                              </div>
+                              <div className="itemlist_info_money">
+                                <strong>{item.itemPrice}원</strong>
+                              </div>
                             </div>
-                            <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
-                            </div>
-                          </div>
-                        </li>
-                      </Link>;
+                          </li>
+                        </Link>
+                      );
                     })}
-
-                </ul> }
+                  </ul>
+                )}
               </div>
             </div>
           </div>
