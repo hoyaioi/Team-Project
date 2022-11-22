@@ -48,9 +48,9 @@ function MyOrderList({memIdx}) {
         setCount5(count5);
     }
 
-    const handlerCancelNow = (orderNum) => {
+    const handlerCancelNow = (oderlistIdx) => {
         if (window.confirm('해당 상품의 주문을 취소하시겠습니까?')) {
-            axios.put(`http://localhost:8080/mypage/myorderlist/now/${orderNum}`)
+            axios.put(`http://localhost:8080/mypage/myorderlist/now/${oderlistIdx}`)
                 .then(response => {
                     if (response.status === 200) {
                         alert('취소가 완료되었습니다.');
@@ -63,9 +63,9 @@ function MyOrderList({memIdx}) {
         }
     }
 
-    const handlerCancelPlz = (orderNum) => {
+    const handlerCancelPlz = (oderlistIdx) => {
         if (window.confirm('발송 준비 중인 상품입니다. \n취소 신청 하시겠습니까?')) {
-            axios.put(`http://localhost:8080/mypage/myorderlist/plz/${orderNum}`)
+            axios.put(`http://localhost:8080/mypage/myorderlist/plz/${oderlistIdx}`)
                 .then(response => {
                     if (response.status === 200) {
                         alert('신청이 완료되었습니다. \n판매자의 승인 후 취소가 완료됩니다.');
@@ -92,7 +92,7 @@ function MyOrderList({memIdx}) {
             })
             .catch(error => console.log(error));
     }, []);
-
+    console.log(datas);
     const [openApp, setOpenApp] = useState(false);
 
     const [orderNum, setOrderNum] = useState(0);
@@ -125,16 +125,17 @@ function MyOrderList({memIdx}) {
 
     const navigate = useNavigate();
 
-    const handlerPurchase = (memIdx, itemName, itemNum, orderNum) => {
+    const handlerPurchase = (memIdx, itemName, itemNum, orderNum, orderlistIdx) => {
         if (window.confirm('구매확정 후 반품신청이 어렵습니다. \n구매확정 하시겠습니까?')) {
-            axios.put(`http://localhost:8080/mypage/myorderlist/purchase/${orderNum}`)
+            axios.put(`http://localhost:8080/mypage/myorderlist/purchase/${orderlistIdx}`)
                 .then(response => {
                     if(response.status === 200){
-                    axios.post(`http://localhost:8080/mypage/myorderlist/purchase/${orderNum}`, {
+                    axios.post(`http://localhost:8080/mypage/myorderlist/purchase/${orderlistIdx}`, {
                         'memIdx': memIdx,
                         'itemName': itemName,
                         'itemNum': itemNum,
-                        'orderNum': orderNum
+                        'orderNum': orderNum,
+                        'orderlistIdx' : orderlistIdx
                     })
                         .then(response => {
                             if(response.status === 200){
@@ -227,7 +228,7 @@ function MyOrderList({memIdx}) {
                                                 <div className='myorderlist_item_info_wrap'>
                                                     <img src={process.env.REACT_APP_API_URL + order.itemThumb} className='myorderlist_item_img' />
                                                     <div className='myorderlist_item_name'>
-                                                        {order.itemName}
+                                                        <Link to={`/item/${order.itemNum}`}>{order.itemName}</Link>
                                                     </div>
                                                 </div>
                                             </td>
@@ -253,14 +254,14 @@ function MyOrderList({memIdx}) {
                                                 <div>
                                                     {order.orderStatus === '취소완료' ? <button onClick={()=> handlerDelete(order.orderNum)}>내역 삭제</button> : null}
                                                     {order.orderStatus === '취소처리중' ? '' : null}
-                                                    {order.orderStatus === '주문완료' ? (<button type='button' onClick={() => handlerCancelNow(order.orderNum)}>취소요청</button>) : ''}
-                                                    {order.orderStatus === '상품준비중' ? (<button type='button' onClick={() => handlerCancelPlz(order.orderNum)}>취소요청</button>) : ''}
+                                                    {order.orderStatus === '주문완료' ? (<button type='button' onClick={() => handlerCancelNow(order.orderlistIdx)}>취소요청</button>) : ''}
+                                                    {order.orderStatus === '상품준비중' ? (<button type='button' onClick={() => handlerCancelPlz(order.orderlistIdx)}>취소요청</button>) : ''}
                                                     {order.orderStatus === '배송중' ? (<button type='button'>배송조회</button>) : ''}
                                                     {order.orderStatus === '배송완료' ? (
                                                         <>
                                                             <button type='button'>배송조회</button>
                                                             <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice)}>반품요청</button>
-                                                            <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum)}>구매확정</button>
+                                                            <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum, order.orderlistIdx)}>구매확정</button>
                                                         </>
                                                     ) : ''}
                                                     {order.orderStatus === '구매확정' ? (<>

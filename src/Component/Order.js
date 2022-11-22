@@ -118,6 +118,7 @@ function Order() {
                 })
                 .catch(error => { console.log(error); })
                 navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
+                window.location.reload();
         }
 
     }

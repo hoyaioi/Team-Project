@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function ReviewWrite({ setOpen, handlerClose, itemName, orderNum }) {
+function ReviewWrite({ setOpen, handlerClose, itemName, orderNum ,orderlistIdx, itemThumb}) {
 
     const [contents, setContents] = useState('');
 
@@ -34,7 +34,7 @@ function ReviewWrite({ setOpen, handlerClose, itemName, orderNum }) {
             setContents('');
             inputContents.current.focus();
         } else {
-            axios.put(`http://localhost:8080/mypage/myreview/write/${orderNum}`, { 'orderNum': orderNum, 'reviewContents': contents })
+            axios.put(`http://localhost:8080/mypage/myreview/write/${orderlistIdx}`, { 'orderlistIdx': orderlistIdx ,'orderNum': orderNum, 'reviewContents': contents })
                 .then(response => {
                     if (response.status === 200) {
                         alert('정상적으로 등록되었습니다.');
@@ -48,7 +48,6 @@ function ReviewWrite({ setOpen, handlerClose, itemName, orderNum }) {
                 .catch(error => console.log(error))
         }
     }
-
     useEffect(() => {
         inputContents.current.focus();
         sendReview();
@@ -79,7 +78,7 @@ padding-top: 5px;
 
                     <div className='reviewwrite_table'>
                         <div className='reviewwrite_table_img'>
-                            <img src={s1} />
+                            <img src={process.env.REACT_APP_API_URL + itemThumb} />
                         </div>
                         <div className='reviewwrite_table_cell'>
                             <div className='reviewwrite_item_title'>

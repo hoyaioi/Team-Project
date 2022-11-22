@@ -22,11 +22,15 @@ function MyReview({ memIdx }) {
     const [itemName, setItemName] = useState('');
     const [reviewIdx, setReviewIdx] = useState(0);
     const [orderNum, setOrderNum] = useState(0);
+    const [orderlistIdx, setOrderlistIdx] = useState(0);
+    const [itemThumb, setItemThumb] = useState(0);
     const navigate = useNavigate();
 
-    const handlerOpen = (itemName, orderNum) => {
+    const handlerOpen = (itemName, orderNum,oderlistIdx,itemThumb) => {
         setItemName(itemName);
         setOrderNum(orderNum);
+        setOrderlistIdx(oderlistIdx);
+        setItemThumb(itemThumb);
         setOpen(true);
     }
 
@@ -88,7 +92,7 @@ function MyReview({ memIdx }) {
                             4. 주소, 주민번호, 연락처 등 개인정보 기입은 절대 안 돼요!
                         </p>
                     </div>
-                    {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} itemName={itemName} orderNum={orderNum} /> :
+                    {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} itemName={itemName} orderNum={orderNum} orderlistIdx={orderlistIdx} itemThumb={itemThumb}/> :
                         <>
                             {open2 ? <ReviewUpdate handlerClose2={handlerClose2} setOpen2={setOpen2} reviewIdx={reviewIdx} /> :
                                 <div className='myreview_review_wrap'>
@@ -109,7 +113,7 @@ function MyReview({ memIdx }) {
                                                     {datas.map((able, idx) => (
                                                         <li key={idx}>
                                                             <div className='myreview_img_wrap'>
-                                                                <img className='myreview_img' src={s2} />
+                                                                <img className='myreview_img' src={process.env.REACT_APP_API_URL + able.itemThumb} />
                                                             </div>
                                                             <div className='myreview_item_name'>
                                                                 {able.itemName}
@@ -120,7 +124,7 @@ function MyReview({ memIdx }) {
                                                             </div>
                                                             <input type="hidden" value={able.orderNum} />
                                                             <div className='myreview_btn_box'>
-                                                                <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum)} >작성</button>
+                                                                <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum, able.orderlistIdx, able.itemThumb)} >작성</button>
                                                                 {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
                                                             </div>
                                                         </li>
@@ -135,7 +139,7 @@ function MyReview({ memIdx }) {
                                                     {datas2.map((did, idx) => (
                                                         <li key={idx}>
                                                             <div className='myreview_img_wrap'>
-                                                                <img className='myreview_img' src={s3} />
+                                                                <img className='myreview_img' src={process.env.REACT_APP_API_URL + did.itemThumb} />
                                                             </div>
                                                             <div>
                                                                 작성일자 :&nbsp;

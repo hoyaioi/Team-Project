@@ -6,7 +6,7 @@ import "../CSS/AdminOrder.css";
 function AdminOrder() {
 
     const [datas, setDatas] = useState([]);
-    const orderState = ["배송준비중", "배송중", "배송완료"];
+    const orderState = ["상품준비중", "배송중", "배송완료"];
     const [stateSelect, setStateSelect] = useState([]);
     const stateHandler = (e) => {
         setStateSelect(e.target.value);
@@ -14,9 +14,11 @@ function AdminOrder() {
     }
 
     const stateChange = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/order/${orderlistIdx}`)
+        axios.post(`http://localhost:8080/admin/order/${orderlistIdx},${stateSelect}`)
             .then((response) => {
                 console.log(response);
+                alert("변경완료");
+                window.location.reload();
             })
             .catch((error) => console.log(error));
     }
@@ -57,6 +59,7 @@ function AdminOrder() {
                                 <td width="17%">
                                     {orderlist.orderStatus}
                                     <select name="categoryName" onChange={stateHandler}>
+                                            <option hidden></option>
                                         {orderState.map((state) => (
                                             <option
                                                 value={state}
