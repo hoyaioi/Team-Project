@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
+function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx ,itemThumb }) {
 
     const [data, setData] = useState({});
     const [itemName, setItemName] = useState('');
@@ -38,8 +38,7 @@ function ReviewUpdate({ setOpen2, handlerClose2, reviewIdx }) {
         sendReview();
         axios.get(`http://localhost:8080/mypage/myreview/modify/${reviewIdx}`)
         .then(response => {
-            setItemName(response.data.itemName);
-            setContents(response.data.reviewContents);
+            setData(response.data);
             inputContents.current.focus();
         })
         .catch(error => console.log(error))
@@ -87,11 +86,11 @@ padding-top: 5px;
 
                     <div className='reviewwrite_table'>
                         <div className='reviewwrite_table_img'>
-                            <img src={s1} />
+                            <img src={process.env.REACT_APP_API_URL + itemThumb} />
                         </div>
                         <div className='reviewwrite_table_cell'>
                             <div className='reviewwrite_item_title'>
-                                {itemName}
+                                {data.itemName}
                             </div>
                             <div className='reviewwrite_item_rate'>
                                 <div className='reviewwrite_modify_rate'>
@@ -117,7 +116,7 @@ padding-top: 5px;
                         <div className='reviewwrite_detail_form'>
                             <div className='reviewwrite_detail_title'>리뷰내용</div>
                             <div className='reviewwrite_detail_cont'>
-                                    <textarea className='reviewwrite_text' ref={inputContents} maxLength={300} value={contents} onChange={handlerChangeContents}
+                                    <textarea className='reviewwrite_text' ref={inputContents} maxLength={300} value={data.contents} onChange={handlerChangeContents}
                                         placeholder='다른 소비자에게 도움이 되도록 솔직한 평가를 남겨주세요.' autoComplete='off' spellCheck='false'>
 
                                     </textarea>

@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyReview.css';
-import reviewWriteList from '../Img/s1.jpg';
-import s2 from '../Img/s2.jpg';
 import ReviewWrite from './ReviewWrite.js';
-import s3 from '../Img/s3.jpg';
-import { useEffect } from 'react';
 import axios from 'axios';
 import ReviewUpdate from './ReviewUpdate';
+import { useEffect } from 'react';
 
 
 function MyReview() {
@@ -23,42 +20,45 @@ function MyReview() {
     const [itemName, setItemName] = useState('');
     const [reviewIdx, setReviewIdx] = useState(0);
     const [orderNum, setOrderNum] = useState(0);
-    const [orderlistIdx, setOrderlistIdx] = useState(0);
-    const [itemThumb, setItemThumb] = useState(0);
+    const [orderlistIdx, setOrderlistIdx] = useState();
+    const [itemThumb, setItemThumb] = useState('');
     const navigate = useNavigate();
 
-    const handlerOpen = (itemName, orderNum, oderlistIdx, itemThumb) => {
+    const handlerOpen = (itemName, orderNum, orderlistIdx, itemThumb) => {
         setItemName(itemName);
         setOrderNum(orderNum);
-        setOrderlistIdx(oderlistIdx);
+        setOrderlistIdx(orderlistIdx);
         setItemThumb(itemThumb);
         setOpen(true);
+      
+       
     }
 
-    const handlerOpen2 = (reviewIdx) => {
+    
+    const handlerOpen2 = (reviewIdx,itemThumb) => {
         setReviewIdx(reviewIdx);
         setOpen2(true);
+        setItemThumb(itemThumb);
     }
-
+    
     const handlerClose = () => {
         if (window.confirm('작성을 취소하시겠습니까?')) {
             navigate('/mypage/myreview');
             setOpen(false);
         }
     }
-
+    
     const handlerClose2 = () => {
         if (window.confirm('작성을 취소하시겠습니까?')) {
             navigate('/mypage/myreview');
             setOpen2(false);
-
+            
         }
     }
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
-            .then(response => {
-                setDatas(response.data);
-
+        .then(response => {
+            setDatas(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -75,7 +75,7 @@ function MyReview() {
                 console.log(error);
             })
     }
-
+    
 
     return (
         <>
@@ -100,7 +100,7 @@ function MyReview() {
                     </div>
                     {open ? <ReviewWrite setOpen={setOpen} handlerClose={handlerClose} itemName={itemName} orderNum={orderNum} orderlistIdx={orderlistIdx} itemThumb={itemThumb} /> :
                         <>
-                            {open2 ? <ReviewUpdate handlerClose2={handlerClose2} setOpen2={setOpen2} reviewIdx={reviewIdx} /> :
+                            {open2 ? <ReviewUpdate handlerClose2={handlerClose2} setOpen2={setOpen2} reviewIdx={reviewIdx} itemThumb={itemThumb} /> :
                                 <div className='myreview_review_wrap'>
                                     <div className='myreview_menu_wrap'>
                                         <button className={btnActive[0] ? "myreview_able_btn_active" : "myreview_able_btn"} onClick={() => {
@@ -117,7 +117,7 @@ function MyReview() {
                                                         {datas.map((able, idx) => (
                                                             <li key={idx}>
                                                                 <div className='myreview_img_wrap'>
-                                                                    <img className='myreview_img' src={s2} />
+                                                                    <img className='myreview_img' src={process.env.REACT_APP_API_URL + able.itemThumb} />
                                                                 </div>
                                                                 <div className='myreview_item_name'>
                                                                     {able.itemName}
@@ -125,10 +125,11 @@ function MyReview() {
                                                                 <div>
                                                                     주문일자 :&nbsp;
                                                                     {able.orderDate}
+                                                                    
                                                                 </div>
                                                                 <input type="hidden" value={able.orderNum} />
                                                                 <div className='myreview_btn_box'>
-                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum)} >작성</button>
+                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum,able.orderlistIdx, able.itemThumb)} >작성</button>
                                                                     {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
                                                                 </div>
                                                             </li>
@@ -151,16 +152,16 @@ function MyReview() {
                                                                 </div>
                                                                 <div className='myreview_did_contents'>
                                                                     {
-                                                                        (did.reviewDeleteYn) !== 'N' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> 기존 내용 : {did.reviewContents}</> :
-                                                                            (did.reviewContents)
+                                                                        did.reviewDeleteYn === 'Y' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
+                                                                            did.reviewContents
                                                                     }
                                                                 </div>
                                                                 <input type="hidden" value={did.reviewIdx} />
                                                                 <div className='myreview_btn_box'>
                                                                 {
-                                                                        (did.reviewDeleteYn) !== 'N' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
-                                                                            <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx)}>수정</button>
-                                                                    }
+                                                                        did.reviewDeleteYn === 'Y' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
+                                                                            <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx, did.itemThumb)}>수정</button>
+                                                                }
                                                                 </div>
                                                             </li>
                                                         ))}

@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 
-function MyPage({ memIdx }) {
+function MyPage() {
   const [memName, setMemName] = useState("");
+
+  const memIdx = sessionStorage.getItem("idx");
 
   useEffect(() => {
     axios

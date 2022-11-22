@@ -99,11 +99,12 @@ function App() {
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
           <Route path="/admin/*" element={<AdminMain />} ></Route>
-            <Route path="/adminmember" element={<AdminMember />} />
-            <Route path="/adminreview" element={<AdminReview />} />
-            <Route path="/adminrefund" element={<AdminRefund />} />
-          {/* </Route> */}
+            <Route path="member" element={<AdminMember />} />
+            <Route path="review" element={<AdminReview />} />
+            <Route path="refund" element={<AdminRefund />} />
+            <Route path="order" element={<AdminOrder />} />
           
+
         </Routes>
       </div>
       <Footer />

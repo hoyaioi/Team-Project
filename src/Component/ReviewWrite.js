@@ -11,8 +11,9 @@ import { useRef } from 'react';
 
 function ReviewWrite({ setOpen, handlerClose, itemName, orderNum ,orderlistIdx, itemThumb}) {
 
+   
     const [contents, setContents] = useState('');
-
+    
     const [clicked, setClicked] = useState([false, false, false, false, false]);
     const array = [0, 1, 2, 3, 4];
 
