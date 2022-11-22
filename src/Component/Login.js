@@ -6,6 +6,7 @@ import axios from "axios";
 import "../CSS/login.css";
 import { BsWindowSidebar } from "react-icons/bs";
 import { useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,25 +17,37 @@ function Login() {
   const onChangePassword = (e) => setPassword(e.target.value);
   const handlerSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/api/member/login", { "memEmail": email, "memPw": password })
+
+
+    axios.post("http://localhost:8080/login", { "memEmail": email, "memPw": password })
       .then(response => {
-        if (response.status === 200) {
-          navigate('/');
-          alert(`${response.data.memName}님 환영합니다.`)
-          sessionStorage.setItem("memName", response.data.memName);
-          sessionStorage.setItem("memEmail", response.data.memEmail);
-          sessionStorage.setItem("memIdx", response.data.memIdx);
-          sessionStorage.setItem("adminCheck", response.data.memRole);
-          console.log(response.data);
-          window.location.reload();
-        }
+        if (response.status === 200 && response.data !== "") {
+            
+            const token = response.data;
+            sessionStorage.setItem("token", token);
+           
+            // JWT 페이로드의 정보(회원 정보)를 가져오는 부분
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const memberInfo = JSON.parse(jsonPayload);
+            console.log(memberInfo);
+             sessionStorage.setItem("name", memberInfo.name);
+             sessionStorage.setItem("email", memberInfo.email);
+             sessionStorage.setItem("idx",memberInfo.idx)
+            navigate('/');
+            alert(`${memberInfo.name}님 환영합니다.`);
+            window.location.reload();
+        
+        } 
       })
       .catch(error => {
         alert("아이디 혹은 비밀번호를 확인해주세요.");
         console.log(error)
       });
   };
-  
   return (
     <>
       <div className="login_main">
