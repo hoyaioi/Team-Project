@@ -80,14 +80,14 @@ function Register() {
   const handlerClickSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
-      return `${false} ${alert("등록에 실패했습니다.")}`;
-    }
+    // if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
+    //   return `${false} ${alert("등록에 실패했습니다.")}`;
+    // }
 
     const memInfo = {
       "memName": name,
       "memPhone": phoneNum,
-      "memPostNum": postCode,
+      "memPostnum": postCode,
       "memAddr1": addr1,
       "memAddr2": addr2,
       "memEmail": email,

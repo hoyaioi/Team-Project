@@ -32,11 +32,11 @@ function Login() {
             var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
-            alert(response.data.memName);
             const memberInfo = JSON.parse(jsonPayload);
             console.log(memberInfo);
-            // sessionStorage.setItem("name", memberInfo.name);
-            // sessionStorage.setItem("email", memberInfo.email);
+             sessionStorage.setItem("name", memberInfo.name);
+             sessionStorage.setItem("email", memberInfo.email);
+             sessionStorage.setItem("idx",memberInfo.idx)
             navigate('/');
             alert(`${memberInfo.name}님 환영합니다.`);
             window.location.reload();
@@ -48,14 +48,6 @@ function Login() {
         console.log(error)
       });
   };
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token")
-    if (token!==null) {
-      alert("잘못된 경로입니다.");
-      navigate('/');
-    }
-  },[])
   return (
     <>
       <div className="login_main">
