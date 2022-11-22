@@ -67,7 +67,6 @@ const Step1 = ({ nextSteps }) => {
                 max={200}
                 value={info.height}
                 onChange={onChangeInfo}
-                
               />
               Cm
             </div>
