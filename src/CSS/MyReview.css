@@ -132,6 +132,15 @@
     cursor: pointer;
 }
 
+.myreview_blind_btn {
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 60px;
+    height: 30px;
+}
+
 .myreview_update_btn:active {
     background-color: #b5d692;
     color: white;

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 
-export default function AdminRefund() {
+export default function AdminReview() {
 
   const [datas, setDatas] = useState([]);
 
@@ -14,42 +14,58 @@ export default function AdminRefund() {
       .catch(error => console.log(error));
   }, []);
 
-
+  const handlerRefund = (refundIdx) => {
+    if(window.confirm('해당 주문 건을 환불처리 하시겠습니까?')){
+    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`)
+      .then(response => {
+        alert('반품완료 처리되었습니다.');
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
+    }
+  }
 
   return (
     <>
       <div id="main">
-        <div className="adminorder_list">
-          <div className="adminorder_header"><strong>관리자 반품목록</strong></div>
-          <table className="admin_order_table">
-            <thead >
-              <tr>
-                <th width="10%">반품번호</th>
-                <th width="10%">회원번호</th>
-                <th width="30%">주문번호</th>
-                <th width="10%">반품신청일</th>
-                <th width="11%">반품사유</th>
-                <th width="17%">환불금액</th>
-                <th>반품상태</th>
-              </tr>
-            </thead>
-            <tbody>
-
-              {datas.map((refund, idx) => (
-                <tr key={idx}>
-                  <td width="10%">{refund.refundIdx}</td>
-                  <td width="10%">{refund.memIdx}</td>
-                  <td width="30%">{refund.orderNum}</td>
-                  <td width="10%">{refund.refundDate}</td>
-                  <td width="11%">{refund.refundReason}</td>
-                  <td width="17%">{refund.itemPrice}</td>
-                  <td>
-                    <button>환불처리</button>
-                  </td>
+        <div className="admin_container">
+          <div className="admin_title">
+            관리자 반품목록
+          </div>
+          <div className="admin_table">
+            <table>
+              <thead >
+                <tr>
+                  <td className="admin_review_idx">회원번호</td>
+                  <td className="admin_refund_ordernum">주문번호</td>
+                  <td className="admin_refund_itemname">제품명</td>
+                  <td className="admin_refund_reason">반품사유</td>
+                  <td className="admin_review_date">반품신청일</td>
+                  <td className="admin_review_date">환불금액</td>
+                  <td className="admin_refund_status" colSpan={2}>반품상태</td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {datas.map((refund, idx) => (
+                  <tr key={idx}>
+                    <td>{refund.memIdx}</td>
+                    <td>{refund.orderNum}</td>
+                    <td>{refund.itemName}</td>
+                    <td>{refund.refundReason}</td>
+                    <td>{refund.refundDate}</td>
+                    <td>{refund.itemPrice}</td>
+                    <td>{refund.refundStatus}</td>
+                    <td>
+                      <input type = "hidden" value = {refund.refundIdx} />
+                      <div className="admin_btn">
+                        {refund.refundStatus === '반품진행중' ? <button type='button' onClick={() => handlerRefund(refund.refundIdx)}>환불처리</button> : ''}
+                      </div>
+                    </td>
+                  </tr>
+               ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

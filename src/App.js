@@ -43,6 +43,7 @@ import AdminMember from "./Component/AdminMember"
 import AdminReview from "./Component/AdminReview";
 import AdminRefund from "./Component/AdminRefund";
 import AdminAuth from "./Component/AdminAuth";
+import AdminMain from "./Component/AdminMain";
 import AdminOrder from "./Component/AdminOrder";
 import ReviewWrite from "./Component/ReviewWrite";
 import MemberDetail from "./Component/MemberDetail";
@@ -95,15 +96,14 @@ function App() {
           <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
           <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>}/>
           <Route path="/agreement" element={<Agreement />} />
-          <Route path="/surveyStart" element={<Survey />}></Route>
-          <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<AdminQna />} />
-          <Route path="/admin_mem" element={<Member />}></Route>
-          <Route path="/admin_mem/detail/:memIdx" element={<MemberDetail />} />
-          <Route path="/adminmember" element={<AdminMember />} />
-          <Route path="/adminreview" element={<AdminReview />} />
-          <Route path="/adminrefund" element={<AdminRefund />} />
-          <Route path="/admin/order" element={<AdminOrder />} />
+          <Route path="/surveyStart" element={<Survey />} />
+          {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
+          <Route path="/admin/*" element={<AdminMain />} ></Route>
+            <Route path="/adminmember" element={<AdminMember />} />
+            <Route path="/adminreview" element={<AdminReview />} />
+            <Route path="/adminrefund" element={<AdminRefund />} />
+          {/* </Route> */}
+          
         </Routes>
       </div>
       <Footer />

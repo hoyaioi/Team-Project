@@ -19,14 +19,18 @@ const AdminMember = () => {
   //회원 정보 수정
   useEffect(() => {
     axios.get("http://localhost:8080/api/member/list").then((res) => {
-      console.log(res.data);
       setMemList(res.data);
     });
   }, []);
 
   return (
     <>
-      <div>
+      <div id="main">
+        <div className="admin_container">
+          <div className="admin_title">
+            관리자 회원목록
+          </div>
+          <div className="admin_table">
         <table>
           <thead>
             <tr>
@@ -73,6 +77,8 @@ const AdminMember = () => {
             ))}
           </tbody>
         </table>
+        </div>
+      </div>
       </div>
     </>
   );
