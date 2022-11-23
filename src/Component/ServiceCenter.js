@@ -5,6 +5,7 @@ import FaqMenu from "./FaqMenu";
 import { useEffect } from "react";
 import axios from "axios";
 import FaqList from "./FaqList";
+import Paging from "./Paging";
 
 function ServiceCenter() {
   // let [faqModal, setFaqModal] = useState(false);
@@ -16,6 +17,13 @@ function ServiceCenter() {
   ]);
   const [faq, setFaq] = useState([]);
   const [allFaq, setAllFaq] = useState([]);
+
+  // 페이지네이션
+
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 15;
+  const count = faq.length;
+  const [pagecount, setPageCount] = useState(15);
 
   useEffect(() => {
     axios
@@ -64,18 +72,20 @@ function ServiceCenter() {
         <div className="service_board_list">
           <FaqMenu list={list} onList={onList} />
           <table>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>분류</th>
-                <th>제목</th>
-              </tr>
-            </thead>
+            <thead></thead>
             <tbody>
-              <FaqList faq={faq} />
+              {faq.slice(offset, offset + 10).map((faq) => (
+                <FaqList key={faq.faqIdx} faq={faq} />
+              ))}
             </tbody>
           </table>
         </div>
+        <Paging
+          page={page}
+          setPage={setPage}
+          count={count}
+          pagecount={pagecount}
+        />
       </div>
     </>
   );
