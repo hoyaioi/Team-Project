@@ -16,40 +16,30 @@ const ItemWrite = () => {
 
   const saveThumb = (event) => {
     setSelectedThumb(event.target.files[0]);
-    
-  }
+  };
   const saveDetailImg = (event) => {
     setSelectedDetail(event.target.files[0]);
-  }
+  };
   console.log(selectedThumb);
 
   const onFileUpload = () => {
     const formData = new FormData();
 
-
     // 파일 데이터 저장
-    formData.append('itemThumb', selectedThumb);
-    formData.append('itemDetailImg', selectedDetail);
+    formData.append("itemThumb", selectedThumb);
+    formData.append("itemDetailImg", selectedDetail);
 
+    formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
-
-    formData.append('itemsDto', JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
-
-    axios.post("http://localhost:8080/itemwrite", formData)
-      .then((response) => {
-        if (response.status === 200) {
-          navigate('/');
-          alert("상품이 등록되었습니다.");
-
-        } else {
-          alert("상품 등록 실패");
-        }
-      })
-
+    axios.post("http://localhost:8080/itemwrite", formData).then((response) => {
+      if (response.status === 200) {
+        navigate("/");
+        alert("상품이 등록되었습니다.");
+      } else {
+        alert("상품 등록 실패");
+      }
+    });
   };
-
-
-
 
   const selectOrganHandler = (e) => {
     setOrganSelect(e.target.value);
@@ -73,10 +63,8 @@ const ItemWrite = () => {
     itemOrgans: "",
     itemMaterials: "",
     itemSubImg: "",
-    categoryName: ""
+    categoryName: "",
   });
-
-
 
   const getValue = (e) => {
     const { name, value } = e.target;
@@ -103,12 +91,13 @@ const ItemWrite = () => {
                       <th>대분류</th>
                       <td>
                         <div className="write_select" onChange={getValue}>
-                          <select name="categoryName" onChange={selectCategoryHandler} value={categorySelect}>
+                          <select
+                            name="categoryName"
+                            onChange={selectCategoryHandler}
+                            value={categorySelect}
+                          >
                             {categoryList.map((category) => (
-                              <option
-                                value={category}
-                                key={category}
-                              >
+                              <option value={category} key={category}>
                                 {category}
                               </option>
                             ))}
@@ -120,12 +109,13 @@ const ItemWrite = () => {
                       <th>분류</th>
                       <td>
                         <div className="write_select" onChange={getValue}>
-                          <select name="itemOrgans" onChange={selectOrganHandler} value={organSelect}>
+                          <select
+                            name="itemOrgans"
+                            onChange={selectOrganHandler}
+                            value={organSelect}
+                          >
                             {organsList.map((organ) => (
-                              <option
-                                value={organ}
-                                key={organ}
-                              >
+                              <option value={organ} key={organ}>
                                 {organ}
                               </option>
                             ))}
@@ -166,7 +156,7 @@ const ItemWrite = () => {
                       <td>
                         <input
                           type="date"
-                          className="item_write_title"
+                          className="item_write_exp"
                           placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemExpDate"
@@ -200,13 +190,21 @@ const ItemWrite = () => {
                     <tr>
                       <th>제품썸네일</th>
                       <td>
-                        <input type="file" name="itemThumb" onInput={saveThumb} />
+                        <input
+                          type="file"
+                          name="itemThumb"
+                          onInput={saveThumb}
+                        />
                       </td>
                     </tr>
                     <tr>
                       <th>제품메인이미지</th>
                       <td>
-                        <input type="file" name="itemDetailImg" onInput={saveDetailImg} />
+                        <input
+                          type="file"
+                          name="itemDetailImg"
+                          onInput={saveDetailImg}
+                        />
                       </td>
                     </tr>
                     <tr>
