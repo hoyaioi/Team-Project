@@ -1,7 +1,6 @@
 import "../CSS/ServiceCenter.css";
 import search from "../Img/search.png";
 import { useState } from "react";
-import Faq from "./Faq";
 import FaqMenu from "./FaqMenu";
 import { useEffect } from "react";
 import axios from "axios";
@@ -53,7 +52,7 @@ function ServiceCenter() {
                   placeholder="검색어를 입력해주세요."
                 />
                 <button type="submit" className="service_search_btn">
-                  <img src={search} className="service_search_img" />
+                  <div className="header_search_img" />
                 </button>
               </div>
             </div>
