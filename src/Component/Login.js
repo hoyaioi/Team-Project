@@ -36,7 +36,8 @@ function Login() {
             console.log(memberInfo);
              sessionStorage.setItem("name", memberInfo.name);
              sessionStorage.setItem("email", memberInfo.email);
-             sessionStorage.setItem("idx",memberInfo.idx)
+             sessionStorage.setItem("idx",memberInfo.idx);
+             sessionStorage.setItem("role",memberInfo.role);
             navigate('/');
             alert(`${memberInfo.name}님 환영합니다.`);
             window.location.reload();

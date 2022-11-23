@@ -50,13 +50,14 @@ import MemberDetail from "./Component/MemberDetail";
 import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
-
+import QnaWrite from "./Component/QnaWrite";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
 
   return (
     <>
+     
       <ScrollToTop />
       <Header />
       <div id="wrapper">
@@ -68,10 +69,10 @@ function App() {
             <Route path="notice" element={<Notice />} />
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
-            <Route path="/mypage/*" element={<PrivateRoute><MyPage /></PrivateRoute>}>
+          <Route path="/mypage/*" element={<PrivateRoute><MyPage /></PrivateRoute>}>
             <Route path="myorderlist" element={<MyOrderList memIdx={memIdx} />} />
             <Route path="myrefund" element={<MyRefund memIdx={memIdx} />} />
-            <Route path="mycart" element={<MyCart />}/>
+            <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
@@ -86,7 +87,7 @@ function App() {
           <Route path="/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
-          <Route path="/cart" element={<MyCart/>}/>
+          <Route path="/cart" element={<MyCart />} />
           <Route path="/itemlist" element={<ItemList />} />
           <Route path="/join" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
@@ -99,13 +100,14 @@ function App() {
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
           <Route path="/admin/*" element={<AdminMain />} ></Route>
-            <Route path="member" element={<AdminMember />} />
-            <Route path="review" element={<AdminReview />} />
-            <Route path="refund" element={<AdminRefund />} />
-            <Route path="order" element={<AdminOrder />} />
-          
+          <Route path="member" element={<AdminMember />} />
+          <Route path="review" element={<AdminReview />} />
+          <Route path="refund" element={<AdminRefund />} />
+          <Route path="order" element={<AdminOrder />} />
 
+          <Route path="qnaWrite/:itemNum" element={<QnaWrite />} />
         </Routes>
+        
       </div>
       <Footer />
       {/* <Route path="/surveyStart" element={<Step1}><Survey /></Route>  */}

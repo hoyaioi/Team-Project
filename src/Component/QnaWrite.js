@@ -2,16 +2,16 @@
 import axios from "axios";
 import "../CSS/QnaWrite.css";
 
-function QnaWrite({itemNum}) {
+function QnaWrite({itemNumm}) {
+//Item.js에서 문의하기 버튼을 누르면 itemNum을 받아와서 itemNum을 넣어준다.
+const itemNum= itemNumm;    
+const email = sessionStorage.getItem('email');
 
-    
-    const memEmail = sessionStorage.getItem('memEmail');
-
-    if (memEmail === null) {
+    if (email === null) {
         alert("로그인 후 이용해주세요.");
         window.location.href = "/login";
     }
-    const handleCheck = (e) => {
+    const handleCheck = () => {
         console.log(itemNum);
     }
 
@@ -32,7 +32,7 @@ function QnaWrite({itemNum}) {
         const qnaData = {
             qnaTitle: qnaTitle,
             qnaContent: qnaContent,
-            memEmail: memEmail,
+            memEmail: email,
             itemIdx: itemNum
         }
 
