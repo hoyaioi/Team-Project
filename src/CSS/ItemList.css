@@ -92,14 +92,19 @@
 
 .itemlist_items_img:hover {
   cursor: pointer;
-  opacity: 50%;
 }
 .itemlist_items_cont li {
   float: left;
   width: 240px;
-  height: 300px;
-  margin-top: 20px;
+  height: 335px;
+
+  padding: 15px 0;
   margin-bottom: 20px;
+}
+
+.itemlist_items_cont li:hover {
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px rgb(0, 0, 0, 25%);
 }
 
 .itemlist_items_img img {
@@ -110,13 +115,14 @@
 .itemlist_info_title {
   height: 45px;
   margin-left: 10px;
+  margin-top: 15px;
 }
 
 .itemlist_info_title strong {
   font-weight: 400;
   padding: 0;
   position: relative;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: -0.5px;
   min-height: 0px;
   color: black;

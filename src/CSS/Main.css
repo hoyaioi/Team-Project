@@ -59,7 +59,6 @@
 
 .main_items:hover {
   cursor: pointer;
-  opacity: 50%;
 }
 
 .main_items_img_wrap {
@@ -69,6 +68,12 @@
 
 .main_items_name {
   margin-top: 10px;
+  font-size: 15px;
+}
+
+.main_items_name:hover {
+  margin-top: 10px;
+  text-decoration: underline;
 }
 
 .main_items_price {
