@@ -20,18 +20,17 @@ SwiperCore.use([Navigation]);
 function Item() {
   const navigate = useNavigate();
   let { itemNum } = useParams();
-  let [reviwModal, setReviewModal] = useState(false);
   let [qnaModal, setQnaModal] = useState(false);
   const [datas, setData] = useState({});
-  const [reviewDatas, setReviewDatas] = useState([]);
   const [qnaDatas, setQnaDatas] = useState([]);
-  const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
-  const email = sessionStorage.getItem("memEmail"); 
+  const email = sessionStorage.getItem("memEmail");
   const [items, setItems] = useState([]);
-  console.log(itemNum);
+  const [datas2, setDatas2] = useState([]);
+  
+  let itemNumm = datas.itemNum
 
   function plusClick() {
     setAmount(amount + 1);
@@ -48,43 +47,43 @@ function Item() {
         setItems(response.data);
       })
       .catch((error) => console.log(error));
-  },[]);
+  }, []);
 
   const cartDto = {
-    memEmail : email,
+    memEmail: email,
     itemNum: datas.itemNum,
     itemAmount: amount
   };
 
   const orderDto = [{
-    memEmail : email,
-    itemNum : datas.itemNum,
-    itemAmount : amount,
-    itemPrice : datas.itemPrice,
-    itemThumb : datas.itemThumb,
-    itemName : datas.itemName
+    memEmail: email,
+    itemNum: datas.itemNum,
+    itemAmount: amount,
+    itemPrice: datas.itemPrice,
+    itemThumb: datas.itemThumb,
+    itemName: datas.itemName
   }];
 
 
 
   const cartHanddler = () => {
     console.log(email);
-    if(isLogin === true) {
-    axios.post("http://localhost:8080/cartinsert", cartDto)
-    .then((response) => {
-      console.log(response);
-      alert("장바구니 추가완료");
-    }).catch((error) => {
-      console.log(error);
-    })
-  } else {
-    alert("로그인 후 이용하세요.");
-    navigate("/login");
+    if (isLogin === true) {
+      axios.post("http://localhost:8080/cartinsert", cartDto)
+        .then((response) => {
+          console.log(response);
+          alert("장바구니 추가완료");
+        }).catch((error) => {
+          console.log(error);
+        })
+    } else {
+      alert("로그인 후 이용하세요.");
+      navigate("/login");
+    }
   }
-}
 
   const buyHanddler = () => {
-    navigate('/order', {state : {orderDto}});
+    navigate('/order', { state: { orderDto } });
   }
   const moveToFocus = useRef([]);
   useEffect(() => {
@@ -96,29 +95,27 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/review")
-      .then((response) => {
-        setReviewDatas(response.data);
+    axios.get(`http://localhost:8080/review/${itemNum}`)
+      .then(review => {
+        setDatas2(review.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => { console.log(error); });
   }, []);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/qna/${itemNum}`)
       .then(qna => {
         setQnaDatas(qna.data);
+        
         setQnaModal(false);
+        
       })
       .catch(error => { console.log(error); });
   }, []);
+console.log(itemNumm)
 
-
-  const openWindow = (itemNum) => {
-    console.log(itemNum);
-    window.open(`/qnaWrite`, '_blank','height=600 width=700');
+  const qnaWrtie = (itemNumm) => {
+    window.open(`/qnaWrite/${itemNumm}`, "QnaWrite", "width=800, height=700");
   }
   return (
     <div className='item-content'>
@@ -180,13 +177,13 @@ function Item() {
         >
 
           {items.map(item => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}원</sapn></div></div></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
           ))}
-          {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>  */}
+          {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
+                    <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
+                     <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>  */}
         </Swiper>
       </div>
       <div id="1" className='item-tab'>
@@ -273,50 +270,40 @@ function Item() {
       <div className="review">
         <strong>상품후기</strong>
         <table className="review-table">
-          <thead className="review-thead">
+          <thead >
             <tr>
-              <th>별점</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>작성일자</th>
+              <th width="10%">리뷰 번호</th>
+              <th width="60%">내용</th>
+              <th width="15%">작성자</th>
+              <th width="15%">작성일자</th>
             </tr>
           </thead>
-          {reviewDatas &&
-            reviewDatas.map((review) => (
-              <tbody>
-                <tr
-                  onClick={() => {
-                    setReviewIdx(review.reviewIdx);
-                  }}
-                >
-                  <td width="15%">{review.itemRate}</td>
-                  <td
-                    width="45%"
-                    onClick={() => {
-                      setReviewModal(!reviwModal);
-                    }}
-                  >
-                    {review.reviewTitle}
-                  </td>
-                  <td width="20%">{review.memId}</td>
-                  <td width="20%">{review.reviewWriteDate}</td>
-                </tr>
-                {reviwModal === true && reviewIdx === review.reviewIdx ? (
-                  <Review value={review.reviewIdx} />
-                ) : null}
-              </tbody>
-            ))}
+          <div className='myreview_able_wrap'>
+            {datas2.length === 0 ? <div className='myreview_nondata'>작성된 리뷰가 없습니다.</div> :
+              <ul>
+                {datas2.map((did, idx) => (
+                  <li key={idx}>
+                    <td width="10%">{did.reviewIdx} </td>
+                    <td width="60%">
+                      {
+                        did.reviewDeleteYn === 'Y' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
+                          did.reviewContents
+                      }</td>
+                    <td width="15%">
+                      {did.memEmail}
+                    </td>
+                    <td width="15%">
+                      &nbsp;
+                      {did.reviewWriteDate}
+                    </td>
+                    <input type="hidden" value={did.reviewIdx} />
+                  </li>
+                ))}
+              </ul>
+            }
+          </div>
         </table>
       </div>
-      <div className="pagenation">
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
-      </div>
-
       <div id="4" className="item-tab">
         <ul>
           <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
@@ -330,7 +317,7 @@ function Item() {
       <div className="qna">
         <strong>QNA</strong>
 
-        <button  onClick={openWindow }>문의글 작성</button>
+        <button onClick={()=>qnaWrtie(itemNumm)} >문의글 작성</button>
         <table className="review-table">
           <thead >
             <tr>
@@ -341,45 +328,38 @@ function Item() {
               <th width="13%">답변상태</th>
             </tr>
           </thead>
-              <tbody>
-          {qnaDatas &&
-                qnaDatas.map((qna) => (
-                  <>
-                <tr
-                  onClick={() => {
-                    setQnaIdx(qna.qnaIdx);
-                  }}
-                >
-                  <td width="8%">{qna.qnaIdx}</td>
-                  <td
-                    width="53%"
+          <tbody>
+            {qnaDatas &&
+              qnaDatas.map((qna) => (
+                <>
+                  <tr
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
-                     setQnaModal(!qnaModal);
                     }}
                   >
-                    {qna.qnaTitle}
-                  </td>
-                  <td width="13%">{qna.memEmail}</td>
-                  <td width="13%">{qna.qnaWriteDate}</td>
-                  <td width="13%">{qna.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
-                </tr>
-                {qnaModal === true && qnaIdx === qna.qnaIdx ? (
-                  <Qna value={qna.qnaIdx}/>
-                ) : null}
-            </>
-            ))}
-              </tbody>
+                    <td width="8%">{qna.qnaIdx}</td>
+                    <td
+                      width="53%"
+                      onClick={() => {
+                        setQnaIdx(qna.qnaIdx);
+                        setQnaModal(!qnaModal);
+                      }}
+                    >
+                      {qna.qnaTitle}
+                    </td>
+                    <td width="13%">{qna.memEmail}</td>
+                    <td width="13%">{qna.qnaWriteDate}</td>
+                    <td width="13%">{qna.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
+                  </tr>
+                  {qnaModal === true && qnaIdx === qna.qnaIdx ? (
+                    <Qna value={qna.qnaIdx} />
+                  ) : null}
+                </>
+              ))}
+          </tbody>
         </table>
       </div>
-      <div className="pagenation">
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
-      </div>
+
     </div>
   );
 }
