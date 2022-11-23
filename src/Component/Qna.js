@@ -13,6 +13,7 @@ function Qna({ value }) {
         axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
             .then(response => {
                 setData(response.data);
+                console.log(datas)
             })
             .catch(error => { console.log(error); });
     }, []);

@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "../CSS/Order.css";
 function Order() {
-    const memEmail = sessionStorage.getItem("email");
     const memIdx = sessionStorage.getItem("idx");
     const location = useLocation([]);
     const item = location.state.orderDto;
@@ -62,7 +61,7 @@ function Order() {
         setAddr1Error(false);
     };
     useEffect(() => {
-        axios.get(`http://localhost:8080/member/${memEmail}`)
+        axios.get(`http://localhost:8080/admin_mem/${memIdx}`)
             .then(response => {
                 console.log(response);
                 setData(response.data);
@@ -70,7 +69,7 @@ function Order() {
             .catch(error => { console.log(error); });
     }, []);
     const orderInfo = item.map(order => ({
-        memEmail: memEmail,
+        memEmail: data.memEmail,
         memIdx : memIdx,
         address1: data.memAddr1,
         address2: data.memAddr2,

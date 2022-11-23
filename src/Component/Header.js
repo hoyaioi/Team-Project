@@ -22,7 +22,6 @@ const Header = () => {
 
   return (
     <>
-
         <div id="header">
           <div className="header_top">
             <div className="header_logo_wrap">

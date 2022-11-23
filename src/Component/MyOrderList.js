@@ -97,17 +97,18 @@ function MyOrderList() {
 
     const [openApp, setOpenApp] = useState(false);
 
-    const [orderNum, setOrderNum] = useState(0);
+    const [orderNum, setOrderNum] = useState('');
     const [itemName, setItemName] = useState('');
     const [itemPrice, setItemPrice] = useState(0);
+    const [orderlistIdx, setOrderlistIdx] = useState('');
     const [itemNum, setItemNum] = useState(0);
 
-    const handlerOpenApp = ( itemName, itemNum, orderNum, itemPrice) => {
+    const handlerOpenApp = ( orderNum, itemName, itemPrice, orderlistIdx) => {
         
-        setItemName(itemName);
-        setItemNum(itemNum);
         setOrderNum(orderNum);
+        setItemName(itemName);
         setItemPrice(itemPrice);
+        setOrderlistIdx(orderlistIdx);
         setOpenApp(true);
     }
 
@@ -156,12 +157,12 @@ function MyOrderList() {
     const handlerMoveReivew = () => {
         navigate('/mypage/myreview');
     }
-
+    console.log(datas);
     return (
         <>
             <div id='main'>
                 <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} itemName={itemName} itemNum={itemNum} orderNum={orderNum} itemPrice={itemPrice} /> : <>
+                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} orderlistIdx={orderlistIdx}/> : <>
                         <div className='myorderlist_title_wrap'>
                             <h2>주문현황</h2>
                         </div>
@@ -263,7 +264,7 @@ function MyOrderList() {
                                                     {order.orderStatus === '배송완료' ? (
                                                         <>
                                                             <button type='button'>배송조회</button>
-                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice)}>반품요청</button>
+                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice, order.orderlistIdx)}>반품요청</button>
                                                             <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum, order.orderlistIdx)}>구매확정</button>
                                                         </>
                                                     ) : ''}

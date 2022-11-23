@@ -28,8 +28,8 @@ function Item() {
   const [reviewIdx, setReviewIdx] = useState();
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
-  const isLogin = sessionStorage.getItem("memIdx") ? true : false;
-  const email = sessionStorage.getItem("memEmail"); 
+  const isLogin = sessionStorage.getItem("idx") ? true : false;
+  const email = sessionStorage.getItem("email");
   const [items, setItems] = useState([]);
   console.log(itemNum);
 
