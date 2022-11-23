@@ -156,10 +156,6 @@
   color: white;
 }
 
-strong {
-  font-size: 30px;
-}
-
 .detail_img {
   position: relative;
   display: inline-block;
@@ -262,6 +258,10 @@ strong {
   width: 298px;
   height: 44px;
   border-radius: 10px 10px 0 0;
+}
+
+.item-tab li:hover {
+  cursor: pointer;
 }
 
 .item-tab ul,
