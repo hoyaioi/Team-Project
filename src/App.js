@@ -53,7 +53,7 @@ import PublicRoute from "./routeAuthor/PublicRoute";
 
 
 function App() {
-  const memIdx = sessionStorage.getItem("memIdx");
+  const memIdx = sessionStorage.getItem("idx");
 
   return (
     <>

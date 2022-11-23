@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1() {
+function MyInfoUp1({ memIdx }) {
 
     const [data, setData] = useState({});
     const [memPw, setMemPw] = useState('');
@@ -19,10 +19,9 @@ function MyInfoUp1() {
     })
 
     const navigate = useNavigate();
-
     const handlerOnClick = () => {
 
-        axios.post(`http://localhost:8080/api/member/comparepw/${sessionStorage.getItem("idx")}`, {"memPw":memPw})
+        axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
             .then(response => {
                 if(response.status === 200){
                     navigate('/mypage/modify');
