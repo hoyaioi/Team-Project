@@ -77,7 +77,7 @@ function AdminQnaModal(props) {
 
                             </div>
                             <div className='admincomment-date'>
-                            <sapn>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</sapn>
+                            <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
                             </div>
                             <div className='admincomment-edit'>
                                 <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button>
