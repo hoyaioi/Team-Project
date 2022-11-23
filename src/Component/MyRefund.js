@@ -9,6 +9,8 @@ function MyRefund() {
   const [datas, setDatas] = useState([]);
   const memIdx = sessionStorage.getItem("idx");
 
+  const memIdx = sessionStorage.getItem("idx");
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/mypage/myrefund/${memIdx}`)

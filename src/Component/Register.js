@@ -114,9 +114,8 @@ function Register() {
     console.log(e);
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/" + email)
-    axios.get(`http://localhost:8080/member/${email}`)
+    axios.get(`http://localhost:8080/checkemail/${email}`)
       .then(response => {
-        console.log(response);
         if (response.status === 200) {
           alert("이미 가입된 이메일입니다.")
         }

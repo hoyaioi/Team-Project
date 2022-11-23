@@ -7,12 +7,9 @@ function AdminQnaModal(props) {
     const qnaIdx = props.value;
     const [content, setContent] = useState();
     const [datas, setData] = useState({});
-    
-
-
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/qna/contents/${qnaIdx}`)
+        axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
             .then(response => {
                 setData(response.data);
             })
@@ -21,7 +18,7 @@ function AdminQnaModal(props) {
 
     const qnaAnswer = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8080/api/admin/qnaWrite/${qnaIdx}`, {
+        axios.put(`http://localhost:8080/admin/qnawrite/${qnaIdx}`, {
             "qnaCommentContent" : content,
             "qnaIdx" : qnaIdx
         }).then(response => {
@@ -39,7 +36,7 @@ function AdminQnaModal(props) {
     }
 
     const handlerClickDelete = () => {
-        axios.delete(`http://localhost:8080/api/admin/qna/${qnaIdx}`)
+        axios.delete(`http://localhost:8080/admin/qna/${qnaIdx}`)
         .then(response => { 
             console.log(response);
             if (response.status === 200) {
@@ -80,7 +77,7 @@ function AdminQnaModal(props) {
 
                             </div>
                             <div className='admincomment-date'>
-                            <sapn>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</sapn>
+                            <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
                             </div>
                             <div className='admincomment-edit'>
                                 <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button>

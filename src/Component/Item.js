@@ -178,13 +178,8 @@ function Item() {
         >
 
           {items.map(item => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><sapn>{item.itemPrice}원</sapn></div></div></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
           ))}
-          {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><sapn>가격</sapn></div></div></SwiperSlide>  */}
         </Swiper>
       </div>
       <div id="1" className='item-tab'>

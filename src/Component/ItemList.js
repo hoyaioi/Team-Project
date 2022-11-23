@@ -27,7 +27,7 @@ function ItemList() {
   },[]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/itemOrgans/${organs}`)
+      .get(`http://localhost:8080/itemorgans/${organs}`)
       .then((response) => {
         console.log(response);
         setItems(response.data);

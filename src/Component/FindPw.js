@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../CSS/Find.css";
 
-function FindPW() {
+function FindPw() {
 
   const [email,setEmail] = useState("");
   const [name,setName] = useState("");
@@ -29,7 +29,7 @@ function FindPW() {
     console.log(e)
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/"+name+"/"+phoneNum)
-    axios.get(`http://localhost:8080/api/member/${email}/${name}/${phoneNum}`)
+    axios.get(`http://localhost:8080/member/${email}/${name}/${phoneNum}`)
     .then(response => {
       console.log(response);
       if (response.status === 200) {
@@ -87,4 +87,4 @@ function FindPW() {
   );
 }
 
-export default FindPW;
+export default FindPw;

@@ -30,16 +30,16 @@ function Qna({ value }) {
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <sapn>질문 내용</sapn>
+                                <span>질문 내용</span>
                             </div>
                         </div>
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <sapn>{isAnswer ? ( datas.qnaCommentContent) : '답변 준비중'  } </sapn>
+                                <span>{isAnswer ? ( datas.qnaCommentContent) : '답변 준비중'  } </span>
                             </div>
                             <div className='comment-date'>
-                                <sapn>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</sapn>
+                                <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
                             </div>
                         </div>
                     </td>

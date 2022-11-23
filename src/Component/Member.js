@@ -27,7 +27,7 @@ const Member = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/admin_mem")
+      .get("http://localhost:8080/admin-mem")
       .then((response) => {
         // setMemDeletedYn(response.data.memDeletedYn);
         setAllDatas(response.data);
