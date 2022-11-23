@@ -10,7 +10,7 @@ function Qna({ value }) {
     
     useEffect(() => {
 
-        axios.get(`http://localhost:8080/api/qna/contents/${qnaIdx}`)
+        axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
             .then(response => {
                 setData(response.data);
             })
@@ -19,7 +19,8 @@ function Qna({ value }) {
 
     const isAnswer = datas.qnaCommentContent === null ? false : true;
 
-   
+  
+    
     return (
         <table className='qna-modal-table'>
             <tbody>
@@ -28,7 +29,7 @@ function Qna({ value }) {
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <sapn>{datas.qnaContents}</sapn>
+                                <sapn>질문 내용</sapn>
                             </div>
                         </div>
                         <div className='qna-comment'>

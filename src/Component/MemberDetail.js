@@ -13,34 +13,18 @@ const MemberDetail = () => {
   const [memDeletedYn, setMemDeletedYn] = useState("");
   const handlerChangeName = (e) => setMemName(e.target.value);
   const handlerChangeDeleted = (e) => setMemDeletedYn(e.target.value);
-  const handlerClickCancle = () => navigate("/member");
-
-  // const handlerClickDelete = () => {
-  //   axios
-  //     .delete(`http://localhost:8080/member/${memIdx}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       if (response.status === 200) {
-  //         alert("정상적으로 삭제되었습니다.");
-  //         navigator("/member");
-  //       } else {
-  //         alert("삭제에 실패했습니다.");
-  //         return;
-  //       }
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const handlerClickCancle = () => navigate("/admin_mem");
 
   const handlerClickUpdate = () => {
     axios
-      .put(`http://localhost:8080/member/${memIdx}`, {
+      .put(`http://localhost:8080/admin_mem/${memIdx}`, {
         memName: memName,
         memDeletedYn: memDeletedYn,
       })
       .then((response) => {
         if (response.status === 200) {
           alert("수정되었습니다.");
-          navigate("/member");
+          navigate("/admin_mem");
         } else {
           alert("수정에 실패했습니다");
           return;
@@ -51,7 +35,7 @@ const MemberDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/member/${memIdx}`)
+      .get(`http://localhost:8080/admin_mem/${memIdx}`)
       .then((response) => {
         console.log(data);
         setData(response.data);
@@ -115,12 +99,8 @@ const MemberDetail = () => {
 
                 <div className="m-top-box">
                   <div className="m-title">탈퇴이력</div>
-                  <select
-                    name=""
-                    id=""
-                    onChange={handlerChangeDeleted}
-                    value={memDeletedYn}
-                  >
+                  <select name="" id="" onChange={handlerChangeDeleted}>
+                    <option value="" hidden></option>
                     <option value="N">N</option>
                     <option value="Y">Y</option>
                   </select>

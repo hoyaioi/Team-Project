@@ -11,7 +11,7 @@ const MemInfo = ({ mem }) => {
         </li>
         <li>{memIdx}</li>
         <li>
-          <Link to={`/member/detail/${mem.memIdx}`} state={{ mem: mem }}>
+          <Link to={`/admin_mem/detail/${mem.memIdx}`} state={{ mem: mem }}>
             {memName}
           </Link>
         </li>

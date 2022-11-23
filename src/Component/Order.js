@@ -4,16 +4,25 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "../CSS/Order.css";
-
-
 function Order() {
-    const memEmail = sessionStorage.getItem("memEmail");
+    const memEmail = sessionStorage.getItem("email");
+    const memIdx = sessionStorage.getItem("idx");
     const location = useLocation([]);
     const item = location.state.orderDto;
     const navigate = useNavigate();
     let totalPrice = 0;
-
-    console.log(item)
+    var date = new Date();
+    var components = [
+        date.getYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+        date.getMilliseconds()
+    ];
+    var id = components.join("");
+    console.log(id)
     item.forEach((items) => {
         totalPrice += (items.itemPrice * items.itemAmount);
     });
@@ -27,7 +36,6 @@ function Order() {
     const [emailError, setEmailError] = useState(true);
     const [name, setName] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
-
     const open = useDaumPostcodePopup(
         "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
     );
@@ -35,11 +43,9 @@ function Order() {
         open({ onComplete: handleComplete });
     };
     const handleComplete = (data) => {
-
         let fullAddress = data.address;
         let postCode = data.zonecode;
         let extraAddress = "";
-
         if (data.addressType === "R") {
             if (data.bname !== "") {
                 extraAddress += data.bname;
@@ -55,18 +61,32 @@ function Order() {
         setPostCodeError(false);
         setAddr1Error(false);
     };
-
-
     useEffect(() => {
         axios.get(`http://localhost:8080/member/${memEmail}`)
             .then(response => {
                 console.log(response);
                 setData(response.data);
-
             })
             .catch(error => { console.log(error); });
     }, []);
+    const orderInfo = item.map(order => ({
+        memEmail: memEmail,
+        memIdx : memIdx,
+        address1: data.memAddr1,
+        address2: data.memAddr2,
+        address3: data.postNum,
+        memPhone: data.memPhone,
+        itemPrice: order.itemPrice,
+        itemNum: order.itemNum,
+        itemName: order.itemName,
+        itemAmount: order.itemAmount,
+        orderNum: id,
+        cartIdx : order.cartIdx,
+        itemThumb : order.itemThumb
+    }))
 
+
+    console.log(orderInfo);
     const handlerClickSubmit = (e) => {
         e.preventDefault();
         if (checkType === 'new') {
@@ -85,27 +105,24 @@ function Order() {
             )
             navigate("/mypage");
         } else {
-            axios.post("http://localhost:8080/insertOrder", item)
+            axios.post("http://localhost:8080/insertOrder", orderInfo)
                 .then(response => {
                     console.log(response);
                 })
                 .catch(error => { console.log(error); })
-            navigate("/mypage");
+                navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
+                window.location.reload();
         }
 
     }
-    
-
     const checkedSame = () => {
         setCheckType('same');
         console.log(checkType)
     }
     const checkedNew = (e) => {
         setCheckType('new');
-
         console.log(checkType);
     }
-
     console.log(totalPrice);
     console.log()
     return (
@@ -134,7 +151,6 @@ function Order() {
                                                 </thead>
                                                 <tbody>
                                                     {item.map(items => [
-
                                                         <tr>
                                                             <td className="order_td_item">
                                                                 <div className="order_item">
@@ -190,10 +206,8 @@ function Order() {
                                             <div class="order_zone_tit">
                                                 <h4>주문자 정보</h4>
                                             </div>
-
                                             <div class="order_table_type">
                                                 <table class="table_left">
-
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row"><span class="important">주문하시는 분</span></th>
@@ -215,8 +229,6 @@ function Order() {
                                                             <th scope="row"><span class="important">이메일</span></th>
                                                             <td class="member_email">
                                                                 <input type="text" name="orderEmail" value={data.memEmail} />
-
-
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -228,7 +240,6 @@ function Order() {
                                         <div class="order_zone_tit">
                                             <h4>배송정보</h4>
                                         </div>
-
                                         <div class="order_table_type shipping_info">
                                             <table class="table_left shipping_info_table">
                                                 <tbody>
@@ -253,8 +264,8 @@ function Order() {
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실분</span></th>
                                                         <td>
-                                                            {checkType === 'same' ? <input type="text" name="receiverName" value= {data.memName} /> : 
-                                                            <input type="text" name="receiverName" />}</td>
+                                                            {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
+                                                                <input type="text" name="receiverName" />}</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실 곳</span></th>
@@ -295,10 +306,8 @@ function Order() {
                                         <div class="order_zone_tit">
                                             <h4>결제정보</h4>
                                         </div>
-
                                         <div class="order_table_type">
                                             <table class="table_left">
-
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row">상품 합계 금액</th>
@@ -320,7 +329,6 @@ function Order() {
                                                             <input type="hidden" name="overseasSettlePrice" value="0" />
                                                             <input type="hidden" name="overseasSettleCurrency" value="KRW" />
                                                             <strong id="totalSettlePrice" class="order_payment_sum">{totalPrice + 2500}</strong>원
-
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -332,10 +340,8 @@ function Order() {
                                             <h4>결제수단 선택 / 결제</h4>
                                             <p class="js_pay_content">※ 고객님은 안전거래를 위해 현금으로 결제시 저희 쇼핑몰에서 가입한 구매안전서비스인 나이스페이의 구매안전(에스크로)서비스를 이용하실 수 있습니다.</p>
                                         </div>
-
                                         <div class="payment_progress_list">
                                             <div class="js_pay_content">
-
                                                 <div id="settlekind_general" class="general_payment">
                                                     <dl>
                                                         <dt>일반결제</dt>
@@ -348,42 +354,20 @@ function Order() {
                                                                     </li>
                                                                 </ul>
                                                             </div>
-
-
-
                                                             <div class="card" id="settlekind_general_pc" ></div>
-
-
-
                                                             <div class="account-bank" id="settlekind_general_pb" ></div>
-
-
-
                                                             <div class="virtual-bank" id="settlekind_general_pv"></div>
-
-
-
-
                                                         </dd>
                                                     </dl>
                                                 </div>
-
-
-
-
                                             </div>
-
-
-
                                         </div>
-
                                         <div class="payment_final">
                                             <div class="payment_final_total">
                                                 <dl>
                                                     <dt>최종 결제 금액</dt>
                                                     <dd><span><strong id="totalSettlePriceView">{totalPrice + 2500}</strong>원</span></dd>
                                                 </dl>
-
                                             </div>
                                             <div class="payment_final_check">
                                                 <div class="form_element">
@@ -395,8 +379,6 @@ function Order() {
                                                 <button onClick={handlerClickSubmit} class="btn_order_buy order-buy"><em>결제하기</em></button>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -407,5 +389,4 @@ function Order() {
         </>
     );
 }
-
 export default Order;

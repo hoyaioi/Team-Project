@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
 
 function MyInfoUp1({ memIdx }) {
@@ -32,7 +32,7 @@ function MyInfoUp1({ memIdx }) {
 
     const handlerOnClick = () => {
 
-        axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
+        axios.post(`http://localhost:8080/api/member/comparepw/${sessionStorage.getItem("idx")}`, {"memPw":memPw})
             .then(response => {
                 if(response.status === 200){
                     navigate('/mypage/modify');

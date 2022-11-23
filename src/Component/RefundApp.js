@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function RefundApp({ orderNum, itemName, itemPrice, setOpenApp }) {
+function RefundApp({ memIdx, itemName, itemNum, orderNum, itemPrice, setOpenApp }) {
 
     const handlerCloseApp = () => {
         if (window.confirm('반품 신청을 취소하시겠습니까?')) {
@@ -13,24 +13,39 @@ function RefundApp({ orderNum, itemName, itemPrice, setOpenApp }) {
         }
     }
 
-    const [option, setOption] = useState('');
-
-    const selectList = [
-        '마음에 안 들어요.',
-        '다른 상품이 잘못 배송됐어요.',
-        '상품에 이물질이 있어요.',
-        '유통기한이 경과했어요.'
-    ];
-
+    const [refundReason, setRefundReason] = useState('default');
+    
     const handlerSelect = (e) => {
-        setOption(e.target.value);
+        setRefundReason(e.target.value);
     }
 
     const navigate = useNavigate();
 
     const handlerRefundGo = () => {
-           
-        
+        if(refundReason == 'default'){
+            alert('반품 사유를 선택해주세요.');
+        }else if(window.confirm('해당 제품을 반품신청 하시겠습니까?')) {
+            axios.put(`http://localhost:8080/mypage/myorderlist/refundgo/${orderNum}`)
+                .then(response => {
+                    if(response.status === 200){
+                    axios.post(`http://localhost:8080/mypage/myorderlist/refundgo/${orderNum}`, {
+                        'memIdx': memIdx,
+                        'itemName': itemName,
+                        'orderNum': orderNum,
+                        'itemPrice': itemPrice,
+                        'refundReason': refundReason
+                    })
+                        .then(response => {
+                            if(response.status === 200){
+                                alert('반품신청이 완료되었습니다.');
+                                navigate('/mypage/myrefund');
+                            }
+                        })
+                        .catch(error => console.log(error));
+                    }
+                })
+                .catch(error => alert('오류발생!!!'));
+        }
     }
 
     return (
@@ -71,14 +86,18 @@ function RefundApp({ orderNum, itemName, itemPrice, setOpenApp }) {
                                 <div className='refundapp_reason_wrap'>
                                     <div className='refundapp_text'>반품사유</div>
                                     <div className='refundapp_select_wrap'>
-                                        <select placeholder='선택해주세요.' value={option} onChange={handlerSelect}>
-                                            {selectList.map(reason => (
-                                            <option value={reason} key={reason}>
+                                        <select defaultValue={refundReason} onChange={handlerSelect}>
+                                            {/* {selectList.map((reason, idx) => (
+                                            <option value={reason} key={idx}>
                                                 {reason}
                                             </option>
-                                            ))}
+                                            ))} */}
+                                            <option value='default' disabled hidden>선택해주세요.</option>
+                                            <option>마음에 안 들어요.</option>
+                                            <option>다른 상품이 잘못 배송됐어요.</option>
+                                            <option>상품에 이물질이 있어요.</option>
+                                            <option>유통기한이 경과했어요.</option>
                                         </select>
-                                        {console.log(option)};
                                     </div>
                                 </div>
                                 <div className='refundapp_itemname_wrap'>

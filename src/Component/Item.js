@@ -30,7 +30,6 @@ function Item() {
   const [amount, setAmount] = useState(1);
   const isLogin = sessionStorage.getItem("memIdx") ? true : false;
   const email = sessionStorage.getItem("memEmail"); 
-  const location = useLocation();
   const [items, setItems] = useState([]);
   console.log(itemNum);
 
@@ -63,6 +62,7 @@ function Item() {
     itemAmount : amount,
     itemPrice : datas.itemPrice,
     itemThumb : datas.itemThumb,
+    itemName : datas.itemName
   }];
 
 
@@ -107,7 +107,7 @@ function Item() {
   }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/qna/${itemNum}`)
+    axios.get(`http://localhost:8080/qna/${itemNum}`)
       .then(qna => {
         setQnaDatas(qna.data);
         setQnaModal(false);

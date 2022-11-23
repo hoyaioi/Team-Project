@@ -3,17 +3,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../CSS/ItemList.css";
-
 function ItemList() {
-
   const location = useLocation();
   const organs = location.state.organs;
   const [datas, setDatas] = useState([]);
   const [items, setItems] = useState([]);
   const [sort, setSort] = useState('');
-  
-  
-  
+
+
+
   const sortChange = (e) => {
     setSort(e.target.value);
   }
@@ -27,9 +25,6 @@ function ItemList() {
       })
       .catch((error) => console.log(error));
   },[]);
-
-
-
   useEffect(() => {
     axios
       .get(`http://localhost:8080/itemOrgans/${organs}`)
@@ -39,8 +34,6 @@ function ItemList() {
       })
       .catch((error) => console.log(error));
   },[organs]);
-
-
 const itemCount =  organs === null ? datas : items;
   return (
     <>
@@ -50,11 +43,9 @@ const itemCount =  organs === null ? datas : items;
             <div className="itemlist_title">
               {organs === null ? <h2>전체상품</h2> : 
               
-
               <>
               <h2>{organs}</h2>
               </>
-
               }
             </div>
             <div className="itemlist_box">
@@ -120,7 +111,6 @@ const itemCount =  organs === null ? datas : items;
                         </li>
                       </Link>;
                     })}
-
                 </ul>
                   : <ul>
                   {items.map(item => {
@@ -142,7 +132,6 @@ const itemCount =  organs === null ? datas : items;
                         </li>
                       </Link>;
                     })}
-
                 </ul> }
               </div>
             </div>
@@ -152,5 +141,4 @@ const itemCount =  organs === null ? datas : items;
     </>
   );
 }
-
 export default ItemList;

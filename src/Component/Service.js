@@ -22,18 +22,6 @@ const Service = () => {
                   </Link>
                 </ul>
               </div>
-              <div className="serviceqna_side_info">
-                <ul>
-                  <li>고객상담센터</li>
-                  <li>
-                    <strong className="serviceqna_num">1818-1818</strong>
-                  </li>
-                  <li>test@test.com</li>
-                  <li>월 ~ 금 09 : 00 ~ 18 : 00</li>
-                  <li>점심시간 12: 00 ~ 13 : 00</li>
-                  <li>공휴일 / 토,일 휴무</li>
-                </ul>
-              </div>
             </div>
             <div className="serviceqna_main_cont">
               <Outlet />

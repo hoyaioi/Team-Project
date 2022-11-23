@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 function MyCart() {
-    const memEmail = sessionStorage.getItem("memEmail");
+    const memEmail = sessionStorage.getItem("email");
     const [data, setData] = useState([]);
     const [checkedList, setCheckedLists] = useState([]);
     
@@ -19,6 +19,7 @@ function MyCart() {
 
         }
         axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+
             console.log(response);
             alert('수정성공');
             setData(response.data);

@@ -1,3 +1,4 @@
+
 import Item from "./Component/Item";
 import Main from "./Component/Main";
 import Topbutton from "./Topbutton";
@@ -21,8 +22,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindId";
-import FindPW from "./Component/FindPw";
+import FindID from "./Component/FindID";
+import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -35,44 +36,49 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-import QnaWrite from "./Component/QnaWrite";
 import Admin from "./Component/AdminAuth";
 import MemList from "./Component/AdminBoard"
 import AdminQna from "./Component/AdminQna"
+import AdminMember from "./Component/AdminMember"
+import AdminReview from "./Component/AdminReview";
+import AdminRefund from "./Component/AdminRefund";
+import AdminAuth from "./Component/AdminAuth";
+import AdminMain from "./Component/AdminMain";
+import AdminOrder from "./Component/AdminOrder";
 import ReviewWrite from "./Component/ReviewWrite";
-
 import MemberDetail from "./Component/MemberDetail";
 import Member from "./Component/Member";
+import PrivateRoute from "./routeAuthor/PrivateRoute";
+import PublicRoute from "./routeAuthor/PublicRoute";
+
 
 function App() {
   const memIdx = sessionStorage.getItem("memIdx");
+
   return (
     <>
       <ScrollToTop />
-      <Routes>
-        <Route path="/qnaWrite" element={<QnaWrite />} />
-      </Routes>
       <Header />
       <div id="wrapper">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/service/*" element={<Service />}>
+          <Route path="/service/*" element={<PrivateRoute><Service /></PrivateRoute>}>
             <Route path="center" element={<ServiceCenter />} />
             <Route path="serviceqna" element={<ServiceQna />} />
             <Route path="notice" element={<Notice />} />
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
-          <Route path="/mypage/*" element={<MyPage />}>
+            <Route path="/mypage/*" element={<PrivateRoute><MyPage /></PrivateRoute>}>
             <Route path="myorderlist" element={<MyOrderList memIdx={memIdx} />} />
             <Route path="myrefund" element={<MyRefund memIdx={memIdx} />} />
-            <Route path="mycart" element={<MyCart />} />
+            <Route path="mycart" element={<MyCart />}/>
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
-            
+
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -80,27 +86,30 @@ function App() {
           <Route path="/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
-          <Route path="/cart" element={<MyCart />} />
+          <Route path="/cart" element={<MyCart/>}/>
           <Route path="/itemlist" element={<ItemList />} />
-          <Route path="/join" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
-          <Route path="/findAccount" element={<FindAccount />} />
-          <Route path="/findid" element={<FindID />} />
-          <Route path="/findpw" element={<FindPW />} />
+          <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
+          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
+          <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>}/>
           <Route path="/agreement" element={<Agreement />} />
-          <Route path="/surveyStart" element={<Survey />}></Route>
-          <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<AdminQna />} />
-          <Route path="/member" element={<Member />}></Route>
-          <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
+          <Route path="/surveyStart" element={<Survey />} />
+          {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
+          <Route path="/admin/*" element={<AdminMain />} ></Route>
+            <Route path="member" element={<AdminMember />} />
+            <Route path="review" element={<AdminReview />} />
+            <Route path="refund" element={<AdminRefund />} />
+            <Route path="order" element={<AdminOrder />} />
+          
+
         </Routes>
       </div>
       <Footer />
       {/* <Route path="/surveyStart" element={<Step1}><Survey /></Route>  */}
       <Topbutton></Topbutton>
-
     </>
   );
 }

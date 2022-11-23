@@ -18,7 +18,8 @@
 
 .myinfodel2_notice p {
   font-size: 14px;
-  text-decoration: underline;
+  font-weight: bold;
+  color: darkorange;
 }
 
 .myinfodel2_pwcheck_wrap {

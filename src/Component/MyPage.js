@@ -5,17 +5,19 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 
-function MyPage({ memIdx }) {
+function MyPage() {
+  const [memName, setMemName] = useState("");
 
-  const [memName, setMemName] = useState('');
+  const memIdx = sessionStorage.getItem("idx");
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/member/myinfo/${memIdx}`)
-    .then(response => {
-      setMemName(response.data.memName);
-    })
-    .catch(error => console.log(error));
-  })
+    axios
+      .get(`http://localhost:8080/member/myinfo/${memIdx}`)
+      .then((response) => {
+        setMemName(response.data.memName);
+      })
+      .catch((error) => console.log(error));
+  });
 
   return (
     <>

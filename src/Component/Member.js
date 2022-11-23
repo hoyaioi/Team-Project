@@ -3,10 +3,9 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import MemMenu from "./MemMenu";
 import "../CSS/List.css";
 import MemberList from "./MemberList";
-import MemMenu from "./MemMenu";
-import Pagination from "./Pagination";
 
 const Member = () => {
   const [allDatas, setAllDatas] = useState([]);
@@ -28,7 +27,7 @@ const Member = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/member")
+      .get("http://localhost:8080/admin_mem")
       .then((response) => {
         // setMemDeletedYn(response.data.memDeletedYn);
         setAllDatas(response.data);
@@ -69,14 +68,7 @@ const Member = () => {
               <li>탈퇴이력</li>
             </ul>
           </div>
-          {/* <MemberList memlist={postsData(datas)} /> */}
           <MemberList memlist={datas} />
-          {/* <Pagination
-            limit={limit}
-            page={page}
-            totalPosts={datas.length}
-            setPage={setPage}
-          /> */}
         </div>
       </div>
     </div>

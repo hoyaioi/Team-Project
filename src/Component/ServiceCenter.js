@@ -3,15 +3,39 @@ import search from "../Img/search.png";
 import { useState } from "react";
 import Faq from "./Faq";
 import FaqMenu from "./FaqMenu";
+import { useEffect } from "react";
+import axios from "axios";
+import FaqList from "./FaqList";
 
 function ServiceCenter() {
-  let [faqModal, setFaqModal] = useState(false);
+  // let [faqModal, setFaqModal] = useState(false);
   const [list, setList] = useState([
     { title: "회원가입/정보" },
     { title: "결제/배송" },
     { title: "환불/반품" },
     { title: "기타" },
   ]);
+  const [faq, setFaq] = useState([]);
+  const [allFaq, setAllFaq] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/service")
+      .then((response) => {
+        console.log(response);
+        setFaq(response.data);
+        setAllFaq(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  const onList = (title) => {
+    if (title === "all") {
+      setFaq(allFaq);
+    } else {
+      setFaq(allFaq.filter((faq) => faq.faqClass === title));
+    }
+  };
 
   return (
     <>
@@ -39,64 +63,17 @@ function ServiceCenter() {
           <h3>FAQ</h3>
         </div>
         <div className="service_board_list">
-          <FaqMenu list={list} />
+          <FaqMenu list={list} onList={onList} />
           <table>
             <thead>
               <tr>
                 <th>번호</th>
                 <th>분류</th>
-                <th>내용</th>
+                <th>제목</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>00</td>
-                <td
-                  onClick={() => {
-                    setFaqModal(!faqModal);
-                  }}
-                >
-                  기타
-                </td>
-                <td>내용내용내용내용</td>
-              </tr>
-
-              {faqModal === true ? <Faq /> : null}
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
-              <tr>
-                <td>00</td>
-                <td>기타</td>
-                <td>내용내용내용내용</td>
-              </tr>
+              <FaqList faq={faq} />
             </tbody>
           </table>
         </div>
