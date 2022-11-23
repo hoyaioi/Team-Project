@@ -76,9 +76,9 @@ function App() {
 
             <Route path="myresearch" element={<MyPageResearch />} />
             <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
+            {/* <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} /> */}
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
+            {/* <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} /> */}
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />

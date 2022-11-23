@@ -63,9 +63,9 @@ const Header = () => {
                       </li></>
                   )}
 
-                  <li>
+                  {/* <li>
                     <Link to="/write">작성하기</Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to="/mypage/myorderlist">마이페이지</Link>
                   </li>
