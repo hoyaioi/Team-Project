@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoDel1.css';
+import MyInfoDel2 from './MyInfoDel2';
 
 function MyInfoDel1({ memIdx }) {
+
+    const [isNow, setIsNow] = useState(false);
 
     const [memPw, setMemPw] = useState('');
 
@@ -12,15 +15,13 @@ function MyInfoDel1({ memIdx }) {
 
     const inputPw = useRef();
     const navigate = useNavigate();
-    useEffect(() => {
-        inputPw.current.focus();
-    })
+
 
     const handlerOnClick = () => {
         axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
             .then(response => {
-                if(response.status === 200){
-                    navigate('/mypage/unregister');
+                if (response.status === 200) {
+                    setIsNow(true);
                 }
             })
             .catch(error => {
@@ -36,9 +37,12 @@ function MyInfoDel1({ memIdx }) {
         <>
             <div id='main'>
                 <div className='myinfodel1_wrap'>
-                <div className='myinfodel1_title_wrap'>
+                    {
+                        isNow === false ? <>
+                    <div className='myinfodel1_title_wrap'>
                     <h2>회원탈퇴</h2>
                     </div>
+                    
                     <div className='myinfodel1_pwcheck_wrap'>
                         <div className='myinfodel1_pwcheck_text'>
                            회원탈퇴를 위해 현재 비밀번호를 입력해주세요.
@@ -50,7 +54,12 @@ function MyInfoDel1({ memIdx }) {
                             <input type='button' onClick={handlerOnClick} value='입력완료' />
                         </div>
                     </div>
+                    </>
+                            :
+                            <MyInfoDel2 memIdx={memIdx} />
+                    }
                 </div>
+
             </div>
         </>
     );

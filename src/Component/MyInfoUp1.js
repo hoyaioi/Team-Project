@@ -4,27 +4,29 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
+import MyInfoUp2 from './MyInfoUp2';
 
 function MyInfoUp1({ memIdx }) {
 
-    const [data, setData] = useState({});
+    const [isNow, setIsNow] = useState(false);
+
     const [memPw, setMemPw] = useState('');
 
     const inputPw = useRef();
 
     const handlerChangePw = (e) => setMemPw(e.target.value);
 
-    useEffect(() => {
-        inputPw.current.focus();
-    })
+    // useEffect(() => {
+    //     inputPw.current.focus();
+    // })
 
     const navigate = useNavigate();
+    
     const handlerOnClick = () => {
-
         axios.post(`http://localhost:8080/member/comparepw/${memIdx}`, `memPw=${memPw}`)
             .then(response => {
                 if(response.status === 200){
-                    navigate('/mypage/modify');
+                    setIsNow(true);
                 }
             })
             .catch(error => {
@@ -32,14 +34,15 @@ function MyInfoUp1({ memIdx }) {
                 alert('비밀번호가 일치하지 않습니다.');
                 inputPw.current.focus();
                 setMemPw('');
-            })
-                
+            })  
     }
 
     return (
         <>
             <div id='main'>
                 <div className='myinfoup1_wrap'>
+                {
+                        isNow === false ? <>
                     <div className='myinfoup1_title_wrap'>
                         <h2>회원정보수정</h2>
                     </div>
@@ -54,6 +57,10 @@ function MyInfoUp1({ memIdx }) {
                             <input type='button' id='MyInfoUp2' onClick={handlerOnClick} value='입력완료' />
                         </div>
                     </div>
+                    </>
+                    :
+                    <MyInfoUp2 memIdx={memIdx} />
+                    }
                 </div>
             </div>
 
