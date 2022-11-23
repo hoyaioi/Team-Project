@@ -4,7 +4,9 @@ import "../CSS/QnaWrite.css";
 
 function QnaWrite({itemNum}) {
 
-    
+    //부모창에서 itemNum을 받아옴
+
+
     const memEmail = sessionStorage.getItem('memEmail');
 
     if (memEmail === null) {

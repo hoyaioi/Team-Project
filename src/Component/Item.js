@@ -116,8 +116,10 @@ function Item() {
   }, []);
 
 
-
-
+  const openWindow = (itemNum) => {
+    console.log(itemNum);
+    window.open(`/qnaWrite`, '_blank','height=600 width=700');
+  }
   return (
     <div className='item-content'>
       <div className='item_detail'>
@@ -327,7 +329,8 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        <button  onClick={() => window.open('http://localhost:3000/qnaWrite','_blank','height=600 width=700')}>문의글 작성</button>
+
+        <button  onClick={openWindow }>문의글 작성</button>
         <table className="review-table">
           <thead >
             <tr>
