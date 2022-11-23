@@ -1,64 +1,69 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../CSS/MyReview.css";
-import ReviewWrite from "./ReviewWrite.js";
-import axios from "axios";
-import ReviewUpdate from "./ReviewUpdate";
-import { useEffect } from "react";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../CSS/MyReview.css';
+import ReviewWrite from './ReviewWrite.js';
+import axios from 'axios';
+import ReviewUpdate from './ReviewUpdate';
+import { useEffect } from 'react';
+
 
 function MyReview() {
-  const memIdx = sessionStorage.getItem("idx");
-  const [datas, setDatas] = useState([]);
-  const [datas2, setDatas2] = useState([]);
-  const [btnActive, setBtnActive] = useState([true, false]);
+    const memIdx = sessionStorage.getItem("idx");
+    const [datas, setDatas] = useState([]);
+    const [datas2, setDatas2] = useState([]);
+    const [btnActive, setBtnActive] = useState([true, false]);
 
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
 
-  const [itemName, setItemName] = useState("");
-  const [reviewIdx, setReviewIdx] = useState(0);
-  const [orderNum, setOrderNum] = useState(0);
-  const [orderlistIdx, setOrderlistIdx] = useState();
-  const [itemThumb, setItemThumb] = useState("");
-  const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
 
-  const handlerOpen = (itemName, orderNum, orderlistIdx, itemThumb) => {
-    setItemName(itemName);
-    setOrderNum(orderNum);
-    setOrderlistIdx(orderlistIdx);
-    setItemThumb(itemThumb);
-    setOpen(true);
-  };
+    const [itemName, setItemName] = useState('');
+    const [reviewIdx, setReviewIdx] = useState(0);
+    const [orderNum, setOrderNum] = useState(0);
+    const [orderlistIdx, setOrderlistIdx] = useState();
+    const [itemThumb, setItemThumb] = useState('');
+    const navigate = useNavigate();
 
-  const handlerOpen2 = (reviewIdx, itemThumb) => {
-    setReviewIdx(reviewIdx);
-    setOpen2(true);
-    setItemThumb(itemThumb);
-  };
+    const handlerOpen = (itemName, orderNum, orderlistIdx, itemThumb) => {
+        setItemName(itemName);
+        setOrderNum(orderNum);
+        setOrderlistIdx(orderlistIdx);
+        setItemThumb(itemThumb);
+        setOpen(true);
 
-  const handlerClose = () => {
-    if (window.confirm("작성을 취소하시겠습니까?")) {
-      navigate("/mypage/myreview");
-      setOpen(false);
+
     }
-  };
 
-  const handlerClose2 = () => {
-    if (window.confirm("작성을 취소하시겠습니까?")) {
-      navigate("/mypage/myreview");
-      setOpen2(false);
+
+    const handlerOpen2 = (reviewIdx, itemThumb) => {
+        setReviewIdx(reviewIdx);
+        setOpen2(true);
+        setItemThumb(itemThumb);
     }
-  };
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
-      .then((response) => {
-        setDatas(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+
+    const handlerClose = () => {
+        if (window.confirm('작성을 취소하시겠습니까?')) {
+            navigate('/mypage/myreview');
+            setOpen(false);
+        }
+    }
+
+    const handlerClose2 = () => {
+        if (window.confirm('작성을 취소하시겠습니까?')) {
+            navigate('/mypage/myreview');
+            setOpen2(false);
+
+        }
+    }
+    useEffect(() => {
+        axios.get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
+            .then(response => {
+                setDatas(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }, []);
 
     const handlerDidReview = () => {
         setBtnActive([false, true]);
@@ -71,7 +76,7 @@ function MyReview() {
                 console.log(error);
             })
     }
-    
+
 
     return (
         <>
@@ -121,11 +126,11 @@ function MyReview() {
                                                                 <div>
                                                                     주문일자 :&nbsp;
                                                                     {able.orderDate}
-                                                                    
+
                                                                 </div>
                                                                 <input type="hidden" value={able.orderNum} />
                                                                 <div className='myreview_btn_box'>
-                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum,able.orderlistIdx, able.itemThumb)} >작성</button>
+                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum, able.orderlistIdx, able.itemThumb)} >작성</button>
                                                                     {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
                                                                 </div>
                                                             </li>
@@ -154,10 +159,10 @@ function MyReview() {
                                                                 </div>
                                                                 <input type="hidden" value={did.reviewIdx} />
                                                                 <div className='myreview_btn_box'>
-                                                                {
+                                                                    {
                                                                         did.reviewDeleteYn !== 'N' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
                                                                             <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx, did.itemThumb)}>수정</button>
-                                                                }
+                                                                    }
                                                                 </div>
                                                             </li>
                                                         ))}
@@ -172,13 +177,9 @@ function MyReview() {
                         </>
                     }
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </>
-  );
+            </div>
+        </>
+    );
 }
 
 export default MyReview;
