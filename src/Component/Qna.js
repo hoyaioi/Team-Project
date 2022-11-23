@@ -1,25 +1,24 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 import '../CSS/Qna.css';
 
 function Qna({ value }) {
 
 
     const qnaIdx = value;
-    const [datas, setData] = useState({});
-    
+    const [data, setData] = useState({});
     useEffect(() => {
 
         axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
             .then(response => {
                 setData(response.data);
-                console.log(datas)
             })
             .catch(error => { console.log(error); });
     }, []);
 
-    const isAnswer = datas.qnaCommentContent === null ? false : true;
 
+    console.log(data)
   
     
     return (
@@ -30,16 +29,16 @@ function Qna({ value }) {
                         <div className='qna-modal-cont'>
                             <strong>Q</strong>
                             <div className='qna-content'>
-                                <span>질문 내용</span>
+                                <span>{data.qnaContents}</span>
                             </div>
                         </div>
                         <div className='qna-comment'>
                             <strong>A</strong>
                             <div className='admin-comment'>
-                                <span>{isAnswer ? ( datas.qnaCommentContent) : '답변 준비중'  } </span>
+                                <span>{data.qnaCommentContent===null ? '답변 준비중'  : data.qnaCommentContent } </span>
                             </div>
                             <div className='comment-date'>
-                                <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
+                                <span>{data.qnaCommentWriteDate === null ? null : data.qnaCommentWriteDate  }</span>
                             </div>
                         </div>
                     </td>

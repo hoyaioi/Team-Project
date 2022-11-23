@@ -22,8 +22,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindId from "./Component/FindId";
-import FindPw from "./Component/FindPw";
+import FindID from "./Component/FindID";
+import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -94,8 +94,8 @@ function App() {
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
           <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
-          <Route path="/findid" element={<PublicRoute><FindId /></PublicRoute>} />
-          <Route path="/findpw" element={<PublicRoute><FindPw /></PublicRoute>}/>
+          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
+          <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>}/>
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
@@ -104,6 +104,7 @@ function App() {
             <Route path="review" element={<AdminReview />} />
             <Route path="refund" element={<AdminRefund />} />
             <Route path="order" element={<AdminOrder />} />
+            <Route path="qna" element={<AdminQna />} />
           </Route>
           <Route path="/qnaWrite" element={<QnaWrite />} />
         </Routes>

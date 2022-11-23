@@ -12,7 +12,7 @@ function Main() {
           <div className="main_items_wrap">
             <div className="main_items_title">판매량 BEST🏆</div>
             <Items />
-            <div className="main_items_title">추천 상품😘</div>
+            <div className="main_items_title">신상품😘</div>
             <Items2 />
           </div>
         </div>

@@ -8,6 +8,12 @@ function AdminQnaModal(props) {
     const [content, setContent] = useState();
     const [datas, setData] = useState({});
 
+
+    const qnaDto = {
+        qnaCommentContent : content,
+        qnaIdx : qnaIdx
+    }
+
     useEffect(() => {
         axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
             .then(response => {
@@ -18,12 +24,11 @@ function AdminQnaModal(props) {
 
     const qnaAnswer = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8080/admin/qnawrite/${qnaIdx}`, {
-            "qnaCommentContent" : content,
-            "qnaIdx" : qnaIdx
-        }).then(response => {
+        axios.post("http://localhost:8080/admin/qnaWrite", qnaDto)
+        .then(response => {
             console.log(response);
             alert('답변완료');
+            window.location.reload();
             props.closeModal();
         })
             .catch(error => { console.log(error); });
@@ -80,7 +85,7 @@ function AdminQnaModal(props) {
                             <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
                             </div>
                             <div className='admincomment-edit'>
-                                <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button>
+                               { datas.qnaCommentContent === null ? <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button> : null}
                                 <button className='admincomment-delete-btn' onClick={handlerClickDelete}>삭제</button>
                             </div>
                         </div>

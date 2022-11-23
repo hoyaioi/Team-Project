@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../CSS/QnaWrite.css";
 
@@ -18,6 +18,19 @@ function QnaWrite({itemName,itemNum}) {
         alert("로그인 후 이용해주세요.");
         window.location.href = "/login";
     }
+
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+          const scrollY = document.body.style.top;
+          document.body.style.cssText = '';
+          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+      }, []);
  
 
 
@@ -34,18 +47,18 @@ function QnaWrite({itemName,itemNum}) {
         }
         const qnaDto = {
             qnaTitle: qnaTitle,
-            qnaContent: qnaContent,
+            qnaContents: qnaContent,
             memEmail: memEmail,
             itemNum : itemNum
         }
         console.log(qnaDto)
 
-        axios.post("http://localhost:8080/qnaWrite",qnaDto)
+        axios.post("http://localhost:8080/qnaWrite", qnaDto)
             .then(response => {
                 if (response.status === 200) {
-                    // alert("문의글이 정상적으로 등록되었습니다.");
-                    // navigate("/item", {itemNum : {itemNum}})
-                    // window.location.reload();
+                    alert("문의글이 정상적으로 등록되었습니다.");
+                    navigate(`/item/${itemNum}`)
+                    window.location.reload();
                 } else {
                     alert("문의글 등록에 실패했습니다.");
                     return;

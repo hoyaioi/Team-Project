@@ -227,8 +227,8 @@ function MyOrderList() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {datas.slice(offset, offset + 10).map(order => (
-                                        <tr key={order.orderNum}>
+                                    {datas.slice(offset, offset + 10).map((order, orderIdx) => (
+                                        <tr key={orderIdx}>
                                             <td className='myorderlist_item_info_td'>
                                                 <div className='myorderlist_item_info_wrap'>
                                                     <img src={process.env.REACT_APP_API_URL + order.itemThumb} className='myorderlist_item_img' />
@@ -244,7 +244,7 @@ function MyOrderList() {
                                                 {order.orderNum}
                                             </td>
                                             <td className='myorderlist_item_price_td'>
-                                                {order.itemPrice}
+                                                {order.itemPrice * order.itemAmount}
                                             </td>
                                             <td className='myorderlist_item_count_td'>
                                                 {order.itemAmount} 

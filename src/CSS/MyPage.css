@@ -10,7 +10,7 @@
   position: relative;
   width: 1200px;
   margin-top: 20px;
-  display: flex;
+  display: flex; /**/
 }
 
 .main_top_space {
@@ -23,9 +23,11 @@
 .mypage_side {
   width: 220px;
   margin-right: 40px;
-  height: 80%;
+  height: 80%; /* height : 600px*/
   border: 2px solid #e5e5e5;
   border-radius: 15px;
+  /*z-index : 9999;
+  background-color: white;*/
 }
 
 .mypage_side_in {
