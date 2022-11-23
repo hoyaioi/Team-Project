@@ -22,8 +22,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
+import FindId from "./Component/FindId";
+import FindPw from "./Component/FindPw";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -75,10 +75,10 @@ function App() {
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
+            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
+            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -93,8 +93,8 @@ function App() {
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
           <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
-          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
-          <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>}/>
+          <Route path="/findid" element={<PublicRoute><FindId /></PublicRoute>} />
+          <Route path="/findpw" element={<PublicRoute><FindPw /></PublicRoute>}/>
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}

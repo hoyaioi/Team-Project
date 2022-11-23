@@ -5,8 +5,10 @@ import "../CSS/MyRefund.css";
 import s3 from "../Img/s3.jpg";
 import Paging from "./Paging";
 
-function MyRefund({ memIdx }) {
+function MyRefund() {
   const [datas, setDatas] = useState([]);
+
+  const memIdx = sessionStorage.getItem("idx");
 
   useEffect(() => {
     axios

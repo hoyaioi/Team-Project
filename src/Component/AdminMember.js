@@ -18,7 +18,7 @@ const AdminMember = () => {
   //회원 탈퇴
   //회원 정보 수정
   useEffect(() => {
-    axios.get("http://localhost:8080/api/member/list").then((res) => {
+    axios.get("http://localhost:8080/member/list").then((res) => {
       setMemList(res.data);
     });
   }, []);
@@ -68,10 +68,10 @@ const AdminMember = () => {
                 )}</td>
                 <td>{mem.memRole === 1 ? "관리자" : "일반회원"}</td>
                 <td>
-                  <a href={`/api/member/update/${mem.memIdx}`}>수정</a>
+                  <a href={`/member/update/${mem.memIdx}`}>수정</a>
                 </td>
                 <td>
-                  <a href={`/api/member/delete/${mem.memIdx}`}>삭제</a>
+                  <a href={`/member/delete/${mem.memIdx}`}>삭제</a>
                 </td>
               </tr>
             ))}

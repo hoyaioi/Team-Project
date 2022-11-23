@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../CSS/Find.css";
 
-function FindID() {
+function FindId() {
 
   const [name,setName] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
@@ -26,7 +26,7 @@ function FindID() {
     console.log(e)
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/"+name+"/"+phoneNum)
-    axios.get(`http://localhost:8080/api/member/${name}/${phoneNum}`)
+    axios.get(`http://localhost:8080/member/${name}/${phoneNum}`)
     .then(response => {
       console.log(response);
       if (response.status === 200) {
@@ -76,4 +76,4 @@ function FindID() {
   );
 }
 
-export default FindID;
+export default FindId;

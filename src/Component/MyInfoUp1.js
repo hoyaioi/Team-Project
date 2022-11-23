@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/MyInfoUp1.css';
 
-function MyInfoUp1({ memIdx }) {
+function MyInfoUp1() {
 
     const [data, setData] = useState({});
     const [memPw, setMemPw] = useState('');
@@ -17,16 +17,6 @@ function MyInfoUp1({ memIdx }) {
     useEffect(() => {
         inputPw.current.focus();
     })
-
-    // useEffect(() => {
-    //     axios.get(`http://localhost:8080/member/compw/${memIdx}`)
-    //         .then(response => {
-    //             setData(response.data);
-    //             inputPw.current.focus();
-    //             console.log(response);
-    //         })
-    //         .catch(error => console.log(error));
-    // }, []);
 
     const navigate = useNavigate();
 

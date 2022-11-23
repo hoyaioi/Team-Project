@@ -87,7 +87,7 @@ function Register() {
     const memInfo = {
       "memName": name,
       "memPhone": phoneNum,
-      "memPostnum": postCode,
+      "memPostNum": postCode,
       "memAddr1": addr1,
       "memAddr2": addr2,
       "memEmail": email,
@@ -95,7 +95,7 @@ function Register() {
     };
     
     axios
-      .post("http://localhost:8080/api/member/join", memInfo)
+      .post("http://localhost:8080/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');
@@ -114,7 +114,7 @@ function Register() {
     console.log(e);
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/" + email)
-    axios.get(`http://localhost:8080/api/member/${email}`)
+    axios.get(`http://localhost:8080/member/${email}`)
       .then(response => {
         console.log(response);
         if (response.status === 200) {

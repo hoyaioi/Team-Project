@@ -36,7 +36,7 @@ function QnaWrite({itemNum}) {
             itemIdx: itemNum
         }
 
-        axios.post("http://localhost:8080/api/qna/write", qnaData)
+        axios.post("http://localhost:8080/qna/write", qnaData)
             .then(response => {
                 if (response.status === 200) {
                     alert("문의글이 정상적으로 등록되었습니다.");
