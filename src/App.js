@@ -148,12 +148,13 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
-          <Route path="/admin/*" element={<AdminMain />}></Route>
-          <Route path="member" element={<AdminMember />} />
-          <Route path="review" element={<AdminReview />} />
-          <Route path="refund" element={<AdminRefund />} />
-          <Route path="order" element={<AdminOrder />} />
-          <Route path="admin_mem" element={<Member />} />
+          <Route path="/admin/*" element={<AdminMain />}>
+            <Route path="member" element={<AdminMember />} />
+            <Route path="review" element={<AdminReview />} />
+            <Route path="refund" element={<AdminRefund />} />
+            <Route path="order" element={<AdminOrder />} />
+            <Route path="admin_mem" element={<Member />} />
+          </Route>
         </Routes>
       </div>
       <Footer />
