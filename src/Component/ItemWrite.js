@@ -62,8 +62,6 @@ const ItemWrite = () => {
     itemSubImg: "",
   });
 
-
-
   const getValue = (e) => {
     const { name, value } = e.target;
     setItemInfo({
@@ -91,10 +89,7 @@ const ItemWrite = () => {
                         <div className="write_select" onChange={getValue}>
                           <select name="itemOrgans" onChange={selectCategoryHandler} value={categorySelect}>
                             {categoryList.map((category) => (
-                              <option
-                                value={category}
-                                key={category}
-                              >
+                              <option value={category} key={category}>
                                 {category}
                               </option>
                             ))}
@@ -135,7 +130,7 @@ const ItemWrite = () => {
                       <td>
                         <input
                           type="date"
-                          className="item_write_title"
+                          className="item_write_exp"
                           placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemExpDate"

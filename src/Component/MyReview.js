@@ -1,69 +1,64 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../CSS/MyReview.css';
-import ReviewWrite from './ReviewWrite.js';
-import axios from 'axios';
-import ReviewUpdate from './ReviewUpdate';
-import { useEffect } from 'react';
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../CSS/MyReview.css";
+import ReviewWrite from "./ReviewWrite.js";
+import axios from "axios";
+import ReviewUpdate from "./ReviewUpdate";
+import { useEffect } from "react";
 
 function MyReview() {
-    const memIdx = sessionStorage.getItem("idx");
-    const [datas, setDatas] = useState([]);
-    const [datas2, setDatas2] = useState([]);
-    const [btnActive, setBtnActive] = useState([true, false]);
+  const memIdx = sessionStorage.getItem("idx");
+  const [datas, setDatas] = useState([]);
+  const [datas2, setDatas2] = useState([]);
+  const [btnActive, setBtnActive] = useState([true, false]);
 
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
-    const [open, setOpen] = useState(false);
-    const [open2, setOpen2] = useState(false);
+  const [itemName, setItemName] = useState("");
+  const [reviewIdx, setReviewIdx] = useState(0);
+  const [orderNum, setOrderNum] = useState(0);
+  const [orderlistIdx, setOrderlistIdx] = useState();
+  const [itemThumb, setItemThumb] = useState("");
+  const navigate = useNavigate();
 
-    const [itemName, setItemName] = useState('');
-    const [reviewIdx, setReviewIdx] = useState(0);
-    const [orderNum, setOrderNum] = useState(0);
-    const [orderlistIdx, setOrderlistIdx] = useState();
-    const [itemThumb, setItemThumb] = useState('');
-    const navigate = useNavigate();
+  const handlerOpen = (itemName, orderNum, orderlistIdx, itemThumb) => {
+    setItemName(itemName);
+    setOrderNum(orderNum);
+    setOrderlistIdx(orderlistIdx);
+    setItemThumb(itemThumb);
+    setOpen(true);
+  };
 
-    const handlerOpen = (itemName, orderNum, orderlistIdx, itemThumb) => {
-        setItemName(itemName);
-        setOrderNum(orderNum);
-        setOrderlistIdx(orderlistIdx);
-        setItemThumb(itemThumb);
-        setOpen(true);
-      
-       
+  const handlerOpen2 = (reviewIdx, itemThumb) => {
+    setReviewIdx(reviewIdx);
+    setOpen2(true);
+    setItemThumb(itemThumb);
+  };
+
+  const handlerClose = () => {
+    if (window.confirm("작성을 취소하시겠습니까?")) {
+      navigate("/mypage/myreview");
+      setOpen(false);
     }
+  };
 
-    
-    const handlerOpen2 = (reviewIdx,itemThumb) => {
-        setReviewIdx(reviewIdx);
-        setOpen2(true);
-        setItemThumb(itemThumb);
+  const handlerClose2 = () => {
+    if (window.confirm("작성을 취소하시겠습니까?")) {
+      navigate("/mypage/myreview");
+      setOpen2(false);
     }
-    
-    const handlerClose = () => {
-        if (window.confirm('작성을 취소하시겠습니까?')) {
-            navigate('/mypage/myreview');
-            setOpen(false);
-        }
-    }
-    
-    const handlerClose2 = () => {
-        if (window.confirm('작성을 취소하시겠습니까?')) {
-            navigate('/mypage/myreview');
-            setOpen2(false);
-            
-        }
-    }
-    useEffect(() => {
-        axios.get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
-        .then(response => {
-            setDatas(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }, []);
+  };
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
+      .then((response) => {
+        setDatas(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
     const handlerDidReview = () => {
         setBtnActive([false, true]);
@@ -177,9 +172,13 @@ function MyReview() {
                         </>
                     }
                 </div>
-            </div>
-        </>
-    );
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default MyReview;

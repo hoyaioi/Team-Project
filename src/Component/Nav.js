@@ -1,11 +1,10 @@
-
 import React from "react";
 
 import { Link } from "react-router-dom";
 import "../CSS/Nav.css";
 
 const Nav = () => {
-  
+  if (window.location.pathname === "/admin") return null;
 
   return (
     <div className="header_menu_wrap">
@@ -17,27 +16,27 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            <Link to="/itemlist" state={{ organs: '간'}}>
+            <Link to="/itemlist" state={{ organs: "간" }}>
               <button>간</button>
             </Link>
           </li>
           <li>
-          <Link to="/itemlist" state={{ organs: '눈'}}>
+            <Link to="/itemlist" state={{ organs: "눈" }}>
               <button>눈</button>
             </Link>
           </li>
           <li>
-          <Link to="/itemlist" state={{ organs: '비타민'}}>
+            <Link to="/itemlist" state={{ organs: "비타민" }}>
               <button>비타민</button>
             </Link>
           </li>
           <li>
-          <Link to="/itemlist" state={{ organs: '장'}}>
+            <Link to="/itemlist" state={{ organs: "장" }}>
               <button>장</button>
             </Link>
           </li>
           <li>
-          <Link to="/itemlist" state={{ organs: '혈행개선'}}>
+            <Link to="/itemlist" state={{ organs: "혈행개선" }}>
               <button>혈행개선</button>
             </Link>
           </li>
