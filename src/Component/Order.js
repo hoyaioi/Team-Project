@@ -96,7 +96,7 @@ function Order() {
                 "memAddr1": addr1,
                 "memAddr2": addr2,
             };
-            axios.all([axios.post("http://localhost:8080/changeaddr", memInfo), axios.post("http://localhost:8080/insertorder", item)]
+            axios.all([axios.post("http://localhost:8080/changeAddr", memInfo), axios.post("http://localhost:8080/insertOrder", item)]
                 .then(response => {
                     console.log(response);
                 })
@@ -104,7 +104,7 @@ function Order() {
             )
             navigate("/mypage");
         } else {
-            axios.post("http://localhost:8080/insertorder", orderInfo)
+            axios.post("http://localhost:8080/insertOrder", orderInfo)
                 .then(response => {
                     console.log(response);
                 })

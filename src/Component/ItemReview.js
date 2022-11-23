@@ -23,9 +23,9 @@ function Review(props) {
     //     <tbody>
     // <>
 
-    <tr colSpan="4" className="review-modal">
+    <tr className="review-modal">
       <td>
-        <div className="review-modal-cont">{datas.reviewTitle}</div>
+        <div className="review-modal-cont">{datas.itemName}</div>
         <div className="review-comment">
           <span className="comment-name">코멘트</span>
           <div>

@@ -7,7 +7,6 @@ import Paging from "./Paging";
 
 function MyRefund() {
   const [datas, setDatas] = useState([]);
-  const memIdx = sessionStorage.getItem("idx");
 
   const memIdx = sessionStorage.getItem("idx");
 

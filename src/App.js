@@ -50,6 +50,7 @@ import MemberDetail from "./Component/MemberDetail";
 import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
+import QnaWrite from "./Component/QnaWrite";
 
 
 function App() {
@@ -104,7 +105,7 @@ function App() {
             <Route path="refund" element={<AdminRefund />} />
             <Route path="order" element={<AdminOrder />} />
           </Route>
-
+          <Route path="/qnaWrite" element={<QnaWrite />} />
         </Routes>
       </div>
       <Footer />

@@ -91,6 +91,7 @@ function MyOrderList() {
             .then(response => {
                 setDatas(response.data);
                 countCheck(response.data);
+                console.log(datas);
             })
             .catch(error => console.log(error));
     }, []);

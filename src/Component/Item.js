@@ -7,6 +7,7 @@ import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
+import  Modal  from './Modal.js';
 
 
 // Import Swiper styles
@@ -14,6 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
 import QnaWrite from './QnaWrite';
+import { data } from 'jquery';
 
 SwiperCore.use([Navigation]);
 
@@ -31,6 +33,10 @@ function Item() {
   const isLogin = sessionStorage.getItem("idx") ? true : false;
   const email = sessionStorage.getItem("email");
   const [items, setItems] = useState([]);
+  const [datas2, setDatas2] = useState([]);
+  const [qnaWrite, setQnaWrite] = useState(false);
+
+
   console.log(itemNum);
 
   function plusClick() {
@@ -96,15 +102,14 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/review")
-      .then((response) => {
-        setReviewDatas(response.data);
+    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
+      .then(review => {
+        setDatas2(review.data);
+        console.log(datas2);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => { console.log(error); });
   }, []);
+
 
   useEffect(() => {
     axios.get(`http://localhost:8080/qna/${itemNum}`)
@@ -270,28 +275,26 @@ function Item() {
             <tr>
               <th>별점</th>
               <th>제목</th>
-              <th>작성자</th>
               <th>작성일자</th>
             </tr>
           </thead>
-          {reviewDatas &&
-            reviewDatas.map((review) => (
+          {datas2 &&
+            datas2.map((review) => (
               <tbody>
                 <tr
                   onClick={() => {
                     setReviewIdx(review.reviewIdx);
                   }}
                 >
-                  <td width="15%">{review.itemRate}</td>
+                  <td width="10%"></td>
                   <td
-                    width="45%"
+                    width="50%"
                     onClick={() => {
                       setReviewModal(!reviwModal);
                     }}
                   >
-                    {review.reviewTitle}
+                    {review.itemName}
                   </td>
-                  <td width="20%">{review.memId}</td>
                   <td width="20%">{review.reviewWriteDate}</td>
                 </tr>
                 {reviwModal === true && reviewIdx === review.reviewIdx ? (
@@ -322,7 +325,11 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        <button  onClick={() => window.open('http://localhost:3000/qnaWrite','_blank','height=600 width=700')}>문의글 작성</button>
+        <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button>
+        {qnaWrite && (
+        <Modal closeModal={() => setQnaWrite(!qnaWrite)} itemName={datas.itemName} itemNum={datas.itemNum}>
+        </Modal>
+      )}
         <table className="review-table">
           <thead >
             <tr>

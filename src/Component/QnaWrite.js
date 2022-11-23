@@ -1,24 +1,28 @@
 
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../CSS/QnaWrite.css";
 
-function QnaWrite({itemNum}) {
+function QnaWrite({itemName,itemNum}) {
 
-    
-    const memEmail = sessionStorage.getItem('memEmail');
 
+    const [qnaTitle,setQnaTitle] = useState('');
+    const [qnaContent,setQnaContent] = useState('');
+    const navigate = useNavigate();
+    const memEmail = sessionStorage.getItem('email');
+
+    const handlerTitle = (e) => { setQnaTitle(e.target.value)}
+    const handlerContent = (e) => { setQnaContent(e.target.value)}
     if (memEmail === null) {
         alert("로그인 후 이용해주세요.");
         window.location.href = "/login";
     }
-    const handleCheck = (e) => {
-        console.log(itemNum);
-    }
+ 
+
+
 
     const handlerClickSubmit = () => {
-        const qnaTitle = document.querySelector("#qna_title").value;
-        const qnaContent = document.querySelector("#qna_content").value;
-
         if (qnaTitle === "") {
             alert("제목을 입력해주세요.");
             return;
@@ -28,19 +32,20 @@ function QnaWrite({itemNum}) {
             alert("내용을 입력해주세요.");
             return;
         }
-
-        const qnaData = {
+        const qnaDto = {
             qnaTitle: qnaTitle,
             qnaContent: qnaContent,
             memEmail: memEmail,
-            itemIdx: itemNum
+            itemNum : itemNum
         }
+        console.log(qnaDto)
 
-        axios.post("http://localhost:8080/qna/write", qnaData)
+        axios.post("http://localhost:8080/qnaWrite",qnaDto)
             .then(response => {
                 if (response.status === 200) {
-                    alert("문의글이 정상적으로 등록되었습니다.");
-                    window.location.href = "/qna";
+                    // alert("문의글이 정상적으로 등록되었습니다.");
+                    // navigate("/item", {itemNum : {itemNum}})
+                    // window.location.reload();
                 } else {
                     alert("문의글 등록에 실패했습니다.");
                     return;
@@ -67,17 +72,18 @@ function QnaWrite({itemNum}) {
                                             <img></img>
                                         </th>
                                         <td>
-                                            상품명
+                                            {itemName}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>작성자</th>
-                                        <td>회원이메일</td>
+                                        <td>{memEmail}</td>
                                     </tr>
                                     <tr>
                                         <th>제목</th>
                                         <td>
                                             <input
+                                                onChange={handlerTitle}
                                                 type="text"
                                                 className="qna_title"
                                                 placeholder="문의하실 제목을 입력해주세요(임시)"
@@ -89,7 +95,7 @@ function QnaWrite({itemNum}) {
                                         <th>내용</th>
                                         <td>
 
-                                            <textarea className="qna_content" cols="80" rows="10">
+                                            <textarea onChange={handlerContent} className="qna_content" cols="80" rows="10">
 
                                             </textarea>
                                         </td>
@@ -99,8 +105,7 @@ function QnaWrite({itemNum}) {
                         </div>
                     </form>
                     <div className="qnaWrite_btn_box">
-                        <button className="qnaWrite_btn_del" onClick={handleCheck}>취소</button>
-                        <button className="qnaWrite_btn">저장</button>
+                        <button onClick={handlerClickSubmit}className="qnaWrite_btn">저장</button>
                     </div>
                 </div>
             </div>

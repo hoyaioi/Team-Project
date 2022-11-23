@@ -70,6 +70,7 @@ function MyReview() {
         axios.get(`http://localhost:8080/mypage/myreview/did/${memIdx}`)
             .then(response => {
                 setDatas2(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.log(error);
@@ -152,14 +153,14 @@ function MyReview() {
                                                                 </div>
                                                                 <div className='myreview_did_contents'>
                                                                     {
-                                                                        did.reviewDeleteYn === 'Y' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
+                                                                        did.reviewDeleteYn !== 'N' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
                                                                             did.reviewContents
                                                                     }
                                                                 </div>
                                                                 <input type="hidden" value={did.reviewIdx} />
                                                                 <div className='myreview_btn_box'>
                                                                 {
-                                                                        did.reviewDeleteYn === 'Y' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
+                                                                        did.reviewDeleteYn !== 'N' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
                                                                             <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx, did.itemThumb)}>수정</button>
                                                                 }
                                                                 </div>
