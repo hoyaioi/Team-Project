@@ -5,6 +5,11 @@ import "../CSS/Nav.css";
 
 const Nav = () => {
   if (window.location.pathname === "/admin") return null;
+  if (window.location.pathname === "/admin/member") return null;
+  if (window.location.pathname === "/admin/review") return null;
+  if (window.location.pathname === "/admin/order") return null;
+  if (window.location.pathname === "/admin/qna") return null;
+  if (window.location.pathname === "/admin/refund") return null;
 
   return (
     <div className="header_menu_wrap">
