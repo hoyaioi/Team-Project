@@ -30,35 +30,35 @@ function MyReview() {
         setOrderlistIdx(orderlistIdx);
         setItemThumb(itemThumb);
         setOpen(true);
-      
-       
+
+
     }
 
-    
-    const handlerOpen2 = (reviewIdx,itemThumb) => {
+
+    const handlerOpen2 = (reviewIdx, itemThumb) => {
         setReviewIdx(reviewIdx);
         setOpen2(true);
         setItemThumb(itemThumb);
     }
-    
+
     const handlerClose = () => {
         if (window.confirm('작성을 취소하시겠습니까?')) {
             navigate('/mypage/myreview');
             setOpen(false);
         }
     }
-    
+
     const handlerClose2 = () => {
         if (window.confirm('작성을 취소하시겠습니까?')) {
             navigate('/mypage/myreview');
             setOpen2(false);
-            
+
         }
     }
     useEffect(() => {
         axios.get(`http://localhost:8080/mypage/myreview/able/${memIdx}`)
-        .then(response => {
-            setDatas(response.data);
+            .then(response => {
+                setDatas(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -70,12 +70,13 @@ function MyReview() {
         axios.get(`http://localhost:8080/mypage/myreview/did/${memIdx}`)
             .then(response => {
                 setDatas2(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.log(error);
             })
     }
-    
+
 
     return (
         <>
@@ -125,11 +126,11 @@ function MyReview() {
                                                                 <div>
                                                                     주문일자 :&nbsp;
                                                                     {able.orderDate}
-                                                                    
+
                                                                 </div>
                                                                 <input type="hidden" value={able.orderNum} />
                                                                 <div className='myreview_btn_box'>
-                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum,able.orderlistIdx, able.itemThumb)} >작성</button>
+                                                                    <button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemName, able.orderNum, able.orderlistIdx, able.itemThumb)} >작성</button>
                                                                     {/* <Link to='reviewwrite'><button type='button' className='myreview_write_btn' onClick={() => handlerOpen(able.itemNum, able.orderNum)} >작성</button></Link> */}
                                                                 </div>
                                                             </li>
@@ -152,16 +153,16 @@ function MyReview() {
                                                                 </div>
                                                                 <div className='myreview_did_contents'>
                                                                     {
-                                                                        did.reviewDeleteYn === 'Y' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
+                                                                        did.reviewDeleteYn !== 'N' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
                                                                             did.reviewContents
                                                                     }
                                                                 </div>
                                                                 <input type="hidden" value={did.reviewIdx} />
                                                                 <div className='myreview_btn_box'>
-                                                                {
-                                                                        did.reviewDeleteYn === 'Y' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
+                                                                    {
+                                                                        did.reviewDeleteYn !== 'N' ? <button type='button' className='myreview_blind_btn' disabled>수정</button> :
                                                                             <button type='button' className='myreview_update_btn' onClick={() => handlerOpen2(did.reviewIdx, did.itemThumb)}>수정</button>
-                                                                }
+                                                                    }
                                                                 </div>
                                                             </li>
                                                         ))}

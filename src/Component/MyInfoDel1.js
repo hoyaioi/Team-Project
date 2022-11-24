@@ -11,7 +11,7 @@ function MyInfoDel1({ memIdx }) {
 
     const [memPw, setMemPw] = useState('');
 
-    const handlerChangePw = (e) => setMemPw(e.target.value);
+  const handlerChangePw = (e) => setMemPw(e.target.value);
 
     const inputPw = useRef();
     const navigate = useNavigate();

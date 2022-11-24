@@ -15,21 +15,25 @@ function MyRefund() {
       .get(`http://localhost:8080/mypage/myrefund/${memIdx}`)
       .then((response) => {
         setDatas(response.data);
+        console.log(datas);
       })
       .catch((error) => console.log(error));
   }, []);
 
+
+console.log(datas)
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
   const count = datas.length;
   const [pagecount, setPageCount] = useState(10);
 
-    const handlerRefundCancel = (orderNum, refundIdx) => {
-        if(window.confirm('해당 주문 건의 반품을 철회하시겠습니까?')){
-        axios.put(`http://localhost:8080/mypage/myrefund/refundcancel/${orderNum}`)
-        .then(response => {
-            if(response.status === 200){
-                axios.put(`http://localhost:8080/mypage/myrefund/removerefund/${refundIdx}`)
+    const handlerRefundCancel = (orderlistIdx, refundIdx) => {
+        if(window.confirm('해당 주문 건의 반품을 철회하시겠습니까?')){ 
+            const refundDto = {
+                orderlistIdx : orderlistIdx ,
+                refundIdx : refundIdx
+            }   
+                axios.post("http://localhost:8080/mypage/myrefund/refundcancle", refundDto)
                 .then(response => {
                     if(response.status === 200){
                         alert('반품신청을 철회하였습니다.');
@@ -38,10 +42,8 @@ function MyRefund() {
                 })
                 .catch(error => console.log(error));
             }
-        })
-        .catch(error => alert('오류발생!!!'));
     }
-    }
+    
 
     return (
         <>
@@ -57,7 +59,6 @@ function MyRefund() {
                                 <tr>
                                 <td>제품정보</td>
                                 <td>반품신청일</td>
-                                    <td>주문번호</td>
                                     <td>반품사유</td>
                                     <td>환불금액</td>
                                     <td>반품상태</td>
@@ -68,7 +69,7 @@ function MyRefund() {
                                     <tr key={idx}>
                                     <td className='myrefund_item_info_td'>
                                         <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
+                                            <img src={process.env.REACT_APP_API_URL + refund.itemThumb} className='myrefund_item_img' />
                                             <div className='myrefund_item_name'>
                                                 {refund.itemName}
                                             </div>
@@ -76,9 +77,6 @@ function MyRefund() {
                                     </td>
                                     <td>
                                         {refund.refundDate}
-                                    </td>
-                                    <td>
-                                        {refund.orderNum}
                                     </td>
                                     <td className='myrefund_refund_reason_td'>
                                         {refund.refundReason}
@@ -90,7 +88,7 @@ function MyRefund() {
                                         <input type='hidden' value={refund.refundIdx} />
                                         {refund.refundStatus}
                                         {refund.refundStatus === '반품진행중' ? 
-                                        <div><button onClick={() => handlerRefundCancel(refund.orderNum, refund.refundIdx)}>반품철회</button></div> : ''}
+                                        <div><button onClick={() => handlerRefundCancel(refund.orderlistIdx, refund.refundIdx)}>반품철회</button></div> : ''}
                                     </td>
                                 </tr>
                             ))}
