@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import Result from "./api/resultApi.json";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Step4 = () => {
   const [showResultList, setShowResultList] = useState([]);
@@ -85,9 +86,9 @@ const Step4 = () => {
 
   const handlerOnClick = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/api/result", {
+    axios.post("http://localhost:8080/result", {
       "resultUser": nameStr,
-      "memEmail": sessionStorage.getItem("memEmail"),
+      "memEmail": sessionStorage.getItem("email"),
       "resultLiver": getValue("간"),
       "resultEyes": getValue("눈"),
       "resultVitamin": getValue("몸"),
@@ -151,7 +152,7 @@ const Step4 = () => {
               ))}
             </Swiper>
           </div>
-          <div className="prev">처음 화면으로</div>
+          <div className="prev"><Link to="/surveyStart">처음 화면으로</Link></div>
           <div className="next" onClick={handlerOnClick}>저장</div>
         </div>
       </div>

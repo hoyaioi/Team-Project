@@ -134,10 +134,13 @@
 }
 
 .prev {
+    text-decoration: none;
+    text-decoration-line: none;
+    color: black;
     position: absolute;
     width: 150px;
     height: 100px;
-    margin-top: 180px;
+    margin-top: 230px;
     margin-left: 110px;
     font-size: 23px;
 }
@@ -147,7 +150,7 @@
     width: 100px;
     height: 80px;
     border-radius: 66px;
-    margin-top: 180px;
+    margin-top: 230px;
     margin-left: 820px;
     border-style: none;
     font-size: 23px;
@@ -263,6 +266,7 @@ form .likert li label {
 }
 
 .result_img {
+  margin-top :30px;
   width: 370px;
   height: 300px;
   float: left;
@@ -274,6 +278,7 @@ form .likert li label {
 }
 
 .result_iteminfo {
+  margin-top:30px;
   float: right;
   width: 230px;
   height: 300px;
@@ -342,17 +347,16 @@ form .likert li label {
     height: 100%;
     object-fit: fill;
     border-radius :5%;
-    margin-top:20px;
+    
 }
 .titleSurvey {
-    position: absolute;
-    margin-bottom: 30px;
+    position: relative;
     height:50px;
     width:100%;
     font-size:45px;
     color: white;
     text-align: center;
-    margin-top: -435px;
+    
 }
 
 .priceSurvey {

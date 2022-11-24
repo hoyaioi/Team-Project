@@ -13,7 +13,7 @@ function MyPageResearch() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/mypage/myresearch')
+        axios.get('http://localhost:8080/mypage/myresearch')
             .then(response => {
                 console.log(response);
                 setDatas(response.data);
@@ -35,7 +35,7 @@ function MyPageResearch() {
 
     const handlerClickDelete = () => {
         checkedIdx.map(idx => {
-            axios.delete(`http://localhost:8080/api/mypage/result/${idx}`)
+            axios.delete(`http://localhost:8080/mypage/result/${idx}`)
                 .then(response => {
                     if (response.status === 200) {
                         alert("정상적으로 삭제되었습니다.");
@@ -50,7 +50,7 @@ function MyPageResearch() {
     }
 
 
-    const email = sessionStorage.getItem('memEmail');
+    const email = sessionStorage.getItem('email');
     const filteredDatas = datas.filter(data => data.memEmail === email);
 
     return (

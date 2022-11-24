@@ -38,7 +38,7 @@ const Step2 = ({ nextSteps, prevSteps }) => {
                     <div className="organcheck">
                         <input className="radio" type='checkbox' name='organ' value='간' onChange={onChecked} /> 간
                         <input className="radio" type='checkbox' name='organ' value='눈' onChange={onChecked} /> 눈
-                        <input className="radio" type='checkbox' name='organ' value='몸' onChange={onChecked} /> 몸(활력)
+                        <input className="radio" type='checkbox' name='organ' value='비타민' onChange={onChecked} /> 비타민
                         <br />
                         <input className="radio" type='checkbox' name='organ' value='혈관' onChange={onChecked} /> 혈관
                         <input className="radio" type='checkbox' name='organ' value='장' onChange={onChecked} /> 장
