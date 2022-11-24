@@ -45,10 +45,11 @@ import MemberDetail from "./Component/MemberDetail";
 import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
+import AdminRouter from "./routeAuthor/AdminRouter";
 
 
 function App() {
-  const memIdx = sessionStorage.getItem("memIdx");
+  const memIdx = sessionStorage.getItem("idx");
   return (
     <>
       <ScrollToTop />
@@ -72,10 +73,10 @@ function App() {
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
             
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />}/>
+            {/* <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} /> */}
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} />
+            {/* <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} /> */}
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -85,17 +86,18 @@ function App() {
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart/>}/>
           <Route path="/itemlist" element={<ItemList />} />
-          <Route path="/join" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/join" element={<PublicRoute><Register/></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
           <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
           <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
-          <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>}/>
+          <Route path="/findpw" element={<PublicRoute><FindPW memIdx={memIdx} /></PublicRoute>}/>
+          {/* <Route path="/updatepw" element={<UpdatePW/>}/> */}
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />}></Route>
-          <Route path="/adminauth" element={<Admin />} />
-          <Route path="/admin" element={<MemList />} />
+          <Route path="/admin/auth" element={<AdminRouter><Admin /></AdminRouter>} />
+          <Route path="/admin/memberlist" element={<AdminRouter><MemList /></AdminRouter>} />
           <Route path="/member" element={<Member />}></Route>
           <Route path="/member/detail/:memIdx" element={<MemberDetail />} />
         </Routes>

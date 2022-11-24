@@ -10,7 +10,7 @@ function MyInfoUp2({ memIdx }) {
   // const [memIdx, setMemIdx] = useState('');
   const [memName, setMemName] = useState("");
   const [memPhone, setMemPhone] = useState("");
-  const [memPostNum, setMemPostNum] = useState("");
+  const [memPostnum, setMemPostNum] = useState("");
   const [memAddr1, setMemAddr1] = useState("");
   const [memAddr2, setMemAddr2] = useState("");
   const [memEmail, setMemEmail] = useState("");
@@ -66,7 +66,7 @@ function MyInfoUp2({ memIdx }) {
         setData(response.data);
         setMemName(response.data.memName);
         setMemPhone(response.data.memPhone);
-        setMemPostNum(response.data.memPostNum);
+        setMemPostNum(response.data.memPostnum);
         setMemAddr1(response.data.memAddr1);
         setMemAddr2(response.data.memAddr2);
         setMemEmail(response.data.memEmail);
@@ -92,11 +92,11 @@ function MyInfoUp2({ memIdx }) {
       inputPhone.current.focus();
     } else {
       axios
-        .put(`http://localhost:8080/member/updateinfo/${memIdx}`, {
+      .put(`http://localhost:8080/member/updateinfo/${memIdx}`, {
           memIdx: memIdx,
           memName: memName,
           memPhone: memPhone,
-          memPostNum: memPostNum,
+          memPostnum: memPostnum,
           memAddr1: memAddr1,
           memAddr2: memAddr2,
           memEmail: memEmail,
@@ -169,7 +169,7 @@ function MyInfoUp2({ memIdx }) {
                     <input
                       type="text"
                       className="myinfoup2_post"
-                      value={memPostNum}
+                      value={memPostnum}
                       onChange={handlerChangePostNum}
                       readOnly
                       placeholder="우편번호"
