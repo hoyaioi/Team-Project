@@ -39,9 +39,9 @@ function Login() {
              sessionStorage.setItem("idx",memberInfo.idx);
              sessionStorage.setItem("role",memberInfo.role);
             navigate('/');
-            alert(`${memberInfo.name}님 환영합니다.`);
             window.location.reload();
-        
+            alert(`${memberInfo.name}님 환영합니다.`);
+            
         } 
       })
       .catch(error => {

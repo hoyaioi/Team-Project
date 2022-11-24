@@ -10,7 +10,6 @@ const Items = () => {
   useEffect(()=> {
     axios.get('http://localhost:8080/item')
     .then(response => {
-        console.log(response)
         setDatas(response.data);
     })
     .catch(error => console.log(error));
@@ -18,9 +17,9 @@ const Items = () => {
 
   return (
     <div className="main_items_sales">
-      {datas.filter(item => item.categoryName === '추천').slice(0, 5).map(item => (
+      {datas.filter(item => item.categoryName === '추천').slice(0, 5).map((item, idx) => (
         <Link to={`/item/${item.itemNum}`}state={{ item: datas}}>
-          <div key={item.itemNum} className="main_items">
+          <div key={idx} className="main_items">
             <div className="main_items_img_wrap">
               <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일"/>
             </div>
