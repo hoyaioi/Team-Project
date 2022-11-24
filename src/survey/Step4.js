@@ -1,4 +1,3 @@
-import "./css/Survey1.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import "swiper/css";
@@ -7,6 +6,7 @@ import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import Result from "./api/resultApi.json";
 import axios from "axios";
+import "./css/Survey1.css";
 
 const Step4 = () => {
   const [showResultList, setShowResultList] = useState([]);
@@ -65,54 +65,39 @@ const Step4 = () => {
     setShowResult(showResultList[0]);
   }, []);
 
-
-
-
-
   const getValue = (keyName) => {
-    const dd = resultOfSurvey.filter(d => d.research_organ === keyName);
-    if (dd && dd[0])
-      return dd[0].value;
-    else
-      return 0;
-  }
+    const dd = resultOfSurvey.filter((d) => d.research_organ === keyName);
+    if (dd && dd[0]) return dd[0].value;
+    else return 0;
+  };
 
   let nameStr = "";
   for (let i = 0; i < name[0].length; i++) {
     nameStr += name[0][i];
   }
 
-
   const handlerOnClick = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/api/result", {
-      "resultUser": nameStr,
-      "memEmail": sessionStorage.getItem("memEmail"),
-      "resultLiver": getValue("간"),
-      "resultEyes": getValue("눈"),
-      "resultVitamin": getValue("몸"),
-      "resultBlood": getValue("혈관"),
-      "resultDiges": getValue("장"),
-      "resultSave": "Y"
-
-
-    }).then((response) => {
-      if (response.status === 200) {
-        alert("설문결과가 저장되었습니다.");
-
-      } else {
-        alert("등록에 실패했습니다.");
-        return;
-      }
-    }
-    )
-  }
-
-
-
-
-
-
+    axios
+      .post("http://localhost:8080/api/result", {
+        resultUser: nameStr,
+        memEmail: sessionStorage.getItem("memEmail"),
+        resultLiver: getValue("간"),
+        resultEyes: getValue("눈"),
+        resultVitamin: getValue("몸"),
+        resultBlood: getValue("혈관"),
+        resultDiges: getValue("장"),
+        resultSave: "Y",
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("설문결과가 저장되었습니다.");
+        } else {
+          alert("등록에 실패했습니다.");
+          return;
+        }
+      });
+  };
 
   return (
     <>
@@ -138,7 +123,6 @@ const Step4 = () => {
                     </div>
                     <div className="result_iteminfo">
                       <div className="priceSurvey">
-                        <div className="">가격 : {result.price}</div>
                         <div>
                           <a href={result.url} target="_blank">
                             상품 보러가기
@@ -151,8 +135,12 @@ const Step4 = () => {
               ))}
             </Swiper>
           </div>
-          <div className="prev">처음 화면으로</div>
-          <div className="next" onClick={handlerOnClick}>저장</div>
+          <div className="last_step_btn">
+            <div className="prev">처음 화면으로</div>
+            <div className="next" onClick={handlerOnClick}>
+              저장
+            </div>
+          </div>
         </div>
       </div>
     </>

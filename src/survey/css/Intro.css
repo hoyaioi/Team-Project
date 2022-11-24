@@ -1,13 +1,11 @@
 .full {
-  height: 750px;
-  width: 700px;
-  margin: 30px auto;
-
+  height: 670px;
+  width: 670px;
+  margin: 110px auto;
 }
 
-.full a{
+.full a {
   text-decoration: none;
-  
 }
 .intro {
   height: 100%;
