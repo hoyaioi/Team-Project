@@ -306,13 +306,6 @@ function Item() {
       <div className="review">
         <strong>상품후기</strong>
         <table className="review-table">
-          <thead >
-            <tr>
-              <th>별점</th>
-              <th>제목</th>
-              <th>작성일자</th>
-            </tr>
-          </thead>
           {datas2 &&
             datas2.map((review) => (
               <tbody>

@@ -8,19 +8,22 @@ function ItemList() {
   const organs = location.state.organs;
   const [datas, setDatas] = useState([]);
   const [items, setItems] = useState([]);
-  const [sort, setSort] = useState('');
+  const [select, setSelect] = useState('default');
 
+  const handlerSelect = (e) => {
+    setSelect(e.target.value);
+  }
 
+  const [select2, setSelect2] = useState('default2');
 
-  const sortChange = (e) => {
-    setSort(e.target.value);
+  const handlerSelect2 = (e) => {
+    setSelect2(e.target.value);
   }
   
   useEffect(() => {
     axios
       .get("http://localhost:8080/item")
       .then((response) => {
-        console.log(response);
         setDatas(response.data);
       })
       .catch((error) => console.log(error));
@@ -29,7 +32,6 @@ function ItemList() {
     axios
       .get(`http://localhost:8080/itemOrgans/${organs}`)
       .then((response) => {
-        console.log(response);
         setItems(response.data);
       })
       .catch((error) => console.log(error));
@@ -54,8 +56,8 @@ const itemCount =  organs === null ? datas : items;
                   <strong>{itemCount.length}개의 상품</strong>
                 </span>
                 <div className="itemlist_view_num">
-                  <select name="sort" className="itemlist_chosen" onChange={sortChange} value={sort}>
-                    <option value="selected" >
+                  <select name="sort" defaultValue={select} className="itemlist_chosen" onChange={handlerSelect} >
+                    <option value="default">
                       추천상품순
                     </option>
                     <option value="sellcnt">판매인기순</option>
@@ -64,9 +66,9 @@ const itemCount =  organs === null ? datas : items;
                   </select>
                 </div>
                 <div className="itemlist_view_num">
-                  <select name="page_num" className="itemlist_chosen">
+                  <select name="page_num" defaultValue={select2} className="itemlist_chosen" onChange={handlerSelect2}>
                     <option value="10">10개씩보기</option>
-                    <option value="20" selected="selected">
+                    <option value="default2">
                       20개씩보기
                     </option>
                     <option value="30">30개씩보기</option>
@@ -92,9 +94,9 @@ const itemCount =  organs === null ? datas : items;
               <div className="itemlist_items_cont">
                   {organs === null 
                   ? <ul>
-                  {datas.map(item => {
-                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li key={item.itemNum}>
+                  {datas.map((item, idx) => {
+                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                        <li>
                           <div className="itemlist_items_box">
                             <div className="itemlist_items_img">
                               <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
@@ -113,9 +115,9 @@ const itemCount =  organs === null ? datas : items;
                     })}
                 </ul>
                   : <ul>
-                  {items.map(item => {
-                      return <Link to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li key={item.itemNum}>
+                  {items.map((item, idx) => {
+                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                        <li>
                           <div className="itemlist_items_box">
                             <div className="itemlist_items_img">
                               <img src={process.env.REACT_APP_API_URL +item.itemThumb} />

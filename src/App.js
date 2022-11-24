@@ -50,6 +50,7 @@ import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
+import AdminItem from "./Component/AdminItem";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
@@ -156,6 +157,7 @@ function App() {
             <Route path="refund" element={<AdminRefund />} />
             <Route path="order" element={<AdminOrder />} />
             <Route path="qna" element={<AdminQna />} />
+            <Route path="item" element={<AdminItem />} />
           </Route>
           <Route path="/qnaWrite" element={<QnaWrite />} />
           <Route path="admin_mem" element={<Member />} />

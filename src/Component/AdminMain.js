@@ -15,6 +15,7 @@ export default function AdminMain() {
           <Link to = 'refund'><div>반품관리</div></Link>
           <Link to = 'review'><div>리뷰관리</div></Link>
           <Link to = 'qna'><div>QNA관리</div></Link>
+          <Link to = 'item'><div>상품관리</div></Link>
           </div>
           <Outlet />
       </div>

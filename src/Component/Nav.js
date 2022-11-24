@@ -10,6 +10,7 @@ const Nav = () => {
   if (window.location.pathname === "/admin/order") return null;
   if (window.location.pathname === "/admin/qna") return null;
   if (window.location.pathname === "/admin/refund") return null;
+  if (window.location.pathname === "/admin/item") return null;
 
   return (
     <div className="header_menu_wrap">
