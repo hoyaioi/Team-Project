@@ -6,6 +6,7 @@ import axios from "axios";
 import "../CSS/Order.css";
 function Order() {
     const memIdx = sessionStorage.getItem("idx");
+    const memEmail = sessionStorage.getItem("email");
     const location = useLocation([]);
     const item = location.state.orderDto;
     const navigate = useNavigate();
@@ -69,7 +70,7 @@ function Order() {
     };
    
     useEffect(() => {
-        axios.get(`http://localhost:8080/admin_mem/${memIdx}`)
+        axios.get(`http://localhost:8080/member/${memEmail}`)
             .then(response => {
                 console.log(response);
                 setData(response.data);
@@ -102,14 +103,14 @@ function Order() {
         console.log(addr2);
         console.log(phoneNum);
         if (checkType === 'new') {
-            axios.post("http://localhost:8080/insertOrder", orderInfo)
+            axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
                     console.log(response);
                 })
                 .catch(error => { console.log(error); })
             navigate("/mypage");
         } else {
-            axios.post("http://localhost:8080/insertOrder", orderInfo)
+            axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
                     console.log(response);
                 })

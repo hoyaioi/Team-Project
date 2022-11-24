@@ -20,7 +20,7 @@ export default function AdminReview() {
 
   const handlerRefund = (refundIdx) => {
     if(window.confirm('해당 주문 건을 환불처리 하시겠습니까?')){
-    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`, { 
+    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`,null, { 
       headers: { 
       'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
     }

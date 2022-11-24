@@ -109,7 +109,7 @@
 		"url": "/item/1002014",
 		"src": "/result/vitamin4.png",
 		"score": 4,
-		"price": "44,000"
+		"price": "17,000"
 	},
 	{
 		"research_organ": "비타민",
@@ -141,7 +141,7 @@
 		"url": "/item/1002008",
 		"src": "/result/diges3.png",
 		"score": 3,
-		"price": "23,800"
+		"price": "67790"
 	},{
 		"research_organ" : "장",
 		"id": "종근당 차전자피",

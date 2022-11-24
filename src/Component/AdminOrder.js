@@ -14,11 +14,14 @@ function AdminOrder() {
     }
 
     const stateChange = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`, { 
-            headers: { 
-            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-          }
-        })
+
+        console.log(orderlistIdx)
+
+        axios.post(
+            `http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`, 
+            null, 
+            { headers : { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` } }
+        )
             .then((response) => {
                 console.log(response);
                 alert("변경완료");
@@ -28,7 +31,7 @@ function AdminOrder() {
     }
 
     const stateCancle = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`, { 
+        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`,null, { 
             headers: { 
             'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
           }

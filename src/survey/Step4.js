@@ -139,7 +139,7 @@ const Step4 = () => {
                     </div>
                     <div className="result_iteminfo">
                       <div className="priceSurvey">
-                        <div className="">가격 : {result.price}</div>
+                        {/* <div className="">가격 : {result.price}</div> */}
                         <div>
                           <a href={result.url} target="_blank">
                             상품 보러가기

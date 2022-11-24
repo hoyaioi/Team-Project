@@ -81,7 +81,7 @@ function Item() {
     console.log(email);
     if (isLogin === true) {
       axios
-        .post("http://localhost:8080/cartinsert", cartDto)
+        .post("http://localhost:8080/cart/insert", cartDto)
         .then((response) => {
           console.log(response);
           alert("장바구니 추가완료");
@@ -118,7 +118,7 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
+    axios.get(`http://localhost:8080/review/list/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
         console.log(datas2);
@@ -224,11 +224,11 @@ function Item() {
       <div id="1" className="item-tab">
         <ul>
           <li ref={(el) => (moveToFocus.current[0] = el)} className="on">
-            메뉴1
+            상세정보
           </li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>Q&A</li>
         </ul>
       </div>
       <div className="detail_img">
@@ -242,12 +242,12 @@ function Item() {
 
       <div id="2" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
           <li ref={(el) => (moveToFocus.current[1] = el)} className="on">
-            메뉴2
+            배송/반품
           </li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>Q&A</li>
         </ul>
       </div>
       <div className="refund">
@@ -294,12 +294,12 @@ function Item() {
 
       <div id="3" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
           <li ref={(el) => (moveToFocus.current[2] = el)} className="on">
-            메뉴3
+            상품후기
           </li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>Q&A</li>
         </ul>
       </div>
 
@@ -334,11 +334,11 @@ function Item() {
       </div>
       <div id="4" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
           <li ref={(el) => (moveToFocus.current[3] = el)} className="on">
-            메뉴4
+          Q&A
           </li>
         </ul>
       </div>

@@ -10,7 +10,7 @@ function MyInfoUp2({ memIdx }) {
   // const [memIdx, setMemIdx] = useState('');
   const [memName, setMemName] = useState("");
   const [memPhone, setMemPhone] = useState("");
-  const [memPostnum, setMemPostNum] = useState("");
+  const [memPostNum, setMemPostNum] = useState("");
   const [memAddr1, setMemAddr1] = useState("");
   const [memAddr2, setMemAddr2] = useState("");
   const [memEmail, setMemEmail] = useState("");
@@ -66,7 +66,7 @@ function MyInfoUp2({ memIdx }) {
         setData(response.data);
         setMemName(response.data.memName);
         setMemPhone(response.data.memPhone);
-        setMemPostNum(response.data.memPostnum);
+        setMemPostNum(response.data.memPostNum);
         setMemAddr1(response.data.memAddr1);
         setMemAddr2(response.data.memAddr2);
         setMemEmail(response.data.memEmail);
@@ -96,7 +96,7 @@ function MyInfoUp2({ memIdx }) {
           memIdx: memIdx,
           memName: memName,
           memPhone: memPhone,
-          memPostnum: memPostnum,
+          memPostNum: memPostNum,
           memAddr1: memAddr1,
           memAddr2: memAddr2,
           memEmail: memEmail,
@@ -169,7 +169,7 @@ function MyInfoUp2({ memIdx }) {
                     <input
                       type="text"
                       className="myinfoup2_post"
-                      value={memPostnum}
+                      value={memPostNum}
                       onChange={handlerChangePostNum}
                       readOnly
                       placeholder="우편번호"
