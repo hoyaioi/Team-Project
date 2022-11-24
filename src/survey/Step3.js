@@ -51,7 +51,7 @@ const Step3 = ({ nextSteps, prevSteps }) => {
     }
   };
 
-  const handlerNext = (e) => {
+  const handlerNext = () => {
     if (questionList[currentQno].value >= 1) {
       const qno = currentQno + 1;
       setCurrentQno(qno);
@@ -59,31 +59,32 @@ const Step3 = ({ nextSteps, prevSteps }) => {
       setQuestion(quest);
       uncheckAll();
       sessionStorage.setItem("questionList", JSON.stringify(questionList));
-      if (qno === questionList.length - 1) {
+      let groupByOrgan = questionList.reduce((acc, cur) => {   // 현재 문제목록을 organ별로 묶어서 저장
+        if (acc[cur.research_organ] === undefined) {
+          acc[cur.research_organ] = [];
+        }
+        acc[cur.research_organ].push(cur);
+    
+        return acc;
+      }, {});
+    
+      let sum = 0;
+      for (let key in groupByOrgan) {
+        for (let i = 0; i < groupByOrgan[key].length; i++) {    // organ별로 묶은 문제목록의 value값을 더해서 sum에 저장
+          sum += Number(groupByOrgan[key][i].value);
+        }
+        groupByOrgan[key] = sum / groupByOrgan[key].length;     //  organ별로 묶은 문제목록의 value값의 평균을 구해서 저장
+        sum = 0;
+      }
+      sessionStorage.setItem("groupByOrgan", JSON.stringify(groupByOrgan));
+      if (qno > questionList.length -1) {
         nextSteps();
       }
     } else
       alert("답변을 선택해주세요!");
   };
 
-  let groupByOrgan = questionList.reduce((acc, cur) => {   // 현재 문제목록을 organ별로 묶어서 저장
-    if (acc[cur.research_organ] === undefined) {
-      acc[cur.research_organ] = [];
-    }
-    acc[cur.research_organ].push(cur);
-
-    return acc;
-  }, {});
-
-  let sum = 0;
-  for (let key in groupByOrgan) {
-    for (let i = 0; i < groupByOrgan[key].length; i++) {    // organ별로 묶은 문제목록의 value값을 더해서 sum에 저장
-      sum += Number(groupByOrgan[key][i].value);
-    }
-    groupByOrgan[key] = sum / groupByOrgan[key].length;     //  organ별로 묶은 문제목록의 value값의 평균을 구해서 저장
-    sum = 0;
-  }
-  sessionStorage.setItem("groupByOrgan", JSON.stringify(groupByOrgan));
+  
 
 
   return (
