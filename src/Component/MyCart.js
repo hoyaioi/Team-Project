@@ -18,7 +18,7 @@ function MyCart() {
             memEmail : memEmail
 
         }
-        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+        axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
 
             console.log(response);
             alert('수정성공');
@@ -50,7 +50,7 @@ function MyCart() {
             memEmail : memEmail
 
         }
-        axios.post("http://localhost:8080/cartupdate", cartListDto).then(response => {
+        axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
             console.log(response);
             alert('수정성공');
             setData(response.data);
@@ -81,7 +81,7 @@ function MyCart() {
 
         const confirm = window.confirm(checkedList.length+"개의 상품 정말 삭제하시겠습니까?");
         if(confirm)
-        axios.post("http://localhost:8080/cartdelete", checkedList)
+        axios.post("http://localhost:8080/cart/delete", checkedList)
             .then(response => {
                 console.log(response);
                 alert('삭제성공');

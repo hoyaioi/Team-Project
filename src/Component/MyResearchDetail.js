@@ -95,7 +95,7 @@ function MyPageResearchDetail({  }) {
                                         <img src={`${result.src}`} />
                                     </div>
                                     <div className="priceSurvey">
-                                        가격 : <strong>{result.price}원</strong><br />
+                                     
                                         <Link to ={result.url}>상품 보러가기</Link>
                                     </div>
                                 </SwiperSlide>

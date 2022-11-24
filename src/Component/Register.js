@@ -74,9 +74,9 @@ function Register() {
   const handlerClickSubmit = (e) => {
     e.preventDefault();
 
-    // if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
-    //   return `${false} ${alert("등록에 실패했습니다.")}`;
-    // }
+    if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
+      return `${false} ${alert("등록에 실패했습니다.")}`;
+    }
 
     const memInfo = {
       "memName": name,
@@ -106,7 +106,7 @@ function Register() {
     console.log(e);
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/" + email)
-    axios.get(`http://localhost:8080/checkemail/${email}`)
+    axios.get(`http://localhost:8080/member/checkemail/${email}`)
       .then(response => {
         if (response.status === 200) {
           alert("이미 가입된 이메일입니다.");

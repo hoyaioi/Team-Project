@@ -25,7 +25,7 @@ function FindID() {
   const clickFindID = (e) => {
     console.log(e)
     e.preventDefault();
-    // axios.get("http://localhost:8080/api/member/"+name+"/"+phoneNum)
+    // axios.get("http://localhost:8080/member/"+name+"/"+phoneNum)
     axios.get(`http://localhost:8080/member/${name}/${phoneNum}`)
     .then(response => {
       console.log(response);

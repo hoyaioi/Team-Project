@@ -38,10 +38,14 @@ function Login() {
              sessionStorage.setItem("email", memberInfo.email);
              sessionStorage.setItem("idx",memberInfo.idx);
              sessionStorage.setItem("role",memberInfo.role);
+             if(memberInfo.deleteyn == 'Y'){
+              sessionStorage.clear();
+              alert('이미 탈퇴된 계정이므로 로그인이 불가합니다.')
+            }else{
+            alert(`${memberInfo.name}님 환영합니다.`);
             navigate('/');
             window.location.reload();
-            alert(`${memberInfo.name}님 환영합니다.`);
-            
+            }
         } 
       })
       .catch(error => {

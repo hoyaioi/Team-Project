@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "jquery";
 import { useEffect } from "react";
 import { useState } from "react";
 import {
@@ -7,34 +8,34 @@ import {
   FormLabel,
   Row,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "../CSS/Find.css";
-
+import UpdatePW from "./UpdatePW";
 function FindPW() {
 
   const [email,setEmail] = useState("");
   const [name,setName] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(name);
-  })
+  const [isNow,setIsNow] = useState(false);
+  const [memIdx,setMemIdx] = useState('');
 
   const onChangeEmail = (e) => setEmail(e.target.value);
   const onChangeName = (e) => setName(e.target.value);
   const onChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, ""));
 
-  const clickFindPW = (e) => {
-    console.log(e)
-    e.preventDefault();
-    // axios.get("http://localhost:8080/api/member/"+name+"/"+phoneNum)
-    axios.get(`http://localhost:8080/member/${email}/${name}/${phoneNum}`)
+  const clickFindPW = () => {
+    
+    const memInfo = { 
+      memName:name,
+      memPhone:phoneNum,
+      memEmail:email
+    }
+    axios.post("http://localhost:8080/member/findpw",memInfo)
     .then(response => {
-      console.log(response);
       if (response.status === 200) {
-        navigate('/login');
-        alert(`${name}님의 비밀번호는 ${response.data.memPw}입니다.`);
+        setIsNow(true);
+        alert(`${name}님의 정보가 확인되었습니다.`);
+        // console.log(response.data);
+        setMemIdx(response.data.memIdx);
       }
     })
     .catch(error => {
@@ -45,9 +46,10 @@ function FindPW() {
   return (
     <>
       <div className="find_wrapper_pw">
+        {
+          isNow ===false ? <>
         <div className="find_container">
           <h2>비밀번호 찾기</h2>
-
           <Row id="find_input">
             <FormGroup className="find_input_box">
               <FormLabel style={{ color: "grey" }}>아이디(이메일)</FormLabel>
@@ -81,10 +83,13 @@ function FindPW() {
               </button>
             </FormGroup>
           </Row>
+          
         </div>
+        </>
+              :<UpdatePW memIdx={memIdx} />
+        }
       </div>
     </>
-  );
+  )
 }
-
 export default FindPW;

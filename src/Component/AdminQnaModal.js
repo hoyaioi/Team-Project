@@ -15,7 +15,11 @@ function AdminQnaModal(props) {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`)
+        axios.get(`http://localhost:8080/qna/contents/${qnaIdx}`, { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
             .then(response => {
                 setData(response.data);
             })
@@ -24,10 +28,12 @@ function AdminQnaModal(props) {
 
     const qnaAnswer = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8080/admin/qnaWrite/${qnaIdx}`, {
-            "qnaCommentContent" : content,
-            "qnaIdx" : qnaIdx
-        }).then(response => {
+        axios.post("http://localhost:8080/admin/qnaWrite", qnaDto, { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
+        .then(response => {
             console.log(response);
             alert('답변완료');
             window.location.reload();

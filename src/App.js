@@ -21,8 +21,8 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
+import FindID from "./Component/FindId";
+import FindPW from "./Component/FindPw";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -35,8 +35,6 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard";
 import AdminQna from "./Component/AdminQna";
 import AdminMember from "./Component/AdminMember";
 import AdminReview from "./Component/AdminReview";
@@ -50,6 +48,8 @@ import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
+import AdminItem from "./Component/AdminItem";
+import AdminRouter from "./routeAuthor/AdminRouter";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
@@ -92,7 +92,7 @@ function App() {
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />}/>
             {/* <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} /> */}
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
             {/* <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} /> */}
@@ -100,62 +100,29 @@ function App() {
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/write" element={<ItemWrite />} />
+          <Route path="/item/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
           <Route path="/itemlist" element={<ItemList />} />
-          <Route
-            path="/join"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
+          <Route path="/join" element={<PublicRoute><Register/></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
-          <Route
-            path="/findAccount"
-            element={
-              <PublicRoute>
-                <FindAccount />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/findid"
-            element={
-              <PublicRoute>
-                <FindID />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/findpw"
-            element={
-              <PublicRoute>
-                <FindPW />
-              </PublicRoute>
-            }
-          />
+          <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
+          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
+          <Route path="/findpw" element={<PublicRoute><FindPW memIdx={memIdx} /></PublicRoute>}/>
+          {/* <Route path="/updatepw" element={<UpdatePW/>}/> */}
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
-          {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
-          <Route path="/admin/*" element={<AdminMain />} >
+          {/* <Route path="/admin/auth/*" element={<AdminRouter><AdminAuth /></AdminRouter>} > */}
+          <Route path="/admin/*" element={<AdminRouter><AdminMain /></AdminRouter>} >
             <Route path="member" element={<AdminMember />} />
             <Route path="review" element={<AdminReview />} />
             <Route path="refund" element={<AdminRefund />} />
             <Route path="order" element={<AdminOrder />} />
             <Route path="qna" element={<AdminQna />} />
+            <Route path="item" element={<AdminItem />} />
           </Route>
           <Route path="/qnaWrite" element={<QnaWrite />} />
           <Route path="admin_mem" element={<Member />} />

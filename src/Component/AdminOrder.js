@@ -14,7 +14,14 @@ function AdminOrder() {
     }
 
     const stateChange = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`)
+
+        console.log(orderlistIdx)
+
+        axios.post(
+            `http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`, 
+            null, 
+            { headers : { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` } }
+        )
             .then((response) => {
                 console.log(response);
                 alert("변경완료");
@@ -24,7 +31,11 @@ function AdminOrder() {
     }
 
     const stateCancle = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`)
+        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`,null, { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
             .then((response) => {
                 console.log(response.data);
                 alert("취소처리완료");
@@ -34,7 +45,11 @@ function AdminOrder() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/admin/order")
+        axios.get("http://localhost:8080/admin/order", { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
             .then((response) => {
                 console.log(response);
                 setDatas(response.data);

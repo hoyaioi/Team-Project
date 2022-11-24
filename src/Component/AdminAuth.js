@@ -1,38 +1,37 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/AdminAuth.css';
 
 function AdminAuth() {
 
     const navigate = useNavigate();
-    const [adminCheck, setAdminCheck] = useState("");
-
-    useEffect(() => {
-    const admin = sessionStorage.getItem('adminCheck')
-    if (admin !== '1') {
-        alert("관리자만 접근 가능합니다.");
-        navigate('/login');
-    } 
-    },[])
+    const [memPw,setMemPw] = useState('');
+    const inputPw = useRef();
+    const onChangeAdmin = (e) => setMemPw(e.target.value);
     
-    const onChangeAdmin = (e) => setAdminCheck(e.target.value);
-    let password = '1234';
 
 
     const handlerOnClick = () => {
 
-        if (adminCheck === password) {
-          let adminChecked = sessionStorage.setItem("adminChecked", true)
-          console.log(adminChecked)
-            navigate('/admin');
-        } else {
+        axios.post(`http://localhost:8080/admin/comparepw/${sessionStorage.getItem("idx")}`, `memPw=${memPw}`, { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
+        .then(response => {
+            if(response.status === 200){
+                navigate('/admin/main');
+            }
+        })
+        .catch(error => {
+            console.log(error);
             alert('비밀번호가 일치하지 않습니다.');
-            adminCheck('');
-            console.log(adminCheck);
-        }
-
-    }
+            // inputPw.current.focus();
+            // setMemPw('');
+        })
+            
+}
 
     return (
         <>
@@ -46,7 +45,7 @@ function AdminAuth() {
                             관리자 비밀번호를 입력해주세요.
                         </div>
                         <div className='admin_input_wrap'>
-                            <input type='password' value={adminCheck} placeholder='관리자 비밀번호를 입력해주세요.' onChange={onChangeAdmin} autoComplete='off' />
+                            <input type='password' ref={inputPw} value={memPw} placeholder='관리자 비밀번호를 입력해주세요.' onChange={onChangeAdmin} autoComplete='off' />
                         </div>
                         <div className='admin_input_wrap'>
                             <input type='button' id='admin' onClick={handlerOnClick} value='입력완료' />
