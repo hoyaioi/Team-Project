@@ -14,10 +14,20 @@ function AdminOrder() {
     }
 
     const stateChange = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/order/${orderlistIdx},${stateSelect}`)
+        axios.post(`http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`)
             .then((response) => {
                 console.log(response);
                 alert("변경완료");
+                window.location.reload();
+            })
+            .catch((error) => console.log(error));
+    }
+
+    const stateCancle = (orderlistIdx) => {
+        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`)
+            .then((response) => {
+                console.log(response.data);
+                alert("취소처리완료");
                 window.location.reload();
             })
             .catch((error) => console.log(error));
@@ -48,7 +58,6 @@ function AdminOrder() {
                         </tr>
                     </thead>
                     <tbody>
-
                         {datas.map(orderlist => (
                             <tr>
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + orderlist.itemThumb} /></td>
@@ -58,7 +67,7 @@ function AdminOrder() {
                                 <td width="11%">{orderlist.orderDate}</td>
                                 <td width="17%">
                                     {orderlist.orderStatus}
-                                    <select name="categoryName" onChange={stateHandler}>
+                                   {orderlist.orderStatus === "취소처리중" ? <button onClick={()=>stateCancle(orderlist.orderlistIdx)}>취소처리완료</button> : <select name="categoryName" onChange={stateHandler}>
                                             <option hidden></option>
                                         {orderState.map((state) => (
                                             <option
@@ -68,8 +77,8 @@ function AdminOrder() {
                                                 {state}
                                             </option>
                                         ))}
-                                    </select>
-                                    <button onClick={()=>stateChange(orderlist.orderlistIdx)}>변경하기</button>
+                                    </select> } 
+                                   {orderlist.orderStatus === "취소처리중" ? null : <button onClick={()=>stateChange(orderlist.orderlistIdx)}>변경하기</button>}
                                 </td>
                             </tr>
                         ))}

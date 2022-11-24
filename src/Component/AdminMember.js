@@ -18,8 +18,9 @@ const AdminMember = () => {
   //회원 탈퇴
   //회원 정보 수정
   useEffect(() => {
-    axios.get("http://localhost:8080/api/member/list").then((res) => {
+    axios.get("http://localhost:8080/admin_mem").then((res) => {
       setMemList(res.data);
+      console.log(memList)
     });
   }, []);
 
@@ -37,16 +38,14 @@ const AdminMember = () => {
               <th width="4%">회원번호</th>
               <th width="10%">아이디</th>
               <th width="4%" >이름</th>
-              <th width="3%">전화번호</th>
-              <th width="10%">생년월일</th>
-              <th width="27%">주소</th>
+              <th width="10%">전화번호</th>
+              <th width="30%">주소</th>
               <th width="10%">상세 주소</th>
-              <th width="3%">성별</th>
               <th width="13%">가입일</th>
               <th width="5%">탈퇴여부</th>
               <th width="5%">관리자여부</th>
-              <th width="3%">수정</th>
-              <th width="3%">삭제</th>
+              <th width="5%">수정</th>
+              <th width="10%">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -56,10 +55,8 @@ const AdminMember = () => {
                 <td>{mem.memEmail}</td>
                 <td>{mem.memName}</td>
                 <td>{mem.memPhone}</td>
-                <td>{mem.memBirth}</td>
                 <td>{mem.memAddr1}</td>
                 <td>{mem.memAddr2}</td>
-                <td>{mem.memGender}</td>
                 <td>{mem.memRegDate}</td>
                 <td> {mem.memDeletedYn === "N" ? (
                   <td>X</td>
@@ -68,10 +65,10 @@ const AdminMember = () => {
                 )}</td>
                 <td>{mem.memRole === 1 ? "관리자" : "일반회원"}</td>
                 <td>
-                  <a href={`/api/member/update/${mem.memIdx}`}>수정</a>
+                  <a href={`/member/update/${mem.memIdx}`}>수정</a>
                 </td>
                 <td>
-                  <a href={`/api/member/delete/${mem.memIdx}`}>삭제</a>
+                  <a href={`/member/delete/${mem.memIdx}`}>삭제</a>
                 </td>
               </tr>
             ))}

@@ -1,24 +1,41 @@
 
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../CSS/QnaWrite.css";
 
-function QnaWrite({itemNumm}) {
-//Item.js에서 문의하기 버튼을 누르면 itemNum을 받아와서 itemNum을 넣어준다.
-const itemNum= itemNumm;    
-const email = sessionStorage.getItem('email');
+function QnaWrite({itemName,itemNum}) {
 
-    if (email === null) {
+
+    const [qnaTitle,setQnaTitle] = useState('');
+    const [qnaContent,setQnaContent] = useState('');
+    const navigate = useNavigate();
+    const memEmail = sessionStorage.getItem('email');
+
+    const handlerTitle = (e) => { setQnaTitle(e.target.value)}
+    const handlerContent = (e) => { setQnaContent(e.target.value)}
+    if (memEmail === null) {
         alert("로그인 후 이용해주세요.");
         window.location.href = "/login";
     }
-    const handleCheck = () => {
-        console.log(itemNum);
-    }
+
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+          const scrollY = document.body.style.top;
+          document.body.style.cssText = '';
+          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+      }, []);
+ 
+
+
 
     const handlerClickSubmit = () => {
-        const qnaTitle = document.querySelector("#qna_title").value;
-        const qnaContent = document.querySelector("#qna_content").value;
-
         if (qnaTitle === "") {
             alert("제목을 입력해주세요.");
             return;
@@ -28,19 +45,20 @@ const email = sessionStorage.getItem('email');
             alert("내용을 입력해주세요.");
             return;
         }
-
-        const qnaData = {
+        const qnaDto = {
             qnaTitle: qnaTitle,
-            qnaContent: qnaContent,
-            memEmail: email,
-            itemIdx: itemNum
+            qnaContents: qnaContent,
+            memEmail: memEmail,
+            itemNum : itemNum
         }
+        console.log(qnaDto)
 
-        axios.post("http://localhost:8080/api/qna/write", qnaData)
+        axios.post("http://localhost:8080/qnaWrite", qnaDto)
             .then(response => {
                 if (response.status === 200) {
                     alert("문의글이 정상적으로 등록되었습니다.");
-                    window.location.href = "/qna";
+                    navigate(`/item/${itemNum}`)
+                    window.location.reload();
                 } else {
                     alert("문의글 등록에 실패했습니다.");
                     return;
@@ -67,17 +85,18 @@ const email = sessionStorage.getItem('email');
                                             <img></img>
                                         </th>
                                         <td>
-                                            상품명
+                                            {itemName}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>작성자</th>
-                                        <td>회원이메일</td>
+                                        <td>{memEmail}</td>
                                     </tr>
                                     <tr>
                                         <th>제목</th>
                                         <td>
                                             <input
+                                                onChange={handlerTitle}
                                                 type="text"
                                                 className="qna_title"
                                                 placeholder="문의하실 제목을 입력해주세요(임시)"
@@ -89,7 +108,7 @@ const email = sessionStorage.getItem('email');
                                         <th>내용</th>
                                         <td>
 
-                                            <textarea className="qna_content" cols="80" rows="10">
+                                            <textarea onChange={handlerContent} className="qna_content" cols="80" rows="10">
 
                                             </textarea>
                                         </td>
@@ -99,8 +118,7 @@ const email = sessionStorage.getItem('email');
                         </div>
                     </form>
                     <div className="qnaWrite_btn_box">
-                        <button className="qnaWrite_btn_del" onClick={handleCheck}>취소</button>
-                        <button className="qnaWrite_btn">저장</button>
+                        <button onClick={handlerClickSubmit}className="qnaWrite_btn">저장</button>
                     </div>
                 </div>
             </div>

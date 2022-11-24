@@ -1,11 +1,10 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDaumPostcodePopup } from "react-daum-postcode";
+import axios from "axios";
 import "../CSS/Order.css";
 function Order() {
-    const memEmail = sessionStorage.getItem("email");
     const memIdx = sessionStorage.getItem("idx");
     const location = useLocation([]);
     const item = location.state.orderDto;
@@ -22,7 +21,6 @@ function Order() {
         date.getMilliseconds()
     ];
     var id = components.join("");
-    console.log(id)
     item.forEach((items) => {
         totalPrice += (items.itemPrice * items.itemAmount);
     });
@@ -36,12 +34,15 @@ function Order() {
     const [emailError, setEmailError] = useState(true);
     const [name, setName] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
+    const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
+    const handlerChangeName = (e) => setName(e.target.value);
+    const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, "")); 
+
+
     const open = useDaumPostcodePopup(
         "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
     );
-    const handleOpenSearchAddress = () => {
-        open({ onComplete: handleComplete });
-    };
+
     const handleComplete = (data) => {
         let fullAddress = data.address;
         let postCode = data.zonecode;
@@ -61,8 +62,14 @@ function Order() {
         setPostCodeError(false);
         setAddr1Error(false);
     };
+
+    
+    const handleOpenSearchAddress = () => {
+        open({ onComplete: handleComplete });
+    };
+   
     useEffect(() => {
-        axios.get(`http://localhost:8080/member/${memEmail}`)
+        axios.get(`http://localhost:8080/admin_mem/${memIdx}`)
             .then(response => {
                 console.log(response);
                 setData(response.data);
@@ -70,39 +77,36 @@ function Order() {
             .catch(error => { console.log(error); });
     }, []);
     const orderInfo = item.map(order => ({
-        memEmail: memEmail,
+        memEmail: data.memEmail,
         memIdx : memIdx,
-        address1: data.memAddr1,
-        address2: data.memAddr2,
-        address3: data.postNum,
-        memPhone: data.memPhone,
+        address1: addr1,
+        address2: addr2,
+        address3: postCode,
+        memPhone: phoneNum,
         itemPrice: order.itemPrice,
         itemNum: order.itemNum,
         itemName: order.itemName,
         itemAmount: order.itemAmount,
         orderNum: id,
         cartIdx : order.cartIdx,
-        itemThumb : order.itemThumb
+        itemThumb : order.itemThumb,
+        recipient : name,
+        recipientPhone : phoneNum
     }))
 
 
     console.log(orderInfo);
     const handlerClickSubmit = (e) => {
         e.preventDefault();
+        console.log(addr1);
+        console.log(addr2);
+        console.log(phoneNum);
         if (checkType === 'new') {
-            const memInfo = {
-                "memName": name,
-                "memPhone": phoneNum,
-                "memPostNum": postCode,
-                "memAddr1": addr1,
-                "memAddr2": addr2,
-            };
-            axios.all([axios.post("http://localhost:8080/changeAddr", memInfo), axios.post("http://localhost:8080/insertOrder", item)]
+            axios.post("http://localhost:8080/insertOrder", orderInfo)
                 .then(response => {
                     console.log(response);
                 })
                 .catch(error => { console.log(error); })
-            )
             navigate("/mypage");
         } else {
             axios.post("http://localhost:8080/insertOrder", orderInfo)
@@ -123,8 +127,6 @@ function Order() {
         setCheckType('new');
         console.log(checkType);
     }
-    console.log(totalPrice);
-    console.log()
     return (
         <>
             <div className="order_conatiner">
@@ -214,12 +216,6 @@ function Order() {
                                                             <td><input type="text" name="orderName" maxlength="20" value={data.memName} /></td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">전화번호</th>
-                                                            <td>
-                                                                <input type="text" id="phoneNum" name="orderPhone" value="" maxlength="20" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
                                                             <th scope="row"><span class="important">휴대폰 번호</span></th>
                                                             <td>
                                                                 <input type="text" id="mobileNum" name="orderCellPhone" value={data.memPhone} maxlength="20" />
@@ -264,39 +260,32 @@ function Order() {
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실분</span></th>
                                                         <td>
-                                                            {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
-                                                                <input type="text" name="receiverName" />}</td>
+                                                            {/* {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
+                                                                <input type="text" name="receiverName" />} */}
+
+                                                                <input type="name" onChange={handlerChangeName} placeholder="이름을 입력하세요" value={checkType === 'same' ? data.memName : name} />
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">받으실 곳</span></th>
                                                         <td class="member_address">
                                                             <div class="address_postcode">
-                                                                <input type="text" name="receiverZonecode" readonly="readonly" value={checkType === 'same' ? data.memPostNum : ""} />
+                                                                <input type="text" name="receiverZonecode" readonly="readonly" value={checkType === 'same' ? data.memPostNum : postCode} />
                                                                 <input type="hidden" name="receiverZipcode" />
                                                                 <span id="receiverZipcodeText" class="old_post_code"></span>
-                                                                <button type="button" class="btn_post_search" onclick="gd_postcode_search('receiverZonecode', 'receiverAddress', 'receiverZipcode');">우편번호검색</button>
+                                                                <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>우편번호검색</button>
                                                             </div>
                                                             <div class="address_input">
-                                                                <input type="text" name="receiverAddress" readonly="readonly" value={checkType === 'same' ? data.memAddr1 : ""} />
-                                                                <input type="text" name="receiverAddressSub" value={checkType === 'same' ? data.memAddr2 : ""} />
+                                                                <input type="text" placeholder="주소를 입력하세요" name="address" readonly="readonly" value={checkType === 'same' ? data.memAddr1 : addr1} />
+                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} name="addressDetail" value={checkType === 'same' ? data.memAddr2 : addr2} />
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">전화번호</th>
-                                                        <td>
-                                                            <input type="text" id="receiverPhone" name="receiverPhone" />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row"><span class="important">휴대폰 번호</span></th>
                                                         <td>
-                                                            <input type="text" id="receiverCellPhone" name="receiverCellPhone" value={checkType === 'same' ? data.memPhone : ""} />
+                                                            <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" value={checkType === 'same' ? data.memPhone : phoneNum} />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">남기실 말씀</th>
-                                                        <td class="td_last_say"><input type="text" name="orderMemo" /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

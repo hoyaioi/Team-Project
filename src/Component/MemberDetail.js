@@ -17,7 +17,7 @@ const MemberDetail = () => {
 
   const handlerClickUpdate = () => {
     axios
-      .put(`http://localhost:8080/admin_mem/${memIdx}`, {
+      .put(`http://localhost:8080/admin-mem/${memIdx}`, {
         memName: memName,
         memDeletedYn: memDeletedYn,
       })
@@ -35,7 +35,7 @@ const MemberDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/admin_mem/${memIdx}`)
+      .get(`http://localhost:8080/admin-mem/${memIdx}`)
       .then((response) => {
         console.log(data);
         setData(response.data);

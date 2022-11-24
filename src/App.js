@@ -1,4 +1,3 @@
-
 import Item from "./Component/Item";
 import Main from "./Component/Main";
 import Topbutton from "./Topbutton";
@@ -37,9 +36,9 @@ import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
 import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard"
-import AdminQna from "./Component/AdminQna"
-import AdminMember from "./Component/AdminMember"
+import MemList from "./Component/AdminBoard";
+import AdminQna from "./Component/AdminQna";
+import AdminMember from "./Component/AdminMember";
 import AdminReview from "./Component/AdminReview";
 import AdminRefund from "./Component/AdminRefund";
 import AdminAuth from "./Component/AdminAuth";
@@ -53,7 +52,7 @@ import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
 
 function App() {
-  const memIdx = sessionStorage.getItem("memIdx");
+  const memIdx = sessionStorage.getItem("idx");
 
   return (
     <>
@@ -63,23 +62,40 @@ function App() {
       <div id="wrapper">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/service/*" element={<PrivateRoute><Service /></PrivateRoute>}>
+          <Route
+            path="/service/*"
+            element={
+              <PrivateRoute>
+                <Service />
+              </PrivateRoute>
+            }
+          >
             <Route path="center" element={<ServiceCenter />} />
             <Route path="serviceqna" element={<ServiceQna />} />
             <Route path="notice" element={<Notice />} />
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
-          <Route path="/mypage/*" element={<PrivateRoute><MyPage /></PrivateRoute>}>
-            <Route path="myorderlist" element={<MyOrderList memIdx={memIdx} />} />
+          <Route
+            path="/mypage/*"
+            element={
+              <PrivateRoute>
+                <MyPage />
+              </PrivateRoute>
+            }
+          >
+            <Route
+              path="myorderlist"
+              element={<MyOrderList memIdx={memIdx} />}
+            />
             <Route path="myrefund" element={<MyRefund memIdx={memIdx} />} />
             <Route path="mycart" element={<MyCart />} />
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={1} />} />
-            <Route path="modify" element={<MyInfoUp2 memIdx={1} />} />
-            <Route path="myinfodel" element={<MyInfoDel1 memIdx={1} />} />
-            <Route path="unregister" element={<MyInfoDel2 memIdx={1} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
+            {/* <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} /> */}
+            <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
+            {/* <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} /> */}
             <Route path="result/:resultIdx" element={<Result />} />
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
@@ -89,23 +105,60 @@ function App() {
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
           <Route path="/itemlist" element={<ItemList />} />
-          <Route path="/join" element={<PublicRoute><Register /></PublicRoute>} />
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route
+            path="/join"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
-          <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
-          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
-          <Route path="/findpw" element={<PublicRoute><FindPW /></PublicRoute>} />
+          <Route
+            path="/findAccount"
+            element={
+              <PublicRoute>
+                <FindAccount />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/findid"
+            element={
+              <PublicRoute>
+                <FindID />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/findpw"
+            element={
+              <PublicRoute>
+                <FindPW />
+              </PublicRoute>
+            }
+          />
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
-          <Route path="/admin/*" element={<AdminMain />} ></Route>
-          <Route path="member" element={<AdminMember />} />
-          <Route path="review" element={<AdminReview />} />
-          <Route path="refund" element={<AdminRefund />} />
-          <Route path="order" element={<AdminOrder />} />
-
-          <Route path="qnaWrite/:itemNum" element={<QnaWrite />} />
+          <Route path="/admin/*" element={<AdminMain />} >
+            <Route path="member" element={<AdminMember />} />
+            <Route path="review" element={<AdminReview />} />
+            <Route path="refund" element={<AdminRefund />} />
+            <Route path="order" element={<AdminOrder />} />
+            <Route path="qna" element={<AdminQna />} />
+          </Route>
+          <Route path="/qnaWrite" element={<QnaWrite />} />
+          <Route path="admin_mem" element={<Member />} />
         </Routes>
         
       </div>

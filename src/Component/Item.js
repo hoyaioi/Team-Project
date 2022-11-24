@@ -1,5 +1,10 @@
-import '../CSS/Item.css';
-import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
+import "../CSS/Item.css";
+import {
+  IoIosArrowUp,
+  IoIosArrowDown,
+  IoMdArrowDropleft,
+  IoMdArrowDropright,
+} from "react-icons/io";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
@@ -7,6 +12,7 @@ import Review from './ItemReview.js'
 import Qna from './Qna';
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
+import  Modal  from './Modal.js';
 
 
 // Import Swiper styles
@@ -14,6 +20,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
 import QnaWrite from './QnaWrite';
+import { data } from 'jquery';
 
 SwiperCore.use([Navigation]);
 
@@ -25,12 +32,14 @@ function Item() {
   const [qnaDatas, setQnaDatas] = useState([]);
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
-  const isLogin = sessionStorage.getItem("memIdx") ? true : false;
-  const email = sessionStorage.getItem("memEmail");
+  const isLogin = sessionStorage.getItem("idx") ? true : false;
+  const email = sessionStorage.getItem("email");
   const [items, setItems] = useState([]);
   const [datas2, setDatas2] = useState([]);
-  
-  let itemNumm = datas.itemNum
+  const [qnaWrite, setQnaWrite] = useState(false);
+
+
+  console.log(itemNum);
 
   function plusClick() {
     setAmount(amount + 1);
@@ -43,7 +52,6 @@ function Item() {
     axios
       .get("http://localhost:8080/item")
       .then((response) => {
-
         setItems(response.data);
       })
       .catch((error) => console.log(error));
@@ -52,39 +60,41 @@ function Item() {
   const cartDto = {
     memEmail: email,
     itemNum: datas.itemNum,
-    itemAmount: amount
+    itemAmount: amount,
   };
 
-  const orderDto = [{
-    memEmail: email,
-    itemNum: datas.itemNum,
-    itemAmount: amount,
-    itemPrice: datas.itemPrice,
-    itemThumb: datas.itemThumb,
-    itemName: datas.itemName
-  }];
-
-
+  const orderDto = [
+    {
+      memEmail: email,
+      itemNum: datas.itemNum,
+      itemAmount: amount,
+      itemPrice: datas.itemPrice,
+      itemThumb: datas.itemThumb,
+      itemName: datas.itemName,
+    },
+  ];
 
   const cartHanddler = () => {
     console.log(email);
     if (isLogin === true) {
-      axios.post("http://localhost:8080/cartinsert", cartDto)
+      axios
+        .post("http://localhost:8080/cartinsert", cartDto)
         .then((response) => {
           console.log(response);
           alert("장바구니 추가완료");
-        }).catch((error) => {
-          console.log(error);
         })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       alert("로그인 후 이용하세요.");
       navigate("/login");
     }
-  }
+  };
 
   const buyHanddler = () => {
-    navigate('/order', { state: { orderDto } });
-  }
+    navigate("/order", { state: { orderDto } });
+  };
   const moveToFocus = useRef([]);
   useEffect(() => {
     axios.get(`http://localhost:8080/item/${itemNum}`)
@@ -99,109 +109,133 @@ function Item() {
       .then(review => {
         setDatas2(review.data);
       })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [itemNum]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
+      .then(review => {
+        setDatas2(review.data);
+        console.log(datas2);
+      })
       .catch(error => { console.log(error); });
   }, []);
 
+
   useEffect(() => {
-    axios.get(`http://localhost:8080/qna/${itemNum}`)
-      .then(qna => {
+    axios
+      .get(`http://localhost:8080/qna/${itemNum}`)
+      .then((qna) => {
         setQnaDatas(qna.data);
         
         setQnaModal(false);
         
       })
-      .catch(error => { console.log(error); });
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 console.log(itemNumm)
 
-  const qnaWrtie = (itemNumm) => {
-    window.open(`/qnaWrite/${itemNumm}`, "QnaWrite", "width=800, height=700");
-  }
   return (
-    <div className='item-content'>
-      <div className='item_detail'>
+    <div className="item-content">
+      <div className="item_detail">
         <div className="itemImg">
-          <img className='thumb' src={process.env.REACT_APP_API_URL + datas.itemThumb} alt="상품썸네일" />
+          <img
+            className="thumb"
+            src={process.env.REACT_APP_API_URL + datas.itemThumb}
+            alt="상품썸네일"
+          />
         </div>
         <div className="info">
-          <div className='item_title'>
+          <div className="item_title">
             <strong>{datas.itemName}</strong>
             {/* <div className='item_share'> */}
-            <button className='share_button'></button>
+            <button className="share_button"></button>
             {/* </div> */}
           </div>
-          <div className='item_price'>
+          <div className="item_price">
             <span>상품가격</span>
-            <strong>{datas.itemPrice}</strong><span>원</span>
+            <strong>{datas.itemPrice}</strong>
+            <span>원</span>
           </div>
-          <div className='item_delivery'>
+          <div className="item_delivery">
             <span>배송비: </span>
             <span>2500원</span>
           </div>
-          <div className='total-price'>
+          <div className="total-price">
             <span>{datas.itemName}</span>
-            <input value={amount} className='item_amount'></input>
-            <div className='updown'>
-              <button onClick={plusClick} className='arrow'><IoIosArrowUp /></button>
-              <button onClick={minusClick} className='arrow'><IoIosArrowDown /></button>
+            <input value={amount} className="item_amount"></input>
+            <div className="updown">
+              <button onClick={plusClick} className="arrow">
+                <IoIosArrowUp />
+              </button>
+              <button onClick={minusClick} className="arrow">
+                <IoIosArrowDown />
+              </button>
             </div>
           </div>
-          <div className='last-price'>
+          <div className="last-price">
             <span>총합계</span>
             <div>
               <strong>{datas.itemPrice * amount}</strong>
               <span>원</span>
             </div>
           </div>
-          <div className='buy-section'>
-            <button onClick={cartHanddler} className='cart-btn'>장바구니</button>
-            <button onClick={buyHanddler} className='buy-btn'>구매하기</button>
+          <div className="buy-section">
+            <button onClick={cartHanddler} className="cart-btn">
+              장바구니
+            </button>
+            <button onClick={buyHanddler} className="buy-btn">
+              구매하기
+            </button>
           </div>
         </div>
       </div>
-      <div className='slide-item'>
+      <div className="slide-item">
         <strong>추천상품</strong>
-        <div className='slide-btn'>
-          <button className='button-prev'><IoMdArrowDropleft /></button>
-          <button className='button-next'><IoMdArrowDropright /></button>
+        <div className="slide-btn">
+          <button className="button-prev">
+            <IoMdArrowDropleft />
+          </button>
+          <button className="button-next">
+            <IoMdArrowDropright />
+          </button>
         </div>
         <Swiper
           slidesPerView={5}
           spaceBetween={40}
           navigation={{
             nextEl: ".button-next",
-            prevEl: ".button-prev"
-          }
-          }
+            prevEl: ".button-prev",
+          }}
           className="mySwiper"
         >
 
           {items.map(item => (
             <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
           ))}
-          {/* <SwiperSlide><div><img src={s2} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s3} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s4} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
-                    <SwiperSlide><div><img src={s6} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>
-                     <SwiperSlide><div><img src={s7} /><strong>제품명</strong><div><span>가격</span></div></div></SwiperSlide>  */}
         </Swiper>
       </div>
-      <div id="1" className='item-tab'>
+      <div id="1" className="item-tab">
         <ul>
-          <li ref={el => (moveToFocus.current[0] = el)} className='on'>메뉴1</li>
+          <li ref={(el) => (moveToFocus.current[0] = el)} className="on">
+            메뉴1
+          </li>
           <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
           <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
           <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
         </ul>
       </div>
       <div className="detail_img">
-        <div className='detail_img_box'>
-          <img src={process.env.REACT_APP_API_URL + datas.itemDetailImg} alt="상품상세" />
+        <div className="detail_img_box">
+          <img
+            src={process.env.REACT_APP_API_URL + datas.itemDetailImg}
+            alt="상품상세"
+          />
         </div>
-      </div>
-
-      <div className='moreDetail'>
-        <img src={datas.itemDetailImg} alt="상품설명상세" />
       </div>
 
       <div id="2" className="item-tab">
@@ -272,36 +306,35 @@ console.log(itemNumm)
         <table className="review-table">
           <thead >
             <tr>
-              <th width="10%">리뷰 번호</th>
-              <th width="60%">내용</th>
-              <th width="15%">작성자</th>
-              <th width="15%">작성일자</th>
+              <th>별점</th>
+              <th>제목</th>
+              <th>작성일자</th>
             </tr>
           </thead>
-          <div className='myreview_able_wrap'>
-            {datas2.length === 0 ? <div className='myreview_nondata'>작성된 리뷰가 없습니다.</div> :
-              <ul>
-                {datas2.map((did, idx) => (
-                  <li key={idx}>
-                    <td width="10%">{did.reviewIdx} </td>
-                    <td width="60%">
-                      {
-                        did.reviewDeleteYn === 'Y' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :
-                          did.reviewContents
-                      }</td>
-                    <td width="15%">
-                      {did.memEmail}
-                    </td>
-                    <td width="15%">
-                      &nbsp;
-                      {did.reviewWriteDate}
-                    </td>
-                    <input type="hidden" value={did.reviewIdx} />
-                  </li>
-                ))}
-              </ul>
-            }
-          </div>
+          {datas2 &&
+            datas2.map((review) => (
+              <tbody>
+                <tr
+                  onClick={() => {
+                    setReviewIdx(review.reviewIdx);
+                  }}
+                >
+                  <td width="10%"></td>
+                  <td
+                    width="50%"
+                    onClick={() => {
+                      setReviewModal(!reviwModal);
+                    }}
+                  >
+                    {review.itemName}
+                  </td>
+                  <td width="20%">{review.reviewWriteDate}</td>
+                </tr>
+                {reviwModal === true && reviewIdx === review.reviewIdx ? (
+                  <Review value={review.reviewIdx} />
+                ) : null}
+              </tbody>
+            ))}
         </table>
       </div>
       <div id="4" className="item-tab">
@@ -316,10 +349,13 @@ console.log(itemNumm)
       </div>
       <div className="qna">
         <strong>QNA</strong>
-
-        <button onClick={()=>qnaWrtie(itemNumm)} >문의글 작성</button>
+        <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button>
+        {qnaWrite && (
+        <Modal closeModal={() => setQnaWrite(!qnaWrite)} itemName={datas.itemName} itemNum={datas.itemNum}>
+        </Modal>
+      )}
         <table className="review-table">
-          <thead >
+          <thead>
             <tr>
               <th width="8%">문의글 번호</th>
               <th width="53%">제목</th>
@@ -349,7 +385,9 @@ console.log(itemNumm)
                     </td>
                     <td width="13%">{qna.memEmail}</td>
                     <td width="13%">{qna.qnaWriteDate}</td>
-                    <td width="13%">{qna.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
+                    <td width="13%">
+                      {qna.qnaAns === "Y" ? "답변완료" : "답변대기"}
+                    </td>
                   </tr>
                   {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                     <Qna value={qna.qnaIdx} />

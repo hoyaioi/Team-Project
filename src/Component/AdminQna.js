@@ -12,13 +12,13 @@ const AdminBoard = () => {
   const [qnaIdx, setQnaIdx] = useState();
   
 
-  useEffect(() => {
-    const admin = sessionStorage.getItem('adminCheck')
-    if (admin !== '1') {
-      alert("관리자만 접근 가능합니다.");
-      Navigate('/login');
-    }
-  }, [])
+  // useEffect(() => {
+  //   const admin = sessionStorage.getItem('adminCheck')
+  //   if (admin !== '1') {
+  //     alert("관리자만 접근 가능합니다.");
+  //     Navigate('/login');
+  //   }
+  // }, [])
 
 
   useEffect(() => {
