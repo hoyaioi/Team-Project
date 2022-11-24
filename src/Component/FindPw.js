@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../CSS/Find.css";
 
-function FindPw() {
+function FindPW() {
 
   const [email,setEmail] = useState("");
   const [name,setName] = useState("");
@@ -87,4 +87,4 @@ function FindPw() {
   );
 }
 
-export default FindPw;
+export default FindPW;

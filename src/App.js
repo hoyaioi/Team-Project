@@ -50,8 +50,6 @@ import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
-import FindId from "./Component/FindId";
-import FindPw from "./Component/FindPw";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
@@ -137,7 +135,7 @@ function App() {
             path="/findid"
             element={
               <PublicRoute>
-                <FindId />
+                <FindID />
               </PublicRoute>
             }
           />
@@ -145,7 +143,7 @@ function App() {
             path="/findpw"
             element={
               <PublicRoute>
-                <FindPw />
+                <FindPW />
               </PublicRoute>
             }
           />

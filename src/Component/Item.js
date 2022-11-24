@@ -75,7 +75,7 @@ function Item() {
   ];
 
   const [reviewIdx, setReviewIdx] = useState();
-  const [reviwModal, setReviewModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false);
 
   const cartHanddler = () => {
     console.log(email);
