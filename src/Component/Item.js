@@ -38,6 +38,8 @@ function Item() {
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
 
+  const memEmail = sessionStorage.getItem("email")
+
 
   console.log(itemNum);
 
@@ -344,7 +346,7 @@ function Item() {
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button>
+        {memEmail !== null ? <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button> : null}
         {qnaWrite && (
         <Modal closeModal={() => setQnaWrite(!qnaWrite)} itemName={datas.itemName} itemNum={datas.itemNum}>
         </Modal>
