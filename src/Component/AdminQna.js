@@ -22,7 +22,11 @@ const AdminBoard = () => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/qna")
+    axios.get("http://localhost:8080/admin/qna", { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  })
       .then(response => {
         setQnaDatas(response.data);
       })

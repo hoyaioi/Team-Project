@@ -30,7 +30,7 @@ function ItemList() {
   },[]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/itemOrgans/${organs}`)
+      .get(`http://localhost:8080/item/organs/${organs}`)
       .then((response) => {
         setItems(response.data);
       })

@@ -7,7 +7,11 @@ export default function AdminReview() {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/admin/review`)
+    axios.get(`http://localhost:8080/admin/review`, { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  })
       .then(response => {
         setDatas(response.data);
       })
@@ -16,7 +20,11 @@ export default function AdminReview() {
 
   const handlerBlind = (reviewIdx) => {
     if(window.confirm('해당 리뷰를 블라인드 처리할까요?')){
-    axios.delete(`http://localhost:8080/admin/review/remove/${reviewIdx}`)
+    axios.delete(`http://localhost:8080/admin/review/remove/${reviewIdx}`, { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  })
       .then(response => {
         if(response.status === 200){
           alert('블라인드 성공');
@@ -29,7 +37,11 @@ export default function AdminReview() {
 
   const handlerShow = (reviewIdx) => {
     if(window.confirm('해당 리뷰를 블라인드 해제할까요?')){
-      axios.delete(`http://localhost:8080/admin/review/show/${reviewIdx}`)
+      axios.delete(`http://localhost:8080/admin/review/show/${reviewIdx}`, { 
+        headers: { 
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+      }
+    })
         .then(response => {
           if(response.status === 200){
             alert('블라인드 해제완료');

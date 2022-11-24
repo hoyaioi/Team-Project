@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const ItemWrite = () => {
   const navigate = useNavigate();
-  const categoryList = ["선택", "간", "눈", "비타민", "혈관", "장"];
+  const categoryList = ["선택", "간", "눈", "비타민", "혈행개선", "장"];
   const [categorySelect, setCategorySelect] = useState("선택");
 
   const [selectedThumb, setSelectedThumb] = useState(null);
@@ -30,7 +30,11 @@ const ItemWrite = () => {
     formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
     console.log(itemInfo)
-    axios.post("http://localhost:8080/itemwrite", formData).then((response) => {
+    axios.post("http://localhost:8080/item/write", formData, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+      }
+    }).then((response) => {
       if (response.status === 200) {
         navigate("/");
         alert("상품이 등록되었습니다.");

@@ -9,18 +9,6 @@ function AdminAuth() {
     const [memPw,setMemPw] = useState('');
     const inputPw = useRef();
     const onChangeAdmin = (e) => setMemPw(e.target.value);
-
-     useEffect(() => {
-     const admin = sessionStorage.getItem('role')
-     if (admin !== 'ROLE_ADMIN') {
-         alert("관리자만 접근 가능합니다.");
-         navigate('/');
-     } 
-     },[])
-
-     useEffect(() => {
-         inputPw.current.focus();
-     })
     
 
 
@@ -33,7 +21,7 @@ function AdminAuth() {
         })
         .then(response => {
             if(response.status === 200){
-                navigate('/admin/memberList');
+                navigate('/admin/main');
             }
         })
         .catch(error => {

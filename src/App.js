@@ -35,8 +35,6 @@ import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
-import Admin from "./Component/AdminAuth";
-import MemList from "./Component/AdminBoard";
 import AdminQna from "./Component/AdminQna";
 import AdminMember from "./Component/AdminMember";
 import AdminReview from "./Component/AdminReview";
@@ -51,6 +49,7 @@ import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
 import AdminItem from "./Component/AdminItem";
+import AdminRouter from "./routeAuthor/AdminRouter";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
@@ -101,7 +100,7 @@ function App() {
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/write" element={<ItemWrite />} />
+          <Route path="/item/write" element={<ItemWrite />} />
           <Route path="/noticedetail" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
@@ -117,7 +116,7 @@ function App() {
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
           {/* <Route path="/admin/auth/*" element={<AdminRouter><AdminAuth /></AdminRouter>} > */}
-          <Route path="/admin/memberlist/*" element={<AdminRouter><AdminMain /></AdminRouter>} >
+          <Route path="/admin/*" element={<AdminRouter><AdminMain /></AdminRouter>} >
             <Route path="member" element={<AdminMember />} />
             <Route path="review" element={<AdminReview />} />
             <Route path="refund" element={<AdminRefund />} />

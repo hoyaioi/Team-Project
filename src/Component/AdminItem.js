@@ -9,7 +9,11 @@ function AdminItem() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/admin/item")
+            .get("http://localhost:8080/admin/item" ,{ 
+                headers: { 
+                'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+              }
+            })
             .then((response) => {
                 console.log(response);
                 setData(response.data);
@@ -18,7 +22,11 @@ function AdminItem() {
     }, []);
 
     const handlerDelete = (itemNum) => {
-        axios.post(`http://localhost:8080/admin/item/delete/${itemNum}`)
+        axios.post(`http://localhost:8080/admin/item/delete/${itemNum}`, { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }
+        })
         .then((response) => {
             console.log(response);
             if (response.status === 200) {

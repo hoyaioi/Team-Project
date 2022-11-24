@@ -18,7 +18,11 @@ const AdminMember = () => {
   //회원 탈퇴
   //회원 정보 수정
   useEffect(() => {
-    axios.get("http://localhost:8080/admin_mem").then((res) => {
+    axios.get("http://localhost:8080/admin/mem", { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  }).then((res) => {
       setMemList(res.data);
       console.log(memList)
     });

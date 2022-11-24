@@ -7,7 +7,11 @@ export default function AdminReview() {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/admin/refund`)
+    axios.get(`http://localhost:8080/admin/refund`, { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  })
       .then(response => {
         setDatas(response.data);
       })
@@ -16,7 +20,11 @@ export default function AdminReview() {
 
   const handlerRefund = (refundIdx) => {
     if(window.confirm('해당 주문 건을 환불처리 하시겠습니까?')){
-    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`)
+    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`, { 
+      headers: { 
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+    }
+  })
       .then(response => {
         alert('반품완료 처리되었습니다.');
         window.location.reload();

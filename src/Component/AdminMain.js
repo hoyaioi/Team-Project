@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import '../CSS/AdminMain.css';
+import AdminRouter from "../routeAuthor/AdminRouter";
 
 
 export default function AdminMain() {
 
   return (
     <>
+  
       <div id="main">
         <div className="admin_main_wrap">
           <Link to = 'member'><div>회원관리</div></Link>
@@ -19,6 +21,7 @@ export default function AdminMain() {
           </div>
           <Outlet />
       </div>
+
     </>
   );
 };
