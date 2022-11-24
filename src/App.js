@@ -93,7 +93,7 @@ function App() {
             <Route path="myreview" element={<MyReview memIdx={memIdx} />} />
 
             <Route path="myresearch" element={<MyPageResearch />} />
-            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />} />
+            <Route path="myinfo" element={<MyInfoUp1 memIdx={memIdx} />}/>
             {/* <Route path="modify" element={<MyInfoUp2 memIdx={memIdx} />} /> */}
             <Route path="myinfodel" element={<MyInfoDel1 memIdx={memIdx} />} />
             {/* <Route path="unregister" element={<MyInfoDel2 memIdx={memIdx} />} /> */}
@@ -106,52 +106,18 @@ function App() {
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
           <Route path="/itemlist" element={<ItemList />} />
-          <Route
-            path="/join"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
+          <Route path="/join" element={<PublicRoute><Register/></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/private" element={<Private />} />
           <Route path="/company" element={<Company />} />
-          <Route
-            path="/findAccount"
-            element={
-              <PublicRoute>
-                <FindAccount />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/findid"
-            element={
-              <PublicRoute>
-                <FindID />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/findpw"
-            element={
-              <PublicRoute>
-                <FindPW />
-              </PublicRoute>
-            }
-          />
+          <Route path="/findAccount" element={<PublicRoute><FindAccount /></PublicRoute>} />
+          <Route path="/findid" element={<PublicRoute><FindID /></PublicRoute>} />
+          <Route path="/findpw" element={<PublicRoute><FindPW memIdx={memIdx} /></PublicRoute>}/>
+          {/* <Route path="/updatepw" element={<UpdatePW/>}/> */}
           <Route path="/agreement" element={<Agreement />} />
           <Route path="/surveyStart" element={<Survey />} />
-          {/* <Route path="/adminauth/*" element={<AdminAuth />} > */}
-          <Route path="/admin/*" element={<AdminMain />} >
+          {/* <Route path="/admin/auth/*" element={<AdminRouter><AdminAuth /></AdminRouter>} > */}
+          <Route path="/admin/memberlist/*" element={<AdminRouter><AdminMain /></AdminRouter>} >
             <Route path="member" element={<AdminMember />} />
             <Route path="review" element={<AdminReview />} />
             <Route path="refund" element={<AdminRefund />} />

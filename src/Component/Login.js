@@ -41,7 +41,6 @@ function Login() {
             navigate('/');
             alert(`${memberInfo.name}님 환영합니다.`);
             window.location.reload();
-        
         } 
       })
       .catch(error => {
