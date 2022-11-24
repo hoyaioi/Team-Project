@@ -18,8 +18,8 @@ const Items = () => {
   return (
     <div className="main_items_sales">
       {datas.slice(0, 5).map((item, idx) => (
-        <Link to={`/item/${item.itemNum}`}state={{ item: datas}}>
-          <div key={idx} className="main_items">
+        <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}} >
+          <div className="main_items">
             <div className="main_items_img_wrap">
               <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일"/>
             </div>

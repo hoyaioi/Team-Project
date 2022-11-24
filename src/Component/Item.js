@@ -117,7 +117,6 @@ function Item() {
     axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
-        console.log(datas2);
       })
       .catch(error => { console.log(error); });
   }, []);
@@ -151,7 +150,7 @@ function Item() {
           <div className="item_title">
             <strong>{datas.itemName}</strong>
             {/* <div className='item_share'> */}
-            <button className="share_button"></button>
+            <button type = 'button' className="share_button"></button>
             {/* </div> */}
           </div>
           <div className="item_price">
@@ -165,12 +164,12 @@ function Item() {
           </div>
           <div className="total-price">
             <span>{datas.itemName}</span>
-            <input value={amount} className="item_amount"></input>
+            <input value={amount} className="item_amount" readOnly ></input>
             <div className="updown">
-              <button onClick={plusClick} className="arrow">
+              <button type='button' onClick={plusClick} className="arrow">
                 <IoIosArrowUp />
               </button>
-              <button onClick={minusClick} className="arrow">
+              <button type='button' onClick={minusClick} className="arrow">
                 <IoIosArrowDown />
               </button>
             </div>
@@ -212,8 +211,14 @@ function Item() {
           className="mySwiper"
         >
 
-          {items.map(item => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
+          {items.map((item, idx) => (
+            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}>
+              <div key={idx}>
+                <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" />
+                <strong>{item.itemName}</strong>
+                <div><span>{item.itemPrice}원</span></div>
+              </div>
+              </Link></SwiperSlide>
           ))}
         </Swiper>
       </div>
