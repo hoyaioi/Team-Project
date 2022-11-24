@@ -39,8 +39,7 @@
   float: left;
   position: relative;
   width: 955px;
-  height: 700px;
-  min-height: 700px;
+  min-height: 500px;
   height: auto;
   padding: 0 0 0 40px;
   text-align: center;

@@ -15,6 +15,10 @@
   margin-bottom: 50px;
 }
 
+.myrefund_list_wrap {
+  min-height: 400px;
+}
+
 .myrefund_list_wrap tr {
   border-bottom: 2px solid #e5e5e5;
 }
@@ -45,6 +49,8 @@
   vertical-align: middle;
   word-break: break-all;
   font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 17px;
 }
 
 .myrefund_item_info_wrap {
@@ -66,7 +72,9 @@
   width: 100%;
   vertical-align: middle;
   padding-left: 10px;
+  font-size: 15px;
   padding-right: 10px;
+  font-weight: 600;
 }
 
 .myrefund_item_info_td {

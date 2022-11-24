@@ -59,19 +59,17 @@
 }
 
 .mypage_sidemenu ul li:first-child {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .mypage_sidemenu ul li {
   position: relative;
-  border-top: 2px solid white;
-  height: 60px;
-  padding-top: 10px;
-  margin-left: 2.5rem;
   font-size: 14px;
   font-weight: bold;
-  /* background-color: #b5d692; */
   color: black;
+  width: 100px;
+  height: 40px;
+  margin: 10px 50px;
 }
 
 .mypage_sidemenu ul li a {

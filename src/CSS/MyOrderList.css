@@ -12,7 +12,7 @@
 
 .myorderlist_title_wrap h2 {
   font-size: 36px;
-  height: 65px;
+  height: 60px;
   align-items: center;
   font-weight: bold;
   border-bottom: 2px solid black;
@@ -49,6 +49,7 @@
 .myorderlist_stat {
   font-size: 14px;
   font-weight: bold;
+  margin-bottom: 2px;
 }
 
 .myorderlist_stat_count {
@@ -57,7 +58,7 @@
 /* ============= 주문리스트 ================= */
 
 .myorderlist_order_wrap {
-  min-height: 450px;
+  min-height: 400px;
 }
 
 .myorderlist_order_wrap table {
@@ -107,6 +108,7 @@
   font-size: 14px;
   height: 100px;
   padding: 3px 0;
+  font-weight: 600;
 }
 
 .myorderlist_item_info_td {
@@ -124,7 +126,7 @@
   vertical-align: middle;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 
