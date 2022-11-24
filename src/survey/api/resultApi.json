@@ -17,16 +17,16 @@
 	},
 	{
 		"research_organ": "간",
-		"id": "/item/1001004",
-		"url": "url",
+		"id": "",
+		"url": "/item/1001004",
 		"src": "/result/liver3.png",
 		"score": 3,
 		"price": "77,000"
 	},
 	{
 		"research_organ": "간",
-		"id": "/item/1001005",
-		"url": "url",
+		"id": "",
+		"url": "/item/1001005",
 		"src": "/result/liver4.png",
 		"score": 4,
 		"price": "27,000"

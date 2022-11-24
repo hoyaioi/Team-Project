@@ -74,6 +74,9 @@ function Item() {
     },
   ];
 
+  const [reviewIdx, setReviewIdx] = useState();
+  const [reviwModal, setReviewModal] = useState(false);
+
   const cartHanddler = () => {
     console.log(email);
     if (isLogin === true) {
@@ -137,7 +140,6 @@ function Item() {
         console.log(error);
       });
   }, []);
-console.log(itemNumm)
 
   return (
     <div className="item-content">
