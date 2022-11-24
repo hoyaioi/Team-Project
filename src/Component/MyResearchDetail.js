@@ -88,15 +88,15 @@ function MyPageResearchDetail({  }) {
                                     >
                                       {showResultList.map((result, i) => (
                                 <SwiperSlide key={i}>
-                                    <div className="titleSurvey">
+                                    <div className="titleResult">
                                          {result.research_organ}
                                     </div>
                                     <div className="resultImg">
                                         <img src={`${result.src}`} />
                                     </div>
                                     <div className="priceSurvey">
-                                        가격 : <strong>{result.price}</strong><br />
-                                        <a href={result.url} target="_blank">상품 보러가기</a>
+                                        가격 : <strong>{result.price}원</strong><br />
+                                        <Link to ={result.url}>상품 보러가기</Link>
                                     </div>
                                 </SwiperSlide>
                             ))}

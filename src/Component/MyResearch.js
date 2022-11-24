@@ -50,7 +50,7 @@ function MyPageResearch() {
     }
 
 
-    const email = sessionStorage.getItem('memEmail');
+    const email = sessionStorage.getItem('email');
     const filteredDatas = datas.filter(data => data.memEmail === email);
 
     return (

@@ -37,8 +37,9 @@ function Item() {
   const [items, setItems] = useState([]);
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
-  const [reviewIdx, setReviewIdx] = useState(0);
-  const [reviewModal, setReviewModal] = useState(false);
+
+
+  console.log(itemNum);
 
   function plusClick() {
     setAmount(amount + 1);
@@ -73,6 +74,9 @@ function Item() {
     },
   ];
 
+  const [reviewIdx, setReviewIdx] = useState();
+  const [reviwModal, setReviewModal] = useState(false);
+
   const cartHanddler = () => {
     console.log(email);
     if (isLogin === true) {
@@ -103,10 +107,9 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/item/${itemNum}`)
-      .then((response) => {
-        setData(response.data);
+    axios.get(`http://localhost:8080/review/${itemNum}`)
+      .then(review => {
+        setDatas2(review.data);
       })
       .catch((error) => {
         console.log(error);
