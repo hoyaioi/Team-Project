@@ -32,19 +32,19 @@ function Item() {
   const [qnaDatas, setQnaDatas] = useState([]);
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
+  const [itemPrice, setItemPrice] = useState(0);
   const isLogin = sessionStorage.getItem("idx") ? true : false;
   const email = sessionStorage.getItem("email");
   const [items, setItems] = useState([]);
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
 
+  let lastPrice = itemPrice * amount;
 
-  console.log(itemNum);
-
-  function plusClick() {
+  const plusClick = () => {
     setAmount(amount + 1);
   }
-  function minusClick() {
+  const minusClick = () => {
     amount === 1 ? setAmount(1) : setAmount(amount - 1);
   }
 
@@ -81,7 +81,7 @@ function Item() {
     console.log(email);
     if (isLogin === true) {
       axios
-        .post("http://localhost:8080/cart/insert", cartDto)
+        .post("http://localhost:8080/cartinsert", cartDto)
         .then((response) => {
           console.log(response);
           alert("장바구니 추가완료");
@@ -103,6 +103,7 @@ function Item() {
     axios.get(`http://localhost:8080/item/${itemNum}`)
       .then(response => {
         setData(response.data);
+        setItemPrice(response.data.itemPrice);
       })
       .catch(error => { console.log(error); });
   }, [itemNum]);
@@ -181,7 +182,7 @@ function Item() {
           <div className="last-price">
             <span>총합계</span>
             <div>
-              <strong>{datas.itemPrice * amount}</strong>
+              <strong>{lastPrice}</strong>
               <span>원</span>
             </div>
           </div>
@@ -216,8 +217,8 @@ function Item() {
         >
 
           {items.map((item, idx) => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}>
-              <div key={idx}>
+            <SwiperSlide key={idx} ><Link to={`/item/${item.itemNum}`} state={{ item: items }}>
+              <div >
                 <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" />
                 <strong>{item.itemName}</strong>
                 <div><span>{item.itemPrice}원</span></div>
@@ -312,8 +313,8 @@ function Item() {
         <strong>상품후기</strong>
         <table className="review-table">
           {datas2 &&
-            datas2.map((review) => (
-              <tbody>
+            datas2.map((review, idx) => (
+              <tbody key={idx}>
                 <tr
                   onClick={() => {
                     setReviewIdx(review.reviewIdx);
@@ -366,9 +367,9 @@ function Item() {
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.map((qna) => (
+              qnaDatas.map((qna, idx) => (
                 <>
-                  <tr
+                  <tr key={idx}
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}
