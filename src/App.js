@@ -21,8 +21,6 @@ import Agreement from "./Component/Agreement";
 import Private from "./Component/Private";
 import Company from "./Component/Compnay";
 import FindAccount from "./Component/FindAccount";
-import FindID from "./Component/FindID";
-import FindPW from "./Component/FindPW";
 import MyOrderList from "./Component/MyOrderList";
 import MyRefund from "./Component/MyRefund";
 import MyReview from "./Component/MyReview";
@@ -50,6 +48,8 @@ import Member from "./Component/Member";
 import PrivateRoute from "./routeAuthor/PrivateRoute";
 import PublicRoute from "./routeAuthor/PublicRoute";
 import QnaWrite from "./Component/QnaWrite";
+import FindId from "./Component/FindId";
+import FindPw from "./Component/FindPw";
 
 function App() {
   const memIdx = sessionStorage.getItem("idx");
@@ -135,7 +135,7 @@ function App() {
             path="/findid"
             element={
               <PublicRoute>
-                <FindID />
+                <FindId />
               </PublicRoute>
             }
           />
@@ -143,7 +143,7 @@ function App() {
             path="/findpw"
             element={
               <PublicRoute>
-                <FindPW />
+                <FindPw />
               </PublicRoute>
             }
           />

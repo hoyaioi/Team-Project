@@ -29,53 +29,53 @@ const AdminMember = () => {
       <div id="main">
         <div className="admin_container">
           <div className="admin_title">
-            관리자 회원목록
+            회원관리
           </div>
           <div className="admin_table">
-        <table>
-          <thead>
-            <tr>
-              <th width="4%">회원번호</th>
-              <th width="10%">아이디</th>
-              <th width="4%" >이름</th>
-              <th width="10%">전화번호</th>
-              <th width="30%">주소</th>
-              <th width="10%">상세 주소</th>
-              <th width="13%">가입일</th>
-              <th width="5%">탈퇴여부</th>
-              <th width="5%">관리자여부</th>
-              <th width="5%">수정</th>
-              <th width="10%">삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            {memList.map((mem) => (
-              <tr key={mem.memIdx}>
-                <td>{mem.memIdx}</td>
-                <td>{mem.memEmail}</td>
-                <td>{mem.memName}</td>
-                <td>{mem.memPhone}</td>
-                <td>{mem.memAddr1}</td>
-                <td>{mem.memAddr2}</td>
-                <td>{mem.memRegDate}</td>
-                <td> {mem.memDeletedYn === "N" ? (
-                  <td>X</td>
-                ) : (
-                  <td>{mem.memDelDate}</td>
-                )}</td>
-                <td>{mem.memRole === 1 ? "관리자" : "일반회원"}</td>
-                <td>
-                  <a href={`/member/update/${mem.memIdx}`}>수정</a>
-                </td>
-                <td>
-                  <a href={`/member/delete/${mem.memIdx}`}>삭제</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <table>
+              <thead>
+                <tr>
+                  <th width="4%">회원번호</th>
+                  <th width="10%">아이디</th>
+                  <th width="4%" >이름</th>
+                  <th width="10%">전화번호</th>
+                  <th width="30%">주소</th>
+                  <th width="10%">상세 주소</th>
+                  <th width="13%">가입일</th>
+                  <th width="5%">탈퇴여부</th>
+                  <th width="5%">관리자여부</th>
+                  <th width="5%">수정</th>
+                  <th width="10%">삭제</th>
+                </tr>
+              </thead>
+              <tbody>
+                {memList.map((mem) => (
+                  <tr key={mem.memIdx}>
+                    <td>{mem.memIdx}</td>
+                    <td>{mem.memEmail}</td>
+                    <td>{mem.memName}</td>
+                    <td>{mem.memPhone}</td>
+                    <td>{mem.memAddr1}</td>
+                    <td>{mem.memAddr2}</td>
+                    <td>{mem.memRegDate}</td>
+                    <td> {mem.memDeletedYn === "N" ? (
+                      <td>X</td>
+                    ) : (
+                      <td>{mem.memDelDate}</td>
+                    )}</td>
+                    <td>{mem.memRole === 1 ? "관리자" : "일반회원"}</td>
+                    <td>
+                      <a href={`/member/update/${mem.memIdx}`}>수정</a>
+                    </td>
+                    <td>
+                      <a href={`/member/delete/${mem.memIdx}`}>삭제</a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

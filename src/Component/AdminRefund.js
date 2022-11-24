@@ -15,13 +15,13 @@ export default function AdminReview() {
   }, []);
 
   const handlerRefund = (refundIdx) => {
-    if(window.confirm('해당 주문 건을 환불처리 하시겠습니까?')){
-    axios.put(`http://localhost:8080/admin/refund/${refundIdx}`)
-      .then(response => {
-        alert('반품완료 처리되었습니다.');
-        window.location.reload();
-      })
-      .catch(error => console.log(error));
+    if (window.confirm('해당 주문 건을 환불처리 하시겠습니까?')) {
+      axios.put(`http://localhost:8080/admin/refund/${refundIdx}`)
+        .then(response => {
+          alert('반품완료 처리되었습니다.');
+          window.location.reload();
+        })
+        .catch(error => console.log(error));
     }
   }
 
@@ -30,7 +30,7 @@ export default function AdminReview() {
       <div id="main">
         <div className="admin_container">
           <div className="admin_title">
-            관리자 반품목록
+            반품관리
           </div>
           <div className="admin_table">
             <table>
@@ -56,13 +56,13 @@ export default function AdminReview() {
                     <td>{refund.itemPrice}</td>
                     <td>{refund.refundStatus}</td>
                     <td>
-                      <input type = "hidden" value = {refund.refundIdx} />
+                      <input type="hidden" value={refund.refundIdx} />
                       <div className="admin_btn">
                         {refund.refundStatus === '반품진행중' ? <button type='button' onClick={() => handlerRefund(refund.refundIdx)}>환불처리</button> : ''}
                       </div>
                     </td>
                   </tr>
-               ))}
+                ))}
               </tbody>
             </table>
           </div>

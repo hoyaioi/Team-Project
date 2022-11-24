@@ -37,9 +37,8 @@ function Item() {
   const [items, setItems] = useState([]);
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
-
-
-  console.log(itemNum);
+  const [reviewIdx, setReviewIdx] = useState(0);
+  const [reviewModal, setReviewModal] = useState(false);
 
   function plusClick() {
     setAmount(amount + 1);
@@ -79,8 +78,7 @@ function Item() {
     if (isLogin === true) {
       axios
         .post("http://localhost:8080/cartinsert", cartDto)
-        .then((response) => {
-          console.log(response);
+        .then(response => {
           alert("장바구니 추가완료");
         })
         .catch((error) => {
@@ -138,7 +136,6 @@ function Item() {
         console.log(error);
       });
   }, []);
-console.log(itemNumm)
 
   return (
     <div className="item-content">
@@ -324,14 +321,14 @@ console.log(itemNumm)
                   <td
                     width="50%"
                     onClick={() => {
-                      setReviewModal(!reviwModal);
+                      setReviewModal(!reviewModal);
                     }}
                   >
                     {review.itemName}
                   </td>
                   <td width="20%">{review.reviewWriteDate}</td>
                 </tr>
-                {reviwModal === true && reviewIdx === review.reviewIdx ? (
+                {reviewModal === true && reviewIdx === review.reviewIdx ? (
                   <Review value={review.reviewIdx} />
                 ) : null}
               </tbody>

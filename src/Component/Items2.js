@@ -17,7 +17,7 @@ const Items = () => {
 
   return (
     <div className="main_items_sales">
-      {datas.slice(0, 5).map(item => (
+      {datas.slice(0, 5).map((item, idx) => (
         <Link to={`/item/${item.itemNum}`}state={{ item: datas}}>
           <div key={idx} className="main_items">
             <div className="main_items_img_wrap">
