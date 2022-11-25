@@ -220,16 +220,16 @@ function MyCart() {
               >
                 선택 항목 삭제
               </button>
-              <Link to="/order" state={{ orderDto: checkedList }}>
+              {data.length === 0 ? null :  <Link to="/order" state={{ orderDto: checkedList }}>
                 <button className="mycart_buy_btn" type="button">
                   선택 주문
                 </button>
-              </Link>
-              <Link to="/order" state={{ orderDto: data }}>
+              </Link>} 
+              {data.length === 0 ? null : <Link to="/order" state={{ orderDto: data }}>
                 <button className="mycart_buy_btn" type="button">
                   전체 주문
                 </button>
-              </Link>
+              </Link>}
             </div>
           </div>
         </div>

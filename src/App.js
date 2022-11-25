@@ -65,9 +65,7 @@ function App() {
           <Route
             path="/service/*"
             element={
-              <PrivateRoute>
                 <Service />
-              </PrivateRoute>
             }
           >
             <Route path="center" element={<ServiceCenter />} />

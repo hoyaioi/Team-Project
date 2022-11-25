@@ -83,7 +83,7 @@ function Item() {
     console.log(email);
     if (isLogin === true) {
       axios
-        .post("http://localhost:8080/cartinsert", cartDto)
+        .post("http://localhost:8080/cart/insert", cartDto)
         .then((response) => {
           console.log(response);
           alert("장바구니 추가완료");
