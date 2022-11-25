@@ -25,7 +25,6 @@ function MyCart() {
             setData(response.data);
             setCheckedLists([]);
         })
-    );
   };
 
   const minusClick = (cartIdx, itemAmount) => {

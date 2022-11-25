@@ -91,11 +91,12 @@ const Step4 = () => {
 
     }).then((response) => {
       if (response.status === 200) {
-        alert("설문결과가 저장되었습니다.");
-
+        if (sessionStorage.getItem("email") == null) {
+          alert("로그인을 먼저 해주세요");
+          window.location.href = "/login";
+        }
       } else {
-        alert("등록에 실패했습니다.");
-        return;
+        alert("설문결과가 저장되었습니다.");
       }
     }
     )
@@ -143,7 +144,7 @@ const Step4 = () => {
               ))}
             </Swiper>
           </div>
-          <div className="prev"><Link to="/surveyStart">처음 화면으로</Link></div>
+          <div className="prev"><Link to="/intro">처음 화면으로</Link></div>
           <div className="next" onClick={handlerOnClick}>저장</div>
         </div>
       </div>

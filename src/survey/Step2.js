@@ -59,10 +59,10 @@ const Step2 = ({ nextSteps, prevSteps }) => {
                     className="radio"
                     type="checkbox"
                     name="organ"
-                    value="몸"
+                    value="비타민"
                     onChange={onChecked}
                   />{" "}
-                  몸(활력)
+                 비타민
                 </li>
                 <li>
                   <input
