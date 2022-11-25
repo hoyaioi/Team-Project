@@ -77,29 +77,30 @@ const Step4 = () => {
   }
 
   const handlerOnClick = (e) => {
-    e.preventDefault();
-    axios.post("http://localhost:8080/result", {
-      "resultUser": nameStr,
-      "memEmail": sessionStorage.getItem("email"),
-      "resultLiver": getValue("간"),
-      "resultEyes": getValue("눈"),
-      "resultVitamin": getValue("몸"),
-      "resultBlood": getValue("혈관"),
-      "resultDiges": getValue("장"),
-      "resultSave": "Y"
-
-
-    }).then((response) => {
-      if (response.status === 200) {
-        if (sessionStorage.getItem("email") == null) {
-          alert("로그인을 먼저 해주세요");
-          window.location.href = "/login";
-        }
-      } else {
-        alert("설문결과가 저장되었습니다.");
-      }
+    if (sessionStorage.getItem("email") === null) {
+      alert("로그인 후 이용해주세요.");
+      window.location.href = "/login";
     }
-    )
+    else {
+      e.preventDefault();
+      axios.post("http://localhost:8080/result", {
+        "resultUser": nameStr,
+        "memEmail": sessionStorage.getItem("email"),
+        "resultLiver": getValue("간"),
+        "resultEyes": getValue("눈"),
+        "resultVitamin": getValue("몸"),
+        "resultBlood": getValue("혈관"),
+        "resultDiges": getValue("장"),
+        "resultSave": "Y"
+      }).then((response) => {
+        if (response.status === 200) {
+          alert("설문결과가 저장되었습니다.");
+        } else {
+          alert("저장에 실패하였습니다.");
+        }
+      }
+      )
+    }
   }
 
 
