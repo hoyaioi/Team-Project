@@ -3,12 +3,20 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../CSS/ItemList.css";
+import Paging from "./Paging";
 function ItemList() {
   const location = useLocation();
   const organs = location.state.organs;
   const [datas, setDatas] = useState([]);
   const [items, setItems] = useState([]);
   const [select, setSelect] = useState('default');
+
+  const [itemShowNum, setItemShowNum] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
+  const count = datas.length;
+  const count1 = items.length;
 
   const handlerSelect = (e) => {
     setSelect(e.target.value);
@@ -17,9 +25,10 @@ function ItemList() {
   const [select2, setSelect2] = useState('default2');
 
   const handlerSelect2 = (e) => {
-    setSelect2(e.target.value);
+    setPageCount(e.target.value);
+    setItemShowNum(e.target.value);
   }
-  
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/item")
@@ -27,7 +36,7 @@ function ItemList() {
         setDatas(response.data);
       })
       .catch((error) => console.log(error));
-  },[]);
+  }, []);
   useEffect(() => {
     axios
       .get(`http://localhost:8080/item/organs/${organs}`)
@@ -35,19 +44,19 @@ function ItemList() {
         setItems(response.data);
       })
       .catch((error) => console.log(error));
-  },[organs]);
-const itemCount =  organs === null ? datas : items;
+  }, [organs]);
+  const itemCount = organs === null ? datas : items;
   return (
     <>
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
             <div className="itemlist_title">
-              {organs === null ? <h2>전체상품</h2> : 
-              
-              <>
-              <h2>{organs}</h2>
-              </>
+              {organs === null ? <h2>전체상품</h2> :
+
+                <>
+                  <h2>{organs}</h2>
+                </>
               }
             </div>
             <div className="itemlist_box">
@@ -66,9 +75,9 @@ const itemCount =  organs === null ? datas : items;
                   </select>
                 </div>
                 <div className="itemlist_view_num">
-                  <select name="page_num" defaultValue={select2} className="itemlist_chosen" onChange={handlerSelect2}>
+                  <select name="page_num" className="itemlist_chosen" onChange={handlerSelect2}>
                     <option value="10">10개씩보기</option>
-                    <option value="default2">
+                    <option value="20">
                       20개씩보기
                     </option>
                     <option value="30">30개씩보기</option>
@@ -92,14 +101,14 @@ const itemCount =  organs === null ? datas : items;
             </div> */}
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
-                  {organs === null 
+                {organs === null
                   ? <ul>
-                  {datas.map((item, idx) => {
-                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                    {datas.slice(offset, offset + itemShowNum).map((item, idx) => {
+                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas }}>
                         <li>
                           <div className="itemlist_items_box">
                             <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
+                              <img src={process.env.REACT_APP_API_URL + item.itemThumb} />
                             </div>
                           </div>
                           <div className="itemlist_info">
@@ -113,14 +122,14 @@ const itemCount =  organs === null ? datas : items;
                         </li>
                       </Link>;
                     })}
-                </ul>
+                  </ul>
                   : <ul>
-                  {items.map((item, idx) => {
-                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
+                    {items.slice(offset, offset + 10).map((item, idx) => {
+                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas }}>
                         <li>
                           <div className="itemlist_items_box">
                             <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
+                              <img src={process.env.REACT_APP_API_URL + item.itemThumb} />
                             </div>
                           </div>
                           <div className="itemlist_info">
@@ -134,9 +143,14 @@ const itemCount =  organs === null ? datas : items;
                         </li>
                       </Link>;
                     })}
-                </ul> }
+                  </ul>}
               </div>
             </div>
+
+            {organs === null ?  <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
+            :
+            <div><Paging page={page} setPage={setPage} count={count1} pagecount={pagecount} /></div>
+              }
           </div>
         </div>
       </div>

@@ -1,10 +1,9 @@
 #footer {
   width: 100%;
-
   position: relative;
   background-color: #e9f4ec;
   clear: both;
-
+  font-weight: 300;
 }
 
 .footer_wrap {
@@ -33,7 +32,7 @@
   text-decoration: none;
   color: black;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .footer_top ul li a:hover {
@@ -49,7 +48,6 @@
 
 .footer_bottom ul li {
   margin: 2px;
-
 }
 
 .footer_cs {

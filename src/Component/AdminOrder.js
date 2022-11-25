@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../CSS/AdminOrder.css";
+import Paging from "./Paging";
 
 
 function AdminOrder() {
@@ -8,6 +9,10 @@ function AdminOrder() {
     const [datas, setDatas] = useState([]);
     const orderState = ["상품준비중", "배송중", "배송완료"];
     const [stateSelect, setStateSelect] = useState([]);
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 10;
+    const [pagecount, setPageCount] = useState(10);
+    const count = datas.length;
     const stateHandler = (e) => {
         setStateSelect(e.target.value);
         console.log(stateSelect);
@@ -73,7 +78,7 @@ function AdminOrder() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datas.map(orderlist => (
+                        {datas.slice(offset, offset + 10).map(orderlist => (
                             <tr>
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + orderlist.itemThumb} /></td>
                                 <td width="16%">{orderlist.orderNum}</td>
@@ -101,6 +106,7 @@ function AdminOrder() {
 
                     </tbody>
                 </table>
+                    <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
             </div>
         </>
 

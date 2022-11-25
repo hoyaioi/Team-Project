@@ -1,13 +1,14 @@
 import React from "react";
-import "../CSS/ItemWrite.css";
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import '../CSS/AdminItemUpdate.css';
 
-const ItemWrite = () => {
+const AdminItemWrite = (props) => {
   const navigate = useNavigate();
   const categoryList = ["선택", "간", "눈", "비타민", "혈행개선", "장"];
-  const [categorySelect, setCategorySelect] = useState("선택");
+  const [categorySelect, setCategorySelect] = useState(props.item.itemOrgans);
 
   const [selectedThumb, setSelectedThumb] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -30,16 +31,16 @@ const ItemWrite = () => {
     formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
     console.log(itemInfo)
-    axios.post("http://localhost:8080/admin/item/write", formData, {
+    axios.post("http://localhost:8080/admin/item/update", formData, {
       headers: {
         'Authorization': `Bearer ${sessionStorage.getItem("token")}`
       }
     }).then((response) => {
       if (response.status === 200) {
-        navigate("/");
-        alert("상품이 등록되었습니다.");
+        navigate("/admin/item");
+        alert("상품이 수정 되었습니다.");
       } else {
-        alert("상품 등록 실패");
+        alert("상품 수정 실패");
       }
     });
   };
@@ -53,15 +54,15 @@ const ItemWrite = () => {
   };
   console.log(categorySelect);
   const [itemInfo, setItemInfo] = useState({
-    itemNum: "",
-    itemName: "",
-    itemPrice: "",
-    itemThumb: "",
-    itemDetailImg: "",
-    itemMaker: "",
+    itemNum: props.item.itemNum,
+    itemName: props.item.itemName,
+    itemPrice: props.item.itemPrice,
+    itemThumb: props.item.itemThumb,
+    itemDetailImg: props.item.itemDetailImg,
+    itemMaker: props.item.itemMaker,
     itemHow: "",
-    itemExpDate: "",
-    itemOrgans: "",
+    itemExpDate: props.item.itemExpDate,
+    itemOrgans: categorySelect,
     itemMaterials: "",
     itemSubImg: "",
   });
@@ -77,12 +78,12 @@ const ItemWrite = () => {
 
   return (
     <div id="main">
-      <div className="write_item_wrap ">
-        <div className="write_item_form">
-          <div className="write_item_title">
-            <h3>상품 등록</h3>
+      <div className="update_item_wrap ">
+        <div className="update_item_form">
+          <div className="update_item_title">
+            <h3>상품 수정</h3>
           </div>
-          <div className="item_board_write">
+          <div className="admin_item_update">
             <form>
               <div className="item_board_box">
                 <table>
@@ -114,6 +115,7 @@ const ItemWrite = () => {
                           placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemName"
+                          value={itemInfo.itemName}
                         />
                       </td>
                     </tr>
@@ -123,9 +125,11 @@ const ItemWrite = () => {
                         <input
                           type="text"
                           className="item_write_title"
-                          placeholder="상품명을 입력해주세요"
+                          placeholder="상품번호를 입력해주세요"
                           onChange={getValue}
                           name="itemNum"
+                          readOnly
+                          value={itemInfo.itemNum}
                         />
                       </td>
                     </tr>
@@ -140,6 +144,7 @@ const ItemWrite = () => {
                           name="itemExpDate"
                           min="2022-11-01"
                           max="2050-12-31"
+                          value={itemInfo.itemExpDate}
                         />
                       </td>
                     </tr>
@@ -149,9 +154,10 @@ const ItemWrite = () => {
                         <input
                           type="number"
                           className="item_write_title"
-                          placeholder="상품명을 입력해주세요"
+                          placeholder="가격을 입력해주세요"
                           onChange={getValue}
                           name="itemPrice"
+                          value={itemInfo.itemPrice}
                         />
                       </td>
                     </tr>
@@ -161,9 +167,10 @@ const ItemWrite = () => {
                         <input
                           type="text"
                           className="item_write_title"
-                          placeholder="상품명을 입력해주세요"
+                          placeholder="제조사를 입력해주세요"
                           onChange={getValue}
                           name="itemMaker"
+                          value={itemInfo.itemMaker}
                         />
                       </td>
                     </tr>
@@ -192,9 +199,8 @@ const ItemWrite = () => {
               </div>
             </form>
             <div className="item_write_btn_box">
-              <button className="serviceqna_btn_del">취소</button>
               <button className="serviceqna_btn" onClick={onFileUpload}>
-                저장
+                수정
               </button>
             </div>
           </div>
@@ -204,4 +210,4 @@ const ItemWrite = () => {
   );
 };
 
-export default ItemWrite;
+export default AdminItemWrite;

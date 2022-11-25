@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import '../CSS/AdminQna.css'
 import AdminQnaModal from "./AdminQnaModal";
+import Paging from "./Paging";
 
 
 const AdminBoard = () => {
@@ -10,6 +11,11 @@ const AdminBoard = () => {
   let [qnaModal, setQnaModal] = useState(false);
   const [qnaDatas, setQnaDatas] = useState([]);
   const [qnaIdx, setQnaIdx] = useState();
+
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
+  const count = qnaDatas.length;
   
 
   // useEffect(() => {
@@ -29,6 +35,7 @@ const AdminBoard = () => {
   })
       .then(response => {
         setQnaDatas(response.data);
+        console.log(response.data)
       })
       .catch(error => { console.log(error); });
   }, []);
@@ -50,7 +57,7 @@ const AdminBoard = () => {
           </thead>
           <tbody>
             {
-              qnaDatas && qnaDatas.map((result) => (
+              qnaDatas && qnaDatas.slice(offset, offset + 10).map((result) => (
                 <>
                   <tr onClick={() => { setQnaIdx(result.qnaIdx); }}>
                     <td width="11%">{result.qnaIdx}</td>
@@ -68,6 +75,7 @@ const AdminBoard = () => {
             }
           </tbody>
         </table>
+        <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
       </div>
     </>
   );

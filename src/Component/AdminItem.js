@@ -1,18 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../CSS/AdminItem.css";
+import ModalItemWrite from "./ModalItemWrite";
+import Paging from "./Paging";
 
 
 function AdminItem() {
 
     const [data, setData] = useState([]);
+    const [qnaWrite, setQnaWrite] = useState(false);
+    const [items , setItems] = useState({});
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 10;
+    const [pagecount, setPageCount] = useState(10);
+    const count = data.length;
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/admin/item" ,{ 
-                headers: { 
-                'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-              }
+            .get("http://localhost:8080/admin/item", {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+                }
             })
             .then((response) => {
                 console.log(response);
@@ -22,25 +30,25 @@ function AdminItem() {
     }, []);
 
     const handlerDelete = (itemNum) => {
-        axios.post(`http://localhost:8080/admin/item/delete/${itemNum}`, { 
-            headers: { 
-            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-          }
+        axios.post(`http://localhost:8080/admin/item/delete${itemNum}`, null, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+            }
         })
-        .then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-                alert("삭제 완료되었습니다.");
-                window.location.reload();
-              } else {
-                alert("삭제 실패하였습니다.");
-              }
-        })
-        .catch((error)=> console.log(error))
+            .then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    alert("삭제 완료되었습니다.");
+                    window.location.reload();
+                } else {
+                    alert("삭제 실패하였습니다.");
+                }
+            })
+            .catch((error) => console.log(error))
     }
 
     const handlerUpdate = () => {
-
+        
     }
 
     return (
@@ -58,21 +66,26 @@ function AdminItem() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(item => (
+                        {data.slice(offset, offset + 10).map(item => (
                             <tr>
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + item.itemThumb} /></td>
                                 <td width="16%">{item.itemNum}</td>
                                 <td width="30%">{item.itemName}</td>
                                 <td width="10%">{item.itemPrice}</td>
                                 <td width="11%">
-                                    {item.itemCreatedAt} 
-                                    <button onClick={handlerUpdate}>수정</button>
-                                    <button onClick={()=>handlerDelete(item.itemNum)}>삭제</button>
+                                    {item.itemCreatedAt}
+                                    <button onClick={() => {setQnaWrite(!qnaWrite);setItems(item)} }>수정</button>
+                                    {qnaWrite && (
+                                        <ModalItemWrite closeModal={() => setQnaWrite(!qnaWrite)} item={items} >
+                                        </ModalItemWrite>
+                                    )}
+                                    <button onClick={() => handlerDelete(item.itemNum)}>삭제</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
             </div>
         </>
 

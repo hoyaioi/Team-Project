@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../CSS/Find.css";
 
-function FindId() {
+function FindID() {
 
   const [name,setName] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
@@ -76,4 +76,4 @@ function FindId() {
   );
 }
 
-export default FindId;
+export default FindID;

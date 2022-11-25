@@ -33,10 +33,17 @@
   float: left;
   position: relative;
   width: 955px;
-  height: 100%;
   padding: 0 0 0 40px;
   text-align: center;
   margin-bottom: 50px;
+  min-height: 600px;
+  height: auto;
+}
+
+.service_board_sec {
+  min-height: 650px;
+  position: relative;
+  height: auto;
 }
 
 .service_side_box {
@@ -125,7 +132,9 @@
 
 .service_board_list {
   width: 100%;
-  height: 640px;
+  height: 660px;
+  position: relative;
+  display: contents;
 }
 
 .service_board_list table {
@@ -138,9 +147,25 @@
   text-align: center;
 }
 
+.service_board_list tr {
+  width: 100%;
+  height: 45px;
+  align-items: center;
+}
+
 .service_board_list td {
   padding: 13px 10px 15px 10px;
   border-bottom: 1px solid #dbdbdb;
+}
+
+.service_board_list td:nth-child(1) {
+  width: 10%;
+}
+.service_board_list td:nth-child(2) {
+  width: 70%;
+}
+.service_board_list td:nth-child(3) {
+  width: 20%;
 }
 
 .service_board_list th {

@@ -1,4 +1,3 @@
-import "./css/Survey1.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import "swiper/css";
@@ -66,47 +65,42 @@ const Step4 = () => {
     setShowResult(showResultList[0]);
   }, []);
 
-
-
-
-
   const getValue = (keyName) => {
-    const dd = resultOfSurvey.filter(d => d.research_organ === keyName);
-    if (dd && dd[0])
-      return dd[0].value;
-    else
-      return 0;
-  }
+    const dd = resultOfSurvey.filter((d) => d.research_organ === keyName);
+    if (dd && dd[0]) return dd[0].value;
+    else return 0;
+  };
 
   let nameStr = "";
   for (let i = 0; i < name[0].length; i++) {
     nameStr += name[0][i];
   }
 
-
   const handlerOnClick = (e) => {
-    e.preventDefault();
-    axios.post("http://localhost:8080/result", {
-      "resultUser": nameStr,
-      "memEmail": sessionStorage.getItem("email"),
-      "resultLiver": getValue("간"),
-      "resultEyes": getValue("눈"),
-      "resultVitamin": getValue("비타민"),
-      "resultBlood": getValue("혈관"),
-      "resultDiges": getValue("장"),
-      "resultSave": "Y"
-
-
-    }).then((response) => {
-      if (response.status === 200) {
-        alert("설문결과가 저장되었습니다.");
-
-      } else {
-        alert("등록에 실패했습니다.");
-        return;
-      }
+    if (sessionStorage.getItem("email") === null) {
+      alert("로그인 후 이용해주세요.");
+      window.location.href = "/login";
     }
-    )
+    else {
+      e.preventDefault();
+      axios.post("http://localhost:8080/result", {
+        "resultUser": nameStr,
+        "memEmail": sessionStorage.getItem("email"),
+        "resultLiver": getValue("간"),
+        "resultEyes": getValue("눈"),
+        "resultVitamin": getValue("몸"),
+        "resultBlood": getValue("혈관"),
+        "resultDiges": getValue("장"),
+        "resultSave": "Y"
+      }).then((response) => {
+        if (response.status === 200) {
+          alert("설문결과가 저장되었습니다.");
+        } else {
+          alert("저장에 실패하였습니다.");
+        }
+      }
+      )
+    }
   }
 
 
@@ -139,7 +133,6 @@ const Step4 = () => {
                     </div>
                     <div className="result_iteminfo">
                       <div className="priceSurvey">
-                        {/* <div className="">가격 : {result.price}</div> */}
                         <div>
                           <a href={result.url} target="_blank">
                             상품 보러가기
@@ -152,7 +145,7 @@ const Step4 = () => {
               ))}
             </Swiper>
           </div>
-          <div className="prev"><Link to="/surveyStart">처음 화면으로</Link></div>
+          <div className="prev"><Link to="/intro">처음 화면으로</Link></div>
           <div className="next" onClick={handlerOnClick}>저장</div>
         </div>
       </div>
