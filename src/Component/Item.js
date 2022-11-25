@@ -8,19 +8,17 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
-import Review from './ItemReview.js'
-import Qna from './Qna';
-import { useState, useRef, useEffect } from 'react';
-import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
-import  Modal  from './Modal.js';
-
+import Review from "./ItemReview.js";
+import Qna from "./Qna";
+import { useState, useRef, useEffect } from "react";
+import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
+import Modal from "./Modal.js";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
-import QnaWrite from './QnaWrite';
-import { data } from 'jquery';
+import Paging from "./Paging";
 
 SwiperCore.use([Navigation]);
 
@@ -41,6 +39,10 @@ function Item() {
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const count = qnaDatas.length;
+  const [pagecount, setPageCount] = useState(10);
 
   console.log(itemNum);
 
@@ -100,11 +102,14 @@ function Item() {
   };
   const moveToFocus = useRef([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/item/${itemNum}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:8080/item/${itemNum}`)
+      .then((response) => {
         setData(response.data);
       })
-      .catch(error => { console.log(error); });
+      .catch((error) => {
+        console.log(error);
+      });
   }, [itemNum]);
 
   useEffect(() => {
@@ -119,14 +124,16 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
-      .then(review => {
+    axios
+      .get(`http://localhost:8080/reviewlist/${itemNum}`)
+      .then((review) => {
         setDatas2(review.data);
         console.log(datas2);
       })
-      .catch(error => { console.log(error); });
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-
 
   useEffect(() => {
     axios
@@ -214,20 +221,36 @@ function Item() {
           }}
           className="mySwiper"
         >
-
-          {items.map(item => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
+          {items.map((item) => (
+            <SwiperSlide>
+              <Link to={`/item/${item.itemNum}`} state={{ item: items }}>
+                <div>
+                  <img
+                    src={process.env.REACT_APP_API_URL + item.itemThumb}
+                    alt="상품썸네일"
+                  />
+                  <strong>{item.itemName}</strong>
+                  <div>
+                    <span>{item.itemPrice}원</span>
+                  </div>
+                </div>
+              </Link>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>
       <div id="1" className="item-tab">
         <ul>
           <li ref={(el) => (moveToFocus.current[0] = el)} className="on">
-            메뉴1
+            상품상세
           </li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/환불
+          </li>
           <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>
+            상품문의
+          </li>
         </ul>
       </div>
       <div className="detail_img">
@@ -241,12 +264,16 @@ function Item() {
 
       <div id="2" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상품상세
+          </li>
           <li ref={(el) => (moveToFocus.current[1] = el)} className="on">
-            메뉴2
+            배송/환불
           </li>
           <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>
+            상품문의
+          </li>
         </ul>
       </div>
       <div className="refund">
@@ -293,12 +320,18 @@ function Item() {
 
       <div id="3" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상품상세
+          </li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/환불
+          </li>
           <li ref={(el) => (moveToFocus.current[2] = el)} className="on">
             메뉴3
           </li>
-          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>메뉴4</li>
+          <li onClick={() => moveToFocus.current[3].scrollIntoView()}>
+            상품문의
+          </li>
         </ul>
       </div>
 
@@ -320,9 +353,9 @@ function Item() {
                     setReviewIdx(review.reviewIdx);
                   }}
                 >
-                  <td width="10%"></td>
+                  <td width="20%"></td>
                   <td
-                    width="50%"
+                    width="60%"
                     onClick={() => {
                       setReviewModal(!reviwModal);
                     }}
@@ -349,11 +382,17 @@ function Item() {
 
       <div id="4" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>메뉴1</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>메뉴2</li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>메뉴3</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상품상세
+          </li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/환불
+          </li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>
+            상품후기
+          </li>
           <li ref={(el) => (moveToFocus.current[3] = el)} className="on">
-            메뉴4
+            상품문의
           </li>
         </ul>
       </div>
@@ -361,31 +400,33 @@ function Item() {
         <strong>QNA</strong>
         <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button>
         {qnaWrite && (
-        <Modal closeModal={() => setQnaWrite(!qnaWrite)} itemName={datas.itemName} itemNum={datas.itemNum}>
-        </Modal>
-      )}
-        <table className="review-table">
+          <Modal
+            closeModal={() => setQnaWrite(!qnaWrite)}
+            itemName={datas.itemName}
+            itemNum={datas.itemNum}
+          ></Modal>
+        )}
+        <table className="qna-table">
           <thead>
             <tr>
-              <th width="8%">문의글 번호</th>
-              <th width="53%">제목</th>
-              <th width="13%">작성자</th>
-              <th width="13%">작성일자</th>
-              <th width="13%">답변상태</th>
+              <th>문의글 번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일자</th>
+              <th>답변상태</th>
             </tr>
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.map((qna) => (
+              qnaDatas.slice(offset, offset + 10).map((qna) => (
                 <>
                   <tr
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}
                   >
-                    <td width="8%">{qna.qnaIdx}</td>
+                    <td>{qna.qnaIdx}</td>
                     <td
-                      width="53%"
                       onClick={() => {
                         setQnaIdx(qna.qnaIdx);
                         setQnaModal(!qnaModal);
@@ -393,11 +434,9 @@ function Item() {
                     >
                       {qna.qnaTitle}
                     </td>
-                    <td width="13%">{qna.memEmail}</td>
-                    <td width="13%">{qna.qnaWriteDate}</td>
-                    <td width="13%">
-                      {qna.qnaAns === "Y" ? "답변완료" : "답변대기"}
-                    </td>
+                    <td>{qna.memEmail}</td>
+                    <td>{qna.qnaWriteDate}</td>
+                    <td>{qna.qnaAns === "Y" ? "답변완료" : "답변대기"}</td>
                   </tr>
                   {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                     <Qna value={qna.qnaIdx} />
@@ -407,14 +446,12 @@ function Item() {
           </tbody>
         </table>
       </div>
-      <div className="pagenation">
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
-      </div>
+      <Paging
+        page={page}
+        setPage={setPage}
+        count={count}
+        pagecount={pagecount}
+      />
     </div>
   );
 }
