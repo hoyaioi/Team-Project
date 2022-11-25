@@ -78,12 +78,10 @@ function Item() {
   const [reviewModal, setReviewModal] = useState(false);
 
   const cartHanddler = () => {
-    console.log(email);
     if (isLogin === true) {
       axios
         .post("http://localhost:8080/cartinsert", cartDto)
         .then((response) => {
-          console.log(response);
           alert("장바구니 추가완료");
         })
         .catch((error) => {
@@ -312,8 +310,7 @@ function Item() {
       <div className="review">
         <strong>상품후기</strong>
         <table className="review-table">
-          {datas2 &&
-            datas2.map((review, idx) => (
+          {datas2 && datas2.map((review, idx) => (
               <tbody key={idx}>
                 <tr
                   onClick={() => {
@@ -365,11 +362,11 @@ function Item() {
               <th width="13%">답변상태</th>
             </tr>
           </thead>
-          <tbody>
-            {qnaDatas &&
+          {qnaDatas &&
               qnaDatas.map((qna, idx) => (
-                <>
-                  <tr key={idx}
+               
+          <tbody key={idx}>
+                  <tr 
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}
@@ -393,9 +390,10 @@ function Item() {
                   {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                     <Qna value={qna.qnaIdx} />
                   ) : null}
-                </>
-              ))}
+                
           </tbody>
+          
+          ))}
         </table>
       </div>
 

@@ -12,20 +12,18 @@ import { Link } from "react-router-dom";
 const Step4 = () => {
   const [showResultList, setShowResultList] = useState([]);
   const [showResult, setShowResult] = useState({}); //보여줄 이미지
-  const name = useState(JSON.parse(sessionStorage.getItem("info")).name);
+  const name = JSON.parse(sessionStorage.getItem("info")).name;
   const groupByOrgan = JSON.parse(sessionStorage.getItem("groupByOrgan"));
 
   for (let key in groupByOrgan) {
     // 점수 반올림
     groupByOrgan[key] = Math.round(groupByOrgan[key]);
   }
-  console.log(groupByOrgan);
 
   const groupByOrganArray = Object.keys(groupByOrgan).map((key) => [
     key,
     groupByOrgan[key],
   ]); //배열로 변환
-  console.log(groupByOrganArray);
 
   const resultOfSurvey = groupByOrganArray.map(([key, value]) => {
     //배열로 변환된 객체를 resultApi.json의 형식에 맞게 변환
@@ -34,7 +32,6 @@ const Step4 = () => {
       value: value,
     };
   });
-  console.log(resultOfSurvey);
 
   let result = []; //resultApi.json의 형식에 맞게 변환된 객체를 result에 저장
   for (let i = 0; i < resultOfSurvey.length; i++) {
@@ -108,11 +105,6 @@ const Step4 = () => {
     }
     )
   }
-
-
-
-
-
 
 
   return (

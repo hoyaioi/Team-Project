@@ -116,14 +116,16 @@ function Order() {
         if (checkType === 'new') {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+                    alert('구매가 완료되었습니다.');
+                    window.location.reload();
                 })
                 .catch(error => { console.log(error); })
             navigate("/mypage/myorderlist");
         } else {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+                    alert('구매가 완료되었습니다.');
+                    window.location.reload();
                 })
                 .catch(error => { console.log(error); })
                 navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
