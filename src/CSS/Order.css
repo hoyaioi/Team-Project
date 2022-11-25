@@ -221,6 +221,32 @@
   overflow: hidden;
   position: relative;
 }
+
+.order_readonly {
+  outline: none;
+  border: none;
+  cursor: default;
+}
+
+.order_readonly_addr1, .order_readonly_addr2 {
+  outline: none;
+  border: none;
+  cursor: default;
+  width: 500px !important;
+}
+
+.order_input_addr1, .order_input_addr2 {
+  width: 500px !important;
+}
+
+.order_addr2_wrap {
+  margin-top: 10px;
+}
+
+.form_element ul li {
+  margin: 0px 10px;
+}
+
 #contents .member_address .address_postcode input {
   float: left;
 }

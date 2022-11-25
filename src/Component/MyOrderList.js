@@ -92,7 +92,6 @@ function MyOrderList() {
             .then(response => {
                 setDatas(response.data);
                 countCheck(response.data);
-                console.log(datas);
             })
             .catch(error => console.log(error));
     }, []);
@@ -179,7 +178,6 @@ function MyOrderList() {
     const handlerMoveReivew = () => {
         navigate('/mypage/myreview');
     }
-    console.log(datas);
     return (
         <>
             <div id='main'>

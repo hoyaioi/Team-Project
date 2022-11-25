@@ -29,7 +29,7 @@ function Order() {
     });
     const [data, setData] = useState([])
     const [checkType, setCheckType] = useState('');
-    const [postCode, setPostCode] = useState("");
+    const [memPostNum, setMemPostNum] = useState('');
     const [addr1, setAddr1] = useState("");
     const [addr2, setAddr2] = useState("");
     const [postCodeError, setPostCodeError] = useState(true);
@@ -40,7 +40,7 @@ function Order() {
 
     const handlerChangeAddr1 = (e) => setAddr1(e.target.value);
     const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
-    const handlerChangePostCode = (e) => setPostCode(e.target.value);
+    const handlerChangePostNum = (e) => setMemPostNum(e.target.value);
     const handlerChangeName = (e) => setName(e.target.value);
     const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, "")); 
 
@@ -64,7 +64,7 @@ function Order() {
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
         setAddr1(fullAddress);
-        setPostCode(postCode);
+        setMemPostNum(postCode);
         setPostCodeError(false);
         setAddr1Error(false);
     };
@@ -77,10 +77,11 @@ function Order() {
         axios.get(`http://localhost:8080/member/${memEmail}`)
             .then(response => {
                 setData(response.data);
-                setName(response.data.name);
-                setAddr1(response.data.addr1);
-                setAddr2(response.data.addr2);
-                setPhoneNum(response.data.phoneNum);
+                setName(response.data.memName);
+                setMemPostNum(response.data.memPostNum);
+                setAddr1(response.data.memAddr1);
+                setAddr2(response.data.memAddr2);
+                setPhoneNum(response.data.memPhone);
             })
             .catch(error => { console.log(error); });
     }, []);
@@ -90,7 +91,7 @@ function Order() {
         memIdx : memIdx,
         address1: addr1,
         address2: addr2,
-        address3: postCode,
+        address3: memPostNum,
         memPhone: phoneNum,
         itemPrice: order.itemPrice,
         itemNum: order.itemNum,
@@ -109,27 +110,25 @@ function Order() {
         e.preventDefault();
         if(!checked){
             alert('필수항목을 확인 후 체크해주세요.');
-        }else if(name.length < 1 || phoneNum.length < 1 || addr1.length < 1 || addr2.length < 1){
+        }else if(name.length < 1 || addr1.length < 1 || addr2.length < 1 || phoneNum.length < 1){
             alert('배송정보는 필수 입력 사항입니다.');
-            console.log(name.length);
         }else{
         if (checkType === 'new') {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    console.log(response);
+                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
                 })
                 .catch(error => { console.log(error); })
-            navigate("/mypage");
+            navigate("/mypage/myorderlist");
         } else {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    console.log(response);
+                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
                 })
                 .catch(error => { console.log(error); })
                 navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
-                window.location.reload();
         }
-        alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+        
     }
 
     }
@@ -139,8 +138,6 @@ function Order() {
     const checkedNew = () => {
         setCheckType('new');
     }
-
-    
 
     return (
         <>
@@ -275,16 +272,16 @@ function Order() {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    { }
                                                     <tr>
                                                         <th scope="row"><span className="important">받으실분</span></th>
                                                         <td>
                                                             {/* {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
                                                                 <input type="text" name="receiverName" />} */}
                                                                 {
-                                                                checkType === 'same' ? (data.memName)
+                                                                checkType === 'same' ? 
+                                                                <input type="text" readOnly value={data.memName} className='order_readonly'/>
                                                                 :
-                                                                <input type="name" onChange={handlerChangeName} placeholder="이름을 입력하세요" />
+                                                                <input type="text" onChange={handlerChangeName} placeholder="이름을 입력하세요" value={name} />
                                                                 }
                                                         </td>
                                                     </tr>
@@ -294,21 +291,29 @@ function Order() {
                                                             <div className="address_postcode">
                                                             {
                                                                 checkType === 'same' ? 
-                                                                (data.memPostNum)
+                                                                <input type="text" name="receiverZonecode" readOnly value={data.memPostNum} className='order_readonly'/>
                                                                 :
                                                                 <>
-                                                                <input type="text" name="receiverZonecode" onChange={handlerChangePostCode} readOnly value={postCode}/>
-                                                                
-                                                                <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>우편번호검색</button>
+                                                                <input type="text" name="receiverZonecode" onChange={handlerChangePostNum} readOnly value={memPostNum}/>
+                                                                <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>검색</button>
                                                                 </>
                                                             }
                                                             </div>
                                                             <div className="address_input">
                                                             {
-                                                                checkType === 'same' ? (data.memAddr1) + '  ' + (data.memAddr2) :
+                                                                checkType === 'same' ? 
                                                                 <>
-                                                                <input type="text" onChange={handlerChangeAddr1} name="address" readOnly value={addr1}/>
-                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} name="addressDetail" value={addr2} />
+                                                                <input type="text" name="address" readOnly value={data.memAddr1} className='order_readonly_addr1'/>
+                                                                <div>
+                                                                <input type="text" name="addressDetail" readOnly value={data.memAddr2} className='order_readonly_addr2'/>
+                                                                </div>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                <input type="text" onChange={handlerChangeAddr1} name="address" className="order_input_addr1" readOnly value={addr1}/>
+                                                                <div className="order_addr2_wrap">
+                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} className="order_input_addr2" name="addressDetail" value={addr2} />
+                                                                </div>
                                                                 </>
                                                             }
                                                             </div>
@@ -318,9 +323,10 @@ function Order() {
                                                         <th scope="row"><span className="important">휴대폰 번호</span></th>
                                                         <td>
                                                         {
-                                                                checkType === 'same' ? (data.memPhone)
+                                                                checkType === 'same' ? 
+                                                                <input type="text" name="address" readOnly value={data.memPhone} className='order_readonly'/>
                                                                 :
-                                                            <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" />
+                                                            <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" value={phoneNum} />
                                                         }
                                                         </td>
                                                     </tr>
