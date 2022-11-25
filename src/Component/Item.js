@@ -40,9 +40,9 @@ function Item() {
   const [qnaWrite, setQnaWrite] = useState(false);
 
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * 10;
+  const offset = (page - 1) * 5;
   const count = qnaDatas.length;
-  const [pagecount, setPageCount] = useState(10);
+  const [pagecount, setPageCount] = useState(5);
 
   console.log(itemNum);
 
@@ -338,9 +338,9 @@ function Item() {
       <div className="review">
         <strong>상품후기</strong>
         <table className="review-table">
-          <thead className="review-thead">
+          <thead>
             <tr>
-              <th>별점</th>
+              <th></th>
               <th>제목</th>
               <th>작성일자</th>
             </tr>
@@ -353,16 +353,15 @@ function Item() {
                     setReviewIdx(review.reviewIdx);
                   }}
                 >
-                  <td width="20%"></td>
+                  <td></td>
                   <td
-                    width="60%"
                     onClick={() => {
                       setReviewModal(!reviwModal);
                     }}
                   >
                     {review.itemName}
                   </td>
-                  <td width="20%">{review.reviewWriteDate}</td>
+                  <td>{review.reviewWriteDate}</td>
                 </tr>
                 {reviwModal === true && reviewIdx === review.reviewIdx ? (
                   <Review value={review.reviewIdx} />
@@ -418,7 +417,7 @@ function Item() {
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.slice(offset, offset + 10).map((qna) => (
+              qnaDatas.slice(offset, offset + 5).map((qna) => (
                 <>
                   <tr
                     onClick={() => {

@@ -340,7 +340,7 @@
   border-top: 1px solid #999999;
   text-align: center;
 }
-
+.review-table thead,
 .qna-table thead {
   height: 40px;
   width: 100%;
@@ -349,13 +349,25 @@
   border-bottom: 2px solid rgb(0, 0, 0, 20%);
 }
 
+/* 리뷰 테이블 */
+
+.review-table th:nth-child(1) {
+  width: 120px;
+}
+.review-table th:nth-child(2) {
+  width: 900px;
+}
+.review-table th:nth-child(3) {
+  width: 120px;
+}
+.review-table thead th,
 .qna-table thead th {
-  padding-top: 10px;
+  vertical-align: middle;
 }
 
 .qna-table tbody td {
   height: 30px;
-  padding-top: 10px;
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -381,10 +393,6 @@ td:nth-child(n + 4) {
   width: 100%;
   height: 40px;
   border-bottom: 2px solid rgb(0, 0, 0, 5%);
-}
-
-.review-thead {
-  display: none;
 }
 
 .review-table td {
