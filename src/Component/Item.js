@@ -41,6 +41,10 @@ function Item() {
 
   let lastPrice = itemPrice * amount;
   const memEmail = sessionStorage.getItem("email")
+  const price2 = [datas.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const realTotal = [lastPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  console.log(price2);
+
 
 
   const plusClick = () => {
@@ -162,7 +166,7 @@ function Item() {
           </div>
           <div className="item_price">
             <span>상품가격</span>
-            <strong>{datas.itemPrice}</strong>
+            <strong>{price2}</strong>
             <span>원</span>
           </div>
           <div className="item_delivery">
@@ -184,7 +188,7 @@ function Item() {
           <div className="last-price">
             <span>총합계</span>
             <div>
-              <strong>{lastPrice}</strong>
+              <strong>{realTotal}</strong>
               <span>원</span>
             </div>
           </div>

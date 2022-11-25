@@ -17,7 +17,7 @@ const Header = () => {
     window.location.reload();
   };
 
-  const isAdmin = sessionStorage.getItem("role") === "1" ? true : false;
+  const isAdmin = sessionStorage.getItem("role") === "ROLE_ADMIN" ? true : false;
 
   return (
     <>
@@ -69,17 +69,11 @@ const Header = () => {
                 {/* <li>
                     <Link to="/write">작성하기</Link>
                   </li> */}
-                <li>
-                  <Link to="/mypage/myorderlist">마이페이지</Link>
-                </li>
+                { !isAdmin ?  <li><Link to="/mypage/myorderlist">마이페이지</Link></li> 
+                :  <li><Link to="/admin">관리자페이지</Link></li> }
                 <li>
                   <Link to="/service/center">고객센터</Link>
                 </li>
-                {isAdmin ? (
-                  <li>
-                    <Link to="/adminauth">관리자페이지</Link>
-                  </li>
-                ) : null}
               </ul>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../CSS/AdminItem.css";
+import ModalItemUpdate from "./ModalItemUpdate";
 import ModalItemWrite from "./ModalItemWrite";
 import Paging from "./Paging";
 
@@ -8,8 +9,9 @@ import Paging from "./Paging";
 function AdminItem() {
 
     const [data, setData] = useState([]);
-    const [qnaWrite, setQnaWrite] = useState(false);
     const [items , setItems] = useState({});
+    const [qnaWrite, setQnaWrite] = useState(false);
+    const [itemWrite, setItemWrite] = useState(false);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * 10;
     const [pagecount, setPageCount] = useState(10);
@@ -55,6 +57,11 @@ function AdminItem() {
         <>
             <div className="adminorder_list">
                 <div className="adminorder_header"><strong>관리자 상품목록</strong></div>
+                <button className="admin_item_write" onClick={() => {setItemWrite(!itemWrite);} }>등록</button>
+                                    {itemWrite && (
+                                        <ModalItemWrite closeModal={() => setItemWrite(!itemWrite)} >
+                                        </ModalItemWrite>
+                                    )}
                 <table className="admin_order_table">
                     <thead >
                         <tr>
@@ -76,8 +83,8 @@ function AdminItem() {
                                     {item.itemCreatedAt}
                                     <button onClick={() => {setQnaWrite(!qnaWrite);setItems(item)} }>수정</button>
                                     {qnaWrite && (
-                                        <ModalItemWrite closeModal={() => setQnaWrite(!qnaWrite)} item={items} >
-                                        </ModalItemWrite>
+                                        <ModalItemUpdate closeModal={() => setQnaWrite(!qnaWrite)} item={items} >
+                                        </ModalItemUpdate>
                                     )}
                                     <button onClick={() => handlerDelete(item.itemNum)}>삭제</button>
                                 </td>

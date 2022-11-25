@@ -104,20 +104,21 @@ function MyOrderList() {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
   const [orderlistIdx, setOrderlistIdx] = useState("");
-  const [itemNum, setItemNum] = useState(0);
+  const [itemAmount, setItemAmount] = useState(0);
 
-  const handlerOpenApp = (orderNum, itemName, itemPrice, orderlistIdx) => {
+  const handlerOpenApp = (orderNum, itemName, itemPrice, orderlistIdx,itemAmount) => {
     setOrderNum(orderNum);
     setItemName(itemName);
     setItemPrice(itemPrice);
+    setItemAmount(itemAmount);
     setOrderlistIdx(orderlistIdx);
     setOpenApp(true);
   };
 
-  const handlerDelete = (orderNum) => {
+  const handlerDelete = (orderlistIdx) => {
     if (window.confirm("내역을 삭제하시겠습니까?")) {
       axios
-        .put(`http://localhost:8080/mypage/myorderlist/delete/${orderNum}`)
+        .put(`http://localhost:8080/mypage/myorderlist/delete/${orderlistIdx}`)
         .then((response) => {
           if (response.status === 200) {
             alert("삭제 완료되었습니다.");
@@ -137,7 +138,7 @@ function MyOrderList() {
     itemName,
     itemNum,
     orderNum,
-    orderlistIdx
+    orderlistIdx,
   ) => {
     if (
       window.confirm(
@@ -190,6 +191,7 @@ function MyOrderList() {
             orderNum={orderNum}
             itemName={itemName}
             itemPrice={itemPrice}
+            itemAmount={itemAmount}
             orderlistIdx={orderlistIdx}
           />
         ) : (
@@ -259,7 +261,7 @@ function MyOrderList() {
                       </td>
                       <td>{order.orderNum}</td>
                       <td className="myorderlist_item_price_td">
-                        {order.itemPrice * order.itemAmount}
+                        {[order.itemPrice * order.itemAmount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       </td>
                       <td className="myorderlist_item_count_td">
                         {order.itemAmount}
@@ -273,7 +275,7 @@ function MyOrderList() {
                         <div>
                           {order.orderStatus === "취소완료" ? (
                             <button
-                              onClick={() => handlerDelete(order.orderNum)}
+                              onClick={() => handlerDelete(order.orderlistIdx)}
                             >
                               내역 삭제
                             </button>
@@ -318,7 +320,8 @@ function MyOrderList() {
                                     order.orderNum,
                                     order.itemName,
                                     order.itemPrice,
-                                    order.orderlistIdx
+                                    order.orderlistIdx,
+                                    order.itemAmount
                                   )
                                 }
                               >
@@ -332,6 +335,7 @@ function MyOrderList() {
                                     order.itemName,
                                     order.itemNum,
                                     order.orderNum,
+                                    order.itemAmount,
                                     order.orderlistIdx
                                   )
                                 }

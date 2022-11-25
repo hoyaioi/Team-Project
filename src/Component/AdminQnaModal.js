@@ -28,7 +28,7 @@ function AdminQnaModal(props) {
 
     const qnaAnswer = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8080/admin/qnaWrite", qnaDto, { 
+        axios.post("http://localhost:8080/admin/qnaWrite", qnaDto,  { 
             headers: { 
             'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
           }

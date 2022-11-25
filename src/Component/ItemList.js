@@ -17,6 +17,7 @@ function ItemList() {
   const [pagecount, setPageCount] = useState(10);
   const count = datas.length;
   const count1 = items.length;
+  
 
   const handlerSelect = (e) => {
     setSelect(e.target.value);
@@ -116,7 +117,7 @@ function ItemList() {
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
+                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
                             </div>
                           </div>
                         </li>
@@ -137,7 +138,7 @@ function ItemList() {
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
+                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
                             </div>
                           </div>
                         </li>

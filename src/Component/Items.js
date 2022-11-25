@@ -9,11 +9,12 @@ const Items = () => {
 
   useEffect(() => {
     axios.get('http://localhost:8080/item')
-      .then(response => {
-        setDatas(response.data);
-      })
-      .catch(error => console.log(error));
+    .then(response => {
+      setDatas(response.data);
+    })
+    .catch(error => console.log(error));
   }, []);
+  const price2 = [datas.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <div className="main_items_sales">
@@ -24,7 +25,7 @@ const Items = () => {
               <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" />
             </div>
             <div className="main_items_name">{item.itemName}</div>
-            <div className="main_items_price">{item.itemPrice}원</div>
+            <div className="main_items_price">{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
           </div>
         </Link>
       ))}

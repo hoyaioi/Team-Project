@@ -79,7 +79,7 @@ function MyRefund() {
                   <td className="myrefund_refund_reason_td">
                     {refund.refundReason}
                   </td>
-                  <td className="myrefund_item_price_td">{refund.itemPrice}</td>
+                  <td className="myrefund_item_price_td">{[refund.itemPrice * refund.itemAmount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                   <td className="myrefund_status_btn_td">
                     <input type="hidden" value={refund.refundIdx} />
                     {refund.refundStatus}

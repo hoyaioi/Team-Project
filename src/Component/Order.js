@@ -29,7 +29,7 @@ function Order() {
     });
     const [data, setData] = useState([])
     const [checkType, setCheckType] = useState('');
-    const [postCode, setPostCode] = useState("");
+    const [memPostNum, setMemPostNum] = useState('');
     const [addr1, setAddr1] = useState("");
     const [addr2, setAddr2] = useState("");
     const [postCodeError, setPostCodeError] = useState(true);
@@ -40,7 +40,7 @@ function Order() {
 
     const handlerChangeAddr1 = (e) => setAddr1(e.target.value);
     const handlerChangeAddr2 = (e) => setAddr2(e.target.value);
-    const handlerChangePostCode = (e) => setPostCode(e.target.value);
+    const handlerChangePostNum = (e) => setMemPostNum(e.target.value);
     const handlerChangeName = (e) => setName(e.target.value);
     const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, "")); 
 
@@ -64,7 +64,7 @@ function Order() {
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
         setAddr1(fullAddress);
-        setPostCode(postCode);
+        setMemPostNum(postCode);
         setPostCodeError(false);
         setAddr1Error(false);
     };
@@ -77,10 +77,11 @@ function Order() {
         axios.get(`http://localhost:8080/member/${memEmail}`)
             .then(response => {
                 setData(response.data);
-                setName(response.data.name);
-                setAddr1(response.data.addr1);
-                setAddr2(response.data.addr2);
-                setPhoneNum(response.data.phoneNum);
+                setName(response.data.memName);
+                setMemPostNum(response.data.memPostNum);
+                setAddr1(response.data.memAddr1);
+                setAddr2(response.data.memAddr2);
+                setPhoneNum(response.data.memPhone);
             })
             .catch(error => { console.log(error); });
     }, []);
@@ -90,7 +91,7 @@ function Order() {
         memIdx : memIdx,
         address1: addr1,
         address2: addr2,
-        address3: postCode,
+        address3: memPostNum,
         memPhone: phoneNum,
         itemPrice: order.itemPrice,
         itemNum: order.itemNum,
@@ -109,27 +110,28 @@ function Order() {
         e.preventDefault();
         if(!checked){
             alert('필수항목을 확인 후 체크해주세요.');
-        }else if(name.length < 1 || phoneNum.length < 1 || addr1.length < 1 || addr2.length < 1){
+        }else if(name.length < 1 || addr1.length < 1 || addr2.length < 1 || phoneNum.length < 1){
             alert('배송정보는 필수 입력 사항입니다.');
-            console.log(name.length);
         }else{
         if (checkType === 'new') {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    console.log(response);
+                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+                    navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
+                    // window.location.reload();
                 })
                 .catch(error => { console.log(error); })
-            navigate("/mypage");
+            navigate("/mypage/myorderlist");
         } else {
             axios.post("http://localhost:8080/order/insert", orderInfo)
                 .then(response => {
-                    console.log(response);
+                    alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+                    navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
+                    // window.location.reload();
                 })
                 .catch(error => { console.log(error); })
-                navigate("/mypage/myorderlist/", {memIdx : {memIdx}})
-                window.location.reload();
         }
-        alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
+        
     }
 
     }
@@ -140,7 +142,11 @@ function Order() {
         setCheckType('new');
     }
 
-    
+    const handlerClickCancel = () => {
+        if(window.confirm('주문을 취소하시겠습니까?')){
+            navigate(-1);
+        }
+    }
 
     return (
         <>
@@ -185,12 +191,12 @@ function Order() {
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <strong className="order_item_price">{items.itemPrice}</strong>
+                                                                <strong className="order_item_price">{[items.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                                                             </td>
-                                                            <td><span>2500원</span></td>
+                                                            <td><span>2,500원</span></td>
                                                             <td>
                                                                 <strong className="order_item_totalprice">
-                                                                    {items.itemPrice * items.itemAmount}
+                                                                    {[items.itemPrice * items.itemAmount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                                                 </strong>
                                                             </td>
                                                         </tr>
@@ -204,17 +210,17 @@ function Order() {
                                             <div className="order_sum_list">
                                                 <dl>
                                                     <dt>총 <strong></strong> {item.length}개의 상품금액 </dt>
-                                                    <dd><strong>{totalPrice}</strong>원</dd>
+                                                    <dd><strong>{[totalPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>원</dd>
                                                 </dl>
                                                 <span><img src="/images/order_price_plus.png" alt="더하기" /></span>
                                                 <dl>
                                                     <dt>배송비</dt>
-                                                    <dd><strong>2500</strong>원</dd>
+                                                    <dd><strong>2,500</strong>원</dd>
                                                 </dl>
                                                 <span><img src="/images/order_price_total.png" alt="합계" /></span>
                                                 <dl className="price_total">
                                                     <dt>합계</dt>
-                                                    <dd><strong>{totalPrice + 2500}</strong>원
+                                                    <dd><strong>{[totalPrice + 2500].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>원
                                                     </dd>
                                                 </dl>
                                             </div>
@@ -275,16 +281,16 @@ function Order() {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    { }
                                                     <tr>
                                                         <th scope="row"><span className="important">받으실분</span></th>
                                                         <td>
                                                             {/* {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
                                                                 <input type="text" name="receiverName" />} */}
                                                                 {
-                                                                checkType === 'same' ? (data.memName)
+                                                                checkType === 'same' ? 
+                                                                <input type="text" readOnly value={data.memName} className='order_readonly'/>
                                                                 :
-                                                                <input type="name" onChange={handlerChangeName} placeholder="이름을 입력하세요" />
+                                                                <input type="text" onChange={handlerChangeName} placeholder="이름을 입력하세요" value={name} />
                                                                 }
                                                         </td>
                                                     </tr>
@@ -294,21 +300,29 @@ function Order() {
                                                             <div className="address_postcode">
                                                             {
                                                                 checkType === 'same' ? 
-                                                                (data.memPostNum)
+                                                                <input type="text" name="receiverZonecode" readOnly value={data.memPostNum} className='order_readonly'/>
                                                                 :
                                                                 <>
-                                                                <input type="text" name="receiverZonecode" onChange={handlerChangePostCode} readOnly value={postCode}/>
-                                                                
-                                                                <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>우편번호검색</button>
+                                                                <input type="text" name="receiverZonecode" onChange={handlerChangePostNum} readOnly value={memPostNum}/>
+                                                                <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>검색</button>
                                                                 </>
                                                             }
                                                             </div>
                                                             <div className="address_input">
                                                             {
-                                                                checkType === 'same' ? (data.memAddr1) + '  ' + (data.memAddr2) :
+                                                                checkType === 'same' ? 
                                                                 <>
-                                                                <input type="text" onChange={handlerChangeAddr1} name="address" readOnly value={addr1}/>
-                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} name="addressDetail" value={addr2} />
+                                                                <input type="text" name="address" readOnly value={data.memAddr1} className='order_readonly_addr1'/>
+                                                                <div>
+                                                                <input type="text" name="addressDetail" readOnly value={data.memAddr2} className='order_readonly_addr2'/>
+                                                                </div>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                <input type="text" onChange={handlerChangeAddr1} name="address" className="order_input_addr1" readOnly value={addr1}/>
+                                                                <div className="order_addr2_wrap">
+                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} className="order_input_addr2" name="addressDetail" value={addr2} />
+                                                                </div>
                                                                 </>
                                                             }
                                                             </div>
@@ -318,9 +332,10 @@ function Order() {
                                                         <th scope="row"><span className="important">휴대폰 번호</span></th>
                                                         <td>
                                                         {
-                                                                checkType === 'same' ? (data.memPhone)
+                                                                checkType === 'same' ? 
+                                                                <input type="text" name="address" readOnly value={data.memPhone} className='order_readonly'/>
                                                                 :
-                                                            <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" />
+                                                            <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" value={phoneNum} />
                                                         }
                                                         </td>
                                                     </tr>
@@ -338,13 +353,13 @@ function Order() {
                                                     <tr>
                                                         <th scope="row">상품 합계 금액</th>
                                                         <td>
-                                                            <strong id="totalGoodsPrice" className="order_payment_sum">{totalPrice}</strong>
+                                                            <strong id="totalGoodsPrice" className="order_payment_sum">{[totalPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">배송비</th>
                                                         <td>
-                                                            <span id="totalDeliveryCharge">2500</span>원
+                                                            <span id="totalDeliveryCharge">2,500</span>원
                                                             <span className="multi_shipping_text"></span>
                                                         </td>
                                                     </tr>
@@ -354,7 +369,7 @@ function Order() {
                                                             <input type="hidden" name="settlePrice" value="55800" />
                                                             <input type="hidden" name="overseasSettlePrice" value="0" />
                                                             <input type="hidden" name="overseasSettleCurrency" value="KRW" />
-                                                            <strong id="totalSettlePrice" className="order_payment_sum">{totalPrice + 2500}</strong>원
+                                                            <strong id="totalSettlePrice" className="order_payment_sum">{[totalPrice+2500].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>원
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -392,7 +407,7 @@ function Order() {
                                             <div className="payment_final_total">
                                                 <dl>
                                                     <dt>최종 결제 금액</dt>
-                                                    <dd><span><strong id="totalSettlePriceView">{totalPrice + 2500}</strong>원</span></dd>
+                                                    <dd><span><strong id="totalSettlePriceView">{[totalPrice+2500].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong>원</span></dd>
                                                 </dl>
                                             </div>
                                             <div className="payment_final_check">
@@ -402,7 +417,8 @@ function Order() {
                                                 </div>
                                             </div>
                                             <div className="btn_center_box">
-                                                <button onClick={handlerClickSubmit} className="btn_order_buy order-buy"><em>결제하기</em></button>
+                                                <button type='button' onClick={handlerClickCancel} className="btn_order_cancel">취소</button>
+                                                <button onClick={handlerClickSubmit} className="btn_order_buy"><em>결제하기</em></button>
                                             </div>
                                         </div>
                                     </div>

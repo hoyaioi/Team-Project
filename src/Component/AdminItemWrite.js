@@ -1,14 +1,14 @@
 import React from "react";
-
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import '../CSS/AdminItemUpdate.css';
+import '../CSS/AdminItemWrite.css';
 
-const AdminItemUpdate = (props) => {
+
+const AdminItemWrite = () => {
   const navigate = useNavigate();
   const categoryList = ["선택", "간", "눈", "비타민", "혈행개선", "장"];
-  const [categorySelect, setCategorySelect] = useState(props.item.itemOrgans);
+  const [categorySelect, setCategorySelect] = useState("선택");
 
   const [selectedThumb, setSelectedThumb] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -31,16 +31,16 @@ const AdminItemUpdate = (props) => {
     formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
     console.log(itemInfo)
-    axios.post("http://localhost:8080/admin/item/update", formData, {
+    axios.post("http://localhost:8080/admin/item/write", formData, {
       headers: {
         'Authorization': `Bearer ${sessionStorage.getItem("token")}`
       }
     }).then((response) => {
       if (response.status === 200) {
-        navigate("/admin/item");
-        alert("상품이 수정 되었습니다.");
+        navigate("/");
+        alert("상품이 등록되었습니다.");
       } else {
-        alert("상품 수정 실패");
+        alert("상품 등록 실패");
       }
     });
   };
@@ -54,15 +54,15 @@ const AdminItemUpdate = (props) => {
   };
   console.log(categorySelect);
   const [itemInfo, setItemInfo] = useState({
-    itemNum: props.item.itemNum,
-    itemName: props.item.itemName,
-    itemPrice: props.item.itemPrice,
-    itemThumb: props.item.itemThumb,
-    itemDetailImg: props.item.itemDetailImg,
-    itemMaker: props.item.itemMaker,
+    itemNum: "",
+    itemName: "",
+    itemPrice: "",
+    itemThumb: "",
+    itemDetailImg: "",
+    itemMaker: "",
     itemHow: "",
-    itemExpDate: props.item.itemExpDate,
-    itemOrgans: categorySelect,
+    itemExpDate: "",
+    itemOrgans: "",
     itemMaterials: "",
     itemSubImg: "",
   });
@@ -78,12 +78,12 @@ const AdminItemUpdate = (props) => {
 
   return (
     <div id="main">
-      <div className="update_item_wrap ">
-        <div className="update_item_form">
-          <div className="update_item_title">
-            <h3>상품 수정</h3>
+      <div className="write_item_wrap ">
+        <div className="write_item_form">
+          <div className="write_item_title">
+            <h3>상품 등록</h3>
           </div>
-          <div className="admin_item_update">
+          <div className="item_board_write">
             <form>
               <div className="item_board_box">
                 <table className="admin_order_table">
@@ -115,7 +115,6 @@ const AdminItemUpdate = (props) => {
                           placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemName"
-                          value={itemInfo.itemName}
                         />
                       </td>
                     </tr>
@@ -125,11 +124,9 @@ const AdminItemUpdate = (props) => {
                         <input
                           type="text"
                           className="item_write_title"
-                          placeholder="상품번호를 입력해주세요"
+                          placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemNum"
-                          readOnly
-                          value={itemInfo.itemNum}
                         />
                       </td>
                     </tr>
@@ -144,7 +141,6 @@ const AdminItemUpdate = (props) => {
                           name="itemExpDate"
                           min="2022-11-01"
                           max="2050-12-31"
-                          value={itemInfo.itemExpDate}
                         />
                       </td>
                     </tr>
@@ -154,10 +150,9 @@ const AdminItemUpdate = (props) => {
                         <input
                           type="number"
                           className="item_write_title"
-                          placeholder="가격을 입력해주세요"
+                          placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemPrice"
-                          value={itemInfo.itemPrice}
                         />
                       </td>
                     </tr>
@@ -167,10 +162,9 @@ const AdminItemUpdate = (props) => {
                         <input
                           type="text"
                           className="item_write_title"
-                          placeholder="제조사를 입력해주세요"
+                          placeholder="상품명을 입력해주세요"
                           onChange={getValue}
                           name="itemMaker"
-                          value={itemInfo.itemMaker}
                         />
                       </td>
                     </tr>
@@ -200,7 +194,7 @@ const AdminItemUpdate = (props) => {
             </form>
             <div className="item_write_btn_box">
               <button className="serviceqna_btn" onClick={onFileUpload}>
-                수정
+                저장
               </button>
             </div>
           </div>
@@ -210,4 +204,4 @@ const AdminItemUpdate = (props) => {
   );
 };
 
-export default AdminItemUpdate;
+export default AdminItemWrite;
