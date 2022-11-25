@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../CSS/AdminItem.css";
 import ModalItemWrite from "./ModalItemWrite";
+import Paging from "./Paging";
 
 
 function AdminItem() {
@@ -9,6 +10,10 @@ function AdminItem() {
     const [data, setData] = useState([]);
     const [qnaWrite, setQnaWrite] = useState(false);
     const [items , setItems] = useState({});
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 10;
+    const [pagecount, setPageCount] = useState(10);
+    const count = data.length;
 
     useEffect(() => {
         axios
@@ -61,7 +66,7 @@ function AdminItem() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(item => (
+                        {data.slice(offset, offset + 10).map(item => (
                             <tr>
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + item.itemThumb} /></td>
                                 <td width="16%">{item.itemNum}</td>
@@ -80,6 +85,7 @@ function AdminItem() {
                         ))}
                     </tbody>
                 </table>
+                <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
             </div>
         </>
 

@@ -14,9 +14,9 @@ function ItemList() {
   const [itemShowNum, setItemShowNum] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
   const count = datas.length;
   const count1 = items.length;
-  const [pagecount, setPageCount] = useState(10);
 
   const handlerSelect = (e) => {
     setSelect(e.target.value);
