@@ -114,6 +114,7 @@
   margin-right: 20px;
   float: left;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .service_board_hot {

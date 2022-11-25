@@ -64,17 +64,43 @@
 /* 테이블 간격 */
 
 .myorderlist_order_wrap table td:nth-child(1) {
-  width: 380px;
+  width: 350px;
 }
 .myorderlist_order_wrap table td:nth-child(2) {
   width: 90px;
 }
 
 .myorderlist_order_wrap table td:nth-child(3) {
+  text-align: center;
   width: 140px;
 }
 .myorderlist_order_wrap table td:nth-child(4) {
-  width: 60px;
+  width: 80px;
+}
+
+.myorderlist_order_wrap table td:nth-child(6) {
+  width: 80px;
+}
+
+/* 테이블 몸통 */
+
+.myorderlist_order_wrap tbody td:nth-child(3) {
+  font-weight: 300;
+  color: gray;
+}
+
+.myorderlist_order_wrap tbody td:nth-child(4) {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.myorderlist_order_wrap tbody td:nth-child(5) {
+  font-weight: 500;
+}
+
+.myorderlist_order_wrap tbody td:nth-child(6) {
+  font-weight: 500;
+  color: #706f6f;
 }
 
 .myorderlist_order_wrap table {
@@ -127,10 +153,6 @@
   font-weight: 300;
 }
 
-.myorderlist_item_info_td {
-  width: 400px;
-}
-
 .myorderlist_item_info_td:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -151,17 +173,6 @@
   width: 120px;
   height: 120px;
   border-radius: 15px;
-}
-
-.myorderlist_order_date_td {
-  width: 91px;
-}
-.myorderlist_item_price_td {
-  width: 75px;
-}
-
-.myorderlist_order_stat_td {
-  width: 94px;
 }
 
 .myorderlist_order_btn_td button {
