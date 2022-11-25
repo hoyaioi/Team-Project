@@ -54,7 +54,6 @@ const Step1 = ({ nextSteps }) => {
                 name="name"
                 value={info.name}
                 onChange={onChangeInfo}
-                
               />
             </div>
             <div className="heightPut">
@@ -99,38 +98,39 @@ const Step1 = ({ nextSteps }) => {
               />
               Kg
             </div>
-            <div className="radios">
-              <div className="genderPut">
-                성별 :
-                <input
-                  className="radio"
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  defaultValue="male"
-                  onChange={onChangeInfo}
-                />
-                남성
-                <input
-                  className="radio"
-                  type="radio"
-                  id="femali"
-                  name="gender"
-                  defaultValue="female"
-                  onChange={onChangeInfo}
-                />
-                여성
-              </div>
+          </div>
+          <div className="radios">
+            <div className="genderPut">
+              성별 :
+              <input
+                className="radio"
+                type="radio"
+                id="male"
+                name="gender"
+                defaultValue="male"
+                onChange={onChangeInfo}
+              />
+              남성
+              <input
+                className="radio"
+                type="radio"
+                id="femali"
+                name="gender"
+                defaultValue="female"
+                onChange={onChangeInfo}
+              />
+              여성
             </div>
           </div>
-
-          <div className="prev">
-            <Link to="/Intro">
-              <BsArrowLeftCircle size={75} color="white" />
-            </Link>
-          </div>
-          <div className="next" onClick={nextStep}>
-            <BsArrowRightCircle size={75} color="white" />
+          <div className="step_btn">
+            <div className="prev">
+              <Link to="/Intro">
+                <BsArrowLeftCircle size={75} color="white" />
+              </Link>
+            </div>
+            <div className="next" onClick={nextStep}>
+              <BsArrowRightCircle size={75} color="white" />
+            </div>
           </div>
         </div>
       </div>

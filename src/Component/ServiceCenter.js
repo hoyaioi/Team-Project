@@ -80,13 +80,13 @@ function ServiceCenter() {
             </tbody>
           </table>
         </div>
-        <Paging
-          page={page}
-          setPage={setPage}
-          count={count}
-          pagecount={pagecount}
-        />
       </div>
+      <Paging
+        page={page}
+        setPage={setPage}
+        count={count}
+        pagecount={pagecount}
+      />
     </>
   );
 }

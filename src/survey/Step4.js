@@ -1,4 +1,3 @@
-import "./css/Survey1.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import "swiper/css";
@@ -66,23 +65,16 @@ const Step4 = () => {
     setShowResult(showResultList[0]);
   }, []);
 
-
-
-
-
   const getValue = (keyName) => {
-    const dd = resultOfSurvey.filter(d => d.research_organ === keyName);
-    if (dd && dd[0])
-      return dd[0].value;
-    else
-      return 0;
-  }
+    const dd = resultOfSurvey.filter((d) => d.research_organ === keyName);
+    if (dd && dd[0]) return dd[0].value;
+    else return 0;
+  };
 
   let nameStr = "";
   for (let i = 0; i < name[0].length; i++) {
     nameStr += name[0][i];
   }
-
 
   const handlerOnClick = (e) => {
     e.preventDefault();
@@ -139,7 +131,6 @@ const Step4 = () => {
                     </div>
                     <div className="result_iteminfo">
                       <div className="priceSurvey">
-                        {/* <div className="">가격 : {result.price}</div> */}
                         <div>
                           <a href={result.url} target="_blank">
                             상품 보러가기
