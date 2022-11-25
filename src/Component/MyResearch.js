@@ -15,7 +15,6 @@ function MyPageResearch() {
     useEffect(() => {
         axios.get('http://localhost:8080/mypage/myresearch')
             .then(response => {
-                console.log(response);
                 setDatas(response.data);
             })
             .catch(error => console.log(error));
@@ -30,7 +29,6 @@ function MyPageResearch() {
             setCheckedIdx([...checkedIdx, idx]);
         }
     }
-    console.log(checkedIdx);
 
 
     const handlerClickDelete = () => {

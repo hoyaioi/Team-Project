@@ -139,6 +139,12 @@ function Order() {
         setCheckType('new');
     }
 
+    const handlerClickCancel = () => {
+        if(window.confirm('주문을 취소하시겠습니까?')){
+            navigate(-1);
+        }
+    }
+
     return (
         <>
             <div className="order_conatiner">
@@ -408,7 +414,8 @@ function Order() {
                                                 </div>
                                             </div>
                                             <div className="btn_center_box">
-                                                <button onClick={handlerClickSubmit} className="btn_order_buy order-buy"><em>결제하기</em></button>
+                                                <button type='button' onClick={handlerClickCancel} className="btn_order_cancel">취소</button>
+                                                <button onClick={handlerClickSubmit} className="btn_order_buy"><em>결제하기</em></button>
                                             </div>
                                         </div>
                                     </div>

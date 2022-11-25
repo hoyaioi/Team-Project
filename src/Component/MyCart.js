@@ -19,8 +19,6 @@ function MyCart() {
 
         }
         axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
-
-            console.log(response);
             alert('수정성공');
             setData(response.data);
             setCheckedLists([]);
@@ -28,8 +26,6 @@ function MyCart() {
         .catch(error => { 
             alert('수정실패');
             console.log(error) });
-        console.log(cartIdx)
-        console.log(itemAmount)
         setData( data && data.map((item=>{
             return item.cartIdx === cartIdx ? {...item, itemAmount : item.itemAmount+1} : item
         })));
@@ -51,7 +47,6 @@ function MyCart() {
 
         }
         axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
-            console.log(response);
             alert('수정성공');
             setData(response.data);
             setCheckedLists([]);
@@ -59,8 +54,6 @@ function MyCart() {
         .catch(error => { 
             alert('수정실패');
             console.log(error) });
-        console.log(cartIdx)
-        console.log(itemAmount)
         }
     }
    
@@ -68,7 +61,6 @@ function MyCart() {
     useEffect(() => {
         axios.get(`http://localhost:8080/cart/${memEmail}`)
             .then(response => {
-                console.log(response);
                 setData(response.data);
 
             })
@@ -76,14 +68,11 @@ function MyCart() {
     }, []);
 
     const cartDelete = () => {
-        console.log(checkedList)
-        console.log(checkedList.map(list => list.cartIdx));
 
         const confirm = window.confirm(checkedList.length+"개의 상품 정말 삭제하시겠습니까?");
         if(confirm)
         axios.post("http://localhost:8080/cart/delete", checkedList)
             .then(response => {
-                console.log(response);
                 alert('삭제성공');
                 setData(response.data);
                 setCheckedLists([]);
@@ -102,7 +91,7 @@ function MyCart() {
 
                 data.forEach((item) => checkedListArray.push(item));
 
-                setCheckedLists(checkedListArray, console.log(checkedListArray));
+                setCheckedLists(checkedListArray);
             } else {
                 setCheckedLists([]);
             }
@@ -113,7 +102,7 @@ function MyCart() {
     const onCheckedElement =
         (checked, item) => {
             if (checked) {
-                setCheckedLists([...checkedList, item], console.log(checkedList));
+                setCheckedLists([...checkedList, item]);
             } else {
                 setCheckedLists(checkedList.filter((el) => el !== item));
             }

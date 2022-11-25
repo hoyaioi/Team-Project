@@ -23,12 +23,12 @@ const Nav = () => {
           </li>
           <li>
             <Link to="/itemlist" state={{ organs: "간" }}>
-              <button>간</button>
+              <button>간 건강</button>
             </Link>
           </li>
           <li>
             <Link to="/itemlist" state={{ organs: "눈" }}>
-              <button>눈</button>
+              <button>눈 건강</button>
             </Link>
           </li>
           <li>
@@ -38,7 +38,7 @@ const Nav = () => {
           </li>
           <li>
             <Link to="/itemlist" state={{ organs: "장" }}>
-              <button>장</button>
+              <button>장 건강</button>
             </Link>
           </li>
           <li>
