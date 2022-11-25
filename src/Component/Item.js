@@ -32,21 +32,21 @@ function Item() {
   const [qnaDatas, setQnaDatas] = useState([]);
   const [qnaIdx, setQnaIdx] = useState();
   const [amount, setAmount] = useState(1);
+  const [itemPrice, setItemPrice] = useState(0);
   const isLogin = sessionStorage.getItem("idx") ? true : false;
   const email = sessionStorage.getItem("email");
   const [items, setItems] = useState([]);
   const [datas2, setDatas2] = useState([]);
   const [qnaWrite, setQnaWrite] = useState(false);
 
+  let lastPrice = itemPrice * amount;
   const memEmail = sessionStorage.getItem("email")
 
 
-  console.log(itemNum);
-
-  function plusClick() {
+  const plusClick = () => {
     setAmount(amount + 1);
   }
-  function minusClick() {
+  const minusClick = () => {
     amount === 1 ? setAmount(1) : setAmount(amount - 1);
   }
 
@@ -77,13 +77,13 @@ function Item() {
   ];
 
   const [reviewIdx, setReviewIdx] = useState();
-  const [reviwModal, setReviewModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false);
 
   const cartHanddler = () => {
     console.log(email);
     if (isLogin === true) {
       axios
-        .post("http://localhost:8080/cart/insert", cartDto)
+        .post("http://localhost:8080/cartinsert", cartDto)
         .then((response) => {
           console.log(response);
           alert("장바구니 추가완료");
@@ -105,6 +105,7 @@ function Item() {
     axios.get(`http://localhost:8080/item/${itemNum}`)
       .then(response => {
         setData(response.data);
+        setItemPrice(response.data.itemPrice);
       })
       .catch(error => { console.log(error); });
   }, [itemNum]);
@@ -123,7 +124,6 @@ function Item() {
     axios.get(`http://localhost:8080/review/list/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
-        console.log(datas2);
       })
       .catch(error => { console.log(error); });
   }, []);
@@ -157,7 +157,7 @@ function Item() {
           <div className="item_title">
             <strong>{datas.itemName}</strong>
             {/* <div className='item_share'> */}
-            <button className="share_button"></button>
+            <button type = 'button' className="share_button"></button>
             {/* </div> */}
           </div>
           <div className="item_price">
@@ -171,12 +171,12 @@ function Item() {
           </div>
           <div className="total-price">
             <span>{datas.itemName}</span>
-            <input value={amount} className="item_amount"></input>
+            <input value={amount} className="item_amount" readOnly ></input>
             <div className="updown">
-              <button onClick={plusClick} className="arrow">
+              <button type='button' onClick={plusClick} className="arrow">
                 <IoIosArrowUp />
               </button>
-              <button onClick={minusClick} className="arrow">
+              <button type='button' onClick={minusClick} className="arrow">
                 <IoIosArrowDown />
               </button>
             </div>
@@ -184,7 +184,7 @@ function Item() {
           <div className="last-price">
             <span>총합계</span>
             <div>
-              <strong>{datas.itemPrice * amount}</strong>
+              <strong>{lastPrice}</strong>
               <span>원</span>
             </div>
           </div>
@@ -218,8 +218,14 @@ function Item() {
           className="mySwiper"
         >
 
-          {items.map(item => (
-            <SwiperSlide><Link to={`/item/${item.itemNum}`} state={{ item: items }}><div><img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" /><strong>{item.itemName}</strong><div><span>{item.itemPrice}원</span></div></div></Link></SwiperSlide>
+          {items.map((item, idx) => (
+            <SwiperSlide key={idx} ><Link to={`/item/${item.itemNum}`} state={{ item: items }}>
+              <div >
+                <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" />
+                <strong>{item.itemName}</strong>
+                <div><span>{item.itemPrice}원</span></div>
+              </div>
+              </Link></SwiperSlide>
           ))}
         </Swiper>
       </div>
@@ -309,8 +315,8 @@ function Item() {
         <strong>상품후기</strong>
         <table className="review-table">
           {datas2 &&
-            datas2.map((review) => (
-              <tbody>
+            datas2.map((review, idx) => (
+              <tbody key={idx}>
                 <tr
                   onClick={() => {
                     setReviewIdx(review.reviewIdx);
@@ -320,14 +326,14 @@ function Item() {
                   <td
                     width="50%"
                     onClick={() => {
-                      setReviewModal(!reviwModal);
+                      setReviewModal(!reviewModal);
                     }}
                   >
                     {review.itemName}
                   </td>
                   <td width="20%">{review.reviewWriteDate}</td>
                 </tr>
-                {reviwModal === true && reviewIdx === review.reviewIdx ? (
+                {reviewModal === true && reviewIdx === review.reviewIdx ? (
                   <Review value={review.reviewIdx} />
                 ) : null}
               </tbody>
@@ -363,9 +369,9 @@ function Item() {
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.map((qna) => (
+              qnaDatas.map((qna, idx) => (
                 <>
-                  <tr
+                  <tr key={idx}
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}

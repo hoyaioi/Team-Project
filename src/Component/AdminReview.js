@@ -43,13 +43,13 @@ export default function AdminReview() {
       }
     })
         .then(response => {
-          if(response.status === 200){
+          if (response.status === 200) {
             alert('블라인드 해제완료');
             window.location.reload();
           }
         })
         .catch(error => console.log(error));
-      }
+    }
   }
 
   return (
@@ -57,7 +57,7 @@ export default function AdminReview() {
       <div id="main">
         <div className="admin_container">
           <div className="admin_title">
-            관리자 리뷰목록
+            리뷰관리
           </div>
           <div className="admin_table">
             <table>
