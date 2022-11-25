@@ -91,7 +91,7 @@ const Step4 = () => {
       "memEmail": sessionStorage.getItem("email"),
       "resultLiver": getValue("간"),
       "resultEyes": getValue("눈"),
-      "resultVitamin": getValue("몸"),
+      "resultVitamin": getValue("비타민"),
       "resultBlood": getValue("혈관"),
       "resultDiges": getValue("장"),
       "resultSave": "Y"

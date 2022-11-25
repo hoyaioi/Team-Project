@@ -54,7 +54,7 @@ const AdminBoard = () => {
                 <>
                   <tr onClick={() => { setQnaIdx(result.qnaIdx); }}>
                     <td width="11%">{result.qnaIdx}</td>
-                    <td width="16%">{result.itemIdx}</td>
+                    <td width="16%">{result.itemNum}</td>
                     <td width="40%" onClick={() => { setQnaModal(!qnaModal); }}>{result.qnaTitle}</td>
                     <td width="15%">{result.memEmail}</td>
                     <td width="11%">{result.qnaWriteDate}</td>

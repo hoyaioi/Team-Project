@@ -49,7 +49,10 @@ function AdminQnaModal(props) {
     }
 
     const handlerClickDelete = () => {
-        axios.delete(`http://localhost:8080/admin/qna/${qnaIdx}`)
+        axios.delete(`http://localhost:8080/admin/qna/${qnaIdx}`, "", { 
+            headers: { 
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+          }})
         .then(response => { 
             console.log(response);
             if (response.status === 200) {

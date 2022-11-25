@@ -17,7 +17,7 @@ const Header = () => {
     window.location.reload();
   };
 
-  const isAdmin = sessionStorage.getItem("role") === "1" ? true : false;
+  const isAdmin = sessionStorage.getItem("role") === "ROLE_ADMIN" ? true : false;
 
 
   return (
