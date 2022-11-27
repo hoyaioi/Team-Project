@@ -109,10 +109,12 @@
 
 .mycart_list_wrap tbody td {
   position: relative;
-  text-align: center;
-  vertical-align: middle;
-  word-break: break-all;
-  font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 130px;
+    padding: 3px 0;
+    font-weight: 300;
 }
 
 .mycart_item_info_td {

@@ -35,6 +35,7 @@ const Header = () => {
                 className="header_search_bar"
                 spellCheck="false"
                 maxLength="64"
+                autoComplete="off"
               />
               <button type="submit" className="header_search_btn">
                 <div className="header_search_img" />

@@ -103,17 +103,18 @@ function MyOrderList() {
   const [orderNum, setOrderNum] = useState("");
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
-  const [orderlistIdx, setOrderlistIdx] = useState("");
   const [itemAmount, setItemAmount] = useState(0);
+  const [orderlistIdx, setOrderlistIdx] = useState("");
 
-  const handlerOpenApp = (orderNum, itemName, itemPrice, orderlistIdx,itemAmount) => {
+  const handlerOpenApp = (orderNum, itemName, itemPrice, itemAmount,orderlistIdx) => {
     setOrderNum(orderNum);
     setItemName(itemName);
     setItemPrice(itemPrice);
     setItemAmount(itemAmount);
-    setOrderlistIdx(orderlistIdx);
     setOpenApp(true);
+    setOrderlistIdx(orderlistIdx);
   };
+  console.log(orderlistIdx)
 
   const handlerDelete = (orderlistIdx) => {
     if (window.confirm("내역을 삭제하시겠습니까?")) {
@@ -138,6 +139,7 @@ function MyOrderList() {
     itemName,
     itemNum,
     orderNum,
+    itemAmount,
     orderlistIdx,
   ) => {
     if (
@@ -159,6 +161,7 @@ function MyOrderList() {
                   itemName: itemName,
                   itemNum: itemNum,
                   orderNum: orderNum,
+                  itemAmount : itemAmount,
                   orderlistIdx: orderlistIdx,
                 }
               )
@@ -239,7 +242,14 @@ function MyOrderList() {
                   </tr>
                 </thead>
                 <tbody>
-                  {datas.slice(offset, offset + 10).map((order, orderIdx) => (
+                  {datas.length === 0 ? (
+                   <tr>
+
+                   <td colSpan={6}>주문내역이 없습니다.</td>
+
+                 </tr>
+                   ) :(
+                  datas.slice(offset, offset + 10).map((order, orderIdx) => (
                     <tr key={orderIdx}>
                       <td className="myorderlist_item_info_td">
                         <div className="myorderlist_item_info_wrap">
@@ -320,8 +330,8 @@ function MyOrderList() {
                                     order.orderNum,
                                     order.itemName,
                                     order.itemPrice,
-                                    order.orderlistIdx,
-                                    order.itemAmount
+                                    order.itemAmount,
+                                    order.orderlistIdx
                                   )
                                 }
                               >
@@ -357,7 +367,8 @@ function MyOrderList() {
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  )))}
+                  
                 </tbody>
               </table>
             </div>

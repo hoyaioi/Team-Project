@@ -3,7 +3,10 @@
     width: 100%;
 }
 .adminqna_header{
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
+    font-size: 25px;
 }
 .adminqna_list table {
     width: 100%;

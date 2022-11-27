@@ -49,13 +49,16 @@ function AdminQnaModal(props) {
     }
 
     const handlerClickDelete = () => {
-        axios.delete(`http://localhost:8080/admin/qna/${qnaIdx}`,null,{ 
+        if(window.confirm("정말 삭제하시겠습니까?"))
+        axios.post(`http://localhost:8080/admin/qna/${qnaIdx}`,null,{ 
             headers: { 
             'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-     }})
+          }
+        })
         .then(response => { 
             console.log(response);
             if (response.status === 200) {
+                window.location.reload();
                 alert("정상적으로 삭제되었습니다.");
             } else {
                 alert("삭제에 실패했습니다.");

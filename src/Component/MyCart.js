@@ -146,10 +146,9 @@ function MyCart() {
               <tbody>
                 {data.length === 0 ? (
                   <tr>
-                    <td></td>
-                    <td>장바구니가 비었습니다.</td>
-                    <td></td>
-                    <td></td>
+
+                    <td colSpan={4}>장바구니가 비었습니다.</td>
+
                   </tr>
                 ) : (
                   data &&

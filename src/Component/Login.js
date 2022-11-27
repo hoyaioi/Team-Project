@@ -71,6 +71,7 @@ function Login() {
                     placeholder="아이디(이메일)"
                     value={email}
                     onChange={onChangeEmail}
+                    autoComplete="off"
                   />
                 </Col>
               </Form.Group>
