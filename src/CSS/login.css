@@ -112,6 +112,7 @@
   margin: auto;
   color: black;
   padding-top: 25px;
+  text-align: center;
 }
 
 .hr-sect::before,

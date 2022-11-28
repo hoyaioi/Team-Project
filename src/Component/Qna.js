@@ -19,37 +19,33 @@ function Qna({ value }) {
   console.log(data);
 
   return (
-    <table className="qna-modal-table">
-      <tbody>
-        <tr colspan="3" className="qna-modal">
-          <td>
-            <div className="qna-modal-cont">
-              <strong>Q</strong>
-              <div className="qna-content">
-                <span>{data.qnaContents}</span>
-              </div>
-            </div>
-            <div className="qna-comment">
-              <strong>A</strong>
-              <div className="admin-comment">
-                <span>
-                  {data.qnaCommentContent === null
-                    ? "답변 준비중"
-                    : data.qnaCommentContent}{" "}
-                </span>
-              </div>
-              <div className="comment-date">
-                <span>
-                  {data.qnaCommentWriteDate === null
-                    ? null
-                    : data.qnaCommentWriteDate}
-                </span>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <tr className="qna-modal">
+      <td colspan="5">
+        <div className="qna-modal-cont">
+          <strong>Q</strong>
+          <div className="qna-content">
+            <span>{data.qnaContents}</span>
+          </div>
+        </div>
+        <div className="qna-comment">
+          <strong>A</strong>
+          <div className="admin-comment">
+            <span>
+              {data.qnaCommentContent === null
+                ? "답변 준비중"
+                : data.qnaCommentContent}{" "}
+            </span>
+          </div>
+          <div className="comment-date">
+            <span>
+              {data.qnaCommentWriteDate === null
+                ? null
+                : data.qnaCommentWriteDate}
+            </span>
+          </div>
+        </div>
+      </td>
+    </tr>
   );
 }
 

@@ -69,6 +69,7 @@
 
 .mycart_item_count_td input {
   width: 30px;
+  text-align: center;
 }
 
 .mycart_item_count_td {
@@ -167,7 +168,6 @@
 /* ----------------------------------------- */
 .mycart_btn_wrap {
   height: 70px;
-  position: sticky;
   bottom: 0;
 }
 
