@@ -83,7 +83,7 @@ function AdminOrder() {
                                 <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + orderlist.itemThumb} /></td>
                                 <td width="16%">{orderlist.orderNum}</td>
                                 <td width="30%">{orderlist.itemName}</td>
-                                <td width="10%">{orderlist.memIdx}</td>
+                                <td width="10%">{orderlist.memEmail}</td>
                                 <td width="11%">{orderlist.orderDate}</td>
                                 <td width="17%">
                                     {orderlist.orderStatus}

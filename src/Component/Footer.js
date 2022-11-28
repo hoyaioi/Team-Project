@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "../CSS/Footer.css";
 
 const Footer = () => {
+
   return (
     <div id="footer">
       <div className="footer_wrap">

@@ -19,28 +19,27 @@ const Header = () => {
 
   const isAdmin = sessionStorage.getItem("role") === "ROLE_ADMIN" ? true : false;
 
-
   return (
     <>
-        <div id="header">
-          <div className="header_top">
-            <div className="header_logo_wrap">
-              <Link to="/">
-                <img className="header_logo_img" src="/images/logo.png" />
-              </Link>
-            </div>
-            <div className="header_search_wrap">
-              <div className="header_search_area">
-                <input
-                  type="text"
-                  className="header_search_bar"
-                  spellCheck="false"
-                  maxLength="64"
-                />
-                <button type="submit" className="header_search_btn">
-                  <div className="header_search_img" />
-                </button>
-              </div>
+      <div id="header">
+        <div className="header_top">
+          <div className="header_logo_wrap">
+            <Link to="/">
+              <img className="header_logo_img" src="/images/logo.png" />
+            </Link>
+          </div>
+          <div className="header_search_wrap">
+            <div className="header_search_area">
+              <input
+                type="text"
+                className="header_search_bar"
+                spellCheck="false"
+                maxLength="64"
+                autoComplete="off"
+              />
+              <button type="submit" className="header_search_btn">
+                <div className="header_search_img" />
+              </button>
             </div>
             <div className="header_btn_wrap">
               <div className="header_btn_area">
@@ -65,19 +64,12 @@ const Header = () => {
                   {/* <li>
                     <Link to="/write">작성하기</Link>
                   </li> */}
-                  <li>
-                    <Link to="/mypage/myorderlist">마이페이지</Link>
-                  </li>
-                  <li>
-                    <Link to="/service/center">고객센터</Link>
-                  </li>
-                  {isAdmin ? (
-                    <li>
-                      <Link to="/admin">관리자페이지</Link>
-                    </li>
-                  ) : null}
-                </ul>
-              </div>
+                { !isAdmin ?  <li><Link to="/mypage/myorderlist">마이페이지</Link></li> 
+                :  <li><Link to="/admin">관리자페이지</Link></li> }
+                <li>
+                  <Link to="/service/center">고객센터</Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

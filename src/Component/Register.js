@@ -208,30 +208,7 @@ function Register() {
                 value={phoneNum}
                 onChange={handlerChangePhoneNum}
               />
-              <button
-                className="sendCode  btn text-white"
-                type="button"
-                style={{ marginLeft: "20px" }}
-              >
-                인증번호 발송
-              </button>
-              <Form.Control
-                className="vertificodeForm"
-                style={{
-                  display: "inline-block",
-                  width: "300px",
-                  marginBottom: "30px",
-                }}
-                type="vertification code"
-                placeholder="인증번호를 입력하세요"
-              />
-              <button
-                className="confirmCode btn text-white"
-                type="button"
-                style={{ marginLeft: "20px" }}
-              >
-                인증번호 확인
-              </button>
+              
             </Form.Group>
             <Form.Group>
               {!postCode && (

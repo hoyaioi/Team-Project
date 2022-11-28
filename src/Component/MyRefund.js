@@ -62,7 +62,14 @@ function MyRefund() {
               </tr>
             </thead>
             <tbody>
-              {datas.slice(offset, offset + 10).map((refund, idx) => (
+              {datas.length === 0 ? 
+                <tr>
+
+                <td colSpan={5}>환불/반품내역이 없습니다.</td>
+
+              </tr>
+              :
+              (datas.slice(offset, offset + 10).map((refund, idx) => (
                 <tr key={idx}>
                   <td className="myrefund_item_info_td">
                     <div className="myrefund_item_info_wrap">
@@ -79,7 +86,7 @@ function MyRefund() {
                   <td className="myrefund_refund_reason_td">
                     {refund.refundReason}
                   </td>
-                  <td className="myrefund_item_price_td">{refund.itemPrice}</td>
+                  <td className="myrefund_item_price_td">{[refund.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                   <td className="myrefund_status_btn_td">
                     <input type="hidden" value={refund.refundIdx} />
                     {refund.refundStatus}
@@ -101,7 +108,9 @@ function MyRefund() {
                     )}
                   </td>
                 </tr>
-              ))}
+              )))
+            }
+              
             </tbody>
           </table>
         </div>

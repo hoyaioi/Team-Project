@@ -47,11 +47,10 @@
   position: relative;
   text-align: center;
   vertical-align: middle;
-  word-break: break-all;
   font-size: 14px;
-  letter-spacing: 1px;
-  line-height: 17px;
-  font-weight: 400;
+  height: 130px;
+  padding: 3px 0;
+  font-weight: 300;
 }
 
 .myrefund_list_wrap tbody td:nth-child(n + 4) {

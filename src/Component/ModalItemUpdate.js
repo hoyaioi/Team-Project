@@ -1,8 +1,8 @@
 import React from "react";
 import '../CSS/Modal.css';
-import AdminItemWrite from "./AdminItemWrite";
+import AdminItemUpdate from "./AdminItemUpdate";
 
-function ModalItemWrite(props) {
+function ModalItemUpdate(props) {
   console.log(props)
   function closeModal() {
     props.closeModal();
@@ -17,10 +17,10 @@ function ModalItemWrite(props) {
           ✖
         </button>
         {props.children}
-        <AdminItemWrite item={props.item} />
+        <AdminItemUpdate item={props.item} />
       </div>
     </div>
   );
 }
 
-export default ModalItemWrite;
+export default ModalItemUpdate;

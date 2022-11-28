@@ -1,10 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Paging from "./Paging";
 
 
 export default function AdminReview() {
 
   const [datas, setDatas] = useState([]);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
+  const count = datas.length;
 
   useEffect(() => {
     axios.get(`http://localhost:8080/admin/refund`, { 
@@ -14,6 +19,7 @@ export default function AdminReview() {
   })
       .then(response => {
         setDatas(response.data);
+        console.log(response)
       })
       .catch(error => console.log(error));
   }, []);
@@ -35,47 +41,44 @@ export default function AdminReview() {
 
   return (
     <>
-      <div id="main">
-        <div className="admin_container">
-          <div className="admin_title">
-            반품관리
-          </div>
-          <div className="admin_table">
-            <table>
-              <thead >
+    <div className="adminqna_list">
+      <div className="adminqna_header"><strong>반품관리</strong></div>
+      <table className="review-table">
+        <thead >
+          <tr>
+            <th width="10%">회원번호</th>
+            <th width="15%">주문번호</th>
+            <th width="15%">제품명</th>
+            <th width="20%">반품사유</th>
+            <th width="20%">반품신청일</th>
+            <th width="10%">환불금액</th>
+            <th width="10%">상태</th>
+            <th width="10%">관리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            datas && datas.slice(offset, offset + 10).map((refund) => (
+              <>
                 <tr>
-                  <td className="admin_review_idx">회원번호</td>
-                  <td className="admin_refund_ordernum">주문번호</td>
-                  <td className="admin_refund_itemname">제품명</td>
-                  <td className="admin_refund_reason">반품사유</td>
-                  <td className="admin_review_date">반품신청일</td>
-                  <td className="admin_review_date">환불금액</td>
-                  <td className="admin_refund_status" colSpan={2}>반품상태</td>
-                </tr>
-              </thead>
-              <tbody>
-                {datas.map((refund, idx) => (
-                  <tr key={idx}>
-                    <td>{refund.memIdx}</td>
-                    <td>{refund.orderNum}</td>
-                    <td>{refund.itemName}</td>
-                    <td>{refund.refundReason}</td>
-                    <td>{refund.refundDate}</td>
-                    <td>{refund.itemPrice}</td>
-                    <td>{refund.refundStatus}</td>
-                    <td>
-                      <input type="hidden" value={refund.refundIdx} />
-                      <div className="admin_btn">
-                        {refund.refundStatus === '반품진행중' ? <button type='button' onClick={() => handlerRefund(refund.refundIdx)}>환불처리</button> : ''}
-                      </div>
+                  <td width="10%">{refund.memIdx}</td>
+                  <td width="15%">{refund.orderNum}</td>
+                  <td width="15%">{refund.itemName}</td>
+                  <td width="20%">{refund.refundReason}</td>
+                  <td width="20%">{refund.refundDate}</td>
+                  <td width="10%">{[refund.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
+                  <td width="10%">{refund.refundStatus}</td>
+                  <td width="10%">
+                    {refund.refundStatus === '반품진행중' ? <button onClick={()=> handlerRefund(refund.refundIdx)}>반품처리</button> : '처리완료'}
                     </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </>
+                </tr>
+              </>
+            ))
+          }
+        </tbody>
+      </table>
+      <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
+    </div>
+  </>
   );
 };
