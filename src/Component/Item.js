@@ -8,19 +8,17 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
-import Review from './ItemReview.js'
-import Qna from './Qna';
-import { useState, useRef, useEffect } from 'react';
-import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
-import  Modal  from './Modal.js';
-
+import Review from "./ItemReview.js";
+import Qna from "./Qna";
+import { useState, useRef, useEffect } from "react";
+import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
+import Modal from "./Modal.js";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import axios from "axios";
-import QnaWrite from './QnaWrite';
-import { data } from 'jquery';
+import Paging from "./Paging";
 
 SwiperCore.use([Navigation]);
 
@@ -44,6 +42,11 @@ function Item() {
   const price2 = [datas.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const realTotal = [lastPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   console.log(price2);
+
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 5;
+  const count = qnaDatas.length;
+  const [pagecount, setPageCount] = useState(5);
 
 
 
@@ -115,6 +118,18 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
+    axios
+      .get(`http://localhost:8080/item/${itemNum}`)
+      .then((response) => {
+        setData(response.data);
+        setItemPrice(response.data.itemPrice);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [itemNum]);
+
+  useEffect(() => {
     axios.get(`http://localhost:8080/review/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
@@ -125,13 +140,14 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/review/list/${itemNum}`)
+    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
       })
-      .catch(error => { console.log(error); });
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-
 
   useEffect(() => {
     axios
@@ -318,6 +334,13 @@ function Item() {
       <div className="review">
         <strong>상품후기</strong>
         <table className="review-table">
+          <thead className="review-thead">
+            <tr>
+              <th>별점</th>
+              <th>제목</th>
+              <th>작성일자</th>
+            </tr>
+          </thead>
           {datas2 &&
             datas2.map((review, idx) => (
               <tbody key={idx}>
@@ -326,16 +349,15 @@ function Item() {
                     setReviewIdx(review.reviewIdx);
                   }}
                 >
-                  <td width="10%"></td>
+                  <td></td>
                   <td
-                    width="50%"
                     onClick={() => {
                       setReviewModal(!reviewModal);
                     }}
                   >
                     {review.itemName}
                   </td>
-                  <td width="20%">{review.reviewWriteDate}</td>
+                  <td>{review.reviewWriteDate}</td>
                 </tr>
                 {reviewModal === true && reviewIdx === review.reviewIdx ? (
                   <Review value={review.reviewIdx} />
@@ -358,31 +380,33 @@ function Item() {
         <strong>QNA</strong>
         {memEmail !== null ? <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button> : null}
         {qnaWrite && (
-        <Modal closeModal={() => setQnaWrite(!qnaWrite)} itemName={datas.itemName} itemNum={datas.itemNum}>
-        </Modal>
-      )}
-        <table className="review-table">
+          <Modal
+            closeModal={() => setQnaWrite(!qnaWrite)}
+            itemName={datas.itemName}
+            itemNum={datas.itemNum}
+          ></Modal>
+        )}
+        <table className="qna-table">
           <thead>
             <tr>
-              <th width="8%">문의글 번호</th>
-              <th width="53%">제목</th>
-              <th width="13%">작성자</th>
-              <th width="13%">작성일자</th>
-              <th width="13%">답변상태</th>
+              <th>문의글 번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일자</th>
+              <th>답변상태</th>
             </tr>
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.map((qna, idx) => (
+              qnaDatas.slice(offset, offset + 5).map((qna,idx) => (
                 <>
                   <tr key={idx}
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}
                   >
-                    <td width="8%">{qna.qnaIdx}</td>
+                    <td>{qna.qnaIdx}</td>
                     <td
-                      width="53%"
                       onClick={() => {
                         setQnaIdx(qna.qnaIdx);
                         setQnaModal(!qnaModal);
@@ -390,11 +414,9 @@ function Item() {
                     >
                       {qna.qnaTitle}
                     </td>
-                    <td width="13%">{qna.memEmail}</td>
-                    <td width="13%">{qna.qnaWriteDate}</td>
-                    <td width="13%">
-                      {qna.qnaAns === "Y" ? "답변완료" : "답변대기"}
-                    </td>
+                    <td>{qna.memEmail}</td>
+                    <td>{qna.qnaWriteDate}</td>
+                    <td>{qna.qnaAns === "Y" ? "답변완료" : "답변대기"}</td>
                   </tr>
                   {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                     <Qna value={qna.qnaIdx} />
@@ -404,7 +426,12 @@ function Item() {
           </tbody>
         </table>
       </div>
-
+      <Paging
+        page={page}
+        setPage={setPage}
+        count={count}
+        pagecount={pagecount}
+      />
     </div>
   );
 }

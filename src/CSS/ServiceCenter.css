@@ -114,6 +114,7 @@
   margin-right: 20px;
   float: left;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .service_board_hot {
@@ -163,6 +164,7 @@
 }
 .service_board_list td:nth-child(2) {
   width: 70%;
+  cursor: default;
 }
 .service_board_list td:nth-child(3) {
   width: 20%;

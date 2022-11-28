@@ -45,9 +45,9 @@ function Order() {
     const handlerChangePhoneNum = (e) => setPhoneNum(e.target.value.replace(/[^0-9]/g, "")); 
 
 
-    const open = useDaumPostcodePopup(
-        "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-    );
+  const open = useDaumPostcodePopup(
+    "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+  );
 
     const handleComplete = (data) => {
         let fullAddress = data.address;
@@ -426,9 +426,14 @@ function Order() {
                             </div>
                         </form>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </>
-    );
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 export default Order;
