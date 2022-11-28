@@ -20,6 +20,10 @@
     padding: 5px;
 }
 
+.admin_itemsave{
+    float: right;
+}
+
 .admin_order_table {
     margin-top: 30px;
     width: 100%;

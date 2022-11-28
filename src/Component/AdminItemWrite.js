@@ -1,8 +1,8 @@
+import '../CSS/AdminItemWrite.css';
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import '../CSS/AdminItemWrite.css';
 
 
 const AdminItemWrite = () => {
@@ -86,7 +86,7 @@ const AdminItemWrite = () => {
           <div className="item_board_write">
             <form>
               <div className="item_board_box">
-                <table className="admin_order_table">
+                <table className="admin_item_table">
                   <tbody>
                     <tr>
                       <th>분류</th>

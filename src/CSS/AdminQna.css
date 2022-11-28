@@ -25,6 +25,7 @@
 .adminqna_list td {
     padding: 13px 30px 13px 10px;
     border-bottom: 1px solid #dbdbdb;
+    vertical-align: middle;
 }
 
 .adminqna_list th {
