@@ -17,7 +17,7 @@ function ModalItemWrite(props) {
           ✖
         </button>
         {props.children}
-        <AdminMemberUpdate item={props.item} />
+        <AdminMemberUpdate mem={props.mem} />
       </div>
     </div>
   );

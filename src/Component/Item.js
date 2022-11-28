@@ -140,7 +140,7 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/reviewlist/${itemNum}`)
+    axios.get(`http://localhost:8080/review/list/${itemNum}`)
       .then(review => {
         setDatas2(review.data);
       })

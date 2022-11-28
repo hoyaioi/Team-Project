@@ -16,7 +16,7 @@ const AdminMember = () => {
   const count = memList.length;
 
   const [memberUpdate, setMemberUpdate] = useState(false);
- 
+  const [memIdx, setMemIdx] = useState(0);
   useEffect(() => {
     axios.get("http://localhost:8080/admin/mem", { 
       headers: { 
@@ -81,8 +81,8 @@ const AdminMember = () => {
                   {mem.role === 'ROLE_ADMIN' ? <td width="10%">admin</td> : <td width="10%">X</td>}
                   <td width="10%">
                     {mem.memDeletedYn === 'N' ?   <>
-                    <button onClick={() => { setMemberUpdate(!memberUpdate); }}><MdCreate/></button>
-                    {memberUpdate === true ? <ModalMember closeModal={() => setMemberUpdate(!memberUpdate)} /> : null}
+                    <button onClick={() => { setMemberUpdate(!memberUpdate); setMemIdx(mem.memIdx); }}><MdCreate/></button>
+                    {memberUpdate === true ? <ModalMember mem={memIdx} closeModal={() => setMemberUpdate(!memberUpdate)} /> : null}
                     
                     <button onClick={()=>memberDelete(mem.memIdx)}><MdOutlineDelete/></button>
                     </> : null}

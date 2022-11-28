@@ -43,7 +43,7 @@ export default function AdminReview() {
     <>
     <div className="adminqna_list">
       <div className="adminqna_header"><strong>반품관리</strong></div>
-      <table className="review-table">
+      <table className="admin_refund_table">
         <thead >
           <tr>
             <th width="10%">회원번호</th>
