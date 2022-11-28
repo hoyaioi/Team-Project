@@ -48,17 +48,7 @@ function AdminMemberUpdate(props) {
   }, []);
 
   const handlerClickUpdate = () => {
-    if (memPw !== memPw2) {
-      alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-      setMemPw("");
-      setMemPw2("");
-      inputPw.current.focus();
-    } else if (memPw == "" || memPw2 == "") {
-      alert("변경하실 비밀번호를 입력해주세요.");
-      setMemPw("");
-      setMemPw2("");
-      inputPw.current.focus();
-    } else if (memPhone.length < 10) {
+    if (memPhone.length < 10) {
       alert("휴대폰번호를 올바르게 입력해주세요.");
       setMemPhone("");
       inputPhone.current.focus();
@@ -68,13 +58,12 @@ function AdminMemberUpdate(props) {
           memIdx: memIdx,
           memName: memName,
           memPhone: memPhone,
-          memPostNum: memPostNum,
-          memAddr1: memAddr1,
-          memAddr2: memAddr2,
           memEmail: memEmail,
-          memPw: memPw,
-          memPw2: memPw2,
-        })
+        }, { 
+          headers: { 
+          'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+        }
+      })
         .then((response) => {
           if (response.status === 200) {
             alert("변경이 완료되었습니다.");
@@ -136,34 +125,12 @@ function AdminMemberUpdate(props) {
                       type="email"
                       className="myinfoup2_readonly"
                       value={memEmail}
+                      readOnly
                       onChange={handlerChangeEmail}
-                      placeholder="변경할 이메일을 입력하세요."
                     />
                   </div>
                 </div>
-                <div className="myinfoup2_pw_wrap">
-                  <div className="myinfoup2_text">비밀번호</div>
-                  <div className="myinfoup2_input_wrap">
-                    <input
-                      type="password"
-                      placeholder="비밀번호를 입력해주세요."
-                      ref={inputPw}
-                      value={memPw}
-                      onChange={handlerChangePw}
-                    />
-                  </div>
-                </div>
-                <div className="myinfoup2_pw_wrap">
-                  <div className="myinfoup2_text">비밀번호 확인</div>
-                  <div className="myinfoup2_input_wrap">
-                    <input
-                      type="password"
-                      placeholder="비밀번호를 다시 입력해주세요."
-                      value={memPw2}
-                      onChange={handlerChangePw2}
-                    />
-                  </div>
-                </div>
+              
               </div>
             </div>
             <div className="myinfoup2_btn_wrap">

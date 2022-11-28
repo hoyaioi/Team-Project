@@ -50,7 +50,7 @@ export default function AdminReview() {
             <th width="15%">주문번호</th>
             <th width="15%">제품명</th>
             <th width="20%">반품사유</th>
-            <th width="20%">반품신청일</th>
+            <th width="10%">반품신청일</th>
             <th width="10%">환불금액</th>
             <th width="10%">상태</th>
             <th width="10%">관리</th>
@@ -65,7 +65,7 @@ export default function AdminReview() {
                   <td width="15%">{refund.orderNum}</td>
                   <td width="15%">{refund.itemName}</td>
                   <td width="20%">{refund.refundReason}</td>
-                  <td width="20%">{refund.refundDate}</td>
+                  <td width="10%">{refund.refundDate}</td>
                   <td width="10%">{[refund.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                   <td width="10%">{refund.refundStatus}</td>
                   <td width="10%">
