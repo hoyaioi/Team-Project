@@ -88,7 +88,7 @@ export default function AdminReview() {
                   <td width="10%">{review.reviewUpdateDate}</td>
                   <td width="10%">{review.reviewDeleteYn}</td>
                   <td width="10%">
-                    {review.reviewDeleteYn === 'Y' ? <button>블라인드취소</button> : <button>블라인드</button> }
+                    {review.reviewDeleteYn === 'Y' ? <button onClick={()=>handlerShow(review.reviewIdx)}>블라인드취소</button> : <button onClick={()=>handlerBlind(review.reviewIdx)}>블라인드</button> }
                   </td>
                 </tr>
               </>

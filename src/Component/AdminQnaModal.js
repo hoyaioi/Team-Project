@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/AdminQnaModal.css'
+import {
+    MdOutlineDelete
+  } from "react-icons/md";
+  
 
 function AdminQnaModal(props) {
 
@@ -70,10 +74,9 @@ function AdminQnaModal(props) {
 
 
     return (
-        <table className='adminqna-modal-table'>
-            <tbody>
+
                 <tr className="adminqna-modal">
-                    <td>
+                    <td colSpan={6}>
                         <div className='adminqna-modal-cont'>
                             <strong>Q</strong>
                             <div className='adminqna-content'>
@@ -82,7 +85,7 @@ function AdminQnaModal(props) {
                         </div>
                         <div className='adminqna-comment'>
                             <strong>A</strong>
-                            <div className='adminadmin-comment'>
+                            <div className='admin-comment'>
                                 {
                                     isAnswer === false ? (
                                         <form onSubmit={qnaAnswer}>
@@ -100,13 +103,11 @@ function AdminQnaModal(props) {
                             </div>
                             <div className='admincomment-edit'>
                                { datas.qnaCommentContent === null ? <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button> : null}
-                                <button className='admincomment-delete-btn' onClick={handlerClickDelete}>삭제</button>
+                                <button className='admincomment-delete-btn' onClick={handlerClickDelete}><MdOutlineDelete/></button>
                             </div>
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table >
     );
 }
 

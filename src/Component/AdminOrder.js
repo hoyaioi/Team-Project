@@ -23,9 +23,9 @@ function AdminOrder() {
         console.log(orderlistIdx)
 
         axios.post(
-            `http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`, 
-            null, 
-            { headers : { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` } }
+            `http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`,
+            null,
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` } }
         )
             .then((response) => {
                 console.log(response);
@@ -36,10 +36,10 @@ function AdminOrder() {
     }
 
     const stateCancle = (orderlistIdx) => {
-        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`,null, { 
-            headers: { 
-            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-          }
+        axios.post(`http://localhost:8080/admin/ordercancle/${orderlistIdx}`, null, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+            }
         })
             .then((response) => {
                 console.log(response.data);
@@ -50,10 +50,10 @@ function AdminOrder() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/admin/order", { 
-            headers: { 
-            'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-          }
+        axios.get("http://localhost:8080/admin/order", {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+            }
         })
             .then((response) => {
                 console.log(response);
@@ -64,49 +64,51 @@ function AdminOrder() {
 
     return (
         <>
-            <div className="adminorder_list">
-                <div className="adminorder_header"><strong>관리자 주문목록</strong></div>
-                <table className="admin_order_table">
+            <div className="adminqna_list">
+                <div className="adminqna_header"><strong>주문관리</strong></div>
+                <table className="review-table">
                     <thead >
                         <tr>
-                            <th width="16%">상품이미지</th>
-                            <th width="16%">주문번호</th>
-                            <th width="30%">상품이름</th>
-                            <th width="10%">주문자</th>
-                            <th width="11%">주문일자</th>
-                            <th width="17%">주문상태</th>
+                            <th width="10%">이미지</th>
+                            <th width="20%">주문번호</th>
+                            <th width="20%">상품이름</th>
+                            <th width="15%">주문자</th>
+                            <th width="25%">주문일자</th>
+                            <th width="20%">주문상태</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {datas.slice(offset, offset + 10).map(orderlist => (
-                            <tr>
-                                <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + orderlist.itemThumb} /></td>
-                                <td width="16%">{orderlist.orderNum}</td>
-                                <td width="30%">{orderlist.itemName}</td>
-                                <td width="10%">{orderlist.memEmail}</td>
-                                <td width="11%">{orderlist.orderDate}</td>
-                                <td width="17%">
-                                    {orderlist.orderStatus}
-                                   {orderlist.orderStatus === "취소처리중" ? <button onClick={()=>stateCancle(orderlist.orderlistIdx)}>취소처리완료</button> : <select name="categoryName" onChange={stateHandler}>
-                                            <option hidden></option>
-                                        {orderState.map((state) => (
-                                            <option
-                                                value={state}
-                                                key={state}
-                                            >
-                                                {state}
-                                            </option>
-                                        ))}
-                                    </select> } 
-                                   {orderlist.orderStatus === "취소처리중" ? null : <button onClick={()=>stateChange(orderlist.orderlistIdx)}>변경하기</button>}
-                                </td>
-                            </tr>
-                        ))}
-
-
+                        {
+                            datas && datas.slice(offset, offset + 10).map((order) => (
+                                <>
+                                    <tr>
+                                        <td width="10%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + order.itemThumb} /></td>
+                                        <td width="20%">{order.orderNum}</td>
+                                        <td width="20%">{order.itemName}</td>
+                                        <td width="15%">{order.memEmail}</td>
+                                        <td width="25%">{order.orderDate}</td>
+                                        <td width="20%">
+                                            {order.orderStatus}
+                                            {order.orderStatus === "취소처리중" ? <button onClick={() => stateCancle(order.orderlistIdx)}>취소처리완료</button> : <select name="categoryName" onChange={stateHandler}>
+                                                <option hidden></option>
+                                                {orderState.map((state) => (
+                                                    <option
+                                                        value={state}
+                                                        key={state}
+                                                    >
+                                                        {state}
+                                                    </option>
+                                                ))}
+                                            </select>}
+                                            {order.orderStatus === "취소처리중" ? null : <button onClick={() => stateChange(order.orderlistIdx)}>변경하기</button>}
+                                        </td>
+                                    </tr>
+                                </>
+                            ))
+                        }
                     </tbody>
                 </table>
-                    <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
+                <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
             </div>
         </>
 

@@ -4,6 +4,7 @@ import Paging from "./Paging";
 import {
   MdOutlineDelete,MdCreate
 } from "react-icons/md";
+import ModalMember from "./ModalMember";
 
 
 const AdminMember = () => {
@@ -13,17 +14,9 @@ const AdminMember = () => {
   const offset = (page - 1) * 10;
   const [pagecount, setPageCount] = useState(10);
   const count = memList.length;
-  //관리자 페이지 구현
 
-  //관리자 페이지 기능
-
-  //회원 정보 검색
-
-  //회원 리스트 출력
-  //회원 정보 출력
-  //회원 정보 수정
-  //회원 탈퇴
-  //회원 정보 수정
+  const [memberUpdate, setMemberUpdate] = useState(false);
+ 
   useEffect(() => {
     axios.get("http://localhost:8080/admin/mem", { 
       headers: { 
@@ -87,7 +80,12 @@ const AdminMember = () => {
                   <td width="5%">{mem.memDeletedYn}</td>
                   {mem.role === 'ROLE_ADMIN' ? <td width="10%">admin</td> : <td width="10%">X</td>}
                   <td width="10%">
-                    {mem.memDeletedYn === 'N' ?   <><button><MdCreate/></button><button onClick={()=>memberDelete(mem.memIdx)}><MdOutlineDelete/></button></> : null}
+                    {mem.memDeletedYn === 'N' ?   <>
+                    <button onClick={() => { setMemberUpdate(!memberUpdate); }}><MdCreate/></button>
+                    {memberUpdate === true ? <ModalMember closeModal={() => setMemberUpdate(!memberUpdate)} /> : null}
+                    
+                    <button onClick={()=>memberDelete(mem.memIdx)}><MdOutlineDelete/></button>
+                    </> : null}
                   </td>
                 </tr>
               </>
