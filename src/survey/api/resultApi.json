@@ -160,7 +160,7 @@
 	{
 		"research_organ" : "혈관",
 		"id": "프리미엄 오메가3 골드",
-		"url": "/item/1002010",
+		"url": "/item/1002020",
 		"src": "/result/blood1.png",
 		"score": 1,
 		"price": "43,200"
@@ -168,7 +168,7 @@
 	{
 		"research_organ" : "혈관",
 		"id": "DHA 오메가3",
-		"url": "/item/1002009",
+		"url": "/item/1002019",
 		"src": "/result/blood2.png",
 		"score": 2,
 		"price": "26,500"
@@ -176,21 +176,21 @@
 	{
 		"research_organ" : "혈관",
 		"id": "징코 플러스+",
-		"url": "/item/1002008",
+		"url": "/item/1002018",
 		"src": "/result/blood3.png",
 		"score": 3,
 		"price": "41,500"
 	},{
 		"research_organ" : "혈관",
 		"id": "메이플트리 감마리놀",
-		"url": "/item/1002007",
+		"url": "/item/1002017",
 		"src": "/result/blood4.png",
 		"score": 4,
 		"price": "30,850"
 	},{
 		"research_organ" : "혈관",
 		"id": "메가 울트라 오메가3",
-		"url": "/item/1002006",
+		"url": "/item/1002016",
 		"src": "/result/blood5.png",
 		"score": 5,
 		"price": "40,500"

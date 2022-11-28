@@ -30,7 +30,7 @@ function MyPageResearchDetail({  }) {
                     { '장': d.resultDiges },
                     { '눈': d.resultEyes }, 
                     { '간': d.resultLiver }, 
-                    { '몸': d.resultVitamin }
+                    { '비타민': d.resultVitamin }
                 ];
                 setInitValue(organList);
             })
