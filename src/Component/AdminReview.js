@@ -62,7 +62,7 @@ export default function AdminReview() {
     <>
     <div className="adminqna_list">
       <div className="adminqna_header"><strong>리뷰관리</strong></div>
-      <table className="review-table">
+      <table className="admin_review_table">
         <thead >
           <tr>
             <th width="10%">리뷰번호</th>

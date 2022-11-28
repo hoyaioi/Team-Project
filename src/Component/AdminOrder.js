@@ -66,7 +66,7 @@ function AdminOrder() {
         <>
             <div className="adminqna_list">
                 <div className="adminqna_header"><strong>주문관리</strong></div>
-                <table className="review-table">
+                <table className="admin_order_table">
                     <thead >
                         <tr>
                             <th width="10%">이미지</th>

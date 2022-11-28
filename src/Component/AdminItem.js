@@ -66,7 +66,7 @@ function AdminItem() {
                                         <ModalItemWrite closeModal={() => setItemWrite(!itemWrite)} >
                                         </ModalItemWrite>
                                     )}
-                <table className="review-table">
+                <table className="admin_item-table">
                     <thead >
                         <tr>
                             <th width="10%">상품이미지</th>

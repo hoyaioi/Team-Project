@@ -67,7 +67,7 @@ function AdminMemberUpdate(props) {
         .then((response) => {
           if (response.status === 200) {
             alert("변경이 완료되었습니다.");
-            navigate("/admin/member");
+            window.location.reload();
           } else {
             alert("회원정보 수정이 실패하였습니다.");
             return;

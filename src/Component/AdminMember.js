@@ -50,7 +50,7 @@ const AdminMember = () => {
     <>
     <div className="adminqna_list">
       <div className="adminqna_header"><strong>회원관리</strong></div>
-      <table className="review-table">
+      <table className="admin_memeber_table">
         <thead >
           <tr>
             <th width="10%">회원번호</th>

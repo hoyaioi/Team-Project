@@ -38,24 +38,27 @@ function Item() {
   const [qnaWrite, setQnaWrite] = useState(false);
 
   let lastPrice = itemPrice * amount;
-  const memEmail = sessionStorage.getItem("email")
-  const price2 = [datas.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const realTotal = [lastPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const memEmail = sessionStorage.getItem("email");
+  const price2 = [datas.itemPrice]
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const realTotal = [lastPrice]
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   console.log(price2);
 
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 5;
   const count = qnaDatas.length;
+  const count2 = datas2.length;
   const [pagecount, setPageCount] = useState(5);
-
-
 
   const plusClick = () => {
     setAmount(amount + 1);
-  }
+  };
   const minusClick = () => {
     amount === 1 ? setAmount(1) : setAmount(amount - 1);
-  }
+  };
 
   useEffect(() => {
     axios
@@ -109,12 +112,15 @@ function Item() {
   };
   const moveToFocus = useRef([]);
   useEffect(() => {
-    axios.get(`http://localhost:8080/item/${itemNum}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:8080/item/${itemNum}`)
+      .then((response) => {
         setData(response.data);
         setItemPrice(response.data.itemPrice);
       })
-      .catch(error => { console.log(error); });
+      .catch((error) => {
+        console.log(error);
+      });
   }, [itemNum]);
 
   useEffect(() => {
@@ -130,8 +136,9 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/review/${itemNum}`)
-      .then(review => {
+    axios
+      .get(`http://localhost:8080/review/${itemNum}`)
+      .then((review) => {
         setDatas2(review.data);
       })
       .catch((error) => {
@@ -140,8 +147,9 @@ function Item() {
   }, [itemNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/review/list/${itemNum}`)
-      .then(review => {
+    axios
+      .get(`http://localhost:8080/review/list/${itemNum}`)
+      .then((review) => {
         setDatas2(review.data);
       })
       .catch((error) => {
@@ -154,9 +162,8 @@ function Item() {
       .get(`http://localhost:8080/qna/${itemNum}`)
       .then((qna) => {
         setQnaDatas(qna.data);
-        
+
         setQnaModal(false);
-        
       })
       .catch((error) => {
         console.log(error);
@@ -177,7 +184,7 @@ function Item() {
           <div className="item_title">
             <strong>{datas.itemName}</strong>
             {/* <div className='item_share'> */}
-            <button type = 'button' className="share_button"></button>
+            <button type="button" className="share_button"></button>
             {/* </div> */}
           </div>
           <div className="item_price">
@@ -191,12 +198,12 @@ function Item() {
           </div>
           <div className="total-price">
             <span>{datas.itemName}</span>
-            <input value={amount} className="item_amount" readOnly ></input>
+            <input value={amount} className="item_amount" readOnly></input>
             <div className="updown">
-              <button type='button' onClick={plusClick} className="arrow">
+              <button type="button" onClick={plusClick} className="arrow">
                 <IoIosArrowUp />
               </button>
-              <button type='button' onClick={minusClick} className="arrow">
+              <button type="button" onClick={minusClick} className="arrow">
                 <IoIosArrowDown />
               </button>
             </div>
@@ -237,15 +244,21 @@ function Item() {
           }}
           className="mySwiper"
         >
-
           {items.map((item, idx) => (
-            <SwiperSlide key={idx} ><Link to={`/item/${item.itemNum}`} state={{ item: items }}>
-              <div >
-                <img src={process.env.REACT_APP_API_URL + item.itemThumb} alt="상품썸네일" />
-                <strong>{item.itemName}</strong>
-                <div><span>{item.itemPrice}원</span></div>
-              </div>
-              </Link></SwiperSlide>
+            <SwiperSlide key={idx}>
+              <Link to={`/item/${item.itemNum}`} state={{ item: items }}>
+                <div>
+                  <img
+                    src={process.env.REACT_APP_API_URL + item.itemThumb}
+                    alt="상품썸네일"
+                  />
+                  <strong>{item.itemName}</strong>
+                  <div>
+                    <span>{item.itemPrice}원</span>
+                  </div>
+                </div>
+              </Link>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>
@@ -254,8 +267,12 @@ function Item() {
           <li ref={(el) => (moveToFocus.current[0] = el)} className="on">
             상세정보
           </li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/반품
+          </li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>
+            상품후기
+          </li>
           <li onClick={() => moveToFocus.current[3].scrollIntoView()}>Q&A</li>
         </ul>
       </div>
@@ -270,11 +287,15 @@ function Item() {
 
       <div id="2" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상세정보
+          </li>
           <li ref={(el) => (moveToFocus.current[1] = el)} className="on">
             배송/반품
           </li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>
+            상품후기
+          </li>
           <li onClick={() => moveToFocus.current[3].scrollIntoView()}>Q&A</li>
         </ul>
       </div>
@@ -322,8 +343,12 @@ function Item() {
 
       <div id="3" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상세정보
+          </li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/반품
+          </li>
           <li ref={(el) => (moveToFocus.current[2] = el)} className="on">
             상품후기
           </li>
@@ -342,7 +367,7 @@ function Item() {
             </tr>
           </thead>
           {datas2 &&
-            datas2.map((review, idx) => (
+            datas2.slice(offset, offset + 5).map((review, idx) => (
               <tbody key={idx}>
                 <tr
                   onClick={() => {
@@ -366,19 +391,33 @@ function Item() {
             ))}
         </table>
       </div>
+      <Paging
+        page={page}
+        setPage={setPage}
+        count={count2}
+        pagecount={pagecount}
+      />
       <div id="4" className="item-tab">
         <ul>
-          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>상세정보</li>
-          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>배송/반품</li>
-          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>상품후기</li>
+          <li onClick={() => moveToFocus.current[0].scrollIntoView()}>
+            상세정보
+          </li>
+          <li onClick={() => moveToFocus.current[1].scrollIntoView()}>
+            배송/반품
+          </li>
+          <li onClick={() => moveToFocus.current[2].scrollIntoView()}>
+            상품후기
+          </li>
           <li ref={(el) => (moveToFocus.current[3] = el)} className="on">
-          Q&A
+            Q&A
           </li>
         </ul>
       </div>
       <div className="qna">
         <strong>QNA</strong>
-        {memEmail !== null ? <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button> : null}
+        {memEmail !== null ? (
+          <button onClick={() => setQnaWrite(!qnaWrite)}>문의글 작성</button>
+        ) : null}
         {qnaWrite && (
           <Modal
             closeModal={() => setQnaWrite(!qnaWrite)}
@@ -398,9 +437,10 @@ function Item() {
           </thead>
           <tbody>
             {qnaDatas &&
-              qnaDatas.slice(offset, offset + 5).map((qna,idx) => (
+              qnaDatas.slice(offset, offset + 5).map((qna, idx) => (
                 <>
-                  <tr key={idx}
+                  <tr
+                    key={idx}
                     onClick={() => {
                       setQnaIdx(qna.qnaIdx);
                     }}

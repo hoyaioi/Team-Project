@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import '../CSS/AdminQnaModal.css'
 import {
-    MdOutlineDelete
+    MdOutlineDelete,MdCreate
   } from "react-icons/md";
   
 
@@ -102,7 +102,7 @@ function AdminQnaModal(props) {
                             <span>{isAnswer ? ( datas.qnaCommentWriteDate) : ''  }</span>
                             </div>
                             <div className='admincomment-edit'>
-                               { datas.qnaCommentContent === null ? <button className='admincomment-edit-btn' onClick={qnaAnswer} >등록</button> : null}
+                               { datas.qnaCommentContent === null ? <button className='admincomment-edit-btn' onClick={qnaAnswer} ><MdCreate/></button> : null}
                                 <button className='admincomment-delete-btn' onClick={handlerClickDelete}><MdOutlineDelete/></button>
                             </div>
                         </div>
