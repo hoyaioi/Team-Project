@@ -32,12 +32,10 @@ function MyInfoDel2({memIdx}) {
             })
             .then(response => {
                 if (response.status === 200) {
-                    console.log(memIdx);
                     alert("탈퇴가 완료되었습니다. \n이용해주셔서 감사합니다.");
                     sessionStorage.clear();
                     navigate('/');
                 } else {
-                    console.log(memIdx);
                     alert("탈퇴 실패!");
                     return;
                 }

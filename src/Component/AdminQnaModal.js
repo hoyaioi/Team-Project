@@ -38,7 +38,6 @@ function AdminQnaModal(props) {
           }
         })
         .then(response => {
-            console.log(response);
             alert('답변완료');
             window.location.reload();
             props.closeModal();
@@ -60,7 +59,6 @@ function AdminQnaModal(props) {
           }
         })
         .then(response => { 
-            console.log(response);
             if (response.status === 200) {
                 window.location.reload();
                 alert("정상적으로 삭제되었습니다.");

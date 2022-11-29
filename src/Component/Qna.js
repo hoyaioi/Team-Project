@@ -16,7 +16,6 @@ function Qna({ value }) {
       });
   }, []);
 
-  console.log(data);
 
   return (
     <tr className="qna-modal">

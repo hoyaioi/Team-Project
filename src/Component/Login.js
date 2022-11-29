@@ -33,7 +33,6 @@ function Login() {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
             const memberInfo = JSON.parse(jsonPayload);
-            console.log(memberInfo);
              sessionStorage.setItem("name", memberInfo.name);
              sessionStorage.setItem("email", memberInfo.email);
              sessionStorage.setItem("idx",memberInfo.idx);

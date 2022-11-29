@@ -37,7 +37,6 @@ const MemberDetail = () => {
     axios
       .get(`http://localhost:8080/admin-mem/${memIdx}`)
       .then((response) => {
-        console.log(data);
         setData(response.data);
         setMemName(response.data.memName);
         setMemDeletedYn(response.data.memDeletedYn);

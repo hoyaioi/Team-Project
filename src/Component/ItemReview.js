@@ -9,7 +9,6 @@ function Review(props) {
     axios
       .get(`http://localhost:8080/review/${reviewIdx}`)
       .then((response) => {
-        console.log(response);
         setData(response.data);
       })
       .catch((error) => {

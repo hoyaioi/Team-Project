@@ -18,7 +18,6 @@ function Notice() {
     axios
       .get("http://localhost:8080/notice")
       .then((response) => {
-        console.log(response);
         setData(response.data);
       })
       .catch((error) => console.log(error));

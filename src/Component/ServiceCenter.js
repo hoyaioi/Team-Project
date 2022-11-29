@@ -29,7 +29,6 @@ function ServiceCenter() {
     axios
       .get("http://localhost:8080/service")
       .then((response) => {
-        console.log(response);
         setFaq(response.data);
         setAllFaq(response.data);
       })

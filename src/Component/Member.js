@@ -35,7 +35,6 @@ const Member = () => {
         // setMemDeletedYn(response.data.memDeletedYn);
         setAllDatas(response.data);
         setDatas(response.data);
-        console.log(response);
       })
       .catch((error) => console.log(error));
   }, []);

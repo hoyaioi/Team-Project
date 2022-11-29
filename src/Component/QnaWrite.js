@@ -49,7 +49,6 @@ function QnaWrite({ itemName, itemNum }) {
       memEmail: memEmail,
       itemNum: itemNum,
     };
-    console.log(qnaDto);
 
         axios.post("http://localhost:8080/qna/write", qnaDto)
             .then(response => {

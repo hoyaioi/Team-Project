@@ -15,7 +15,6 @@ import "../CSS/Find.css";
     if (memPw !== memPw2) {
       alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
     } else {
-      console.log(memIdx);
       axios.put(`http://localhost:8080/member/updatepw/${memIdx}`, 
       {memIdx: memIdx,
         memPw : memPw,
@@ -25,7 +24,6 @@ import "../CSS/Find.css";
         if(response.status ===200) {
           alert("변경이 완료되었습니다.");
           navigate("/login");
-          console.log(memIdx);
         }
       })
       .catch((error) => 
