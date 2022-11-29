@@ -7,7 +7,6 @@ import "../CSS/AdminMemberUpdate.css";
 
 function AdminMemberUpdate(props) {
   const [data, setData] = useState({});
-  console.log(props.mem)
   const memIdx = props.mem;
   // const [memIdx, setMemIdx] = useState('');
   const [memName, setMemName] = useState("");
@@ -42,7 +41,6 @@ function AdminMemberUpdate(props) {
         setMemAddr1(response.data.memAddr1);
         setMemAddr2(response.data.memAddr2);
         setMemEmail(response.data.memEmail);
-        inputPw.current.focus();
       })
       .catch((error) => console.log(error));
   }, []);

@@ -29,7 +29,6 @@ function AdminItem() {
                 }
             })
             .then((response) => {
-                console.log(response);
                 setData(response.data);
             })
             .catch((error) => console.log(error));
@@ -42,7 +41,6 @@ function AdminItem() {
             }
         })
             .then((response) => {
-                console.log(response);
                 if (response.status === 200) {
                     alert("삭제 완료되었습니다.");
                     window.location.reload();
@@ -51,10 +49,6 @@ function AdminItem() {
                 }
             })
             .catch((error) => console.log(error))
-    }
-
-    const handlerUpdate = () => {
-
     }
 
     return (
@@ -79,9 +73,9 @@ function AdminItem() {
                     </thead>
                     <tbody>
                         {
-                            data && data.slice(offset, offset + 10).map((item) => (
-                                <>
-                                    <tr>
+                            data && data.slice(offset, offset + 10).map((item, idx) => (
+                               
+                                    <tr key = {idx}>
                                         <td width="10%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + item.itemThumb} /></td>
                                         <td width="20%">{item.itemNum}</td>
                                         <td width="20%">{item.itemName}</td>
@@ -96,7 +90,7 @@ function AdminItem() {
                                             <button onClick={() => handlerDelete(item.itemNum)}><MdOutlineDelete/></button>
                                     </td>
                                 </tr>
-                                </>
+                               
                     ))
                         }
                 </tbody>

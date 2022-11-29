@@ -24,7 +24,6 @@ const AdminMember = () => {
     }
   }).then((res) => {
       setMemList(res.data);
-      console.log(res.data)
     });
   }, []);
 
@@ -66,10 +65,8 @@ const AdminMember = () => {
           </tr>
         </thead>
         <tbody>
-          {
-            memList && memList.slice(offset, offset + 10).map((mem) => (
-              <>
-                <tr>
+          {memList && memList.slice(offset, offset + 10).map((mem, idx) => (
+              <tr key={idx}>
                   <td width="10%">{mem.memIdx}</td>
                   <td width="10%">{mem.memEmail}</td>
                   <td width="10%">{mem.memName}</td>
@@ -80,17 +77,18 @@ const AdminMember = () => {
                   <td width="5%">{mem.memDeletedYn}</td>
                   {mem.role === 'ROLE_ADMIN' ? <td width="10%">admin</td> : <td width="10%">X</td>}
                   <td width="10%">
-                    {mem.memDeletedYn === 'N' ?   <>
+                    {mem.memDeletedYn === 'N' ? 
+                    <>
                     <button onClick={() => { setMemberUpdate(!memberUpdate); setMemIdx(mem.memIdx); }}><MdCreate/></button>
                     {memberUpdate === true ? <ModalMember mem={memIdx} closeModal={() => setMemberUpdate(!memberUpdate)} /> : null}
                     
                     <button onClick={()=>memberDelete(mem.memIdx)}><MdOutlineDelete/></button>
-                    </> : null}
+                    </> 
+                    : 
+                    null}
                   </td>
                 </tr>
-              </>
-            ))
-          }
+            ))}
         </tbody>
       </table>
       <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>

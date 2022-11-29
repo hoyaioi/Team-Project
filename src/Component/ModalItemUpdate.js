@@ -3,13 +3,11 @@ import '../CSS/Modal.css';
 import AdminItemUpdate from "./AdminItemUpdate";
 
 function ModalItemUpdate(props) {
-  console.log(props)
   function closeModal() {
     props.closeModal();
   }
 
  
-
   return (
     <div className="Modal" onClick={closeModal}>
       <div className="modalBody" onClick={(e) => e.stopPropagation()}>
