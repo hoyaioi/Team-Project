@@ -19,9 +19,6 @@ function MyCart() {
 
         }
         axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
-
-            console.log(response);
-            alert('수정성공');
             setData(response.data);
             setCheckedLists([]);
         })
@@ -46,17 +43,12 @@ function MyCart() {
 
         }
         axios.post("http://localhost:8080/cart/update", cartListDto).then(response => {
-            console.log(response);
-            alert('수정성공');
             setData(response.data);
             setCheckedLists([]);
         })
         .catch((error) => {
-          alert("수정실패");
           console.log(error);
         });
-      console.log(cartIdx);
-      console.log(itemAmount);
     }
   };
 
@@ -64,7 +56,6 @@ function MyCart() {
     axios
       .get(`http://localhost:8080/cart/${memEmail}`)
       .then((response) => {
-        console.log(response);
         setData(response.data);
       })
       .catch((error) => {
@@ -73,21 +64,20 @@ function MyCart() {
   }, []);
 
   const cartDelete = () => {
-    console.log(checkedList);
-    console.log(checkedList.map((list) => list.cartIdx));
 
-        const confirm = window.confirm(checkedList.length+"개의 상품 정말 삭제하시겠습니까?");
-        if(confirm)
+        if(checkedList.length < 1){
+          alert('삭제할 상품을 선택해주세요.');
+        }else if(window.confirm(checkedList.length+"개의 상품을 장바구니에서 삭제하시겠습니까?")){
         axios.post("http://localhost:8080/cart/delete", checkedList)
             .then(response => {
-                console.log(response);
-                alert('삭제성공');
+                alert(checkedList.length + '개의 상품을 삭제하였습니다.');
                 setData(response.data);
                 setCheckedLists([]);
             })
             .catch(error => { 
                 alert('삭제실패');
                 console.log(error) });
+              }
     }
 
 
@@ -98,7 +88,7 @@ function MyCart() {
 
       data.forEach((item) => checkedListArray.push(item));
 
-      setCheckedLists(checkedListArray, console.log(checkedListArray));
+      setCheckedLists(checkedListArray);
     } else {
       setCheckedLists([]);
     }
@@ -106,7 +96,7 @@ function MyCart() {
 
   const onCheckedElement = (checked, item) => {
     if (checked) {
-      setCheckedLists([...checkedList, item], console.log(checkedList));
+      setCheckedLists([...checkedList, item]);
     } else {
       setCheckedLists(checkedList.filter((el) => el !== item));
     }
@@ -152,12 +142,11 @@ function MyCart() {
                   </tr>
                 ) : (
                   data &&
-                  data.map((item) => (
-                    <tr>
+                  data.map((item, idx) => (
+                    <tr key={idx}>
                       <td>
                         <div className="mycart_check">
                           <input
-                            key={item.cartIdx}
                             type="checkbox"
                             name={`select-${item.cartIdx}`}
                             onChange={(e) =>
@@ -191,7 +180,7 @@ function MyCart() {
                         >
                           <IoIosArrowUp />
                         </button>
-                        <input value={item.itemAmount}></input>
+                        <input type="text" className="mycart_input_amount" readOnly value={item.itemAmount}></input>
                         <button
                           onClick={() => {
                             minusClick(item.cartIdx, item.itemAmount);

@@ -75,7 +75,7 @@ function Register() {
     e.preventDefault();
 
     if (!name || !phoneNum || !postCode || !addr1 || !addr2 || emailError || !password || confirmPasswordError || !checkEmailValid || ((!checkItems.includes(0)) || (!checkItems.includes(1)) || (!checkItems.includes(2)))) {
-      return `${false} ${alert("등록에 실패했습니다.")}`;
+      return `${false} ${alert("필수항목 확인 후 다시 시도해주세요.")}`;
     }
 
     const memInfo = {
@@ -92,29 +92,29 @@ function Register() {
       .post("http://localhost:8080/member/join", memInfo)
       .then((response) => {
         if (response.status === 200) {
+          alert("가입을 축하드립니다! \n로그인 후 이용해주세요.");
           navigate("/login");
-          alert("정상적으로 등록되었습니다.");
         }
       })
       .catch((error) => {
-        alert("등록에 실패했습니다.");
-        console.log(error);
+        alert("필수항목 확인 후 다시 시도해주세요.");
+
       });
   };
 
   const checkEmailValid = (e) => {
-    console.log(e);
     e.preventDefault();
     // axios.get("http://localhost:8080/api/member/" + email)
     axios.get(`http://localhost:8080/member/checkemail/${email}`)
       .then(response => {
-        if (response.status === 200) {
+        if (email.length < 1) {
+          alert('이메일을 입력해주세요.');
+        } else if (response.status === 200) {
           alert("이미 가입된 이메일입니다.");
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("사용 가능한 이메일입니다.");
-        console.log(error);
       });
   };
 
@@ -208,7 +208,7 @@ function Register() {
                 value={phoneNum}
                 onChange={handlerChangePhoneNum}
               />
-              
+
             </Form.Group>
             <Form.Group>
               {!postCode && (
@@ -226,7 +226,7 @@ function Register() {
                 type="postCode"
                 readOnly
                 value={postCode}
-                // onChange={onChangePostCode}
+              // onChange={onChangePostCode}
               />
               <button
                 className="searchPostCode btn text-white"
@@ -287,7 +287,7 @@ function Register() {
                 </div>
               )}
               <Form.Label style={{ display: "block", color: "grey" }}>
-                아이디(이메일형식)
+                이메일(ID)
               </Form.Label>
               <Form.Control
                 className="emailForm"
@@ -344,55 +344,53 @@ function Register() {
                 </span>
               )}
             </Form.Group>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <Form.Check
+                        className="agree_box"
+                        type="checkbox"
+                        label="모두 동의하기"
+                        style={{ fontSize: "20px", fontWeight: "bold" }}
+                        onChange={(e) => {
+                          handleAllCheck(e.target.checked);
+                        }}
+                        checked={
+                          checkItems.length === datas.length ? true : false
+                        }
+                      />
+                    </th>
+                  </tr>
+                </thead>
 
-            <div className="agreement_wrapper">
-              <thead>
-                <tr>
-                  <th>
-                    <Form.Check
-                      className="agree_box"
-                      type="checkbox"
-                      label="모두 동의하기"
-                      style={{ fontSize: "20px", fontWeight: "bold" }}
-                      onChange={(e) => {
-                        handleAllCheck(e.target.checked);
-                      }}
-                      checked={
-                        checkItems.length === datas.length ? true : false
-                      }
-                    />
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>
-                    <hr style={{ margin: "20px 0px", width: "450px" }}></hr>
-                  </td>
-                </tr>
-                {datas?.map((data) => {
-                  return (
-                    <tr>
-                      <td>
-                        <Form.Check
-                          className="agree_box"
-                          type="checkbox"
-                          label={`${data.title} ${
-                            data.id === 3 ? "(선택사항)" : "(필수선택사항)"
-                          }`}
-                          required={data.id === 3 ? false : true}
-                          onChange={(e) =>
-                            handleSingleCheck(e.target.checked, data.id)
-                          }
-                          checked={checkItems.includes(data.id) ? true : false}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </div>
+                <tbody>
+                  <tr>
+                    <td>
+                      <hr style={{ margin: "20px 0px", width: "450px" }}></hr>
+                    </td>
+                  </tr>
+                  {datas?.map((data, idx) => {
+                    return (
+                      <tr key={idx}>
+                        <td>
+                          <Form.Check
+                            className="agree_box"
+                            type="checkbox"
+                            label={`${data.title} ${data.id === 3 ? "(선택)" : "(필수)"
+                              }`}
+                            required={data.id === 3 ? false : true}
+                            onChange={(e) =>
+                              handleSingleCheck(e.target.checked, data.id)
+                            }
+                            checked={checkItems.includes(data.id) ? true : false}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             <div className="second_register_btn_wrapper">
               <input
                 className="second_regbtn"

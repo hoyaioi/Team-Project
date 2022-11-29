@@ -93,7 +93,6 @@ function MyOrderList() {
       .then((response) => {
         setDatas(response.data);
         countCheck(response.data);
-        console.log(datas);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -114,7 +113,6 @@ function MyOrderList() {
     setOpenApp(true);
     setOrderlistIdx(orderlistIdx);
   };
-  console.log(orderlistIdx)
 
   const handlerDelete = (orderlistIdx) => {
     if (window.confirm("내역을 삭제하시겠습니까?")) {
@@ -183,7 +181,6 @@ function MyOrderList() {
   const handlerMoveReivew = () => {
     navigate("/mypage/myreview");
   };
-  console.log(datas);
   return (
     <>
       <div className="myorderlist_wrap">

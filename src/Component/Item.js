@@ -45,7 +45,6 @@ function Item() {
   const realTotal = [lastPrice]
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  console.log(price2);
 
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 5;
@@ -90,12 +89,10 @@ function Item() {
   const [reviewModal, setReviewModal] = useState(false);
 
   const cartHanddler = () => {
-    console.log(email);
     if (isLogin === true) {
       axios
         .post("http://localhost:8080/cart/insert", cartDto)
         .then((response) => {
-          console.log(response);
           alert("장바구니 추가완료");
         })
         .catch((error) => {

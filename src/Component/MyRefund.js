@@ -15,12 +15,10 @@ function MyRefund() {
       .get(`http://localhost:8080/mypage/myrefund/${memIdx}`)
       .then((response) => {
         setDatas(response.data);
-        console.log(datas);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(datas);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
   const count = datas.length;

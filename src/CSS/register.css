@@ -112,6 +112,10 @@
   margin-bottom: 10px;
 }
 
+.agree_box form-check input {
+  margin-right: 10px;
+}
+
 .agreement_wrapper input {
   margin-right: 15px;
 }

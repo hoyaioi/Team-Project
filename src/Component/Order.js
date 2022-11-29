@@ -116,18 +116,18 @@ function Order() {
             if (checkType === 'new') {
                 axios.post("http://localhost:8080/order/insert", orderInfo)
                     .then(response => {
-                        alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
-                        navigate("/mypage/myorderlist/", { memIdx: { memIdx } })
-                        // window.location.reload();
+                        alert('구매가 완료되었습니다.');
+                        
+                        navigate("/mypage/myorderlist", { memIdx: { memIdx } })
                     })
                     .catch(error => { console.log(error); })
                 navigate("/mypage/myorderlist");
             } else {
                 axios.post("http://localhost:8080/order/insert", orderInfo)
                     .then(response => {
-                        alert('구매가 완료되었습니다.\n마이페이지로 이동합니다.');
-                        navigate("/mypage/myorderlist/", { memIdx: { memIdx } })
-                        // window.location.reload();
+                        alert('구매가 완료되었습니다.');
+                        
+                        navigate("/mypage/myorderlist", { memIdx: { memIdx } })
                     })
                     .catch(error => { console.log(error); })
             }
@@ -257,17 +257,17 @@ function Order() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="delivery_info">
-                                        <div class="order_zone_tit">
+                                    <div className="delivery_info">
+                                        <div className="order_zone_tit">
                                             <h4>배송정보</h4>
                                         </div>
-                                        <div class="order_table_type shipping_info">
-                                            <table class="table_left shipping_info_table">
+                                        <div className="order_table_type shipping_info">
+                                            <table className="table_left shipping_info_table">
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row">배송지 확인</th>
                                                         <td>
-                                                            <div class="addr_radio">
+                                                            <div className="addr_radio">
                                                                 <ul>
                                                                     <li>
                                                                         <input
@@ -277,7 +277,7 @@ function Order() {
                                                                             defaultChecked={true}
                                                                             onClick={checkedNew}
                                                                         />
-                                                                        <label for="shippingNew" class="choice_s">
+                                                                        <label htmlFor="shippingNew" className="choice_s">
                                                                             직접 입력
                                                                         </label>
                                                                     </li>
@@ -289,8 +289,8 @@ function Order() {
                                                                             onClick={checkedSame}
                                                                         />
                                                                         <label
-                                                                            for="shippingSameCheck"
-                                                                            class="choice_s"
+                                                                            htmlFor="shippingSameCheck"
+                                                                            className="choice_s"
                                                                         >
                                                                             주문자정보와 동일
                                                                         </label>
@@ -302,7 +302,7 @@ function Order() {
                                                     { }
                                                     <tr>
                                                         <th scope="row">
-                                                            <span class="important">받으실분</span>
+                                                            <span className="important">받으실분</span>
                                                         </th>
                                                         <td>
                                                             {/* {checkType === 'same' ? <input type="text" name="receiverName" value={data.memName} /> :
@@ -311,30 +311,30 @@ function Order() {
                                                                 checkType === 'same' ?
                                                                     <input type="text" readOnly value={data.memName} className='order_readonly' />
                                                                     :
-                                                                    <input type="text" onChange={handlerChangeName} placeholder="이름을 입력하세요" value={name} />
+                                                                    <input type="text" onChange={handlerChangeName} className='order_input_name' placeholder="이름을 입력하세요" spellCheck={false} value={name} />
                                                             }
 
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
-                                                            <span class="important">받으실 곳</span>
+                                                            <span className="important">받으실 곳</span>
                                                         </th>
-                                                        <td class="member_address">
-                                                            <div class="address_postcode">
+                                                        <td className="member_address">
+                                                            <div className="address_postcode">
                                                                 {
                                                                     checkType === 'same' ?
                                                                         <input type="text" name="receiverZonecode" readOnly value={data.memPostNum} className='order_readonly' />
                                                                         :
                                                                         <>
-                                                                            <input type="text" name="receiverZonecode" onChange={handlerChangePostNum} readOnly value={memPostNum} />
-                                                                            <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>우편번호 검색</button>
+                                                                            <input type="text" name="receiverZonecode" onChange={handlerChangePostNum} className='order_input_post' readOnly value={memPostNum} />
+                                                                            <button type="button" className="btn_post_search" onClick={handleOpenSearchAddress}>검색</button>
                                                                         </>
                                                                 }
                                                             
                                                               
                                                             </div>
-                                                            <div class="address_input">
+                                                            <div className="address_input">
                                                                 {
                                                                     checkType === 'same' ?
                                                                         <>
@@ -347,7 +347,7 @@ function Order() {
                                                                         <>
                                                                             <input type="text" onChange={handlerChangeAddr1} name="address" className="order_input_addr1" readOnly value={addr1} />
                                                                             <div className="order_addr2_wrap">
-                                                                                <input type="text" placeholder="상세주소를 입력하세요" onChange={handlerChangeAddr2} className="order_input_addr2" name="addressDetail" value={addr2} />
+                                                                                <input type="text" placeholder="상세주소를 입력하세요" spellCheck={false} autoComplete="false" onChange={handlerChangeAddr2} className="order_input_addr2" name="addressDetail" value={addr2} />
                                                                             </div>
                                                                         </>
                                                                 }
@@ -356,14 +356,14 @@ function Order() {
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
-                                                            <span class="important">휴대폰 번호</span>
+                                                            <span className="important">휴대폰 번호</span>
                                                         </th>
                                                         <td>
                                                             {
                                                                 checkType === 'same' ?
                                                                     <input type="text" name="address" readOnly value={data.memPhone} className='order_readonly' />
                                                                     :
-                                                                    <input type="text" id="receiverCellPhone" onChange={handlerChangePhoneNum} name="receiverCellPhone" value={phoneNum} />
+                                                                    <input type="text" id="receiverCellPhone" className="order_input_phone" onChange={handlerChangePhoneNum} name="receiverCellPhone" value={phoneNum} />
                                                             }
                                                         </td>
                                                     </tr>
@@ -371,23 +371,23 @@ function Order() {
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="payment_progress">
-                                        <div class="order_zone_tit">
+                                    <div className="payment_progress">
+                                        <div className="order_zone_tit">
                                             <h4>결제수단 선택 / 결제</h4>
-                                            <p class="js_pay_content">
+                                            <p className="js_pay_content">
                                                 ※ 고객님은 안전거래를 위해 현금으로 결제시 저희
                                                 쇼핑몰에서 가입한 구매안전서비스인 나이스페이의
                                                 구매안전(에스크로)서비스를 이용하실 수 있습니다.
                                             </p>
                                         </div>
-                                        <div class="payment_progress_list">
-                                            <div class="js_pay_content">
-                                                <div id="settlekind_general" class="general_payment">
+                                        <div className="payment_progress_list">
+                                            <div className="js_pay_content">
+                                                <div id="settlekind_general" className="general_payment">
                                                     <dl>
                                                         <dt>일반결제</dt>
                                                         <dd>
-                                                            <div class="form_element">
-                                                                <ul class="payment_progress_select">
+                                                            <div className="form_element">
+                                                                <ul className="payment_progress_select">
                                                                     <li id="settlekindType_pk">
                                                                         <input
                                                                             type="radio"
@@ -396,7 +396,7 @@ function Order() {
                                                                             value="pk"
                                                                             defaultChecked={true}
                                                                         />
-                                                                        <label for="settleKind_pk" class="choice_s">
+                                                                        <label htmlFor="settleKind_pk" className="choice_s">
                                                                             카카오페이
                                                                             <img src="/images/kakaopay-PC.png" />
                                                                         </label>
@@ -404,15 +404,15 @@ function Order() {
                                                                 </ul>
                                                             </div>
                                                             <div
-                                                                class="card"
+                                                                className="card"
                                                                 id="settlekind_general_pc"
                                                             ></div>
                                                             <div
-                                                                class="account-bank"
+                                                                className="account-bank"
                                                                 id="settlekind_general_pb"
                                                             ></div>
                                                             <div
-                                                                class="virtual-bank"
+                                                                className="virtual-bank"
                                                                 id="settlekind_general_pv"
                                                             ></div>
                                                         </dd>
