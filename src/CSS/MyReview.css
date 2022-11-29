@@ -9,7 +9,6 @@
     height: 65px;
     align-items: center;
     font-weight: bold;
-
     border-bottom: 2px solid black;
 }
 
@@ -30,7 +29,8 @@
 
 .myreview_notice p {
     font-size: 14px;
-    text-decoration: underline;
+    color: darkorange;
+    font-weight: bold;
 }
 
 .myreview_menu_wrap {
@@ -67,6 +67,12 @@
     width: 100%;
 }
 
+.myreview_nondata {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 24px;
+}
+
 .myreview_able_wrap ul {
     padding-inline-start: 0;
     list-style: none;
@@ -82,6 +88,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
+    margin-top: 10px;
 }
 
 
@@ -99,18 +106,20 @@
     font-weight: bold;
     border: 2px solid #e5e5e5;
     border-radius: 30px;
-    width: 100px;
+    width: 60px;
     height: 30px;
     cursor: pointer;
 }
 
 .myreview_write_btn:active {
-    background-color: #b5d692;
     color: white;
 }
 .myreview_write_btn:hover {
     background-color: #b5d692;
-    color: white;
+}
+
+.myreview_did_contents {
+    width: 490px;
 }
 
 .myreview_update_btn {
@@ -123,12 +132,17 @@
     cursor: pointer;
 }
 
+.myreview_blind_btn {
+    background-color: white;
+    font-weight: bold;
+    border: 2px solid #e5e5e5;
+    border-radius: 30px;
+    width: 60px;
+    height: 30px;
+}
+
 .myreview_update_btn:active {
     background-color: #b5d692;
-    color: white;
-}
-.myreview_delete_btn:active {
-    background-color: red;
     color: white;
 }
 
@@ -136,18 +150,4 @@
     background-color: #b5d692;
     color: white;
 }
-.myreview_delete_btn:hover {
-    background-color: red;
-    color: white;
-}
 
-.myreview_delete_btn {
-    background-color: white;
-    font-weight: bold;
-    border: 2px solid #e5e5e5;
-    border-radius: 30px;
-    width: 60px;
-    height: 30px;
-    cursor: pointer;
-    margin-top: 10px;
-}

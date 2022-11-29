@@ -1,51 +1,99 @@
 import '../CSS/MyPageResearch.css';
 import { Link } from 'react-router-dom';
 import researchbanner from '../Img/research_banner.jpg';
+import { alignPropType } from 'react-bootstrap/esm/types';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
-function MyPageResearch({handleIsNow}) {
+function MyPageResearch() {
 
-    const handlerOnClick = (e) => {
-        handleIsNow(e);
+    const [datas, setDatas] = useState([]);
+    const [checkedIdx, setCheckedIdx] = useState([]);
+
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/mypage/myresearch')
+            .then(response => {
+                console.log(response);
+                setDatas(response.data);
+            })
+            .catch(error => console.log(error));
+    }, []);
+
+    const handleCheck = (e) => {
+        const idx = e.target.value;
+
+        if (checkedIdx.includes(idx)) {
+            setCheckedIdx(checkedIdx.filter(item => item !== idx));
+        } else {
+            setCheckedIdx([...checkedIdx, idx]);
+        }
     }
+    console.log(checkedIdx);
+
+
+    const handlerClickDelete = () => {
+        checkedIdx.map(idx => {
+            axios.delete(`http://localhost:8080/mypage/result/${idx}`)
+                .then(response => {
+                    if (response.status === 200) {
+                        alert("정상적으로 삭제되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                        return;
+                    }
+                })
+                .catch(error => console.log(error));
+        })
+    }
+
+
+    const email = sessionStorage.getItem('email');
+    const filteredDatas = datas.filter(data => data.memEmail === email);
 
     return (
         <>
             <div className="mypageresearch_main">
-            <div className='mypageresearch_title_wrap'>
+                <div className='mypageresearch_title_wrap'>
                     <h2>나의설문</h2>
-                        
-                    </div>
+
+                </div>
                 <div className='mypageresearch_subtitle'>
-                        <img src={researchbanner} />
+                    <img src={researchbanner} />
                     <div className="mypageresearch_list">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>선택</th>
-                                    <th>분류항목</th>
-                                    <th>제목</th>
-                                    <th>저장날짜</th>
+                                    <th width="15%">선택</th>
+                                    <th width="65%">설문자</th>
+                                    <th width='20%'>저장날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type='checkbox'></input></td>
-                                    <td>간,폐,눈</td>
-                                    <td id='MyPageResearchDetail' onClick={handlerOnClick}>설문저장제목</td>
-                                    <td>2022-11-02</td>
-                                </tr>
-                                <tr>
-                                    <td><input type='checkbox'></input></td>
-                                    <td>눈,장</td>
-                                    <td>설문저장제목</td>
-                                    <td>2022-11-02</td>
-                                </tr>
+                                {
+                                    filteredDatas && filteredDatas.map(result => (
+                                        <tr key={result.resultIdx} >
+                                            <td><input type='checkbox' onChange={handleCheck} value={result.resultIdx}></input></td>
+                                            <td id='MyPageResearchDetail' > <Link to={`../result/${result.resultIdx}`}>{result.resultUser}</Link></td>
+                                            <td>{result.resultDate}</td>
+                                        </tr>
+                                    ))
+                                }
+                                {
+                                    datas.length === 0 && (
+                                        <tr>
+                                            <td colSpan="4">일치하는 데이터가 없습니다.</td>
+                                        </tr>
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
                     <div className='mypageresearch_btn'>
-                        <button className='mypageresearch_btn_del'>삭제</button>
-                        <button className='mypageresearch_btn_cle'>선택초기화</button>
+                        <button className='mypageresearch_btn_del' onClick={handlerClickDelete}>삭제</button>
+
                     </div>
                 </div>
             </div>

@@ -1,3 +1,8 @@
+#paging {
+  width: 100%;
+    display: inline-block;
+}
+
 .itemlist_container {
   min-height: 400px;
   padding: 0 0 60px 0;
@@ -15,6 +20,14 @@
   min-height: 500px;
   padding: 0;
   padding: 10px 0 0 0;
+}
+
+.itemlist_title h2 {
+  float: left;
+  font-size: 36px;
+  height: 65px;
+  align-items: center;
+  font-weight: bold;
 }
 
 .itemlist_inbox {
@@ -84,14 +97,19 @@
 
 .itemlist_items_img:hover {
   cursor: pointer;
-  opacity: 50%;
 }
 .itemlist_items_cont li {
   float: left;
   width: 240px;
-  height: 300px;
-  margin-top: 20px;
+  height: 335px;
+
+  padding: 15px 0;
   margin-bottom: 20px;
+}
+
+.itemlist_items_cont li:hover {
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px rgb(0, 0, 0, 25%);
 }
 
 .itemlist_items_img img {
@@ -102,6 +120,7 @@
 .itemlist_info_title {
   height: 45px;
   margin-left: 10px;
+  margin-top: 15px;
 }
 
 .itemlist_info_title strong {

@@ -10,7 +10,7 @@
   position: relative;
   width: 1200px;
   margin-top: 20px;
-  display: flex;
+  display: flex; /**/
 }
 
 .main_top_space {
@@ -23,9 +23,11 @@
 .mypage_side {
   width: 220px;
   margin-right: 40px;
-  height: 80%;
+  height: 80%; /* height : 600px*/
   border: 2px solid #e5e5e5;
   border-radius: 15px;
+  /*z-index : 9999;
+  background-color: white;*/
 }
 
 .mypage_side_in {
@@ -37,8 +39,7 @@
 .mypage_profile_wrap {
   padding-top: 12px;
   width: 100%;
-  height: 136px;
-  /* background-color: #b5d692; */
+  height: 105px;
   text-align: center;
   font-weight: bold;
   font-size: 14px;
@@ -57,16 +58,23 @@
   margin: 0;
 }
 
+.mypage_sidemenu ul li:first-child {
+  margin-top: 30px;
+}
+
 .mypage_sidemenu ul li {
   position: relative;
-  border-top: 2px solid white;
-  height: 60px;
-  padding-top: 10px;
-  margin-left: 2.5rem;
   font-size: 14px;
-  font-weight: bold;
-  /* background-color: #b5d692; */
+  font-weight: 500;
   color: black;
+  width: 100px;
+  height: 40px;
+  margin: 10px 50px;
+}
+
+.mypage_sidemenu ul li a {
+  color: black;
+  text-decoration: none;
 }
 
 .mypage_sidemenu ul li div:hover {

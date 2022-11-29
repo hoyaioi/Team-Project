@@ -1,219 +1,129 @@
-import '../CSS/MyRefund.css';
-import s3 from '../Img/s3.jpg';
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import "../CSS/MyRefund.css";
+import s3 from "../Img/s3.jpg";
+import Paging from "./Paging";
 
 function MyRefund() {
-    return (
-        <>
-            <div id='main'>
-                <div className='myrefund_wrap'>
-                <div className='myrefund_title_wrap'>
-                    <h2>반품/환불</h2>
-                        
+  const [datas, setDatas] = useState([]);
+
+  const memIdx = sessionStorage.getItem("idx");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/mypage/myrefund/${memIdx}`)
+      .then((response) => {
+        setDatas(response.data);
+        console.log(datas);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  console.log(datas);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const count = datas.length;
+  const [pagecount, setPageCount] = useState(10);
+
+  const handlerRefundCancel = (orderlistIdx, refundIdx) => {
+    if (window.confirm("해당 주문 건의 반품을 철회하시겠습니까?")) {
+      const refundDto = {
+        orderlistIdx: orderlistIdx,
+        refundIdx: refundIdx,
+      };
+      axios
+        .post("http://localhost:8080/mypage/myrefund/refundcancle", refundDto)
+        .then((response) => {
+          if (response.status === 200) {
+            alert("반품신청을 철회하였습니다.");
+            window.location.reload();
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
+  return (
+    <>
+      <div className="myrefund_wrap">
+        <div className="myrefund_title_wrap">
+          <h2>반품/환불</h2>
+        </div>
+        <div className="myrefund_list_wrap">
+          <table>
+            <thead>
+              <tr>
+                <td>제품정보</td>
+                <td>반품신청일</td>
+                <td>반품사유</td>
+                <td>환불금액</td>
+                <td>반품상태</td>
+              </tr>
+            </thead>
+            <tbody>
+              {datas.length === 0 ? 
+                <tr>
+
+                <td colSpan={5}>환불/반품내역이 없습니다.</td>
+
+              </tr>
+              :
+              (datas.slice(offset, offset + 10).map((refund, idx) => (
+                <tr key={idx}>
+                  <td className="myrefund_item_info_td">
+                    <div className="myrefund_item_info_wrap">
+                      <img
+                        src={process.env.REACT_APP_API_URL + refund.itemThumb}
+                        className="myrefund_item_img"
+                      />
+                      <div className="myrefund_item_name">
+                        {refund.itemName}
+                      </div>
                     </div>
-                    <div className='myrefund_list_wrap'>
-                    <table>
-                            <thead>
-                                <tr>
-                                    <td>제품정보</td>
-                                    <td>주문번호</td>
-                                    <td>수량</td>
-                                    <td>금액</td>
-                                    <td>반품신청일</td>
-                                    <td>반품상태</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className='myrefund_item_info_td'>
-                                        <div className='myrefund_item_info_wrap'>
-                                            <img src={s3} className='myrefund_item_img' />
-                                            <div className='myrefund_item_name'>
-                                                고려은단 비타민C 1000 이지 + 비타민 D ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        20221024000001
-                                    </td>
-                                    <td>
-                                        200
-                                    </td>
-                                    <td className='myrefund_item_price_td'>
-                                        38,900원
-                                    </td>
-                                    <td>
-                                        2022.10.29
-                                    </td>
-                                    <td>
-                                        반품진행중
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
+                  </td>
+                  <td>{refund.refundDate}</td>
+                  <td className="myrefund_refund_reason_td">
+                    {refund.refundReason}
+                  </td>
+                  <td className="myrefund_item_price_td">{[refund.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
+                  <td className="myrefund_status_btn_td">
+                    <input type="hidden" value={refund.refundIdx} />
+                    {refund.refundStatus}
+                    {refund.refundStatus === "반품진행중" ? (
+                      <div>
+                        <button
+                          onClick={() =>
+                            handlerRefundCancel(
+                              refund.orderlistIdx,
+                              refund.refundIdx
+                            )
+                          }
+                        >
+                          반품철회
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                </tr>
+              )))
+            }
+              
+            </tbody>
+          </table>
+        </div>
 
-
-
-
-
-
-                        {/* <ul className='refundul'>
-                            <li>
-                                <div className='date'>
-                                    <div className='refunddate'>
-                                        반품신청일 :
-                                    </div>
-                                    <div className='ordernumber'>
-                                        주문번호 :
-                                    </div>
-                                </div>
-                                <div className='refunditeminfo'>
-                                    <div className='refundthumbnailwrap'>
-                                        <img src="img/jang1.jpg" className='refundthumbnail' />
-                                    </div>
-                                    <div className='refunditemname'>
-                                        제품명ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                                    </div>
-                                    <div className='refunditemprice'>
-                                        29,900원
-                                    </div>
-                                    <div className='refunditemstatus'>
-                                        반품진행중
-                                    </div>
-                                </div>
-                            </li>
-                        </ul> */}
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+        <Paging
+          page={page}
+          setPage={setPage}
+          count={count}
+          pagecount={pagecount}
+        />
+      </div>
+    </>
+  );
 }
 
 export default MyRefund;
