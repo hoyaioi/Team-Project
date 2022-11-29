@@ -87,36 +87,37 @@ function MyOrderList() {
   const count = datas.length;
   const [pagecount, setPageCount] = useState(10);
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
-            .then(response => {
-                setDatas(response.data);
-                countCheck(response.data);
-            })
-            .catch(error => console.log(error));
-    }, []);
+  useEffect(() => {
+    axios.get(`http://localhost:8080/mypage/myorderlist/${memIdx}`)
+      .then(response => {
+        setDatas(response.data);
+        countCheck(response.data);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   const [openApp, setOpenApp] = useState(false);
 
-    const [orderNum, setOrderNum] = useState('');
-    const [itemName, setItemName] = useState('');
-    const [itemPrice, setItemPrice] = useState(0);
-    const [orderlistIdx, setOrderlistIdx] = useState('');
-    const [itemNum, setItemNum] = useState(0);
+  const [orderNum, setOrderNum] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [itemPrice, setItemPrice] = useState(0);
+  const [itemAmount, setItemAmount] = useState(0);
+  const [orderlistIdx, setOrderlistIdx] = useState("");
 
-    const handlerOpenApp = ( orderNum, itemName, itemPrice, orderlistIdx) => {
-        
-        setOrderNum(orderNum);
-        setItemName(itemName);
-        setItemPrice(itemPrice);
-        setOrderlistIdx(orderlistIdx);
-        setOpenApp(true);
-    }
+  const handlerOpenApp = (orderNum, itemName, itemPrice, itemAmount, orderlistIdx) => {
+    setOrderNum(orderNum);
+    setItemName(itemName);
+    setItemPrice(itemPrice);
+    setItemAmount(itemAmount);
+    setOpenApp(true);
+    setOrderlistIdx(orderlistIdx);
+  };
+  console.log(orderlistIdx)
 
-  const handlerDelete = (orderNum) => {
+  const handlerDelete = (orderlistIdx) => {
     if (window.confirm("내역을 삭제하시겠습니까?")) {
       axios
-        .put(`http://localhost:8080/mypage/myorderlist/delete/${orderNum}`)
+        .put(`http://localhost:8080/mypage/myorderlist/delete/${orderlistIdx}`)
         .then((response) => {
           if (response.status === 200) {
             alert("삭제 완료되었습니다.");
@@ -136,7 +137,8 @@ function MyOrderList() {
     itemName,
     itemNum,
     orderNum,
-    orderlistIdx
+    itemAmount,
+    orderlistIdx,
   ) => {
     if (
       window.confirm(
@@ -157,6 +159,7 @@ function MyOrderList() {
                   itemName: itemName,
                   itemNum: itemNum,
                   orderNum: orderNum,
+                  itemAmount: itemAmount,
                   orderlistIdx: orderlistIdx,
                 }
               )
@@ -175,139 +178,202 @@ function MyOrderList() {
     }
   };
 
-    const handlerMoveReivew = () => {
-        navigate('/mypage/myreview');
-    }
-    return (
-        <>
-            <div id='main'>
-                <div className='myorderlist_wrap'>
-                    {openApp ? <RefundApp setOpenApp={setOpenApp} memIdx={memIdx} orderNum={orderNum} itemName={itemName} itemPrice={itemPrice} orderlistIdx={orderlistIdx}/> : <>
-                        <div className='myorderlist_title_wrap'>
-                            <h2>주문현황</h2>
-                        </div>
-                        <div className='myorderlist_stat_wrap'>
-                            <ul>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        주문완료
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count1}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        상품준비중
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count2}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        배송중
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count3}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        배송완료
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count4}
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className='myorderlist_stat'>
-                                        구매확정
-                                    </div>
-                                    <div className='myorderlist_stat_count'>
-                                        {count5}
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div className='myorderlist_order_wrap'>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <td>제품정보</td>
-                                        <td>주문날짜</td>
-                                        <td>주문번호</td>
-                                        <td>금액</td>
-                                        <td>수량</td>
-                                        <td colSpan={2} className='myorderlist_order_stat_th'>주문상태</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {datas.slice(offset, offset + 10).map((order, orderIdx) => (
-                                        <tr key={orderIdx}>
-                                            <td className='myorderlist_item_info_td'>
-                                                <div className='myorderlist_item_info_wrap'>
-                                                    <img src={process.env.REACT_APP_API_URL + order.itemThumb} className='myorderlist_item_img' />
-                                                    <div className='myorderlist_item_name'>
-                                                        <Link to={`/item/${order.itemNum}`}>{order.itemName}</Link>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className='myorderlist_order_date_td'>
-                                                {order.orderDate}
-                                            </td>
-                                            <td>
-                                                {order.orderNum}
-                                            </td>
-                                            <td className='myorderlist_item_price_td'>
-                                                {order.itemPrice * order.itemAmount}
-                                            </td>
-                                            <td className='myorderlist_item_count_td'>
-                                                {order.itemAmount} 
-                                            </td>
-                                            <td className='myorderlist_order_stat_td'>
-                                                {order.orderStatus}
-
-                                            </td>
-                                            <td className='myorderlist_order_btn_td'>
-                                                <input type='hidden' value={order.itemNum} />
-                                                <input type='hidden' value={order.memIdx} />
-                                                <div>
-                                                    {order.orderStatus === '취소완료' ? <button onClick={()=> handlerDelete(order.orderNum)}>내역 삭제</button> : null}
-                                                    {order.orderStatus === '취소처리중' ? '' : null}
-                                                    {order.orderStatus === '주문완료' ? (<button type='button' onClick={() => handlerCancelNow(order.orderlistIdx)}>취소요청</button>) : ''}
-                                                    {order.orderStatus === '상품준비중' ? (<button type='button' onClick={() => handlerCancelPlz(order.orderlistIdx)}>취소요청</button>) : ''}
-                                                    {order.orderStatus === '배송중' ? (<button type='button'>배송조회</button>) : ''}
-                                                    {order.orderStatus === '배송완료' ? (
-                                                        <>
-                                                            <button type='button'>배송조회</button>
-                                                            <button type='button' onClick={() => handlerOpenApp(order.orderNum, order.itemName, order.itemPrice, order.orderlistIdx)}>반품요청</button>
-                                                            <button type='button' onClick={() => handlerPurchase(order.memIdx, order.itemName, order.itemNum, order.orderNum, order.orderlistIdx)}>구매확정</button>
-                                                        </>
-                                                    ) : ''}
-                                                    {order.orderStatus === '구매확정' ? (<>
-                                                        <button type='button'>배송조회</button>
-                                                        <button type='button' onClick={handlerMoveReivew}>리뷰작성</button>
-                                                    </>) : null}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div>
-                                <Paging page={page} setPage={setPage} count={count} pagecount={pagecount}/>
-                            </div>
-                        </div>
-                    </>
-                    }
-                </div>
+  const handlerMoveReivew = () => {
+    navigate("/mypage/myreview");
+  };
+  console.log(datas);
+  return (
+    <>
+      <div className="myorderlist_wrap">
+        {openApp ? (
+          <RefundApp
+            setOpenApp={setOpenApp}
+            memIdx={memIdx}
+            orderNum={orderNum}
+            itemName={itemName}
+            itemPrice={itemPrice}
+            itemAmount={itemAmount}
+            orderlistIdx={orderlistIdx}
+          />
+        ) :
+          <>
+            <div className="myorderlist_title_wrap">
+              <h2>주문현황</h2>
             </div>
-        </>
-    );
+            <div className="myorderlist_stat_wrap">
+              <ul>
+                <li>
+                  <div className="myorderlist_stat">주문완료</div>
+                  <div className="myorderlist_stat_count">{count1}</div>
+                </li>
+                <li>
+                  <div className="myorderlist_stat">상품준비중</div>
+                  <div className="myorderlist_stat_count">{count2}</div>
+                </li>
+                <li>
+                  <div className="myorderlist_stat">배송중</div>
+                  <div className="myorderlist_stat_count">{count3}</div>
+                </li>
+                <li>
+                  <div className="myorderlist_stat">배송완료</div>
+                  <div className="myorderlist_stat_count">{count4}</div>
+                </li>
+                <li>
+                  <div className="myorderlist_stat">구매확정</div>
+                  <div className="myorderlist_stat_count">{count5}</div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="myorderlist_order_wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <td>제품정보</td>
+                    <td>주문날짜</td>
+                    <td>주문번호</td>
+                    <td>금액</td>
+                    <td>수량</td>
+                    <td colSpan={2} className="myorderlist_order_stat_th">
+                      주문상태
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {datas.length === 0 ? (
+                    <tr>
+
+                      <td colSpan={6}>주문내역이 없습니다.</td>
+
+                    </tr>
+                  ) : (
+                    datas.slice(offset, offset + 10).map((order, orderIdx) => (
+                      <tr key={orderIdx}>
+                        <td className="myorderlist_item_info_td">
+                          <div className="myorderlist_item_info_wrap">
+                            <img
+                              src={
+                                process.env.REACT_APP_API_URL + order.itemThumb
+                              }
+                              className="myorderlist_item_img"
+                            />
+                            <div className="myorderlist_item_name">
+                              <Link to={`/item/${order.itemNum}`}>
+                                {order.itemName}
+                              </Link>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="myorderlist_order_date_td">
+                          {order.orderDate}
+                        </td>
+                        <td>{order.orderNum}</td>
+                        <td className="myorderlist_item_price_td">
+                          {[order.itemPrice * order.itemAmount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        </td>
+                        <td className="myorderlist_item_count_td">
+                          {order.itemAmount}
+                        </td>
+                        <td className="myorderlist_order_stat_td">
+                          {order.orderStatus}
+                        </td>
+                        <td className="myorderlist_order_btn_td">
+                          <input type="hidden" value={order.itemNum} />
+                          <input type="hidden" value={order.memIdx} />
+                          <div>
+                            {order.orderStatus === "취소완료" ? (
+                              <button
+                                onClick={() => handlerDelete(order.orderlistIdx)}
+                              >
+                                내역 삭제
+                              </button>
+                            ) : null}
+                            {order.orderStatus === "취소처리중" ? "" : null}
+                            {order.orderStatus === "주문완료" ? (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handlerCancelNow(order.orderlistIdx)
+                                }
+                              >
+                                취소요청
+                              </button>
+                            ) : (
+                              ""
+                            )}
+                            {order.orderStatus === "상품준비중" ? (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handlerCancelPlz(order.orderlistIdx)
+                                }
+                              >
+                                취소요청
+                              </button>
+                            ) : (
+                              ""
+                            )}
+                            {order.orderStatus === "배송중" ? (
+                              <button type="button">배송조회</button>
+                            ) : (
+                              ""
+                            )}
+                            {order.orderStatus === "배송완료" ? (
+                              <>
+                                <button type="button">배송조회</button>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    handlerOpenApp(
+                                      order.orderNum,
+                                      order.itemName,
+                                      order.itemPrice,
+                                      order.itemAmount,
+                                      order.orderlistIdx
+                                    )
+                                  }
+                                >
+                                  반품요청
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    handlerPurchase(
+                                      order.memIdx,
+                                      order.itemName,
+                                      order.itemNum,
+                                      order.orderNum,
+                                      order.itemAmount,
+                                      order.orderlistIdx
+                                    )
+                                  }
+                                >
+                                  구매확정
+                                </button>
+                              </>
+                            ) : (
+                              ""
+                            )}
+                            {order.orderStatus === "구매확정" ? (
+                              <>
+                                <button type="button">배송조회</button>
+                                <button type="button" onClick={handlerMoveReivew}>
+                                  리뷰작성
+                                </button>
+                              </>
+                            ) : null}
+                          </div>
+                        </td>
+                      </tr>
+                    )))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        }
+      </div>
+    </>
+  );
 }
 
 export default MyOrderList;

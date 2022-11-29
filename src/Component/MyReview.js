@@ -150,6 +150,10 @@ function MyReview() {
                                                                     작성일자 :&nbsp;
                                                                     {did.reviewWriteDate}
                                                                 </div>
+                                                                <div>
+                                                                    상품명 :
+                                                                    {did.itemName}
+                                                                </div>
                                                                 <div className='myreview_did_contents'>
                                                                     {
                                                                         did.reviewDeleteYn !== 'N' ? <><b>관리자에 의해 블라인드 처리되었습니다.</b> <br /> </> :

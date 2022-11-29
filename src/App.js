@@ -31,7 +31,6 @@ import MyInfoUp1 from "./Component/MyInfoUp1";
 import MyInfoUp2 from "./Component/MyInfoUp2";
 import MyInfoDel1 from "./Component/MyInfoDel1";
 import MyInfoDel2 from "./Component/MyInfoDel2";
-import ItemWrite from "./Component/ItemWrite";
 import Service from "./Component/Service";
 import Order from "./Component/Order";
 import Result from "./Component/MyResearchDetail";
@@ -65,14 +64,13 @@ function App() {
           <Route
             path="/service/*"
             element={
-              <PrivateRoute>
                 <Service />
-              </PrivateRoute>
             }
           >
             <Route path="center" element={<ServiceCenter />} />
             <Route path="serviceqna" element={<ServiceQna />} />
             <Route path="notice" element={<Notice />} />
+            
           </Route>
           {/* <Route path="/servicecenter" element={<ServiceCenter />} /> */}
           <Route
@@ -100,8 +98,7 @@ function App() {
           </Route>
           <Route path="/item/:itemNum" element={<Item />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/item/write" element={<ItemWrite />} />
-          <Route path="/noticedetail" element={<NoticeDetail />} />
+          <Route path="/noticedetail/:noticeIdx" element={<NoticeDetail />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/cart" element={<MyCart />} />
           <Route path="/itemlist" element={<ItemList />} />

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import '../CSS/ItemReview.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "../CSS/ItemReview.css";
 
 function Review(props) {
   const reviewIdx = props.value;
@@ -18,12 +18,8 @@ function Review(props) {
   }, []);
 
   return (
-    // <table className='review-modal-table'>
-    //     <tbody>
-    // <>
-
     <tr className="review-modal">
-      <td>
+      <td colSpan="3">
         <div className="review-modal-cont">{datas.itemName}</div>
         <div className="review-comment">
           <span className="comment-name">코멘트</span>
@@ -36,9 +32,6 @@ function Review(props) {
         </div>
       </td>
     </tr>
-    // </>
-    //    </tbody>
-    // </table>
   );
 }
 

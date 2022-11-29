@@ -12,9 +12,6 @@
     width: 100%;
 }
 
-.review-table tr , .review-modal-table tr {
-    display: flex;
-}
 
 .review-modal-cont {
     margin-bottom: 10px;

@@ -140,7 +140,7 @@ function MyInfoUp2({ memIdx }) {
                       {"(이름 변경이 필요할 경우 고객센터로 문의 바랍니다.)"}
                     </label>
                   </div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="text"
                       className="myinfoup2_readonly"
@@ -152,7 +152,7 @@ function MyInfoUp2({ memIdx }) {
                 </div>
                 <div className="myinfoup2_phone_wrap">
                   <div className="myinfoup2_text">휴대폰번호</div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="text"
                       placeholder="연락처('-'제외)를 입력해주세요."
@@ -165,7 +165,7 @@ function MyInfoUp2({ memIdx }) {
                 </div>
                 <div className="myinfoup2_adr_wrap">
                   <div className="myinfoup2_text">주소</div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="text"
                       className="myinfoup2_post"
@@ -176,12 +176,12 @@ function MyInfoUp2({ memIdx }) {
                     />
                     <input
                       type="button"
-                      className="myinfoup2_search"
+                      className="myinfoup2_searchaddress"
                       onClick={handleOpenSearchAddress}
                       value="검색"
                     />
                   </div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="text"
                       className="myinfoup2_readonly"
@@ -190,7 +190,7 @@ function MyInfoUp2({ memIdx }) {
                       readOnly
                     />
                   </div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="text"
                       placeholder="상세 주소를 입력해주세요."
@@ -204,7 +204,7 @@ function MyInfoUp2({ memIdx }) {
               <div className="myinfoup2_id_wrap">
                 <div className="myinfoup2_email_wrap">
                   <div className="myinfoup2_text">이메일 (ID)</div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="email"
                       className="myinfoup2_readonly"
@@ -216,7 +216,7 @@ function MyInfoUp2({ memIdx }) {
                 </div>
                 <div className="myinfoup2_pw_wrap">
                   <div className="myinfoup2_text">비밀번호</div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="password"
                       placeholder="비밀번호를 입력해주세요."
@@ -228,7 +228,7 @@ function MyInfoUp2({ memIdx }) {
                 </div>
                 <div className="myinfoup2_pw_wrap">
                   <div className="myinfoup2_text">비밀번호 확인</div>
-                  <div className="myinfoup2_input_wrap">
+                  <div className="myinfoup2_input_wraps">
                     <input
                       type="password"
                       placeholder="비밀번호를 다시 입력해주세요."

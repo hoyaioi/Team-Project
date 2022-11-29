@@ -92,7 +92,11 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  letter-spacing: 1px;
+  scroll-behavior: inherit !important;
 }
+/* 부트스트랩 스크롤 효과 강제로 제거 */
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

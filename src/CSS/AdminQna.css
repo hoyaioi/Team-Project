@@ -3,7 +3,10 @@
     width: 100%;
 }
 .adminqna_header{
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
+    font-size: 25px;
 }
 .adminqna_list table {
     width: 100%;
@@ -21,13 +24,14 @@
 
 .adminqna_list td {
     padding: 13px 30px 13px 10px;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #e5e5e5;
+    vertical-align: middle;
 }
 
 .adminqna_list th {
     padding: 13px 30px 13px 10px;
     border-bottom: 1px solid #dbdbdb;
-    background: #fbfbfb;
+    background-color: #e5e5e5;
 }
 
 

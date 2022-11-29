@@ -23,9 +23,9 @@ const FaqList = ({ faq }) => {
             setFaqModal(!faqModal);
           }}
         >
-          {faqClass}
+          {faqTitle}
         </td>
-        <td>{faqTitle}</td>
+        <td>{faqClass}</td>
       </tr>
       {faqModal === true && faqindex === faqIdx ? (
         <Faq faq={faq} value={faqIdx} />

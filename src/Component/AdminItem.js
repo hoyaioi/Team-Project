@@ -1,11 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ModalItemUpdate from "./ModalItemUpdate";
+import ModalItemWrite from "./ModalItemWrite";
+import Paging from "./Paging";
+import {
+    MdOutlineDelete,MdCreate,MdSave
+} from "react-icons/md";
 import "../CSS/AdminItem.css";
+  
 
 
 function AdminItem() {
 
     const [data, setData] = useState([]);
+    const [items, setItems] = useState({});
+    const [qnaWrite, setQnaWrite] = useState(false);
+    const [itemWrite, setItemWrite] = useState(false);
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 10;
+    const [pagecount, setPageCount] = useState(10);
+    const count = data.length;
 
     useEffect(() => {
         axios
@@ -45,35 +59,50 @@ function AdminItem() {
 
     return (
         <>
-            <div className="adminorder_list">
-                <div className="adminorder_header"><strong>관리자 상품목록</strong></div>
-                <table className="admin_order_table">
+            <div className="adminqna_list">
+                <div className="adminqna_header"><strong>상품관리</strong></div>
+                <button className="admin_itemsave" onClick={() => {setItemWrite(!itemWrite);} }><MdSave/></button>
+                {itemWrite && (
+                                        <ModalItemWrite closeModal={() => setItemWrite(!itemWrite)} >
+                                        </ModalItemWrite>
+                                    )}
+                <table className="admin_item-table">
                     <thead >
                         <tr>
-                            <th width="16%">상품이미지</th>
-                            <th width="16%">상품번호</th>
-                            <th width="30%">상품이름</th>
-                            <th width="10%">가격</th>
-                            <th width="11%">등록일자</th>
+                            <th width="10%">상품이미지</th>
+                            <th width="20%">상품번호</th>
+                            <th width="20%">상품이름</th>
+                            <th width="15%">가격</th>
+                            <th width="25%">등록일자</th>
+                            <th width="20%">관리</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(item => (
-                            <tr>
-                                <td className="admin_img" width="16%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + item.itemThumb} /></td>
-                                <td width="16%">{item.itemNum}</td>
-                                <td width="30%">{item.itemName}</td>
-                                <td width="10%">{item.itemPrice}</td>
-                                <td width="11%">
-                                    {item.itemCreatedAt} 
-                                    <button onClick={handlerUpdate}>수정</button>
-                                    <button onClick={()=>handlerDelete(item.itemNum)}>삭제</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        {
+                            data && data.slice(offset, offset + 10).map((item) => (
+                                <>
+                                    <tr>
+                                        <td width="10%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + item.itemThumb} /></td>
+                                        <td width="20%">{item.itemNum}</td>
+                                        <td width="20%">{item.itemName}</td>
+                                        <td width="15%">{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
+                                        <td width="25%">{item.itemCreatedAt}</td>
+                                        <td width="20%">
+                                            <button onClick={() => { setQnaWrite(!qnaWrite); setItems(item) }}><MdCreate/></button>
+                                            {qnaWrite && (
+                                                <ModalItemUpdate closeModal={() => setQnaWrite(!qnaWrite)} item={items} >
+                                                </ModalItemUpdate>
+                                            )}
+                                            <button onClick={() => handlerDelete(item.itemNum)}><MdOutlineDelete/></button>
+                                    </td>
+                                </tr>
+                                </>
+                    ))
+                        }
+                </tbody>
+            </table>
+            <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
+        </div>
         </>
 
     );

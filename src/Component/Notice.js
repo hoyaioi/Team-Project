@@ -1,7 +1,29 @@
 import "../CSS/Notice.css";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { SiTeradata } from "react-icons/si";
+import { useState } from "react";
+import axios from "axios";
+import Paging from "./Paging";
 
 function Notice() {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 15;
+  const count = data.length;
+  const [pagecount, setPageCount] = useState(15);
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/notice")
+      .then((response) => {
+        console.log(response);
+        setData(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <>
       <div className="notice_main_cont">
@@ -17,74 +39,31 @@ function Notice() {
                   <th>제목</th>
                   <th>날짜</th>
                   <th>작성자</th>
-                  <th>조회</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>00</td>
+                {data.slice(offset, offset + 10).map((notice) => (
+                  < tr >
+                  <td>{notice.noticeIdx}</td>
                   <td>
                     {" "}
-                    <Link to="/noticedetail">제목제목제목</Link>
+                    <Link to={`/noticedetail/${notice.noticeIdx}`}>{notice.noticeTitle}</Link>
                   </td>
-                  <td>2022-11-01</td>
+                  <td>{notice.noticeWriteDate}</td>
                   <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-                <tr>
-                  <td>00</td>
-                  <td>제목제목제목</td>
-                  <td>2022-11-01</td>
-                  <td>관리자</td>
-                  <td>777</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                </tr> 
+                ))}
+            </tbody>
+          </table>
+          <Paging
+            page={page}
+            setPage={setPage}
+            count={count}
+            pagecount={pagecount}
+          />
         </div>
       </div>
+    </div>
     </>
   );
 }

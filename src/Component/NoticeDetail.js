@@ -1,8 +1,24 @@
 import '../CSS/NoticeDetail.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 
 function NoticeDetail() {
+    let { noticeIdx } = useParams();
+    const [data, setData] = useState([]);
+
+    useEffect(()=> {
+        axios(`http://localhost:8080/notice/${noticeIdx}`)
+        .then((response)=> {
+            setData(response.data)
+        }) .catch((error) => {
+            console.log(error);
+          });
+        }
+    )
+
     return (
         <>
             <div id="noticedetail_container">
@@ -12,19 +28,9 @@ function NoticeDetail() {
                             <div className="noticedetail_side_box">
                                 <h2>고객센터</h2>
                                 <ul className="noticedetail_side_menu">
-                                    <Link to="/servicecenter"><li>FAQ</li></Link>
-                                    <Link to="/notice"><li>공지사항</li></Link>
-                                    <Link to="/serviceqna"><li>1:1문의</li></Link>
-                                </ul>
-                            </div>
-                            <div className="noticedetail_side_info">
-                                <ul>
-                                    <li>고객상담센터</li>
-                                    <li><strong className="noticedetail_num">1818-1818</strong></li>
-                                    <li>test@test.com</li>
-                                    <li>월 ~ 금 09 : 00 ~ 18 : 00</li>
-                                    <li>점심시간 12: 00 ~ 13 : 00</li>
-                                    <li>공휴일 / 토,일 휴무</li>
+                                    <Link to="/service/center"><li>FAQ</li></Link>
+                                    <Link to="/service/notice"><li>공지사항</li></Link>
+                                    <Link to="/service/serviceqna"><li>1:1문의</li></Link>
                                 </ul>
                             </div>
                         </div>
@@ -34,15 +40,14 @@ function NoticeDetail() {
                                     <h3>공지사항</h3>
                                 </div>
                                 <div className='noticedetail_view_title'>
-                                    <h3>공지제목제목제목</h3>
+                                    <h3>{data.noticeTitle}</h3>
                                 </div>
                                 <div className='noticedetail_view_info'>
                                     <span className='noticedetail_writer'>관리자</span>
-                                    <span className='noticedetail_date'>작성일자</span>
-                                    <span className='noticedetail_hits'>조회수 <span>77</span></span>
+                                    <span className='noticedetail_date'>{data.noticeWriteDate}</span>
                                 </div>
                                 <div className='noticedetail_view_content'>
-                                    <textaarea>공지사항내용공지사항내용공지사항내용공지사항내용공지사항내용공지사항내용</textaarea>
+                                    <textaarea>{data.noticeContents}</textaarea>
                                 </div>
                             </div>
                         </div>

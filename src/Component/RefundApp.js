@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
-function RefundApp({ memIdx, itemName, orderNum, itemPrice, orderlistIdx, setOpenApp }) {
+function RefundApp({ memIdx, itemName, orderNum, itemPrice, orderlistIdx, setOpenApp, itemAmount }) {
 
     const handlerCloseApp = () => {
         if (window.confirm('반품 신청을 취소하시겠습니까?')) {
@@ -30,7 +30,7 @@ function RefundApp({ memIdx, itemName, orderNum, itemPrice, orderlistIdx, setOpe
                 itemName: itemName,
                 orderlistIdx: orderlistIdx,
                 orderNum: orderNum,
-                itemPrice: itemPrice,
+                itemPrice: itemPrice*itemAmount,
                 refundReason: refundReason
             })
                 .then(response => {
@@ -98,7 +98,7 @@ function RefundApp({ memIdx, itemName, orderNum, itemPrice, orderlistIdx, setOpe
                         <div className='refundapp_itemname_wrap'>
                             <div className='refundapp_text'>환불금액</div>
                             <div className='refundapp_input_price'>
-                                <textarea readOnly value={itemPrice}>
+                                <textarea readOnly value={[itemPrice * itemAmount].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}>
 
                                 </textarea>
                             </div>

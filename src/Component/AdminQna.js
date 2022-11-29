@@ -37,7 +37,7 @@ const AdminBoard = () => {
     <>
       <div className="adminqna_list">
         <div className="adminqna_header"><strong>관리자 QNA</strong></div>
-        <table className="review-table">
+        <table className="admin_qna_table">
           <thead >
             <tr>
               <th width="11%">글번호</th>

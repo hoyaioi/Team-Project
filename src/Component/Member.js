@@ -27,7 +27,10 @@ const Member = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/admin-mem")
+      .get("http://localhost:8080/admin/mem", { 
+        headers: { 
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
+ }})
       .then((response) => {
         // setMemDeletedYn(response.data.memDeletedYn);
         setAllDatas(response.data);

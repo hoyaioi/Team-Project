@@ -43,8 +43,14 @@
   position: relative;
   text-align: center;
   vertical-align: middle;
-  word-break: break-all;
   font-size: 14px;
+  height: 130px;
+  padding: 3px 0;
+  font-weight: 300;
+}
+
+.myrefund_list_wrap tbody td:nth-child(n + 4) {
+  font-weight: 600;
 }
 
 .myrefund_item_info_wrap {

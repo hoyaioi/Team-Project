@@ -1,10 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Paging from "./Paging";
 
 
 export default function AdminReview() {
 
   const [datas, setDatas] = useState([]);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
+  const count = datas.length;
 
   useEffect(() => {
     axios.get(`http://localhost:8080/admin/review`, { 
@@ -14,6 +19,7 @@ export default function AdminReview() {
   })
       .then(response => {
         setDatas(response.data);
+        console.log(response)
       })
       .catch(error => console.log(error));
   }, []);
@@ -54,47 +60,44 @@ export default function AdminReview() {
 
   return (
     <>
-      <div id="main">
-        <div className="admin_container">
-          <div className="admin_title">
-            리뷰관리
-          </div>
-          <div className="admin_table">
-            <table>
-              <thead >
+    <div className="adminqna_list">
+      <div className="adminqna_header"><strong>리뷰관리</strong></div>
+      <table className="admin_review_table">
+        <thead >
+          <tr>
+            <th width="10%">리뷰번호</th>
+            <th width="5%">회원번호</th>
+            <th width="15%">주문번호</th>
+            <th width="30%">리뷰내용</th>
+            <th width="10%">작성일</th>
+            <th width="10%">수정일</th>
+            <th width="10%">블라인드</th>
+            <th width="10%">관리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            datas && datas.slice(offset, offset + 10).map((review) => (
+              <>
                 <tr>
-                  <td className="admin_review_idx">리뷰번호</td>
-                  <td className="admin_review_idx">회원번호</td>
-                  <td className="admin_review_ordernum">주문번호</td>
-                  <td className="admin_review_contents">리뷰내용</td>
-                  <td className="admin_review_date">작성일</td>
-                  <td className="admin_review_date">수정일</td>
-                  <td className="admin_review_blind" colSpan={2}>블라인드</td>
+                  <td width="10%">{review.reviewIdx}</td>
+                  <td width="5%">{review.memIdx}</td>
+                  <td width="15%">{review.orderNum}</td>
+                  <td width="30%">{review.reviewContents}</td>
+                  <td width="10%">{review.reviewWriteDate}</td>
+                  <td width="10%">{review.reviewUpdateDate}</td>
+                  <td width="10%">{review.reviewDeleteYn}</td>
+                  <td width="10%">
+                    {review.reviewDeleteYn === 'Y' ? <button onClick={()=>handlerShow(review.reviewIdx)}>블라인드취소</button> : <button onClick={()=>handlerBlind(review.reviewIdx)}>블라인드</button> }
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {datas.map((review, idx) => (
-                  <tr key={idx}>
-                    <td>{review.reviewIdx}</td>
-                    <td>{review.memIdx}</td>
-                    <td>{review.orderNum}</td>
-                    <td>{review.reviewContents}</td>
-                    <td>{review.reviewWriteDate}</td>
-                    <td>{review.reviewUpdateDate}</td>
-                    <td className="admin_review_blind">{review.reviewDeleteYn}</td>
-                    <td>
-                      <div className="admin_btn">
-                        <button onClick={() => handlerBlind(review.reviewIdx)}>비노출</button>
-                        <button onClick={() => handlerShow(review.reviewIdx)}>노출</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+              </>
+            ))
+          }
+        </tbody>
+      </table>
+      <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
+    </div>
     </>
   );
 };

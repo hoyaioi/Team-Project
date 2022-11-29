@@ -10,6 +10,14 @@ function ItemList() {
   const [items, setItems] = useState([]);
   const [select, setSelect] = useState('default');
 
+  const [itemShowNum, setItemShowNum] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+  const [pagecount, setPageCount] = useState(10);
+  const count = datas.length;
+  const count1 = items.length;
+  
+
   const handlerSelect = (e) => {
     setSelect(e.target.value);
   }
@@ -107,7 +115,7 @@ const itemCount =  organs === null ? datas : items;
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
+                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
                             </div>
                           </div>
                         </li>
@@ -128,7 +136,7 @@ const itemCount =  organs === null ? datas : items;
                               <strong>{item.itemName}</strong>
                             </div>
                             <div className="itemlist_info_money">
-                              <strong>{item.itemPrice}원</strong>
+                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
                             </div>
                           </div>
                         </li>
