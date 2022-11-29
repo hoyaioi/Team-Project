@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function MyCart() {
     const memEmail = sessionStorage.getItem("email");
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([]); 
     const [checkedList, setCheckedLists] = useState([]);
     
     const plusClick = (cartIdx,itemAmount)=> {
