@@ -45,7 +45,7 @@ const Banner = () => {
             <iframe
               width="660"
               height="335"
-              src="https://www.youtube.com/embed/qSLnb6q9nMc"
+              src="https://www.youtube-nocookie.com/embed/qSLnb6q9nMc"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
