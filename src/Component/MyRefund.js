@@ -54,7 +54,8 @@ function MyRefund() {
           <table>
             <thead>
               <tr>
-                <td>제품정보</td>
+                <td>제품이미지</td>
+                <td>제품명</td>
                 <td>반품신청일</td>
                 <td>반품사유</td>
                 <td>환불금액</td>
@@ -77,10 +78,12 @@ function MyRefund() {
                         src={process.env.REACT_APP_API_URL + refund.itemThumb}
                         className="myrefund_item_img"
                       />
-                      <div className="myrefund_item_name">
+                    </div>
+                  </td>
+                  <td>
+                  <div className="myrefund_item_name">
                         {refund.itemName}
                       </div>
-                    </div>
                   </td>
                   <td>{refund.refundDate}</td>
                   <td className="myrefund_refund_reason_td">

@@ -138,7 +138,8 @@ function MyCart() {
                       }
                     />
                   </td>
-                  <td>제품정보</td>
+                  <td>제품이미지</td>
+                  <td>제품명</td>
                   <td>수량</td>
                   <td>금액</td>
                 </tr>
@@ -177,11 +178,14 @@ function MyCart() {
                               className="mycart_item_img"
                               alt="상품썸네일"
                             />
-                            <div className="mycart_item_name">
-                              {item.itemName}
-                            </div>
+                         
                           </div>
                         </Link>
+                      </td>
+                      <td>
+                      <div className="mycart_item_name">
+                              {item.itemName}
+                            </div>
                       </td>
                       <td className="mycart_item_count_td">
                         <button

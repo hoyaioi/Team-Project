@@ -231,7 +231,8 @@ function MyOrderList() {
               <table>
                 <thead>
                   <tr>
-                    <td>제품정보</td>
+                    <td>제품이미지</td>
+                    <td>제품명</td>
                     <td>주문날짜</td>
                     <td>주문번호</td>
                     <td>금액</td>
@@ -259,12 +260,15 @@ function MyOrderList() {
                             }
                             className="myorderlist_item_img"
                           />
-                          <div className="myorderlist_item_name">
+                         
+                        </div>
+                      </td>
+                      <td>
+                      <div className="myorderlist_item_name">
                             <Link to={`/item/${order.itemNum}`}>
                               {order.itemName}
                             </Link>
                           </div>
-                        </div>
                       </td>
                       <td className="myorderlist_order_date_td">
                         {order.orderDate}
