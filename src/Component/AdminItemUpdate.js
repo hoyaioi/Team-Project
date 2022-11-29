@@ -18,7 +18,6 @@ const AdminItemUpdate = (props) => {
   const saveDetailImg = (event) => {
     setSelectedDetail(event.target.files[0]);
   };
-  console.log(selectedThumb);
 
   const onFileUpload = () => {
     const formData = new FormData();
@@ -29,7 +28,6 @@ const AdminItemUpdate = (props) => {
 
     formData.append("itemsDto", JSON.stringify(itemInfo)); // 직렬화하여 객체 저장
 
-    console.log(itemInfo)
     axios.post("http://localhost:8080/admin/item/update", formData, {
       headers: {
         'Authorization': `Bearer ${sessionStorage.getItem("token")}`
@@ -51,7 +49,6 @@ const AdminItemUpdate = (props) => {
   const selectCategoryHandler = (e) => {
     setCategorySelect(e.target.value);
   };
-  console.log(categorySelect);
   const [itemInfo, setItemInfo] = useState({
     itemNum: props.item.itemNum,
     itemName: props.item.itemName,
@@ -72,7 +69,6 @@ const AdminItemUpdate = (props) => {
       ...itemInfo,
       [name]: value,
     });
-    console.log(itemInfo);
   };
 
   return (

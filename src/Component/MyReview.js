@@ -70,7 +70,6 @@ function MyReview() {
         axios.get(`http://localhost:8080/mypage/myreview/did/${memIdx}`)
             .then(response => {
                 setDatas2(response.data);
-                console.log(response.data)
             })
             .catch(error => {
                 console.log(error);

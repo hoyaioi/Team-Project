@@ -15,12 +15,9 @@ function AdminOrder() {
     const count = datas.length;
     const stateHandler = (e) => {
         setStateSelect(e.target.value);
-        console.log(stateSelect);
     }
 
     const stateChange = (orderlistIdx) => {
-
-        console.log(orderlistIdx)
 
         axios.post(
             `http://localhost:8080/admin/orderstate/${orderlistIdx},${stateSelect}`,
@@ -28,7 +25,6 @@ function AdminOrder() {
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` } }
         )
             .then((response) => {
-                console.log(response);
                 alert("변경완료");
                 window.location.reload();
             })
@@ -42,7 +38,6 @@ function AdminOrder() {
             }
         })
             .then((response) => {
-                console.log(response.data);
                 alert("취소처리완료");
                 window.location.reload();
             })
@@ -56,7 +51,6 @@ function AdminOrder() {
             }
         })
             .then((response) => {
-                console.log(response);
                 setDatas(response.data);
             })
             .catch((error) => console.log(error));
@@ -78,10 +72,8 @@ function AdminOrder() {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            datas && datas.slice(offset, offset + 10).map((order) => (
-                                <>
-                                    <tr>
+                        {datas && datas.slice(offset, offset + 10).map((order, idx) => (
+                                    <tr key={idx}>
                                         <td width="10%"><img className="adminorder_img" src={process.env.REACT_APP_API_URL + order.itemThumb} /></td>
                                         <td width="20%">{order.orderNum}</td>
                                         <td width="20%">{order.itemName}</td>
@@ -103,7 +95,7 @@ function AdminOrder() {
                                             {order.orderStatus === "취소처리중" ? null : <button onClick={() => stateChange(order.orderlistIdx)}>변경하기</button>}
                                         </td>
                                     </tr>
-                                </>
+                                
                             ))
                         }
                     </tbody>

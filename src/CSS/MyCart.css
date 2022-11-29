@@ -76,6 +76,10 @@
   width: 130px;
 }
 
+.mycart_input_amount {
+  outline: none;
+}
+
 .mycart_list_wrap tr {
   border-bottom: 2px solid #e5e5e5;
 }

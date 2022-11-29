@@ -19,7 +19,6 @@ export default function AdminReview() {
   })
       .then(response => {
         setDatas(response.data);
-        console.log(response)
       })
       .catch(error => console.log(error));
   }, []);
@@ -58,9 +57,9 @@ export default function AdminReview() {
         </thead>
         <tbody>
           {
-            datas && datas.slice(offset, offset + 10).map((refund) => (
-              <>
-                <tr>
+            datas && datas.slice(offset, offset + 10).map((refund, idx) => (
+              
+                <tr key={idx}>
                   <td width="10%">{refund.memIdx}</td>
                   <td width="15%">{refund.orderNum}</td>
                   <td width="15%">{refund.itemName}</td>
@@ -72,7 +71,7 @@ export default function AdminReview() {
                     {refund.refundStatus === '반품진행중' ? <button onClick={()=> handlerRefund(refund.refundIdx)}>반품처리</button> : '처리완료'}
                     </td>
                 </tr>
-              </>
+              
             ))
           }
         </tbody>

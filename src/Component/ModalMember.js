@@ -3,7 +3,6 @@ import '../CSS/Modal.css';
 import AdminMemberUpdate from "./AdminMemberUpdate";
 
 function ModalItemWrite(props) {
-  console.log(props)
   function closeModal() {
     props.closeModal();
   }

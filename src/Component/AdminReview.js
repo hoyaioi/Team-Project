@@ -19,7 +19,6 @@ export default function AdminReview() {
   })
       .then(response => {
         setDatas(response.data);
-        console.log(response)
       })
       .catch(error => console.log(error));
   }, []);
@@ -76,10 +75,8 @@ export default function AdminReview() {
           </tr>
         </thead>
         <tbody>
-          {
-            datas && datas.slice(offset, offset + 10).map((review) => (
-              <>
-                <tr>
+          {datas && datas.slice(offset, offset + 10).map((review, idx) => (
+                <tr key={idx}>
                   <td width="10%">{review.reviewIdx}</td>
                   <td width="5%">{review.memIdx}</td>
                   <td width="15%">{review.orderNum}</td>
@@ -91,9 +88,7 @@ export default function AdminReview() {
                     {review.reviewDeleteYn === 'Y' ? <button onClick={()=>handlerShow(review.reviewIdx)}>블라인드취소</button> : <button onClick={()=>handlerBlind(review.reviewIdx)}>블라인드</button> }
                   </td>
                 </tr>
-              </>
-            ))
-          }
+            ))}
         </tbody>
       </table>
       <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>

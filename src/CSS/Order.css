@@ -244,6 +244,21 @@
   width: 500px !important;
 }
 
+.order_input_addr1, .order_input_post {
+  cursor: default;
+  outline: none;
+}
+
+.order_input_name, .order_input_post, .order_input_addr1, .order_input_addr2, .order_input_phone {
+  border: 2px solid lightgray;
+  padding: 0 10px;
+  outline: none;
+}
+
+.order_input_name:focus, .order_input_addr2:focus, .order_input_phone:focus {
+  border: 2px solid #b5d692;
+}
+
 .order_addr2_wrap {
   margin-top: 10px;
 }

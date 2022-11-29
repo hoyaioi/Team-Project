@@ -16,7 +16,7 @@ const AdminBoard = () => {
   const offset = (page - 1) * 10;
   const [pagecount, setPageCount] = useState(10);
   const count = qnaDatas.length;
-  
+
 
   // useEffect(() => {
   //   const admin = sessionStorage.getItem('adminCheck')
@@ -28,14 +28,13 @@ const AdminBoard = () => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/qna", { 
-      headers: { 
-      'Authorization': `Bearer ${sessionStorage.getItem("token")}` 
-    }
-  })
+    axios.get("http://localhost:8080/admin/qna", {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+      }
+    })
       .then(response => {
         setQnaDatas(response.data);
-        console.log(response.data)
       })
       .catch(error => { console.log(error); });
   }, []);
@@ -56,23 +55,21 @@ const AdminBoard = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              qnaDatas && qnaDatas.slice(offset, offset + 10).map((result) => (
-                <>
-                  <tr onClick={() => { setQnaIdx(result.qnaIdx); }}>
-                    <td width="11%">{result.qnaIdx}</td>
-                    <td width="16%">{result.itemNum}</td>
-                    <td width="40%" onClick={() => { setQnaModal(!qnaModal); }}>{result.qnaTitle}</td>
-                    <td width="15%">{result.memEmail}</td>
-                    <td width="11%">{result.qnaWriteDate}</td>
-                    <td width="7%">{result.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
-                  </tr>
-                  {qnaModal === true && qnaIdx === result.qnaIdx ? (
-                    <AdminQnaModal value={result.qnaIdx} />
-                  ) : null}
-                </>
-              ))
-            }
+            {qnaDatas && qnaDatas.slice(offset, offset + 10).map((result, idx) => (
+              <>
+                <tr key={idx} onClick={() => { setQnaIdx(result.qnaIdx); }}>
+                  <td width="11%">{result.qnaIdx}</td>
+                  <td width="16%">{result.itemNum}</td>
+                  <td width="40%" onClick={() => { setQnaModal(!qnaModal); }}>{result.qnaTitle}</td>
+                  <td width="15%">{result.memEmail}</td>
+                  <td width="11%">{result.qnaWriteDate}</td>
+                  <td width="7%">{result.qnaAns === 'Y' ? '답변완료' : '답변대기'}</td>
+                </tr>
+                {qnaModal === true && qnaIdx === result.qnaIdx ?
+                  <AdminQnaModal value={result.qnaIdx} />
+                  : null}
+              </>
+            ))}
           </tbody>
         </table>
         <div><Paging page={page} setPage={setPage} count={count} pagecount={pagecount} /></div>
