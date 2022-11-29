@@ -1,82 +1,51 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../CSS/ItemList.css";
+import DummyItem from "../DummyItem.json";
+import axios from "axios";
+import { useEffect,useState } from "react";
+
+
 function ItemList() {
-  const location = useLocation();
-  const organs = location.state.organs;
+
   const [datas, setDatas] = useState([]);
-  const [items, setItems] = useState([]);
-  const [select, setSelect] = useState('default');
 
-  const [itemShowNum, setItemShowNum] = useState(10);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * 10;
-  const [pagecount, setPageCount] = useState(10);
-  const count = datas.length;
-  const count1 = items.length;
-  
-
-  const handlerSelect = (e) => {
-    setSelect(e.target.value);
-  }
-
-  const [select2, setSelect2] = useState('default2');
-
-  const handlerSelect2 = (e) => {
-    setSelect2(e.target.value);
-  }
-  
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/item")
-      .then((response) => {
+  useEffect(()=> {
+    axios.get('http://localhost:8080/item')
+    .then(response => {
+        console.log(response)
         setDatas(response.data);
-      })
-      .catch((error) => console.log(error));
-  },[]);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/item/organs/${organs}`)
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((error) => console.log(error));
-  },[organs]);
-const itemCount =  organs === null ? datas : items;
+    })
+    .catch(error => console.log(error));
+}, []);
+
+
   return (
     <>
       <div className="itemlist_container">
         <div className="itemlist_contents">
           <div className="itemlist_main">
-            <div className="itemlist_title">
-              {organs === null ? <h2>전체상품</h2> : 
-              
-              <>
-              <h2>{organs}</h2>
-              </>
-              }
+            <div className="itelist_title">
+              <h2>전체보기</h2>
             </div>
             <div className="itemlist_box">
               <div className="itemlist_inbox">
                 <span className="itemlist_num">
-                  <strong>{itemCount.length}개의 상품</strong>
+                  <strong>{datas.length}개의 상품</strong>
                 </span>
                 <div className="itemlist_view_num">
-                  <select name="sort" defaultValue={select} className="itemlist_chosen" onChange={handlerSelect} >
-                    <option value="default">
+                  <select name="sort" className="itemlist_chosen">
+                    <option value="selected" selected="selected">
                       추천상품순
                     </option>
                     <option value="sellcnt">판매인기순</option>
-                    <option value="asc">낮은가격순</option>
-                    <option value="desc">높은가격순</option>
+                    <option value="price_asc">낮은가격순</option>
+                    <option value="price_dsc">높은가격순</option>
                   </select>
                 </div>
                 <div className="itemlist_view_num">
-                  <select name="page_num" defaultValue={select2} className="itemlist_chosen" onChange={handlerSelect2}>
+                  <select name="page_num" className="itemlist_chosen">
                     <option value="10">10개씩보기</option>
-                    <option value="default2">
+                    <option value="20" selected="selected">
                       20개씩보기
                     </option>
                     <option value="30">30개씩보기</option>
@@ -100,49 +69,27 @@ const itemCount =  organs === null ? datas : items;
             </div> */}
             <div className="itemlist_items">
               <div className="itemlist_items_cont">
-                  {organs === null 
-                  ? <ul>
-                  {datas.map((item, idx) => {
-                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li>
-                          <div className="itemlist_items_box">
-                            <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
-                            </div>
+                <ul>
+                  {datas && datas.slice(0,10).map(item => (
+                    <Link to={`/item/${item.itemIdx}`}>
+                      <li key={item.itemIdx}>
+                        <div className="itemlist_items_box">
+                          <div className="itemlist_items_img">
+                            <img src={item.itemThumb} />
                           </div>
-                          <div className="itemlist_info">
-                            <div className="itemlist_info_title">
-                              <strong>{item.itemName}</strong>
-                            </div>
-                            <div className="itemlist_info_money">
-                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
-                            </div>
+                        </div>
+                        <div className="itemlist_info">
+                          <div className="itemlist_info_title">
+                            <strong>{item.itemName}</strong>
                           </div>
-                        </li>
-                      </Link>;
-                    })}
+                          <div className="itemlist_info_money">
+                            <strong>{item.itemPrice}</strong>
+                          </div>
+                        </div>
+                      </li>
+                    </Link>
+                  ))}
                 </ul>
-                  : <ul>
-                  {items.map((item, idx) => {
-                      return <Link key={idx} to={`/item/${item.itemNum}`} state={{ item: datas}}>
-                        <li>
-                          <div className="itemlist_items_box">
-                            <div className="itemlist_items_img">
-                              <img src={process.env.REACT_APP_API_URL +item.itemThumb} />
-                            </div>
-                          </div>
-                          <div className="itemlist_info">
-                            <div className="itemlist_info_title">
-                              <strong>{item.itemName}</strong>
-                            </div>
-                            <div className="itemlist_info_money">
-                              <strong>{[item.itemPrice].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</strong>
-                            </div>
-                          </div>
-                        </li>
-                      </Link>;
-                    })}
-                </ul> }
               </div>
             </div>
           </div>
@@ -151,4 +98,5 @@ const itemCount =  organs === null ? datas : items;
     </>
   );
 }
+
 export default ItemList;

@@ -4,54 +4,21 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/login.css";
-import { BsWindowSidebar } from "react-icons/bs";
-import { useNavigate } from "react-router-dom/dist";
-import { useEffect } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const onChangeEmail = (e) => setEmail(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-
-
-    axios.post("http://localhost:8080/login", { "memEmail": email, "memPw": password })
-      .then(response => {
-        if (response.status === 200 && response.data !== "") {
-            
-            const token = response.data;
-            sessionStorage.setItem("token", token);
-           
-            // JWT 페이로드의 정보(회원 정보)를 가져오는 부분
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            const memberInfo = JSON.parse(jsonPayload);
-            console.log(memberInfo);
-             sessionStorage.setItem("name", memberInfo.name);
-             sessionStorage.setItem("email", memberInfo.email);
-             sessionStorage.setItem("idx",memberInfo.idx);
-             sessionStorage.setItem("role",memberInfo.role);
-             if(memberInfo.deleteyn == 'Y'){
-              sessionStorage.clear();
-              alert('이미 탈퇴된 계정이므로 로그인이 불가합니다.')
-            }else{
-            alert(`${memberInfo.name}님 환영합니다.`);
-            navigate('/');
-            window.location.reload();
-            }
-        } 
+  const changeEmail = (e) => setEmail(e.target.value);
+  const changePassword = (e) => setPassword(e.target.value);
+  const handlerSubmit = () => {
+    axios
+      .post("http://localhost:8080/login", {
+        memEmail: email,
+        memPassword: password,
       })
-      .catch(error => {
-        alert("아이디 혹은 비밀번호를 확인해주세요.");
-        console.log(error)
-      });
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   };
   return (
     <>
@@ -70,8 +37,7 @@ function Login() {
                     type="email"
                     placeholder="아이디(이메일)"
                     value={email}
-                    onChange={onChangeEmail}
-                    autoComplete="off"
+                    onChange={changeEmail}
                   />
                 </Col>
               </Form.Group>
@@ -86,7 +52,7 @@ function Login() {
                     type="password"
                     placeholder="비밀번호"
                     value={password}
-                    onChange={onChangePassword}
+                    onChange={changePassword}
                   />
                 </Col>
               </Form.Group>

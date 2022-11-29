@@ -3,26 +3,25 @@ import { Link, useLocation } from "react-router-dom";
 import "../CSS/Footer.css";
 
 const Footer = () => {
-
   return (
     <div id="footer">
       <div className="footer_wrap">
         <div className="footer_top">
           <ul>
             <li>
-            <Link to="/company"><span>회사소개</span></Link>
+            <Link to="/company"><a href="">회사소개</a></Link>
             </li>
             <li>
-            <Link to="/agreement"><span>이용약관</span></Link>
+            <Link to="/agreement"> <a href="">이용약관</a></Link>
             </li>
             <li>
-            <Link to="/private"><span>개인정보처리방침</span></Link>
+            <Link to="/private"> <a href="">개인정보처리방침</a></Link>
             </li>
             <li>
-            <Link to="/"><b>제휴/마케팅</b></Link>
+              <a href="">제휴/마케팅</a>
             </li>
             <li>
-              <Link to="/service/serviceqna">서비스 장애 신고</Link>
+              <Link to="/serviceqna">서비스 장애 신고</Link>
             </li>
           </ul>
         </div>
@@ -34,7 +33,7 @@ const Footer = () => {
                 사업자등록번호 : 123-45-67890 / 통신판매업신고번호 :
                 2022-서울종로-1027
               </li>
-              <li>대표번호 : 1234-5678 / 팩스번호 : 070-0000-1111</li>
+              <li>대표번호 : 1544-1234 / 팩스번호 : 070-0000-1111</li>
               <li>주소 : 서울특별시 종로구 인사동길 12 대일빌딩 7층, 15층</li>
               <li>메일 : cshelp@gungang.com</li>
               <li>개인정보관리자 : 상만</li>

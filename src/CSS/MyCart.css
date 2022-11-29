@@ -38,42 +38,10 @@
     height: 21px;
 }
 
-.mycart_item_count_td button {
-    border:none;
-    width :30px;
-    height: 28px;
-}
-
-.mycart_item_count_td svg{
-    vertical-align: middle;
-    text-align: center;
-}
-
-.mycart_item_count_td input {
-  width: 30px;
-  text-align: center;
-}
-
-.mycart_item_count_td {
-    width: 130px;
-}
-
-.mycart_list_wrap tr {
-    border-bottom: 2px solid #e5e5e5;
-}
-
 .mycart_check_all_text {
     padding-left: 10px;
     display: flex;
     align-items: center;
-}
-
-.mycartAmount.hide {
-    display: none;
-}
-
-.mycartAmount.show {
-    display: block;
 }
 
 .mycart_list_wrap thead {
@@ -89,14 +57,12 @@
     display: table;
 }
 
-.mycart_list_wrap tbody td {
-  position: relative;
+.mycart_list_wrap tbody td{
+    position: relative;
     text-align: center;
     vertical-align: middle;
+    word-break: break-all;
     font-size: 14px;
-    height: 130px;
-    padding: 3px 0;
-    font-weight: 300;
 }
 
 .mycart_item_info_td {
@@ -145,9 +111,10 @@
 }
 
 /* ----------------------------------------- */
-.mycart_btn_wrap {
-  height: 70px;
-  bottom: 0;
+.mycart_btn_wrap{
+    height: 70px;
+    position: sticky;
+    bottom: 0;
 }
 
 .mycart_btn_wrap_inner {
@@ -160,7 +127,6 @@
     font-size: 14px;
     margin-top: 10px;
     width: 120px;
-    float: right;
     height: 40px;
     background-color: white;
     border-radius: 30px;
@@ -174,16 +140,16 @@
 }
 .mycart_buy_btn:hover{
     background-color: #b5d692;
+    color: white;
 }
 
 .mycart_delete_btn {
     margin-right: 20px;
     border: 2px solid #e5e5e5;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 10px;
-    width: 100px;
-    float: left;
-    height: 30px;
+    width: 120px;
+    height: 40px;
     background-color: white;
     border-radius: 30px;
     font-weight: bold;
@@ -191,8 +157,10 @@
 }
 
 .mycart_delete_btn:active{
+    background-color: red;
     color: white;
 }
 .mycart_delete_btn:hover{
-    background-color: darkorange;
+    background-color: red;
+    color: white;
 }

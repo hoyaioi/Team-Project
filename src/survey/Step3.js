@@ -11,7 +11,7 @@ const Step3 = ({ nextSteps, prevSteps }) => {
   const [question, setQuestion] = useState({}); // 현재문제
 
 
-  const getMatchingQuestion = (question) => {  // 체크값과 매칭되는 문제목록 가져오기
+  const getMatchingQuestion = (question) => {
     let checked = JSON.parse(sessionStorage.getItem("checked"));
     let isMatch = false;
     for (let i = 0; i < checked.length; i++) {
@@ -23,18 +23,18 @@ const Step3 = ({ nextSteps, prevSteps }) => {
     return isMatch;
   }
 
-  useEffect(() => {  // 체크값과 매칭되는 문제목록 가져오기
+  useEffect(() => {
     const QUESTIONS_NOT_FILTERED = Questions;
     const questionList = QUESTIONS_NOT_FILTERED.filter(getMatchingQuestion).map((q, i) => ({ ...q, "qno": i, 'value': "0" }));
     setQuestionList(questionList);
     setQuestion(questionList.filter(q => q.qno === currentQno)[0]);
   }, []);
 
-  const handlerChange = (e) => {  // 문제에 점수 입력
+  const handlerChange = (e) => {
     questionList[currentQno].value = Number(e.target.value);
 
   };
-  const uncheckAll = () => {  
+  const uncheckAll = () => {
     let radios = document.getElementsByName('likert');
     for (let i = 0; i < radios.length; i++) {
       radios[i].checked = false;
@@ -51,7 +51,7 @@ const Step3 = ({ nextSteps, prevSteps }) => {
     }
   };
 
-  const handlerNext = () => {
+  const handlerNext = (e) => {
     if (questionList[currentQno].value >= 1) {
       const qno = currentQno + 1;
       setCurrentQno(qno);
@@ -59,32 +59,31 @@ const Step3 = ({ nextSteps, prevSteps }) => {
       setQuestion(quest);
       uncheckAll();
       sessionStorage.setItem("questionList", JSON.stringify(questionList));
-      let groupByOrgan = questionList.reduce((acc, cur) => {   // 현재 문제목록을 organ별로 묶어서 저장
-        if (acc[cur.research_organ] === undefined) {
-          acc[cur.research_organ] = [];
-        }
-        acc[cur.research_organ].push(cur);
-    
-        return acc;
-      }, {});
-    
-      let sum = 0;
-      for (let key in groupByOrgan) {
-        for (let i = 0; i < groupByOrgan[key].length; i++) {    // organ별로 묶은 문제목록의 value값을 더해서 sum에 저장
-          sum += Number(groupByOrgan[key][i].value);
-        }
-        groupByOrgan[key] = sum / groupByOrgan[key].length;     //  organ별로 묶은 문제목록의 value값의 평균을 구해서 저장
-        sum = 0;
-      }
-      sessionStorage.setItem("groupByOrgan", JSON.stringify(groupByOrgan));
-      if (qno > questionList.length -1) {
+      if (qno === questionList.length - 1) {
         nextSteps();
       }
     } else
       alert("답변을 선택해주세요!");
   };
 
-  
+  let groupByOrgan = questionList.reduce((acc, cur) => {   // 현재 문제목록을 organ별로 묶어서 저장
+    if (acc[cur.research_organ] === undefined) {
+      acc[cur.research_organ] = [];
+    }
+    acc[cur.research_organ].push(cur);
+
+    return acc;
+  }, {});
+
+  let sum = 0;
+  for (let key in groupByOrgan) {
+    for (let i = 0; i < groupByOrgan[key].length; i++) {    // organ별로 묶은 문제목록의 value값을 더해서 sum에 저장
+      sum += Number(groupByOrgan[key][i].value);
+    }
+    groupByOrgan[key] = sum / groupByOrgan[key].length;     //  organ별로 묶은 문제목록의 value값의 평균을 구해서 저장
+    sum = 0;
+  }
+  sessionStorage.setItem("groupByOrgan", JSON.stringify(groupByOrgan));
 
 
   return (

@@ -12,12 +12,19 @@
     width: 100%;
 }
 
+.review-table tr , .review-modal-table tr {
+    display: flex;
+}
 
 .review-modal-cont {
+    float: right;
+    width:80%;
     margin-bottom: 10px;
 }
 
 .review-comment {
+    float: right;
+    width:80%;
     padding-top: 25px;
     border-top: 2px solid #dbdbdb;
 }
