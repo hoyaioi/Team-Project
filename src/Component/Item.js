@@ -10,7 +10,7 @@ import { Navigation } from "swiper";
 import SwiperCore from "swiper/core";
 import Review from "./ItemReview.js";
 import Qna from "./Qna";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 import Modal from "./Modal.js";
 
@@ -433,15 +433,9 @@ function Item() {
             </tr>
           </thead>
           <tbody>
-            {qnaDatas &&
-              qnaDatas.slice(offset, offset + 5).map((qna, idx) => (
-                <>
-                  <tr
-                    key={idx}
-                    onClick={() => {
-                      setQnaIdx(qna.qnaIdx);
-                    }}
-                  >
+            {qnaDatas && qnaDatas.slice(offset, offset + 5).map((qna, idx) => (
+                <React.Fragment key={idx}>
+                  <tr onClick={() => {setQnaIdx(qna.qnaIdx);}}>
                     <td>{qna.qnaIdx}</td>
                     <td
                       onClick={() => {
@@ -458,7 +452,7 @@ function Item() {
                   {qnaModal === true && qnaIdx === qna.qnaIdx ? (
                     <Qna value={qna.qnaIdx} />
                   ) : null}
-                </>
+                </React.Fragment>
               ))}
           </tbody>
         </table>
